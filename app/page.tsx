@@ -1,7 +1,3 @@
-'use-client';
-
-import Layout from '@/components/Layout';
-
 export default function Home() {
   return (
     <>
@@ -572,7 +568,7 @@ export default function Home() {
       <div
         id="drawer-navigation"
         className="fixed top-0 left-0 z-40 h-screen py-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80"
-        tabIndex={-1}
+        tabIndex={1}
         aria-labelledby="drawer-navigation-label"
       >
         <img src="/assets/logo.svg" className="h-8 mx-auto" alt="Jamei" />
