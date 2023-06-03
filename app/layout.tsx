@@ -1,18 +1,22 @@
-import '@fortawesome/fontawesome-svg-core/styles.css'
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
+import { CookieProvider } from '@/lib/providers/cookieProvider';
 
 export const metadata = {
   title: 'Jm3eia dot com',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div>
+          <div id="root">{children}</div>
+          <div id="menu-drawer"></div>
+          <div id="categories-drawer"></div>
+          <div id="popup"></div>
+        </div>
+      </body>
     </html>
   );
 }
