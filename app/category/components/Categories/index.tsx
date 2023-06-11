@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import Loader from '../../../components/Loader';
 import apiHandler from '@/lib/utils/apiHandler';
 import { getCategories } from '@/category/services';
+import webRoutes from '@/lib/utils/webRoutes';
 
 interface CategoriesProps {
   limit?: number;
@@ -17,7 +18,12 @@ export default async function Categories({ limit }: CategoriesProps) {
         {categories.data.map(({ _id, name, picture }, i) => {
           if (limit && i >= limit) return;
           return (
-            <CategoryCard key={_id} imageSrc={picture} link="#" title={name} />
+            <CategoryCard
+              key={_id}
+              imageSrc={picture}
+              link={webRoutes.category(_id)}
+              title={name}
+            />
           );
         })}
         {limit && limit < categories.count && (

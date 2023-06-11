@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { IResponse } from '../types';
 
 const useHttpClient = <T, R = unknown>() => {
@@ -6,27 +6,28 @@ const useHttpClient = <T, R = unknown>() => {
   const [errors, setErrors] = useState<R | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const sendRequest = async (
-    request: Promise<IResponse<T, R>>
-  ): Promise<boolean> => {
-    setIsLoading(true);
+  const sendRequest = useCallback(
+    async (request: Promise<IResponse<T, R>>): Promise<boolean> => {
+      setIsLoading(true);
 
-    let status = false;
+      let status = false;
 
-    try {
-      const response = await request;
-      console.log('the respose: ', response);
-      setResults(response.results);
-      setErrors(response.errors);
-      status = response.success;
-    } catch (error) {
-      setResults(null);
-    } finally {
-      setIsLoading(false);
-    }
+      try {
+        const response = await request;
+        console.log('the respose: ', response);
+        setResults(response.results);
+        setErrors(response.errors);
+        status = response.success;
+      } catch (error) {
+        setResults(null);
+      } finally {
+        setIsLoading(false);
+      }
 
-    return status;
-  };
+      return status;
+    },
+    []
+  );
 
   return { results, errors, isLoading, sendRequest };
 };

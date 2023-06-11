@@ -1,5 +1,8 @@
-import { ICartStatus } from './../../types';
-import { getDiscountPercentage, getPriceWithCurrency } from '../../utils';
+import { CartProvider } from '@/cart/CartProvider';
+import { ICartStatus } from '../types';
+import { getDiscountPercentage, getPriceWithCurrency } from '../utils';
+import AddToCartButton from '@/cart/components/AddToCartButton';
+import AddToWishlist from '@/wishlist/components/AddToWishlist';
 
 interface ProductCardProps {
   sku: string;
@@ -12,6 +15,7 @@ interface ProductCardProps {
   isInWhishlist: boolean;
   maxQuantityCart: number;
   hasVariants: boolean;
+  className?: string;
 }
 
 export default function ProductCard({
@@ -21,37 +25,31 @@ export default function ProductCard({
   sku,
   oldPrice,
   isInWhishlist,
+  cartStatus,
+  isAvailable,
+  maxQuantityCart,
+  className = '',
 }: ProductCardProps) {
   return (
     <button
       type="button"
-      //onclick="window.location.replace('/pages/product.html')"
-      className="flex-shrink-0 flex flex-col bg-white w-36 rounded-xl p-4 relative overflow-hidden"
+      className={`flex-shrink-0 flex flex-col bg-white w-36 rounded-xl p-4 relative overflow-hidden ${className}`}
     >
       {oldPrice && (
         <div className="bg-danger text-white w-fit px-2 absolute right-0 top-0 text-sm">
           {getDiscountPercentage(parseFloat(price), parseFloat(oldPrice))}
         </div>
       )}
-      <button className="group">
-        <img
-          className="group-hover:hidden"
-          src="/assets/like-inactive.svg"
-          alt=""
-        />
-
-        <img
-          className={`${isInWhishlist ? '' : 'hidden'} group-hover:block`}
-          src="/assets/like-active.svg"
-          alt=""
-        />
-      </button>
+      <AddToWishlist sku={sku} isInWhishlist={isInWhishlist} />
       <div className="w-20 h-20 mx-auto">
         <img className="w-full object-cover" src={picture} /* alt={name} */ />
       </div>
-      <button className="text-primary shadow w-5 h-5 flex items-center justify-center p-3 rounded-lg ml-auto">
-        +
-      </button>
+        <AddToCartButton
+          sku={sku}
+          cartsStatus={cartStatus}
+          maxQantity={maxQuantityCart}
+          isAvailable={isAvailable}
+        />
       <div>
         <a href="#">
           <h5 className="text-sm font-bold tracking-tight text-gray-900">

@@ -54,7 +54,7 @@ const MENU_ITEMS = [
   {
     title: 'Whishlist',
     icon: <WhishListIcon />,
-    link: '#',
+    link: webRoutes.wishlist,
   },
   {
     title: 'Login',

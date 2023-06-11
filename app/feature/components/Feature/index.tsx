@@ -1,5 +1,4 @@
-import { IFeature } from '@/lib/types';
-import { getDiscountPercentage, getPriceWithCurrency } from '@/lib/utils/helpers';
+import { IFeature } from '../../types';
 import Link from 'next/link';
 import ProductCard from '../../../product/components/ProductCard';
 

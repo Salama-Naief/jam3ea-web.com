@@ -1,14 +1,12 @@
 import Container from '@/components/Container';
 import Navbar from '@/components/Navbar';
 import Categories from './category/components/Categories';
-import apiHandler from '@/lib/utils/apiHandler';
 import Feature from '@/feature/components/Feature';
 import { IFeature } from '@/feature/types';
 import { Suspense } from 'react';
 import Loader from './components/Loader';
-import CartFixedBar from './components/Cart/CartFixedBar';
-import CartCntextProvider from './components/Cart/CartContext';
 import { getFeaturedProducts } from './feature/services';
+import CartBottomBar from './cart/components/CartBottomBar';
 
 export default async function Home() {
   const features = await getFeaturedProducts();
@@ -52,14 +50,10 @@ export default async function Home() {
         </div>
         <Suspense fallback={<Loader />}>
           {features &&
-            features.map((feature: IFeature) => (
-              <Feature feature={feature} />
-            ))}
+            features.map((feature: IFeature) => <Feature feature={feature} />)}
         </Suspense>
       </Container>
-      <CartCntextProvider>
-        <CartFixedBar />
-      </CartCntextProvider>
+      <CartBottomBar />
     </div>
   );
 }

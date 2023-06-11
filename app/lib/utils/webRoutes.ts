@@ -10,6 +10,8 @@ const webRoutes = {
   updatePassword: '/account/password',
   addresses: '/addresses',
   cart: '/cart',
+  wishlist: '/wishlist',
+  category: (id: string) => `/category/${id}`,
 };
 
 export default webRoutes;

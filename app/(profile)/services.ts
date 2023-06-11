@@ -13,7 +13,6 @@ import {
   IUpdatePasswordResponseResult,
   IUpdateProfile,
   IUpdateProfileResponseResult,
-  IUser,
 } from './types';
 import { IDataLoadedResponse, IResponse } from '@/lib/types';
 

@@ -1,6 +1,7 @@
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
 import { CookieProvider } from '@/lib/providers/cookieProvider';
+import { CartProvider } from './cart/CartProvider';
 
 export const metadata = {
   title: 'Jm3eia dot com',
@@ -11,7 +12,9 @@ export default async function RootLayout({ children }: { children: any }) {
     <html lang="en">
       <body>
         <div>
-          <div id="root">{children}</div>
+          <div id="root">
+            <CartProvider>{children}</CartProvider>
+          </div>
           <div id="menu-drawer"></div>
           <div id="categories-drawer"></div>
           <div id="popup"></div>

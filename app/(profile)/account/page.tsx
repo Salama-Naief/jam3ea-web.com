@@ -1,10 +1,13 @@
 import Container from '@/components/Container';
 import { AccountIcon, ChevronRight } from '@/components/Icons';
 import Navbar from '@/components/Navbar';
+import apiHandler from '@/lib/utils/apiHandler';
 import webRoutes from '@/lib/utils/webRoutes';
 import Link from 'next/link';
+import { IUser } from '../types';
 
-export default function Account() {
+export default async function Account() {
+  const user: IUser = await apiHandler('/profile');
   return (
     <div>
       <Navbar />
@@ -17,8 +20,10 @@ export default function Account() {
             alt=""
           />
           <div className="text-center mb-4">
-            <div className="text-xl font-bold text-secondary">Mark Hemlin</div>
-            <div className="text-xs text-gray-300">markhemlin@gmail.com</div>
+            <div className="text-xl font-bold text-secondary">
+              {user.fullname}
+            </div>
+            <div className="text-xs text-gray-300">{user.email}</div>
           </div>
         </div>
         <div className="flex flex-col mb-4">

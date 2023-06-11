@@ -2,8 +2,6 @@ import { IAddress } from '@/(profile)/types';
 import { ICity } from '@/city/types';
 import apiHandler from '@/lib//utils/apiHandler';
 import { LANGUAGES } from '@/lib/enums';
-import { setCookie } from 'cookies-next';
-import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
 import { URL } from 'url';
 
@@ -88,6 +86,17 @@ export async function PUT(request: Request) {
   return nextResponse;
 }
 
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const route = searchParams.get('route') || '';
+
+  const response = await apiHandler(route, 'DELETE');
+
+  const nextResponse = NextResponse.json(response);
+
+  return nextResponse;
+}
+
 const setCookiesData = (
   nextResponse: NextResponse,
   language: LANGUAGES,
@@ -98,10 +107,7 @@ const setCookiesData = (
   nextResponse.cookies.set('language', language);
   nextResponse.cookies.set('currency', currency);
   nextResponse.cookies.set('city', JSON.stringify(city));
-  nextResponse.cookies.set(
-    'selectedAddress',
-    JSON.stringify(selectedAddress)
-  );
+  nextResponse.cookies.set('selectedAddress', JSON.stringify(selectedAddress));
   nextResponse.cookies.set('isLoggedIn', 'true');
 
   return nextResponse;
