@@ -27,7 +27,7 @@ export default async function RootLayout({
       <body suppressHydrationWarning={true}>
         <div>
           <div id="root">
-            <NextTopLoader />
+            <NextTopLoader color='#F77D0F' />
             <AuthProvider dictionary={dictionary}>
               <AddressProvider>
                 <CartProvider>
