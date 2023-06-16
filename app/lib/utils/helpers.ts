@@ -7,5 +7,6 @@ export const clientRequest = async (
     method,
     body: body && JSON.stringify(body),
   });
-  return await res.json();
+  const resData = await res.json();
+  return resData;
 };

@@ -1,52 +1,44 @@
-import { redirect } from 'next/navigation';
-import { NextRequest, NextResponse } from 'next/server';
-import webRoutes from './webRoutes';
+import 'server-only';
 
-export const checkAuth = async (response: NextResponse) => {
-  const res = await fetch(`${process.env.API_BASE_URL}/auth/check`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Language: 'en',
-    },
-    body: JSON.stringify({
-      appId: process.env.API_APP_KEY,
-      appSecret: process.env.API_APP_SECRET,
-    }),
-  });
+import { cookies } from 'next/headers';
+import { LANGUAGES } from '../enums';
+import { i18n } from '../../../i18n-config';
 
-  if (res.ok) {
-    const resData = await res.json();
-
-    if (resData.success && resData.results && resData.results.token) {
-      response.cookies.set('visitor.token', resData.results.token);
-    }
-
-    return response;
+export const translate = (dictionary: any, key: string): string => {
+  if (dictionary && dictionary[key]) {
+    return dictionary[key];
   }
+  return key;
 };
 
-export const authMiddleware = (
-  request: NextRequest,
-  url: string
-): URL | null => {
-  const shouldBeAuth = [webRoutes.profile];
-  const shouldNotBeAuth = [
-    webRoutes.login,
-    webRoutes.register,
-    webRoutes.splash,
-  ];
-  const isLoggedIn = request.cookies.get('isLoggedIn')?.value == 'true';
+export const getLanguage = (pathname?: string): LANGUAGES => {
+  const cookieStore = cookies();
+  const language = cookieStore.get('language')?.value;
 
-  if (shouldNotBeAuth.includes(url) && isLoggedIn) {
-    console.log('Should not be logged in');
-    return new URL(webRoutes.home, request.url);
+  if (
+    language &&
+    [LANGUAGES.ENGLISH, LANGUAGES.ARABIC].includes(language as LANGUAGES)
+  )
+    return language as LANGUAGES;
+
+  if (pathname) {
+    const pathnameIsMissingLocale = i18n.locales.every(
+      (locale) =>
+        !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    );
+
+    if (pathnameIsMissingLocale) {
+      return (
+        (process.env.DEFAULT_LOCALE_CODE as LANGUAGES) || LANGUAGES.ENGLISH
+      );
+    }
   }
 
-  if (shouldBeAuth.includes(url) && !isLoggedIn) {
-    console.log('Should be logged in');
-    return new URL(webRoutes.login, request.url);
-  }
+  return LANGUAGES.ENGLISH;
+};
 
-  return null;
+export const isLoggedIn = () => {
+  const cookieStore = cookies();
+  const isLoggedIn = cookieStore.get('isLoggedIn')?.value;
+  return isLoggedIn == 'true';
 };

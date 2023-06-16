@@ -2,19 +2,19 @@
 
 import React, { createContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { ICity } from '@/city/types';
+import { ICity } from '@/module/city/types';
 import {
   IAddAddress,
   IAddAddressResponseResult,
   IAddress,
-} from '@/(profile)/types';
+} from '@/module/(profile)/types';
 import {
   deleteAddresses,
   getAddresses,
   modifyAddresses,
   addAddress as storeAddress,
   updateCity,
-} from '@/(profile)/services';
+} from '@/module/(profile)/services';
 import { IResponse } from '../types';
 
 const AddressContext = createContext({
@@ -63,9 +63,14 @@ const AddressProvider = ({ children }: any) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(cookies['isLoggedIn'] || false);
 
+  const options = {
+    sameSite: 'none',
+    secure: true,
+    path: '/',
+  } as any;
+
   useEffect(() => {
     setIsLoggedIn(cookies['isLoggedIn']);
-    console.log('is logged in', cookies['isLoggedIn']);
   }, [cookies['isLoggedIn']]);
 
   useEffect(() => {
@@ -74,7 +79,7 @@ const AddressProvider = ({ children }: any) => {
         getAddresses().then((res) => {
           if (res.results) {
             setAddresses(res.results);
-            setCookie('addresses', res.results);
+            setCookie('addresses', res.results, options);
           }
         });
       } else {
@@ -88,7 +93,16 @@ const AddressProvider = ({ children }: any) => {
   const changeCity = (cityId: string) => {
     updateCity({ city_id: cityId }).then((res) => {
       if (res.results?.data.city) {
-        setCookie('city', res.results?.data.city);
+        setCookie(
+          'city',
+          {
+            _id: res.results?.data.city._id,
+            name: res.results?.data.city.name,
+            store_id: res.results?.data.city.store_id,
+            parent_id: res.results?.data.city.parent_id,
+          },
+          options
+        );
         setCity(res.results?.data.city);
       }
     });
@@ -99,15 +113,12 @@ const AddressProvider = ({ children }: any) => {
     const foundAddress = mainAddresses.find(
       (address: IAddress) => address.id === addressId
     );
-
     if (foundAddress) {
-      setCookie('selectedAddress', foundAddress);
+      setCookie('selectedAddress', foundAddress, options);
       setSelectedAddress(foundAddress);
-      if (selectedAddress?.city_id) {
-        changeCity(selectedAddress?.city_id);
+      if (foundAddress?.city_id) {
+        changeCity(foundAddress.city_id);
       }
-    } else {
-      console.log('address not found: ', addressId, mainAddresses);
     }
   };
 
@@ -143,7 +154,7 @@ const AddressProvider = ({ children }: any) => {
         ...(addresses as IAddress[]),
         newAddress,
       ];
-      setCookie('addresses', newAddresses);
+      setCookie('addresses', newAddresses, options);
       setAddresses(newAddresses);
 
       if (!selectedAddress) {
@@ -176,7 +187,7 @@ const AddressProvider = ({ children }: any) => {
       if (index > -1) {
         const newAddresses: IAddress[] = [...(addresses as IAddress[])];
         newAddresses[index] = values;
-        setCookie('addresses', newAddresses);
+        setCookie('addresses', newAddresses, options);
         setAddresses(newAddresses);
       }
       return true;
@@ -203,7 +214,7 @@ const AddressProvider = ({ children }: any) => {
       const newAddresses: IAddress[] = [
         ...addresses.filter((a) => a && a.id !== id),
       ];
-      setCookie('addresses', newAddresses);
+      setCookie('addresses', newAddresses, options);
       setAddresses(newAddresses);
 
       if (selectedAddress?.id && id !== selectedAddress?.id) {
@@ -212,7 +223,7 @@ const AddressProvider = ({ children }: any) => {
 
       if (id == selectedAddress?.id) {
         setSelectedAddress(null);
-        setCookie('selectedAddress', null);
+        setCookie('selectedAddress', null, options);
       }
     }
     return true;

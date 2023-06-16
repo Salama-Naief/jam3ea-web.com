@@ -3,15 +3,25 @@
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import webRoutes from '@/lib/utils/webRoutes';
 import { AddressContext } from '@/lib/providers/AddressProvider';
+import { AuthContext } from '@/lib/providers/AuthProvider';
 
 export default function AddressSelector() {
   const { selectedAddress, city } = useContext(AddressContext);
+  const { translate, language } = useContext(AuthContext);
+  const [initialRenderComplete, setInitialRenderComplete] = useState(false);
+
+  useEffect(() => {
+    setInitialRenderComplete(true);
+  }, []);
+
+  if (!initialRenderComplete) return null;
+
   return (
     <Link href={webRoutes.addresses}>
-      <div className="text-gray-500 text-sm">Delivering To</div>
+      <div className="text-gray-500 text-sm">{translate('delivering_to')}</div>
       <div className="text-sm">
         <FontAwesomeIcon
           icon={faChevronDown}

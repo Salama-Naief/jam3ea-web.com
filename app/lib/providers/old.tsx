@@ -4,17 +4,17 @@ import React, { createContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import PropTypes from 'prop-types';
 import { LANGUAGES } from '@/lib/enums';
-import { ICity } from '@/city/types';
+import { ICity } from '@/module/city/types';
 import {
   IAddAddress,
   IAddAddressResponseResult,
   IAddress,
-} from '@/(profile)/types';
+} from '@/module/(profile)/types';
 import {
   getAddresses,
   addAddress as storeAddress,
   updateCity,
-} from '@/(profile)/services';
+} from '@/module/(profile)/services';
 import { IResponse } from '../types';
 
 const CookieContext = createContext({

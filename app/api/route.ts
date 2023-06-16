@@ -1,5 +1,5 @@
-import { IAddress } from '@/(profile)/types';
-import { ICity } from '@/city/types';
+import { IAddress } from '@/module/(profile)/types';
+import { ICity } from '@/module/city/types';
 import apiHandler from '@/lib//utils/apiHandler';
 import { LANGUAGES } from '@/lib/enums';
 import { NextResponse } from 'next/server';
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         'PUT',
         { city_id: response.results.user.address.city_id }
       );
-      setCookiesData(
+      return setCookiesData(
         nextResponse,
         response.results.user.language || 'en',
         'kw',
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
       city_id: response.results.user.address.city_id,
     });
 
-    setCookiesData(
+    return setCookiesData(
       nextResponse,
       response.results.user.language || 'en',
       'kw',
@@ -104,9 +104,18 @@ const setCookiesData = (
   city: ICity,
   selectedAddress: IAddress
 ) => {
+  console.log('data to store: ', language, currency, {}, selectedAddress);
   nextResponse.cookies.set('language', language);
   nextResponse.cookies.set('currency', currency);
-  nextResponse.cookies.set('city', JSON.stringify(city));
+  nextResponse.cookies.set(
+    'city',
+    JSON.stringify({
+      _id: city._id,
+      name: city.name,
+      store_id: city.store_id,
+      parent_id: city.parent_id,
+    })
+  );
   nextResponse.cookies.set('selectedAddress', JSON.stringify(selectedAddress));
   nextResponse.cookies.set('isLoggedIn', 'true');
 

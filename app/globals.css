@@ -7,7 +7,7 @@ body {
 }
 @layer components {
   .app-container {
-    @apply w-full px-3 sm:w-[30rem] sm:px-0 mx-auto;
+    @apply w-full px-3 sm:w-[40rem] sm:px-0 mx-auto;
   }
 }
 
@@ -27,3 +27,11 @@ body {
   }
 }
 
+.custom-tabs button{
+  color:var(--primary);
+}
+
+
+.search-expanded {
+  width: calc(100% - 60px);
+}

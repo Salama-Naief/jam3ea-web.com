@@ -23,8 +23,8 @@ export default function Select({
       {...props}
     >
       {placeholder && !value && <option selected>{placeholder}</option>}
-      {options.map(({ value: v, label: l }) => (
-        <option value={v} selected={value === v}>
+      {options.map(({ value: v, label: l }, i) => (
+        <option key={i} value={v} selected={value === v}>
           {l}
         </option>
       ))}

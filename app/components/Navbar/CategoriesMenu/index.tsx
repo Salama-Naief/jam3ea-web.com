@@ -1,4 +1,4 @@
-import Categories from '@/category/components/Categories';
+import Categories from '@/module/category/components/Categories';
 import CategoriesMenuWrapper from './categoriesMenuWrapper'
 
 export default function CategoriesMenu() {
