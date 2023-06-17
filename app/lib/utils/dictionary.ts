@@ -1,6 +1,7 @@
 import 'server-only';
 import type { Locale } from './../../../i18n-config';
 import { getLanguage } from './serverHelpers';
+import { LANGUAGES } from '../enums';
 
 // We enumerate all dictionaries here for better linting and typescript support
 // We also get the default import for cleaner types
@@ -15,5 +16,10 @@ export const getDictionary = async (locale: Locale) => {
   if (!locale) {
     locale = getLanguage();
   }
+
+  if (!locale) {
+    locale = LANGUAGES.ENGLISH || 'en';
+  }
+
   return dictionaries[locale]();
 };
