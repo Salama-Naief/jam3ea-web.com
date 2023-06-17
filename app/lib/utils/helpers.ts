@@ -6,6 +6,7 @@ export const clientRequest = async (
   const res = await fetch(`/api?route=${route}`, {
     method,
     body: body && JSON.stringify(body),
+    cache: 'no-store',
   });
   const resData = await res.json();
   return resData;
