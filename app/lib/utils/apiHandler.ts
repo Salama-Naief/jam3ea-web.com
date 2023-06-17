@@ -10,7 +10,8 @@ const apiHandler = async (
   route: string,
   method: string = 'GET',
   body?: object | null | undefined,
-  onlyResults = true
+  onlyResults = true,
+  cache = true
 ) => {
   try {
     const cookieStore = cookies();
@@ -30,6 +31,7 @@ const apiHandler = async (
         'Content-Type': 'application/json',
       },
       body: body && JSON.stringify(body),
+      cache: cache ? 'default' : 'no-store',
     };
 
     const url = process.env.API_BASE_URL + route;

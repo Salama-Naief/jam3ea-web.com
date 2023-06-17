@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const route = searchParams.get('route') || '';
 
-  const response = await apiHandler(route, 'GET', undefined, false);
+  const response = await apiHandler(route, 'GET', undefined, false, false);
 
   return NextResponse.json(response);
 }
