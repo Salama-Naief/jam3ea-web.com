@@ -32,7 +32,7 @@ export default function LanguageSelect() {
               checked={language === 'en'}
               value="en"
               onChange={() => {
-                changeLanguage(LANGUAGES.ENGLISH, false);
+                changeLanguage(LANGUAGES.ENGLISH);
                 return redirectedPathName(LANGUAGES.ENGLISH);
               }}
               id="bordered-radio-1"
@@ -59,7 +59,7 @@ export default function LanguageSelect() {
               checked={language === 'ar'}
               value="ar"
               onChange={() => {
-                changeLanguage(LANGUAGES.ARABIC, false);
+                changeLanguage(LANGUAGES.ARABIC);
                 return redirectedPathName(LANGUAGES.ARABIC);
               }}
               id="bordered-radio-2"

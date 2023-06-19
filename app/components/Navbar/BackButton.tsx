@@ -10,5 +10,5 @@ import { LANGUAGES } from '@/lib/enums';
 export default function BackButton() {
   const router = useRouter();
   const { language } = useContext(AuthContext);
-  return <IconButton icon={language === LANGUAGES.ENGLISH ? <BackIcon /> : <ChevronRight />} onClick={() => router.back()} />;
+  return <IconButton icon={<BackIcon />} onClick={() => router.back()} />;
 }
