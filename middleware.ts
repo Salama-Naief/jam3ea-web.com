@@ -46,6 +46,10 @@ export async function middleware(request: NextRequest) {
     if (webRoutes.splash === url && addresses && addresses.length > 0) {
       return NextResponse.redirect(new URL(webRoutes.home, request.url));
     }
+
+    if (!addresses || addresses?.length < 1) {
+      return NextResponse.redirect(new URL(webRoutes.splash, request.url));
+    }
   }
 
   const urlToRedirect = authMiddleware(request, url);
