@@ -74,21 +74,21 @@ const AddressProvider = ({ children }: any) => {
   }, [cookies['isLoggedIn']]);
 
   useEffect(() => {
-    if (addresses.length < 1) {
-      if (isLoggedIn) {
-        getAddresses().then((res) => {
-          if (res.results) {
-            setAddresses(res.results);
-            setCookie('addresses', res.results, options);
-          }
-        });
-      } else {
-        if (cookies['addresses']) {
-          setAddresses(cookies['addresses']);
+    //if (addresses.length < 1) {
+    if (isLoggedIn) {
+      getAddresses().then((res) => {
+        if (res.results) {
+          setAddresses(res.results);
+          setCookie('addresses', res.results, options);
         }
+      });
+    } else {
+      if (cookies['addresses']) {
+        setAddresses(cookies['addresses']);
       }
     }
-  }, [isLoggedIn, cookies['addresses']]);
+    //}
+  }, [isLoggedIn]);
 
   const changeCity = (cityId: string) => {
     updateCity({ city_id: cityId }).then((res) => {

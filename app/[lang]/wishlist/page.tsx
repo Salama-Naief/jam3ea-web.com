@@ -45,6 +45,7 @@ export default async function Wishlist({
                   isAvailable={availability}
                   maxQuantityCart={max_quantity_cart}
                   hasVariants={has_variants}
+                  currency={translate(dict, 'currency')}
                   className="w-full"
                 />
               )

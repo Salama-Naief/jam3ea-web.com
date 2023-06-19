@@ -32,13 +32,13 @@ interface ISupplierCoupon {
   supplier_id: string;
 }
 
-interface IPaymentMethod {
+export interface IPaymentMethod {
   id: string;
   name: string;
   valid: boolean;
 }
 
-interface ITime {
+export interface ITime {
   time: string;
   full_date: string;
   is_available: boolean;
@@ -50,7 +50,7 @@ export interface IDeliveryTime {
   times: ITime[];
 }
 
-interface ICheckoutProduct extends IProduct {
+export interface ICheckoutProduct extends IProduct {
   variants_options: any;
   quantity: number;
   cart_quantity: number;
@@ -58,14 +58,16 @@ interface ICheckoutProduct extends IProduct {
   supplier: ISupplier;
 }
 
+export interface ICoupon {
+  code: string | null;
+  value: string;
+  suppliers_coupons: ISupplierCoupon[];
+}
+
 export interface IGetCheckoutResponseResult {
   subtotal: string;
   shipping_cost: string;
-  coupon: {
-    code: string | null;
-    value: string;
-    suppliers_coupons: ISupplierCoupon[];
-  };
+  coupon: ICoupon;
   discount_by_wallet: string;
   discount_by_wallet_value: string;
   total: string;
@@ -88,6 +90,17 @@ export interface IGetCheckoutResponseResult {
     total: string;
     gift_note: boolean;
     payment_methods: IPaymentMethod[];
+    coupon?: ISupplierCoupon;
   }[];
   products: ICheckoutProduct[];
+}
+
+export interface IApplyCoupon {
+  code: string;
+}
+
+export interface IApplyCouponResponseResult {
+  message: string;
+  note: string;
+  apply_on_discounted_products: boolean;
 }

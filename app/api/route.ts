@@ -17,8 +17,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url);
   const route = searchParams.get('route') || '';
-  const body = await request.json();
-
+  const body = !searchParams.get('nobody') ? await request.json() : undefined;
   const response = await apiHandler(route, 'POST', body);
 
   const nextResponse = NextResponse.json(response);

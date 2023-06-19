@@ -22,8 +22,8 @@ export default function Drawer({
           isOpen
             ? ''
             : direction === 'left'
-            ? '-translate-x-full'
-            : 'translate-x-full'
+            ? 'rtl:translate-x-full ltr:-translate-x-full'
+            : 'ltr:translate-x-full rtl:-translate-x-full'
         } bg-white w-80`}
         tabIndex={1}
       >

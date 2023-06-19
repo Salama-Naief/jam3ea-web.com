@@ -1,15 +1,25 @@
 'use client';
 import { Fragment, useState } from 'react';
 import { Dialog, Switch, Tab, Transition } from '@headlessui/react';
-import { IDeliveryTime } from '../types';
+import { IDeliveryTime, ITime } from '../types';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { TimePickerIcon } from '@/components/Icons';
 
 interface DeliveryTimePickerProps {
   deliveryTimes: IDeliveryTime[];
+  dictionary: {
+    delivery_time: string;
+    pick_delivery_time: string;
+  };
+  onSelect: (value: ITime) => void;
+  selectedDeliveryTime?: string;
 }
 
 export default function DeliveryTimePicker({
   deliveryTimes,
+  dictionary,
+  onSelect,
+  selectedDeliveryTime,
 }: DeliveryTimePickerProps) {
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -19,48 +29,23 @@ export default function DeliveryTimePicker({
   function openModal() {
     setIsOpen(true);
   }
-  console.log('delivery times: ', deliveryTimes);
+
   return (
     <div>
-      <h5 className="text-base mb-2">Delivery time</h5>
+      <h5 className="text-base mb-2">{dictionary.delivery_time}</h5>
       <button
         onClick={() => {
           openModal();
         }}
         className="flex py-4 mb-2 rounded-xl bg-white gap-3 items-center justify-center w-full"
       >
-        <svg
-          id="Group_539"
-          data-name="Group 539"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <g
-            id="Ellipse_34"
-            data-name="Ellipse 34"
-            fill="#fff"
-            stroke="#f77d0f"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="12" stroke="none" />
-            <circle cx="12" cy="12" r="11" fill="none" />
-          </g>
-          <path
-            id="Path_3022"
-            data-name="Path 3022"
-            d="M51,159.849v5.832l2.717,2.717"
-            transform="translate(-39 -153)"
-            fill="none"
-            stroke="#f77d0f"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-          />
-        </svg>
+        <TimePickerIcon />
 
-        <span className="text-md">Pick Delivering time</span>
+        <span className="text-md">
+          {selectedDeliveryTime
+            ? selectedDeliveryTime
+            : dictionary.pick_delivery_time}
+        </span>
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -98,7 +83,7 @@ export default function DeliveryTimePicker({
                       <ArrowLeftIcon className="w-6 h-6" />
                     </button>
                     <div className="text-lg font-medium leading-6 text-gray-900 text-center ">
-                      Delivery Time
+                      {dictionary.delivery_time}
                     </div>
                     <div>&nbsp;</div>
                   </Dialog.Title>
@@ -122,18 +107,16 @@ export default function DeliveryTimePicker({
                         {deliveryTimes.map(({ times }, i) => (
                           <Tab.Panel key={i} className={'py-5'}>
                             <div className="flex flex-col gap-4">
-                              {times.map(({ text, time }, i) => (
+                              {times.map((dt, i) => (
                                 <div
                                   key={i}
-                                  onClick={() => {
-                                    alert('selected!');
-                                  }}
+                                  onClick={() => onSelect(dt)}
                                   className="bg-white rounded-2xl w-full flex p-4 cursor-pointer"
                                 >
                                   <div className="flex flex-col">
-                                    <div>{time}</div>
+                                    <div>{dt.time}</div>
                                     <div className="text-sm text-success">
-                                      {text}
+                                      {dt.text}
                                     </div>
                                   </div>
                                 </div>

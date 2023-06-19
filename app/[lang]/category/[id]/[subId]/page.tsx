@@ -7,12 +7,16 @@ import {
   getRanksByCategoryId,
 } from '../../services';
 import SubCategoriesList from '@/module/category/components/Categories/SubCategoriesList';
+import { Locale } from '../../../../../i18n-config';
+import { getDictionary } from '@/lib/utils/dictionary';
+import { translate } from '@/lib/utils/serverHelpers';
+import CartBottomBar from '@/module/cart/components/CartBottomBar';
 
 export default async function SubCategoriesPage({
   params,
   searchParams: { supplier },
 }: {
-  params: { id: string; subId: string };
+  params: { id: string; subId: string; lang: Locale };
   searchParams: { supplier: string };
 }) {
   const category = await getCategoryById(params.id);
@@ -21,9 +25,11 @@ export default async function SubCategoriesPage({
 
   const products = await getCategoryProducts(params.subId);
 
+  const dict = await getDictionary(params.lang);
+
   return (
     <>
-      <Navbar supplierId={supplier} />
+      <Navbar supplierId={supplier} title={category.name} />
       <Container>
         <div>
           {/* @ts-expect-error Server Component */}
@@ -89,6 +95,7 @@ export default async function SubCategoriesPage({
                                   isAvailable={availability}
                                   maxQuantityCart={max_quantity_cart}
                                   hasVariants={has_variants}
+                                  currency={translate(dict, 'currency')}
                                 />
                               )
                             )
@@ -100,6 +107,7 @@ export default async function SubCategoriesPage({
           </div>
         </div>
       </Container>
+      <CartBottomBar />
     </>
   );
 }

@@ -7,14 +7,18 @@ import IconButton from '../IconButton';
 import {
   AccountIcon,
   CartIcon,
+  ContactIcon,
   HomeIcon,
+  LogoutIcon,
   MenuIcon,
+  PrivacyIcon,
   WhishListIcon,
 } from '@/components/Icons';
 import Link from 'next/link';
 import { AuthContext } from '@/lib/providers/AuthProvider';
 import webRoutes from '@/lib/utils/webRoutes';
 import { LANGUAGES } from '@/lib/enums';
+import { LanguageIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 export default function Menu() {
   const [showDrawer, setShowDrawer] = useState(false);
@@ -30,10 +34,10 @@ export default function Menu() {
     {
       title: 'home',
       icon: <HomeIcon />,
-      link: '#',
+      link: webRoutes.home,
     },
     {
-      title: 'My Cart',
+      title: 'cart',
       icon: <CartIcon />,
       link: webRoutes.cart,
     },
@@ -53,15 +57,15 @@ export default function Menu() {
       title: 'Customer support (chat)',
       icon: <span>icon</span>,
       link: '#',
-    },
-    {
-      title: 'My orders',
-      icon: <span>icon</span>,
-      link: '#',
-      auth: true,
     }, */
     {
-      title: 'whishlist',
+      title: 'orders',
+      icon: <ShoppingCartIcon className="w-6 h-6 text-primary" />,
+      link: webRoutes.orders,
+      auth: true,
+    },
+    {
+      title: 'wishlist',
       icon: <WhishListIcon />,
       link: webRoutes.wishlist,
     },
@@ -83,16 +87,16 @@ export default function Menu() {
       link: webRoutes.profile,
       auth: true,
     },
-    /* {
-      title: 'Contact us',
-      icon: <span>icon</span>,
-      link: '#',
+    {
+      title: 'contact',
+      icon: <ContactIcon />,
+      link: webRoutes.contact,
     },
     {
-      title: 'Privacy policy',
-      icon: <span>icon</span>,
-      link: '#',
-    }, */
+      title: 'privacy_policy',
+      icon: <PrivacyIcon />,
+      link: webRoutes.privacy,
+    },
     /* {
       title: 'logout',
       icon: <span>icon</span>,
@@ -128,17 +132,19 @@ export default function Menu() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <button
-                  onClick={() => {
-                    logout();
-                  }}
-                  className="flex items-center p-2 text-gray-900 hover:bg-primary-soft w-full"
-                >
-                  icon
-                  <span className="ml-5">{translate('logout')}</span>
-                </button>
-              </li>
+              {isLoggedIn && (
+                <li>
+                  <button
+                    onClick={() => {
+                      logout();
+                    }}
+                    className="flex items-center p-2 text-gray-900 hover:bg-primary-soft w-full"
+                  >
+                    <LogoutIcon />
+                    <span className="ml-5">{translate('logout')}</span>
+                  </button>
+                </li>
+              )}
               <li>
                 <button
                   onClick={() =>
@@ -150,7 +156,7 @@ export default function Menu() {
                   }
                   className="flex items-center p-2 text-gray-900 hover:bg-primary-soft w-full"
                 >
-                  icon
+                  <LanguageIcon className="w-6 h-6 text-primary" />
                   <span className="ml-5">
                     {language === LANGUAGES.ENGLISH ? 'العربية' : 'English'}
                   </span>

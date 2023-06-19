@@ -9,12 +9,16 @@ import {
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import webRoutes from '@/lib/utils/webRoutes';
+import { Locale } from '../../../../i18n-config';
+import { getDictionary } from '@/lib/utils/dictionary';
+import { translate } from '@/lib/utils/serverHelpers';
+import CartBottomBar from '@/module/cart/components/CartBottomBar';
 
 export default async function CategoriesPage({
   params,
   searchParams: { supplier },
 }: {
-  params: { id: string };
+  params: { id: string; lang: Locale };
   searchParams: { supplier: string };
 }) {
   const category = await getCategoryById(params.id);
@@ -26,6 +30,8 @@ export default async function CategoriesPage({
   const products = await getCategoryProducts(params.id);
 
   const ranks = await getRanksByCategoryId(params.id);
+
+  const dict = await getDictionary(params.lang);
 
   return (
     <>
@@ -87,6 +93,7 @@ export default async function CategoriesPage({
                                     isAvailable={availability}
                                     maxQuantityCart={max_quantity_cart}
                                     hasVariants={has_variants}
+                                    currency={translate(dict, 'currency')}
                                   />
                                 )
                               )
@@ -123,6 +130,7 @@ export default async function CategoriesPage({
                           isAvailable={availability}
                           maxQuantityCart={max_quantity_cart}
                           hasVariants={has_variants}
+                          currency={translate(dict, 'currency')}
                         />
                       )
                     )}
@@ -132,6 +140,7 @@ export default async function CategoriesPage({
           </div>
         </div>
       </Container>
+      <CartBottomBar />
     </>
   );
 }

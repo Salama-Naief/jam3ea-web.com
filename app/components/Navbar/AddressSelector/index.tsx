@@ -10,7 +10,7 @@ import { AuthContext } from '@/lib/providers/AuthProvider';
 
 export default function AddressSelector() {
   const { selectedAddress, city } = useContext(AddressContext);
-  const { translate, language } = useContext(AuthContext);
+  const { translate, isLoggedIn, user, language } = useContext(AuthContext);
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
 
   useEffect(() => {
@@ -28,8 +28,16 @@ export default function AddressSelector() {
           size="xs"
           className="text-primary"
         />{' '}
-        {selectedAddress && (selectedAddress.name || selectedAddress.id)} (
-        {city && (typeof city.name == 'object' ? city.name.en : city.name)})
+        {isLoggedIn && user && user.fullname
+          ? user.fullname
+          : selectedAddress &&
+            (selectedAddress.name || selectedAddress.id)}{' '}
+        (
+        {city &&
+          (typeof city.name == 'object'
+            ? (city.name as any)[language]
+            : city.name)}
+        )
       </div>
     </Link>
   );

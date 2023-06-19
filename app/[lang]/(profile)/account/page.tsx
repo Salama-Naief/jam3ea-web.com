@@ -8,6 +8,8 @@ import { IUser } from '../types';
 import { Locale } from '../../../../i18n-config';
 import { getDictionary } from '@/lib/utils/dictionary';
 import { translate } from '@/lib/utils/serverHelpers';
+import { LockClosedIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+import DeleteAccount from './components/DeleteAccount';
 
 export default async function Account({
   params: { lang },
@@ -48,12 +50,23 @@ export default async function Account({
             href={webRoutes.updatePassword}
             className="w-full bg-white flex items-center gap-4 p-4 rounded-2xl mb-3"
           >
-            <AccountIcon />
+            <LockClosedIcon className="w-6 h-6 text-primary" />
             <span>{translate(dict, 'update_password')}</span>
             <span className="ms-auto">
               <ChevronRight />
             </span>
           </Link>
+          <Link
+            href={webRoutes.orders}
+            className="w-full bg-white flex items-center gap-4 p-4 rounded-2xl mb-3"
+          >
+            <ShoppingBagIcon className="w-6 h-6 text-primary" />
+            <span>{translate(dict, 'orders')}</span>
+            <span className="ms-auto">
+              <ChevronRight />
+            </span>
+          </Link>
+          <DeleteAccount />
         </div>
       </Container>
     </div>

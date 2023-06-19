@@ -98,7 +98,10 @@ export default async function StoresPage({
                     <div className="flex items-center">
                       <TruckIcon className="text-gray-400 w-4 h-4" />{' '}
                       <span className="text-sm">
-                        {getPriceWithCurrency(store.shipping_cost)}
+                        {getPriceWithCurrency(
+                          store.shipping_cost,
+                          translate(dict, 'currency')
+                        )}
                       </span>
                     </div>
                   </div>

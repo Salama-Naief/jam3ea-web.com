@@ -7,14 +7,16 @@ import { LANGUAGES } from '@/lib/enums';
 import { usePathname, useRouter } from 'next/navigation';
 import { login } from '@/module/(profile)/services';
 import webRoutes from '../utils/webRoutes';
+import { IUser } from '@/module/(profile)/types';
 
 const AuthContext = createContext({
   isLoggedIn: false,
   language: 'en',
-  changeLanguage: (l: LANGUAGES) => {},
+  changeLanguage: (l: LANGUAGES, r?: boolean) => {},
   translate: (k: string): string => '',
   login: () => {},
   logout: () => {},
+  user: null as any,
 });
 
 interface AuthProviderProps {
@@ -25,13 +27,23 @@ interface AuthProviderProps {
 const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const [cookies, setCookie] = useCookies(['isLoggedIn', 'language']);
+  const [cookies, setCookie] = useCookies([
+    'isLoggedIn',
+    'language',
+    'auth.user',
+    'auth.token',
+    'addresses',
+    'selectedAddress',
+    'city',
+    'visitor.token',
+  ]);
   const [language, setLanguage] = useState<LANGUAGES>(
     cookies.language || LANGUAGES.ENGLISH
   );
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
     cookies && cookies.isLoggedIn == 'true'
   );
+  const [user, setUser] = useState<IUser | null>(cookies['auth.user']);
 
   useEffect(() => {
     if (cookies.language) {
@@ -41,18 +53,33 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
     }
   }, [cookies.language]);
 
-  const changeLanguage = (language: LANGUAGES) => {
+  useEffect(() => {
+    if (isLoggedIn && cookies['auth.user']) {
+      setUser(cookies['auth.user']);
+    }
+  }, [cookies.isLoggedIn, cookies['auth.user']]);
+
+  const changeLanguage = (language: LANGUAGES, reload = true) => {
     setCookie('language', language, {
       sameSite: 'none',
       secure: true,
       path: '/',
     });
     setLanguage(language);
-    router.replace(
+    /* router.replace(
       pathname.startsWith(LANGUAGES.ENGLISH)
         ? pathname.replace(LANGUAGES.ENGLISH, language)
         : pathname.replace(LANGUAGES.ARABIC, language)
-    );
+    ); */
+    if (reload && window) {
+      window.location.reload();
+    } else {
+      router.replace(
+        pathname.startsWith(LANGUAGES.ENGLISH)
+          ? pathname.replace(LANGUAGES.ENGLISH, language)
+          : pathname.replace(LANGUAGES.ARABIC, language)
+      );
+    }
   };
 
   const login = () => {
@@ -63,6 +90,12 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
 
   const logout = () => {
     setCookie('isLoggedIn', false);
+    setCookie('auth.user', null);
+    setCookie('auth.token', null);
+    setCookie('visitor.token', null);
+    setCookie('addresses', []);
+    setCookie('selectedAddress', null);
+    setCookie('city', null);
     setIsLoggedIn(false);
     router.replace(webRoutes.home);
   };
@@ -83,6 +116,7 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
         translate,
         login,
         logout,
+        user,
       }}
     >
       {children}

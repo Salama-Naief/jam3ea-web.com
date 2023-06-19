@@ -20,9 +20,10 @@ export async function middleware(request: NextRequest) {
   }
 
   const token =
-    request.cookies.get('auth.token')?.value ||
-    request.cookies.get('visitor.token')?.value ||
-    null;
+    request.cookies.get('auth.token')?.value &&
+    request.cookies.get('auth.token')?.value != 'null'
+      ? request.cookies.get('auth.token')?.value
+      : request.cookies.get('visitor.token')?.value;
 
   if (
     !process.env.API_BASE_URL ||
@@ -34,10 +35,12 @@ export async function middleware(request: NextRequest) {
   const addresses = request.cookies.get('addresses')?.value;
 
   if (!token) {
-    if (webRoutes.splash === url) {
+    if (webRoutes.splash === url || '/en' + webRoutes.splash === url) {
       return checkAuth(response);
     } else {
-      return NextResponse.redirect(new URL(webRoutes.splash, request.url));
+      return NextResponse.redirect(
+        new URL('/en' + webRoutes.splash, request.url)
+      );
     }
   } else {
     if (webRoutes.splash === url && addresses && addresses.length > 0) {

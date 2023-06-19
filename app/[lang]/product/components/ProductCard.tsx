@@ -16,6 +16,7 @@ interface ProductCardProps {
   isInWhishlist: boolean;
   maxQuantityCart: number;
   hasVariants: boolean;
+  currency: string;
   className?: string;
 }
 
@@ -29,6 +30,8 @@ export default function ProductCard({
   cartStatus,
   isAvailable,
   maxQuantityCart,
+  currency,
+  hasVariants,
   className = '',
 }: ProductCardProps) {
   return (
@@ -51,11 +54,12 @@ export default function ProductCard({
         cartsStatus={cartStatus}
         maxQantity={maxQuantityCart}
         isAvailable={isAvailable}
+        hasVariant={hasVariants}
       />
       <Link href={webRoutes.product(sku)} prefetch={false}>
         <div>
           <h5 className="text-sm font-bold tracking-tight text-gray-900">
-            {getPriceWithCurrency(price)}
+            {getPriceWithCurrency(price, currency)}
           </h5>
           <p className="text-xs font-normal text-gray-500">{name}</p>
         </div>

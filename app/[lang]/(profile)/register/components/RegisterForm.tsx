@@ -62,12 +62,16 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="text-lg font-bold mb-2">Register Account</h2>
+      <h2 className="text-lg font-bold mb-2">
+        {translate('register_account')}
+      </h2>
       <div>
-        <div className="text-primary mb-3">Personal Information</div>
+        <div className="text-primary mb-3">
+          {translate('personal_information')}
+        </div>
         <Input
-          placeholder="Full name"
-          aria-describedby="Full name"
+          placeholder={translate('fullname')}
+          aria-describedby={translate('fullname')}
           type="text"
           name="fullname"
           id="fullname"
@@ -83,8 +87,8 @@ export default function RegisterForm() {
           }
         />
         <Input
-          placeholder="Username"
-          aria-describedby="Username"
+          placeholder={translate('username')}
+          aria-describedby={translate('username')}
           type="text"
           name="username"
           id="username"
@@ -100,8 +104,8 @@ export default function RegisterForm() {
           }
         />
         <Input
-          placeholder="Password"
-          aria-describedby="Password"
+          placeholder={translate('password')}
+          aria-describedby={translate('password')}
           type="password"
           name="password"
           id="password"
@@ -117,8 +121,8 @@ export default function RegisterForm() {
           }
         />
         <Input
-          placeholder="Email"
-          aria-describedby="Email"
+          placeholder={translate('email')}
+          aria-describedby={translate('email')}
           type="email"
           name="email"
           id="email"
@@ -134,8 +138,8 @@ export default function RegisterForm() {
           }
         />
         <Input
-          placeholder="Mobile number"
-          aria-describedby="Mobile number"
+          placeholder={translate('mobile')}
+          aria-describedby={translate('mobile')}
           type="text"
           name="mobile"
           id="mobile"
@@ -152,9 +156,11 @@ export default function RegisterForm() {
         />
       </div>
       <div className="mb-2">
-        <div className="text-primary mb-3">Residential Information</div>
+        <div className="text-primary mb-3">
+          {translate('residential_information')}
+        </div>
         <Select
-          placeholder="Choose city"
+          placeholder={translate('choose_city')}
           options={
             cities && cities.data
               ? cities.data.length == 1 && cities.data[0].children
@@ -183,8 +189,8 @@ export default function RegisterForm() {
         />
 
         <Input
-          placeholder="Block"
-          aria-describedby="Block"
+          placeholder={translate('block')}
+          aria-describedby={translate('block')}
           type="text"
           name="address.widget"
           id="address.widget"
@@ -201,8 +207,8 @@ export default function RegisterForm() {
         />
 
         <Input
-          placeholder="Gada (Optional)"
-          aria-describedby="Gada"
+          placeholder={translate('gada')}
+          aria-describedby={translate('gada')}
           type="text"
           name="address.gada"
           id="address.gada"
@@ -218,8 +224,8 @@ export default function RegisterForm() {
         />
 
         <Input
-          placeholder="Street"
-          aria-describedby="Street"
+          placeholder={translate('street')}
+          aria-describedby={translate('street')}
           type="text"
           name="address.street"
           id="address.street"
@@ -235,8 +241,8 @@ export default function RegisterForm() {
         />
 
         <Input
-          placeholder="House"
-          aria-describedby="House"
+          placeholder={translate('house')}
+          aria-describedby={translate('house')}
           type="text"
           name="address.house"
           id="address.house"
@@ -253,8 +259,8 @@ export default function RegisterForm() {
 
         <div className="flex gap-2">
           <Input
-            placeholder="Floor (Optional)"
-            aria-describedby="Floor"
+            placeholder={translate('floor')}
+            aria-describedby={translate('floor')}
             type="text"
             name="address.floor"
             id="address.floor"
@@ -269,8 +275,8 @@ export default function RegisterForm() {
             }
           />
           <Input
-            placeholder="Apartment No. (Optional)"
-            aria-describedby="Apartment number"
+            placeholder={translate('apartment')}
+            aria-describedby={translate('apartment')}
             type="text"
             name="address.apartment_number"
             id="address.apartment_number"
@@ -290,17 +296,19 @@ export default function RegisterForm() {
       <div className="flex items-center mb-3">
         <Input
           required
-          label="I agree with Privacy and Policy"
+          label={translate('privacy_policy_agreement')}
           type="checkbox"
         />
       </div>
       <Button type="submit" loading={isLoading}>
-        Register
+        {translate('register')}
       </Button>
       <div className="text-sm text-center">
-        <span className="text-gray-400">Already have an Account? </span>
+        <span className="text-gray-400">
+          {translate('already_have_account')}
+        </span>
         <Link className="text-primary" href={webRoutes.login}>
-          Login
+          {translate('login')}
         </Link>
       </div>
     </form>

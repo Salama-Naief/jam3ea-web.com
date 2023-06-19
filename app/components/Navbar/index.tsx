@@ -14,10 +14,11 @@ interface NavbarProps {
   hasSearch?: Boolean;
   hasAddress?: Boolean;
   hasBackButton?: Boolean;
-  title?: string;
+  title?: string | JSX.Element;
   expandSearch?: boolean;
   searchValue?: string;
   supplierId?: string;
+  className?: string;
 }
 
 export default function Navbar({
@@ -30,10 +31,15 @@ export default function Navbar({
   expandSearch = false,
   searchValue = '',
   supplierId,
+  className = '',
 }: NavbarProps) {
   return (
     <>
-      <nav className="app-container border-gray-200 px-0 bg-white mb-2 fixed top-0 left-1/2 transform -translate-x-1/2 z-10">
+      <nav
+        className={`app-container border-gray-200 px-0 mb-2 fixed top-0 left-1/2 transform rtl:translate-x-1/2 ltr:-translate-x-1/2 z-10 ${
+          className ? className : 'bg-white'
+        }`}
+      >
         <div
           className={`max-w-screen-xl flex flex-wrap items-center justify-between mx-auto ${
             hasBackButton ? 'px-1 py-2' : 'p-4'
@@ -61,7 +67,7 @@ export default function Navbar({
                   />
                 ) : (
                   <Link
-                    href={webRoutes.search()}
+                    href={webRoutes.search(undefined, supplierId)}
                     className="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                   >
                     <SearchIcon />

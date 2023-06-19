@@ -21,5 +21,11 @@ export const getDictionary = async (locale: Locale) => {
     locale = LANGUAGES.ENGLISH || 'en';
   }
 
-  return dictionaries[locale]();
+  const selectedLocale = [LANGUAGES.ENGLISH, LANGUAGES.ARABIC].includes(
+    locale as any
+  )
+    ? locale
+    : process.env.DEFAULT_LOCALE_CODE;
+
+  return dictionaries[selectedLocale as Locale]();
 };

@@ -3,6 +3,8 @@ import Navbar from '@/components/Navbar';
 import ProductCard from '@/module/product/components/ProductCard';
 import { searchProduct } from '../services';
 import { Locale } from '../../../../i18n-config';
+import { getDictionary } from '@/lib/utils/dictionary';
+import { translate } from '@/lib/utils/serverHelpers';
 
 export default async function SearchPage({
   params,
@@ -12,6 +14,7 @@ export default async function SearchPage({
   searchParams?: { [key: string]: string /*  | string[] */ | undefined };
 }) {
   const products = await searchProduct(params.q, searchParams?.supplier_id);
+  const dict = await getDictionary(params.lang);
 
   return (
     <div>
@@ -43,6 +46,7 @@ export default async function SearchPage({
                 isAvailable={availability}
                 maxQuantityCart={max_quantity_cart}
                 hasVariants={has_variants}
+                currency={translate(dict, 'currency')}
               />
             )
           )}

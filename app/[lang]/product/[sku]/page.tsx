@@ -27,6 +27,8 @@ export default async function ProductPage({
     wishlist_status,
     categories,
     description,
+    variants,
+    has_variants,
   } = product;
 
   return (
@@ -42,7 +44,9 @@ export default async function ProductPage({
             />
           </div>
           <div className="flex justify-between">
-            <span className="font-bold">{getPriceWithCurrency(price)}</span>
+            <span className="font-bold">
+              {getPriceWithCurrency(price, translate(dict, 'currency'))}
+            </span>
             <AddToWishlist
               sku={sku}
               isInWhishlist={wishlist_status.is_exists}
@@ -74,6 +78,8 @@ export default async function ProductPage({
             cartsStatus={cart_status}
             isAvailable={availability}
             maxQantity={max_quantity_cart}
+            hasVariant={variants && variants.length > 0}
+            variants={variants}
           />
         </div>
       </Container>

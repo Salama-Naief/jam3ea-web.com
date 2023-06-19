@@ -21,13 +21,22 @@ export default async function RootLayout({
   children,
   params,
 }: IRootLayoutProps) {
-  const dictionary = await getDictionary(params.lang || LANGUAGES.ENGLISH);
+  const selectedLang = [LANGUAGES.ENGLISH, LANGUAGES.ARABIC].includes(
+    params.lang as any
+  )
+    ? params.lang
+    : process.env.DEFAULT_LOCALE_CODE;
+
+  const dictionary = await getDictionary(selectedLang as Locale);
   return (
-    <html lang={params.lang}>
+    <html
+      lang={selectedLang}
+      dir={selectedLang === LANGUAGES.ARABIC ? 'rtl' : 'ltr'}
+    >
       <body suppressHydrationWarning={true}>
         <div>
           <div id="root">
-            <NextTopLoader color='#F77D0F' />
+            <NextTopLoader color="#F77D0F" />
             <AuthProvider dictionary={dictionary}>
               <AddressProvider>
                 <CartProvider>

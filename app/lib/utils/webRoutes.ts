@@ -12,6 +12,11 @@ const webRoutes = {
   cart: '/cart',
   wishlist: '/wishlist',
   stores: '/stores',
+  orders: '/orders',
+  contact: '/contact',
+  privacy: '/privacy',
+  trackOrder: (id: string) => `/orders/${id}/track`,
+  orderDetails: (id: string) => `/orders/${id}`,
   category: (id: string, supplierId?: string) =>
     `/category/${id}${supplierId ? '?supplier=' + supplierId : ''}`,
   subcategory: (id: string, subId: string) => `/category/${id}/${subId}`,

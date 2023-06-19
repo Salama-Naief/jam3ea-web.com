@@ -42,7 +42,7 @@ export default function CartBottomBar() {
   return (
     <>
       {cart.products > 0 && (
-        <div className="fixed z-[60] w-[calc(100%_-_2rem)] h-12 max-w-lg -translate-x-1/2 bg-success rounded-full bottom-4 left-1/2">
+        <div className="fixed z-[60] w-[calc(100%_-_2rem)] h-12 max-w-lg rtl:translate-x-1/2 ltr:-translate-x-1/2 bg-success rounded-full bottom-4 left-1/2">
           <div className="h-full max-w-lg mx-auto">
             <div className="flex justify-between px-5 items-center gap-3 h-full">
               <div className="text-white font-bold">KD {cart.price}</div>

@@ -37,7 +37,7 @@ export default async function Categories({
               />
             );
           })}
-        {categories && limit && limit < categories.count && (
+        {/* {categories && limit && limit < categories.count && (
           <button className="flex items-center flex-col gap-1">
             <div className="bg-white shadow-sm rounded-3xl p-3 w-full min-h-[74px] max-h-[74px] h-full flex items-center justify-center overflow-hidden">
               <img
@@ -46,9 +46,9 @@ export default async function Categories({
                 alt=""
               />
             </div>
-            {/* <button type='button' className="text-xs">{dictionary.all_sections}</button> */}
+            <button type='button' className="text-xs">{dictionary.all_sections}</button>
           </button>
-        )}
+        )} */}
       </Suspense>
     </>
   );

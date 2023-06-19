@@ -14,6 +14,9 @@ import { getDictionary } from '@/lib/utils/dictionary';
 import { translate } from '@/lib/utils/serverHelpers';
 import { getInventories } from './stores/services';
 import NoteBar from '@/components/NoteBar';
+import { cookies } from 'next/headers';
+import VipCard from '@/components/VipCard';
+import MartCard from '@/components/MartCard';
 
 export default async function Home({
   params: { lang },
@@ -29,6 +32,8 @@ export default async function Home({
       ? inventories.data[0].suppliers
       : [];
 
+  const isVIP = cookies().get('isVIP');
+
   return (
     <div id="home">
       <Navbar
@@ -40,15 +45,11 @@ export default async function Home({
       />
       <Container>
         <div className="flex gap-2">
-          <img
-            src={`/assets/vip/${lang}.jpg`}
-            className="w-1/2 object-cover"
-            alt="VIP"
-          />
+          {isVIP ? <MartCard lang={lang} /> : <VipCard lang={lang} />}
           <Link href={webRoutes.stores} className="w-1/2 block">
             <img
               src={
-                inventories && inventories.data.length > 0
+                inventories && inventories.data && inventories.data.length > 0
                   ? inventories.data[0].picture
                   : ''
               }
@@ -97,16 +98,20 @@ export default async function Home({
           {/* @ts-expect-error Server Component */}
           <Categories
             dictionary={{ all_sections: translate(dict, 'all_sections') }}
-            limit={11}
+            limit={12}
           />
         </div>
         <Suspense fallback={<Loader />}>
           {features &&
+            Array.isArray(features) &&
             features.map((feature: IFeature) => (
               <Feature
                 key={feature._id}
                 feature={feature}
-                dictionary={{ view_all: translate(dict, 'view_all') }}
+                dictionary={{
+                  view_all: translate(dict, 'view_all'),
+                  currency: translate(dict, 'currency'),
+                }}
               />
             ))}
         </Suspense>

@@ -1,3 +1,5 @@
+import { VARIANT_OPTION_TYPES } from '@/lib/enums';
+
 export interface ICartStatus {
   is_exists: boolean;
   quantity: number;
@@ -40,4 +42,28 @@ export interface IProduct {
   vip_price?: string;
   vip_old_price?: string;
   vip_discount_price_valid_until?: Date;
+  variants?: IVariant[];
+}
+
+export interface IVariant {
+  barcode: string;
+  price: string;
+  sku: string;
+  soft_code: string;
+  max_quantity_cart: number;
+  name: string;
+  description: string;
+  keywords: string;
+  contents: string;
+  cart_status: ICartStatus;
+  wishlist_status: { is_exists: boolean };
+  options: IVAriantOption[];
+}
+
+export interface IVAriantOption {
+  label: string;
+  name: string;
+  sku_code: string;
+  type: VARIANT_OPTION_TYPES;
+  value: string;
 }

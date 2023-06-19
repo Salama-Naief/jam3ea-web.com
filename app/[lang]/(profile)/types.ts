@@ -1,5 +1,12 @@
 import { ICity } from '@/module/city/types';
 import { LANGUAGES } from '@/lib/enums';
+import {
+  ICheckoutProduct,
+  ICoupon,
+  IDeliveryTime,
+  IPaymentMethod,
+} from '../cart/types';
+import { ISupplier } from '../stores/types';
 
 export interface IUser {
   _id: string;
@@ -15,6 +22,7 @@ export interface IUser {
   language: LANGUAGES;
   addresses?: IAddress[];
   created: string;
+  city_name?: string;
 }
 
 export interface IRegister {
@@ -110,4 +118,51 @@ export interface IUpdatePassword {
 
 export interface IUpdatePasswordResponseResult {
   message: string;
+}
+
+export interface IOrder {
+  _id: string;
+  order_id: string;
+  payment_method: IPaymentMethod;
+  subtotal: number;
+  total: number;
+  created: string;
+  status: string;
+  status_number: number;
+  shipping_cost: number;
+  cart_subtotal: number;
+  coupon: ICoupon;
+  cart_total: number;
+  user_data: IUser;
+  notes: string | null;
+  isVIP?: boolean;
+  store_id: string;
+  hash: string;
+  delivery_time: string;
+  discount_by_wallet: boolean;
+  discount_by_wallet_value: number;
+  data: {
+    supplier: ISupplier;
+    products: ICheckoutProduct[];
+    isSelected: boolean;
+    subtotal: number;
+    purchase_possibility: boolean;
+    earliest_date_of_delivery: number;
+    delivery_times: IDeliveryTime[];
+    shipping_cost: number;
+    total: string;
+    gift_note: boolean;
+    payment_methods: IPaymentMethod[];
+  }[];
+  products: ICheckoutProduct[];
+}
+
+export interface IConvertPoints {
+  points: number;
+}
+
+export interface IConvertPointsResponseResult {
+  message: string;
+  points: number;
+  wallet: number;
 }

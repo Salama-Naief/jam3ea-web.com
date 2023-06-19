@@ -2,12 +2,15 @@ import { IFeature } from '../../types';
 import Link from 'next/link';
 import ProductCard from '../../../product/components/ProductCard';
 import webRoutes from '@/lib/utils/webRoutes';
+import { Locale } from '../../../../../i18n-config';
+import { getSlideUrl } from '../../utils';
 
 interface FeatureProps {
   feature: IFeature;
   supplierId?: string;
   dictionary: {
     view_all: string;
+    currency: string;
   };
 }
 
@@ -17,10 +20,11 @@ export default function Feature({
   dictionary,
 }: FeatureProps) {
   const { _id, name, products, slides } = feature;
+
   return (
     <>
       {slides.map(({ _id, picture, url, name }) => (
-        <Link key={_id} href={url}>
+        <Link key={_id} href={getSlideUrl(url, supplierId)}>
           <img src={picture} alt={name} />
         </Link>
       ))}
@@ -60,6 +64,7 @@ export default function Feature({
                 isAvailable={availability}
                 maxQuantityCart={max_quantity_cart}
                 hasVariants={has_variants}
+                currency={dictionary.currency}
               />
             )
           )}

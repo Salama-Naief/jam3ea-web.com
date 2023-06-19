@@ -3,16 +3,21 @@ import Navbar from '@/components/Navbar';
 import { getProductsByFeature } from '../services';
 import ProductCard from '@/module/product/components/ProductCard';
 import { getCategoryById } from '@/module/category/services';
+import { Locale } from '../../../../i18n-config';
+import { getDictionary } from '@/lib/utils/dictionary';
+import { translate } from '@/lib/utils/serverHelpers';
+import CartBottomBar from '@/module/cart/components/CartBottomBar';
 
 export default async function Feature({
-  params: { id },
+  params: { id, lang },
   searchParams: { supplier, name },
 }: {
-  params: { id: string };
+  params: { id: string; lang: Locale };
   searchParams: { supplier: string; name: string };
 }) {
   const products = await getProductsByFeature(id);
-  console.log('this is the supplier: ', supplier);
+
+  const dict = await getDictionary(lang);
 
   return (
     <div>
@@ -45,11 +50,13 @@ export default async function Feature({
                   isAvailable={availability}
                   maxQuantityCart={max_quantity_cart}
                   hasVariants={has_variants}
+                  currency={translate(dict, 'currency')}
                 />
               )
             )}
         </div>
       </Container>
+      <CartBottomBar />
     </div>
   );
 }

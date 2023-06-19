@@ -1,12 +1,11 @@
+'use client';
+
+import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCheck,
-  faTrash,
-  faPen,
-  faTrashCan,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { IAddress } from '@/module/(profile)/types';
 import { ICity } from '@/module/city/types';
+import { AuthContext } from '@/lib/providers/AuthProvider';
 
 interface AddressCardProps {
   address: IAddress;
@@ -26,7 +25,8 @@ export default function AddressCard({
   onDelete,
 }: AddressCardProps) {
   const { name, widget, street, gada, house } = address;
-  console.log('address name: ' + name);
+  const { translate } = useContext(AuthContext);
+
   return (
     <button
       className={`flex flex-col rounded-2xl p-3 gap-1 mb-3 w-full text-left ${
@@ -56,7 +56,11 @@ export default function AddressCard({
       </div>
       <div className="flex gap-2">
         <div className=" text-sm">
-          {`Block ${widget}, Street ${street}, Gada ${gada}, House No. ${house}`}
+          {`${translate('block')} ${widget}, ${translate(
+            'street'
+          )} ${street}, ${translate('gada')} ${gada}, ${translate(
+            'house'
+          )}. ${house}`}
         </div>
         <button className="ml-auto" onClick={onDelete}>
           <FontAwesomeIcon icon={faTrashCan} className="text-[#ccc]" />

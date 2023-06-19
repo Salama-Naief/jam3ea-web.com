@@ -1,5 +1,9 @@
-export const getPriceWithCurrency = (price: string | number) => {
-  const currency = process.env.CURRENCY || 'KD';
+import { Locale } from '../../../i18n-config';
+
+export const getPriceWithCurrency = (
+  price: string | number,
+  currency: string
+) => {
   return `${currency} ${price}`;
 };
 

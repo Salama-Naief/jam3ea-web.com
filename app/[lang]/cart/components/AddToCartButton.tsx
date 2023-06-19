@@ -2,10 +2,13 @@
 
 import React, { useContext, useState } from 'react';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { ICartStatus } from '@/module/product/types';
+import { ICartStatus, IVariant } from '@/module/product/types';
 import { CartContext } from '../CartProvider';
 import { AuthContext } from '@/lib/providers/AuthProvider';
 import Button from '@/components/Button';
+import Link from 'next/link';
+import webRoutes from '@/lib/utils/webRoutes';
+import Variants from '@/module/product/components/Variants';
 
 interface IAddToCartButtonProps {
   sku: string;
@@ -13,19 +16,24 @@ interface IAddToCartButtonProps {
   maxQantity: number;
   isAvailable: boolean;
   normalBtn?: boolean;
+  hasVariant?: boolean;
+  variants?: IVariant[];
 }
 
 export default function AddToCartButton({
-  sku,
+  sku: defaultSku,
   cartsStatus,
   maxQantity,
   isAvailable,
+  hasVariant,
   normalBtn = false,
+  variants,
 }: IAddToCartButtonProps) {
   const [count, setCount] = useState(cartsStatus.quantity);
   const { addProductToCart, removeProductFromCart, loading } =
     useContext(CartContext);
   const { translate } = useContext(AuthContext);
+  const [sku, setSku] = useState(defaultSku);
 
   const handleIncrement = async () => {
     try {
@@ -59,19 +67,72 @@ export default function AddToCartButton({
 
   if (normalBtn) {
     return (
-      <Button loading={loading} onClick={handleIncrement}>
-        {translate('add_to_cart')}
-      </Button>
+      <>
+        {count > 0 ? (
+          <div className="h-12 bg-primary rounded-full mb-5">
+            <div className="h-full max-w-lg mx-auto flex items-center justify-center">
+              <div className="flex items-center justify-between gap-10">
+                <button
+                  className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg"
+                  onClick={handleIncrement}
+                >
+                  <PlusIcon className="w-8 h-8" />
+                </button>
+                {count && count >= 1 ? (
+                  <>
+                    <span className="w-5 h-5 flex items-center justify-center text-md text-white ">
+                      {count}
+                    </span>
+                    <button
+                      className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg ml-auto"
+                      onClick={handleDecrement}
+                    >
+                      <TrashIcon className="w-8 h-8" />
+                    </button>
+                  </>
+                ) : (
+                  ''
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <Button
+            loading={loading}
+            disabled={hasVariant && !sku.includes('-')}
+            onClick={handleIncrement}
+          >
+            {translate('add_to_cart')}
+          </Button>
+        )}
+
+        {variants && (
+          <Variants
+            variants={variants}
+            onSelect={(sku: string) => {
+              setSku(sku);
+            }}
+          />
+        )}
+      </>
     );
   }
 
   return (
     <div className="flex items-center ml-auto gap-1">
-      <button
-        className="text-primary shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg"
-        onClick={handleIncrement}
-      >
-        {/* {maxQantity > 0 ? (
+      {hasVariant ? (
+        <Link
+          href={webRoutes.product(sku)}
+          className="text-primary shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg"
+        >
+          <PlusIcon className="w-4 h-4" />
+        </Link>
+      ) : (
+        <button
+          className="text-primary shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg"
+          onClick={handleIncrement}
+        >
+          {/* {maxQantity > 0 ? (
           count < maxQantity ? (
             <PlusIcon className="w-4 h-4" />
           ) : (
@@ -85,8 +146,9 @@ export default function AddToCartButton({
         ) : (
           <PlusIcon className="w-4 h-4" />
         )} */}
-        <PlusIcon className="w-4 h-4" />
-      </button>
+          <PlusIcon className="w-4 h-4" />
+        </button>
+      )}
       {count && count > 0 ? (
         <>
           <span className="w-5 h-5 flex items-center justify-center text-sm">

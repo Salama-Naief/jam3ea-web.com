@@ -9,6 +9,7 @@ import { getFeaturedProducts } from '@/module/feature/services';
 import { Suspense } from 'react';
 import { IFeature } from '@/module/feature/types';
 import Feature from '@/module/feature/components/Feature';
+import CartBottomBar from '@/module/cart/components/CartBottomBar';
 
 export default async function StorePage({
   params,
@@ -43,10 +44,14 @@ export default async function StorePage({
               key={feature._id}
               feature={feature}
               supplierId={params.id}
-              dictionary={{ view_all: translate(dict, 'view_all') }}
+              dictionary={{
+                view_all: translate(dict, 'view_all'),
+                currency: translate(dict, 'currency'),
+              }}
             />
           ))}
       </Container>
+      <CartBottomBar />
     </div>
   );
 }

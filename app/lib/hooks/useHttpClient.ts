@@ -1,10 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { IResponse } from '../types';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { showErrorAlert, showSuccesAlert } from '../utils/helpers';
+import { AuthContext } from '../providers/AuthProvider';
 
-const useHttpClient = <T, R = unknown>() => {
+const useHttpClient = <T, R = unknown>(
+  /* showNotification? = false,
+  notificationType?: 'SIMPLE' | 'ALERT' | 'TOAST' = 'ALERT' */
+) => {
   const [results, setResults] = useState<T | null>(null);
   const [errors, setErrors] = useState<R | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { translate } = useContext(AuthContext);
 
   const sendRequest = useCallback(
     async (request: Promise<IResponse<T, R>>): Promise<boolean> => {
@@ -14,10 +22,18 @@ const useHttpClient = <T, R = unknown>() => {
 
       try {
         const response = await request;
-        console.log('the respose: ', response);
         setResults(response.results);
         setErrors(response.errors);
         status = response.success;
+        if (response.success) {
+          if (response.results && (response.results as any).message) {
+            showSuccesAlert((response.results as any).message, translate('ok'));
+          }
+        } else {
+          if (response.errors && (response.errors as any).message) {
+            showErrorAlert((response.errors as any).message, translate('ok'));
+          }
+        }
       } catch (error) {
         setResults(null);
       } finally {

@@ -3,8 +3,11 @@ import {
   IAddAddress,
   IAddAddressResponseResult,
   IAddress,
+  IConvertPoints,
+  IConvertPointsResponseResult,
   ILogin,
   ILoginResponseResult,
+  IOrder,
   IRegister,
   IRegisterResponseResult,
   IUpdateCity,
@@ -59,3 +62,16 @@ export const updatePassword = (
   updatePasswordInputs: IUpdatePassword
 ): Promise<IResponse<IUpdatePasswordResponseResult, IUpdatePassword>> =>
   clientRequest('/profile/updatepassword', 'PUT', updatePasswordInputs);
+
+export const deleteAccount = (): Promise<IResponse<{ message: string }>> =>
+  clientRequest('/profile/update', 'DELETE');
+
+export const repeatOrder = (
+  id: string
+): Promise<IResponse<{ message: string }>> =>
+  clientRequest(`/order/${id}/repeat`, 'POST');
+
+export const convertPoints = (
+  inputs: IConvertPoints
+): Promise<IResponse<IConvertPointsResponseResult, IConvertPoints>> =>
+  clientRequest('/profile/wallet', 'POST', inputs);

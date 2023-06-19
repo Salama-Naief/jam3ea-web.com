@@ -38,11 +38,11 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="text-lg font-bold mb-10">{translate('login')}</h2>
+      <h2 className="text-lg font-bold mb-5">{translate('login')}</h2>
       <div>
         <Input
-          placeholder="Username"
-          aria-describedby="Username"
+          placeholder={translate('username')}
+          aria-describedby={translate('username')}
           type="text"
           name="username"
           id="username"
@@ -58,8 +58,8 @@ export default function LoginForm() {
           }
         />
         <Input
-          placeholder="Password"
-          aria-describedby="Password"
+          placeholder={translate('password')}
+          aria-describedby={translate('password')}
           type="password"
           name="password"
           id="password"
@@ -75,24 +75,24 @@ export default function LoginForm() {
           }
         />
       </div>
-      <div className="mb-3">
+      {/* <div className="mb-3">
         <Link className="text-primary" href={webRoutes.resetPassword}>
-          Reset pasword
+          {translate('reset_password')}
         </Link>
-      </div>
+      </div> */}
       <Button type="submit" loading={isLoading}>
-        Login
+        {translate('login')}
       </Button>
       <Link
         href={webRoutes.addresses}
-        className="w-full bg-secondary py-2 rounded-full text-white mb-3"
+        className="w-full bg-secondary py-2 rounded-full text-white mb-3 block text-center"
       >
-        Shop as Guest
+        {translate('shop_as_guest')}
       </Link>
       <div className="text-sm text-center">
-        <span className="text-gray-400">Don&apos;t have any account here?</span>
+        <span className="text-gray-400">{translate('no_account')} </span>
         <Link className="text-primary" href={webRoutes.register}>
-          Register
+          {translate('register')}
         </Link>
       </div>
     </form>

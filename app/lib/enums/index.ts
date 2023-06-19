@@ -21,8 +21,12 @@ export enum STATUS_MESSAGES {
   VALIDATION_ERROR = 'VALIDATION_ERROR',
 }
 
-
 export enum LANGUAGES {
   ENGLISH = 'en',
   ARABIC = 'ar',
+}
+
+export enum VARIANT_OPTION_TYPES {
+  STRING = 'STRING',
+  COLOR = 'COLOR',
 }
