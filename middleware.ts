@@ -47,7 +47,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL(webRoutes.home, request.url));
     }
 
-    if (!addresses || addresses?.length < 1) {
+    if (webRoutes.splash !== url && (!addresses || addresses?.length < 1)) {
       return NextResponse.redirect(new URL(webRoutes.splash, request.url));
     }
   }
