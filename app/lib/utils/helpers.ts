@@ -7,7 +7,9 @@ export const clientRequest = async (
 ) => {
   const res = await fetch(
     `/api?route=${route}${
-      body && typeof body === 'object' ? '' : '&nobody=' + true
+      method !== 'POST' || (body && typeof body === 'object')
+        ? ''
+        : '&nobody=' + true
     }`,
     {
       method,

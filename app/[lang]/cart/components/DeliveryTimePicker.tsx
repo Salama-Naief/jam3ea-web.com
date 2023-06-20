@@ -110,7 +110,10 @@ export default function DeliveryTimePicker({
                               {times.map((dt, i) => (
                                 <div
                                   key={i}
-                                  onClick={() => onSelect(dt)}
+                                  onClick={() => {
+                                    onSelect(dt);
+                                    closeModal();
+                                  }}
                                   className="bg-white rounded-2xl w-full flex p-4 cursor-pointer"
                                 >
                                   <div className="flex flex-col">

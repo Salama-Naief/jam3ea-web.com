@@ -18,7 +18,7 @@ export default async function PointsPage({
   return (
     <>
       <Navbar
-        className="bg-primary"
+        className="bg-primary text-white"
         title={user.points + ' ' + translate(dict, 'points')}
       />
       <Container>

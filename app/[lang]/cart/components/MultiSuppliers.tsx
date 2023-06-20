@@ -198,7 +198,7 @@ export default function MultiSuppliers({
           selectedPaymentMethod={values.payment_method}
         />
 
-        <div className="flex flex-col bg-white rounded-2xl gap-2 p-4 mb-2">
+        {/* <div className="flex flex-col bg-white rounded-2xl gap-2 p-4 mb-2">
           <div className="flex items-center">
             <div className="text-sm">{translate('order_summary')}</div>
             <div className="bg-primary-soft text-primary py-2 px-4 text-sm rounded-2xl ms-auto">
@@ -231,12 +231,48 @@ export default function MultiSuppliers({
               {getPriceWithCurrency(cart.total, translate('currency'))}
             </div>
           </div>
+        </div> */}
+        <div className="bg-white p-4 rounded-xl">
+          <div className="flex items-center">
+            <span className="text-lg">{translate('order_summary')}</span>
+            <div className="ml-auto bg-primary-soft text-primary p-2 rounded-full">
+              {cart.products.length} {translate('products')}
+            </div>
+          </div>
+
+          <table className="min-w-full border-collapse border ">
+            <thead>
+              <tr>
+                <th className="py-2 text-start px-4 border-b"></th>
+                <th className="py-2 text-start px-4  border-b">
+                  {translate('number_of_items')}
+                </th>
+                <th className="py-2 text-start px-4  border-b">
+                  {translate('amount')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.data.map((data) => (
+                <tr key={data.supplier._id}>
+                  <td className="py-2 px-4 border-b">
+                    {typeof data.supplier.name === 'object' &&
+                    (data.supplier.name as any)[language]
+                      ? (data.supplier.name as any)[language]
+                      : data.supplier.name}
+                  </td>
+                  <td className="py-2 px-4 border-b">{data.products.length}</td>
+                  <td className="py-2 px-4 border-b">{data.total}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         {cart.message && cart.purchase_possibility === false && (
           <div className="text-danger text-center mb-2">{cart.message}</div>
         )}
         <Button disabled={cart.purchase_possibility === false} type="submit">
-          Pay
+          {translate('checkout')}
         </Button>
         <div className="text-center">
           <Link

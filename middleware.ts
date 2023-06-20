@@ -14,6 +14,7 @@ export async function middleware(request: NextRequest) {
     url.startsWith('/_next/static/') ||
     url.startsWith('/static/') ||
     url.startsWith('/assets') ||
+    url.startsWith('/favicon.ico') ||
     url === '/api'
   ) {
     return response;
@@ -33,22 +34,40 @@ export async function middleware(request: NextRequest) {
     throw new Error('Missing environment variables');
 
   const addresses = request.cookies.get('addresses')?.value;
+  const selectedAddress = request.cookies.get('selectedAddress')?.value;
+  const isLoggedIn = request.cookies.get('isLoggedIn')?.value;
 
   if (!token) {
-    if (webRoutes.splash === url || '/en' + webRoutes.splash === url) {
+    if (isRoute(url, webRoutes.splash)) {
       return checkAuth(response);
     } else {
+      console.log('REDIRECTION #1');
       return NextResponse.redirect(
         new URL('/en' + webRoutes.splash, request.url)
       );
     }
   } else {
-    if (webRoutes.splash === url && addresses && addresses.length > 0) {
+    if (isRoute(url, webRoutes.splash) && addresses && addresses.length > 0) {
+      console.log('REDIRECTION #2');
       return NextResponse.redirect(new URL(webRoutes.home, request.url));
     }
 
-    if (webRoutes.splash !== url && (!addresses || addresses?.length < 1)) {
+    if (
+      url != '' &&
+      !isRoute(url, webRoutes.splash) &&
+      !isRoute(url, webRoutes.addresses) &&
+      !isRoute(url, webRoutes.register) &&
+      !isRoute(url, webRoutes.login) &&
+      !isLoggedIn &&
+      (!addresses || addresses?.length < 1)
+    ) {
+      console.log('REDIRECTION #3 ', url, !isRoute(url, webRoutes.splash));
       return NextResponse.redirect(new URL(webRoutes.splash, request.url));
+    }
+
+    if (addresses && addresses?.length > 0 && !selectedAddress) {
+      console.log('REDIRECTION #4');
+      return NextResponse.redirect(new URL(webRoutes.addresses, request.url));
     }
   }
 
@@ -59,10 +78,11 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  const language =
-    request.cookies.get('language')?.value ||
-    process.env.DEFAULT_LOCALE_CODE ||
-    LANGUAGES.ENGLISH;
+  let choosenLocale = pathname.split('/')[0];
+  if (choosenLocale !== LANGUAGES.ENGLISH && choosenLocale !== LANGUAGES.ARABIC)
+    choosenLocale = process.env.DEFAULT_LOCALE_CODE || LANGUAGES.ENGLISH;
+
+  const language = request.cookies.get('language')?.value || choosenLocale;
 
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
@@ -70,8 +90,10 @@ export async function middleware(request: NextRequest) {
 
   if (!pathname.startsWith(`/${language}/`) && pathname !== `/${language}`) {
     if (!pathnameIsMissingLocale) {
+      console.log('REDIRECTION #5: ', pathname, language);
       return NextResponse.redirect(new URL(`/${language}`, request.url));
     } else {
+      console.log('REDIRECTION #6');
       return NextResponse.redirect(
         new URL(
           `/${language}/${pathname}${request.nextUrl.search}`,
@@ -135,4 +157,8 @@ const checkAuth = async (response: NextResponse) => {
 
     return response;
   }
+};
+
+const isRoute = (url: string, route: string) => {
+  return url === route || url === '/en' + route || url === '/ar' + route;
 };

@@ -12,6 +12,7 @@ import {
   LogoutIcon,
   MenuIcon,
   PrivacyIcon,
+  WalletIcon,
   WhishListIcon,
 } from '@/components/Icons';
 import Link from 'next/link';
@@ -46,18 +47,13 @@ export default function Menu() {
       icon: <span>icon</span>,
       link: '#',
       auth: true,
-    },
+    }, */
     {
-      title: 'Wallet (My points) 50 Points',
-      icon: <span>icon</span>,
-      link: '#',
+      title: 'wallet_points',
+      icon: <WalletIcon />,
+      link: webRoutes.points,
       auth: true,
     },
-    {
-      title: 'Customer support (chat)',
-      icon: <span>icon</span>,
-      link: '#',
-    }, */
     {
       title: 'orders',
       icon: <ShoppingCartIcon className="w-6 h-6 text-primary" />,

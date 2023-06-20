@@ -71,7 +71,7 @@ export const repeatOrder = (
 ): Promise<IResponse<{ message: string }>> =>
   clientRequest(`/order/${id}/repeat`, 'POST');
 
-export const convertPoints = (
+export const convertPointsToWallet = (
   inputs: IConvertPoints
 ): Promise<IResponse<IConvertPointsResponseResult, IConvertPoints>> =>
-  clientRequest('/profile/wallet', 'POST', inputs);
+  clientRequest('/profile/wallet', 'PUT', inputs);

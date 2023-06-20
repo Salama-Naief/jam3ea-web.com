@@ -140,7 +140,7 @@ export default function SingleSupplier({
             </div>
           </div>
         </div>
-        {cart.coupon && (
+        {cart.coupon && parseFloat(cart.coupon.value) > 0 && (
           <div className="flex items-center">
             <div className="text-sm">{translate('discount')}</div>
             <div className="ms-auto text-md font-semibold">
@@ -155,7 +155,7 @@ export default function SingleSupplier({
           </div>
         </div>
       </div>
-      {cart.message && (
+      {cart.message && cart.purchase_possibility === false && (
         <div className="text-danger text-center mb-2">{cart.message}</div>
       )}
       <Button disabled={cart.purchase_possibility === false} type="submit">

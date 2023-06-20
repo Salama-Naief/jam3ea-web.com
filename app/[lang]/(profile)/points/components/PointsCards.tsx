@@ -1,24 +1,41 @@
 'use client';
 
+import Popup from '@/components/Popup';
 import useHttpClient from '@/lib/hooks/useHttpClient';
 import { AuthContext } from '@/lib/providers/AuthProvider';
 import { getPriceWithCurrency } from '@/module/product/utils';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
+import { convertPointsToWallet } from '../../services';
+import Button from '@/components/Button';
 
 export default function PointsCards() {
   const { translate } = useContext(AuthContext);
-  const { sendRequest } = useHttpClient();
+  const { sendRequest, isLoading } = useHttpClient();
+  const [selectedPoints, setSelectedPoints] = useState({ points: 0, value: 0 });
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     document.body.classList.add('!bg-primary');
   });
 
-  const convertPoints = (points: number) => {};
+  const close = () => setIsOpen(false);
+
+  const convertPoints = (points: number, value: number) => {
+    setSelectedPoints({ points, value });
+    setIsOpen(true);
+  };
+
+  const pointsToWaller = async () => {
+    const status = await sendRequest(
+      convertPointsToWallet({ points: selectedPoints.points })
+    );
+    close();
+  };
 
   return (
     <>
       <div className="grid grid-cols-2 gap-3 mt-4 bg-primary px-2 py-4 rounded-2xl rounded-b-none">
         <button
-          onClick={() => convertPoints(100)}
+          onClick={() => convertPoints(100, 1)}
           className="bg-gradient-to-b from-brown-soft to-brown flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden"
         >
           <div className="flex items-center justify-between mb-5">
@@ -169,7 +186,7 @@ export default function PointsCards() {
           <div className="text-white text-xs">100 {translate('points')}</div>
         </button>
         <button
-          onClick={() => convertPoints(200)}
+          onClick={() => convertPoints(200, 4)}
           className="bg-gradient-to-b from-brown-soft to-brown flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden"
         >
           <div className="flex items-center justify-between mb-5">
@@ -320,7 +337,7 @@ export default function PointsCards() {
           <div className="text-white text-xs">200 {translate('points')}</div>
         </button>
         <button
-          onClick={() => convertPoints(300)}
+          onClick={() => convertPoints(300, 8)}
           className="bg-gradient-to-b from-gray-soft to-gray flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden"
         >
           <div className="flex items-center justify-between mb-5">
@@ -471,7 +488,7 @@ export default function PointsCards() {
           <div className="text-white text-xs">300 {translate('points')}</div>
         </button>
         <button
-          onClick={() => convertPoints(400)}
+          onClick={() => convertPoints(400, 12)}
           className="bg-gradient-to-b from-gray-soft to-gray flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden"
         >
           <div className="flex items-center justify-between mb-5">
@@ -622,7 +639,7 @@ export default function PointsCards() {
           <div className="text-white text-xs">400 {translate('points')}</div>
         </button>
         <button
-          onClick={() => convertPoints(500)}
+          onClick={() => convertPoints(500, 20)}
           className="bg-gradient-to-b from-yellow-soft to-yellow flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden"
         >
           <div className="flex items-center justify-between mb-5">
@@ -773,7 +790,7 @@ export default function PointsCards() {
           <div className="text-white text-xs">500 {translate('points')}</div>
         </button>
         <button
-          onClick={() => convertPoints(800)}
+          onClick={() => convertPoints(800, 40)}
           className="bg-gradient-to-b from-yellow-soft to-yellow flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden"
         >
           <div className="flex items-center justify-between mb-5">
@@ -924,7 +941,7 @@ export default function PointsCards() {
           <div className="text-white text-xs">800 {translate('points')}</div>
         </button>
         <button
-          onClick={() => convertPoints(1000)}
+          onClick={() => convertPoints(1000, 80)}
           className="col-span-2 max-h-56 h-56 justify-between bg-gradient-to-b from-yellow-soft to-yellow flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden"
         >
           <div className="flex items-center justify-between mb-5">
@@ -1075,6 +1092,32 @@ export default function PointsCards() {
           <div className="text-white text-xs">1000 {translate('points')}</div>
         </button>
       </div>
+      <Popup isOpen={isOpen} close={close}>
+        <div className="text-md">
+          {translate('do_you_want_to_transfer')} {selectedPoints.points}{' '}
+          {translate('points')} {translate('to')}{' '}
+          {getPriceWithCurrency(selectedPoints.value, translate('currency'))}{' '}
+          {translate('credit')}
+        </div>
+
+        <div className="mt-4 flex gap-4">
+          <Button
+            type="button"
+            loading={isLoading}
+            //className="bg-primary p-3 rounded-full text-white w-full"
+            onClick={pointsToWaller}
+          >
+            {translate('ok')}
+          </Button>
+          <button
+            type="button"
+            className="p-3 text-black w-full"
+            onClick={close}
+          >
+            {translate('cancel')}
+          </button>
+        </div>
+      </Popup>
     </>
   );
 }

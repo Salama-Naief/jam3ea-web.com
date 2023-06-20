@@ -93,10 +93,15 @@
     "marketing": "Marketing",
     "for_complaints_call": "For complaints, please call",
     "communicate_via_chat": "and you can also communicate directly via chat within the application",
-
     "privacy": "Privacy",
     "policy": "Policy",
     "points": "Points",
     "cacsh_back": "Cash Back",
-    "password": "Password"
+    "password": "Password",
+    "do_you_want_to_transfer": "Do you want to transfer",
+    "to": "to",
+    "credit": "credit",
+    "wallet_points": "Wallet (My points)",
+    "number_of_items": "Number of Items",
+    "amount": "Amount"
 }

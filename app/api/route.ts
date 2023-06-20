@@ -33,8 +33,14 @@ export async function POST(request: Request) {
       const updateCityResponse = await apiHandler(
         '/profile/updatecity',
         'PUT',
-        { city_id: response.results.user.address.city_id }
+        {
+          city_id: response.results.user.address.city_id,
+        },
+        true,
+        false,
+        response.results.token
       );
+
       return setCookiesData(
         nextResponse,
         response.results.user.language || 'en',
@@ -54,9 +60,18 @@ export async function POST(request: Request) {
       'auth.user',
       JSON.stringify(response.results.user)
     );
-    const updateCityResponse = await apiHandler('/profile/updatecity', 'PUT', {
-      city_id: response.results.user.address.city_id,
-    });
+    const updateCityResponse = await apiHandler(
+      '/profile/updatecity',
+      'PUT',
+      {
+        city_id: response.results.user.address.city_id,
+      },
+      true,
+      false,
+      response.results.token
+    );
+
+    console.log('UPDATE CITY RESPONSE: ', updateCityResponse);
 
     return setCookiesData(
       nextResponse,
@@ -103,7 +118,6 @@ const setCookiesData = (
   city: ICity,
   selectedAddress: IAddress
 ) => {
-  console.log('data to store: ', language, currency, {}, selectedAddress);
   nextResponse.cookies.set('language', language);
   nextResponse.cookies.set('currency', currency);
   nextResponse.cookies.set(

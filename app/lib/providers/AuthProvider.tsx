@@ -27,7 +27,7 @@ interface AuthProviderProps {
 const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const [cookies, setCookie] = useCookies([
+  const [cookies, setCookie, removeCookie] = useCookies([
     'isLoggedIn',
     'language',
     'auth.user',
@@ -71,33 +71,28 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
         ? pathname.replace(LANGUAGES.ENGLISH, language)
         : pathname.replace(LANGUAGES.ARABIC, language)
     ); */
-    if (reload && window) {
-      window.location.reload();
-    } else {
-      router.replace(
-        pathname.startsWith(LANGUAGES.ENGLISH)
-          ? pathname.replace(LANGUAGES.ENGLISH, language)
-          : pathname.replace(LANGUAGES.ARABIC, language)
-      );
-    }
+
+    router.replace('/' + language + webRoutes.splash);
+    router.refresh();
   };
 
   const login = () => {
     setCookie('isLoggedIn', true);
     setIsLoggedIn(true);
-    router.replace(webRoutes.home);
+    if (window) window.location.href = webRoutes.home;
+    else router.replace(webRoutes.home);
   };
 
   const logout = () => {
     setCookie('isLoggedIn', false);
-    setCookie('auth.user', null);
-    setCookie('auth.token', null);
-    setCookie('visitor.token', null);
-    setCookie('addresses', []);
-    setCookie('selectedAddress', null);
-    setCookie('city', null);
-    setIsLoggedIn(false);
-    router.replace(webRoutes.home);
+    removeCookie('auth.user');
+    removeCookie('auth.token');
+    removeCookie('visitor.token');
+    removeCookie('addresses');
+    removeCookie('selectedAddress');
+    removeCookie('city');
+    if (window) window.location.href = webRoutes.splash;
+    else router.replace(webRoutes.splash);
   };
 
   const translate = (key: string): string => {

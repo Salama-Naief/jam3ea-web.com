@@ -16,6 +16,8 @@ import {
   updateCity,
 } from '@/module/(profile)/services';
 import { IResponse } from '../types';
+import { useRouter } from 'next/navigation';
+import webRoutes from '../utils/webRoutes';
 
 const AddressContext = createContext({
   city: null as ICity | null,
@@ -62,6 +64,8 @@ const AddressProvider = ({ children }: any) => {
   const [addresses, setAddresses] = useState<IAddress[]>([]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(cookies['isLoggedIn'] || false);
+
+  const router = useRouter();
 
   const options = {
     sameSite: 'none',
@@ -119,6 +123,7 @@ const AddressProvider = ({ children }: any) => {
       if (foundAddress?.city_id) {
         changeCity(foundAddress.city_id);
       }
+      router.replace(webRoutes.home);
     }
   };
 

@@ -2,6 +2,7 @@
 
 import { LANGUAGES } from '@/lib/enums';
 import { AuthContext } from '@/lib/providers/AuthProvider';
+import webRoutes from '@/lib/utils/webRoutes';
 import { redirect, usePathname, useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
@@ -9,12 +10,6 @@ export default function LanguageSelect() {
   const { language, changeLanguage, translate } = useContext(AuthContext);
   const pathName = usePathname();
   const router = useRouter();
-  const redirectedPathName = (locale: string) => {
-    if (!pathName) return router.replace('/');
-    const segments = pathName.split('/');
-    segments[1] = locale;
-    return router.replace(segments.join('/'));
-  };
 
   return (
     <>
@@ -25,15 +20,14 @@ export default function LanguageSelect() {
         <div className="w-full">
           <div
             className={`flex items-center pl-4 ${
-              language === 'en' ? 'bg-primary-soft' : 'bg-gray-100'
+              pathName.includes('en') ? 'bg-primary-soft' : 'bg-gray-100'
             } text-center rounded-full`}
           >
             <input
-              checked={language === 'en'}
+              checked={pathName.includes('en')}
               value="en"
               onChange={() => {
-                changeLanguage(LANGUAGES.ENGLISH, false);
-                return redirectedPathName(LANGUAGES.ENGLISH);
+                changeLanguage(LANGUAGES.ENGLISH);
               }}
               id="bordered-radio-1"
               type="radio"
@@ -52,15 +46,14 @@ export default function LanguageSelect() {
           {/* <div className="text-center mb-2">اختر لغة</div> */}
           <div
             className={`flex items-center pl-4 ${
-              language === 'ar' ? 'bg-primary-soft' : 'bg-gray-100'
+              pathName.includes('ar') ? 'bg-primary-soft' : 'bg-gray-100'
             } text-center rounded-full`}
           >
             <input
-              checked={language === 'ar'}
+              checked={pathName.includes('ar')}
               value="ar"
               onChange={() => {
-                changeLanguage(LANGUAGES.ARABIC, false);
-                return redirectedPathName(LANGUAGES.ARABIC);
+                changeLanguage(LANGUAGES.ARABIC);
               }}
               id="bordered-radio-2"
               type="radio"

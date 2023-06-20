@@ -40,5 +40,6 @@ export const getLanguage = (pathname?: string): LANGUAGES => {
 export const isLoggedIn = () => {
   const cookieStore = cookies();
   const isLoggedIn = cookieStore.get('isLoggedIn')?.value;
+  console.log('is loggedin: ', isLoggedIn);
   return isLoggedIn == 'true';
 };

@@ -12,7 +12,8 @@ const apiHandler = async (
   method: string = 'GET',
   body?: object | null | undefined,
   onlyResults = true,
-  cache = true
+  cache = true,
+  defaultToken?: string
 ) => {
   try {
     const cookieStore = cookies();
@@ -28,7 +29,7 @@ const apiHandler = async (
     const options: RequestInit = {
       method,
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: 'Bearer ' + (defaultToken ? defaultToken : token),
         Language:
           language || process.env.DEFAULT_LOCALE_CODE || LANGUAGES.ENGLISH,
         'Content-Type': 'application/json',
@@ -49,7 +50,10 @@ const apiHandler = async (
     const res = await fetch(url, options);
     const resData: IResponse<any, any> = await res.json();
 
+    console.log('RESDATA: ', resData);
+
     if (resData.status_message === STATUS_MESSAGES.INVALID_APP_AUTHENTICATION) {
+      console.log('invalid token!');
       return NextResponse.redirect(
         new URL(webRoutes.splash, process.env.SITE_URL)
       );
@@ -58,7 +62,10 @@ const apiHandler = async (
     }
 
     if (resData.status_message === STATUS_MESSAGES.CITY_REQUIRED) {
-      return redirect(webRoutes.splash);
+      console.log('city requuired!');
+      return NextResponse.redirect(
+        new URL(webRoutes.addresses, process.env.SITE_URL)
+      );
     }
 
     return method == 'GET' && onlyResults === true ? resData.results : resData;

@@ -13,7 +13,11 @@ export default function BackButton() {
   return (
     <IconButton
       icon={language === LANGUAGES.ENGLISH ? <BackIcon /> : <ChevronRight />}
-      onClick={() => router.back()}
+      onClick={() => {
+        router.back();
+        if (document.body.classList.contains('!bg-primary'))
+          document.body.classList.remove('!bg-primary');
+      }}
     />
   );
 }
