@@ -15,12 +15,12 @@ export default async function SubCategoriesList({
   category
 }: SubCategoriesListProps) {
   return (
-    <div className="border-b border-gray-200 flex">
+    <div className="border-b border-gray-200 flex flex-nowrap overflow-x-auto max-w-full">
       {category.children.map(({ _id, name }) => (
         <Link
           key={_id}
           href={webRoutes.subcategory(id, _id)}
-          className={`border-b-2 px-4 py-2 ${
+          className={`border-b-2 px-4 py-2 flex-shrink-0 ${
             subId === _id ? 'border-primary text-primary' : ''
           }`}
         >

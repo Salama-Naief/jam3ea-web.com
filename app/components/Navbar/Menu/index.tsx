@@ -138,7 +138,8 @@ export default function Menu() {
                     changeLanguage(
                       language === LANGUAGES.ENGLISH
                         ? LANGUAGES.ARABIC
-                        : LANGUAGES.ENGLISH
+                        : LANGUAGES.ENGLISH,
+                      true
                     )
                   }
                   className="flex items-center p-2 text-gray-900 hover:bg-primary-soft w-full"

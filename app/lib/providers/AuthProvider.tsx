@@ -66,14 +66,16 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
       path: '/',
     });
     setLanguage(language);
-    /* router.replace(
-      pathname.startsWith(LANGUAGES.ENGLISH)
-        ? pathname.replace(LANGUAGES.ENGLISH, language)
-        : pathname.replace(LANGUAGES.ARABIC, language)
-    ); */
 
-    router.replace('/' + language + webRoutes.splash);
-    router.refresh();
+    if (reload === true && window) {
+      window.location.href =
+        '/' +
+        language +
+        pathname.replace(LANGUAGES.ENGLISH, '').replace(LANGUAGES.ARABIC, '');
+    } else {
+      router.replace('/' + language + webRoutes.splash);
+      router.refresh();
+    }
   };
 
   const login = () => {

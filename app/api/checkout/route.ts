@@ -2,6 +2,7 @@ import { STATUS_MESSAGES } from '@/lib/enums';
 import { IResponse } from '@/lib/types';
 import apiHandler from '@/lib/utils/apiHandler';
 import Knet from '@/lib/utils/knet';
+import { IGetCheckoutResponseResult } from '@/module/cart/types';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -127,8 +128,17 @@ export async function POST(request: NextRequest) {
   }
 
   if (body.payment_method === 'knet') {
-    const knet = new Knet();
+    const lang = request.cookies.get('language')?.value;
+    const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+    const knet = new Knet(parseFloat(cart.total), lang);
     const url = knet.pay();
+    console.log(
+      '================================================================'
+    );
+    console.log('redirect url: ', url, parseFloat(cart.total));
+    console.log(
+      '================================================================'
+    );
     const response: IResponse<{ url: string }> = {
       errors: null,
       results: { url },

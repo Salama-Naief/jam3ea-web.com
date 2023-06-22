@@ -16,11 +16,18 @@ import { useFormik } from 'formik';
 import { useContext, useEffect } from 'react';
 import { AddressContext } from '@/lib/providers/AddressProvider';
 import { AuthContext } from '@/lib/providers/AuthProvider';
+import * as Yup from 'yup';
 
 interface AddAddressProps {
   afterSubmit: () => void;
   address?: IAddress;
 }
+
+const AddressSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  mobile: Yup.string().required().length(8),
+  city_id: Yup.string().required(),
+});
 
 export default function AddAddressForm({
   afterSubmit,
@@ -55,6 +62,7 @@ export default function AddAddressForm({
       floor: '',
       apartment_number: '',
     },
+    validationSchema: AddressSchema,
     onSubmit: async (values) => {
       const status =
         address && address.id
