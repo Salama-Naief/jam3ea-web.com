@@ -13,7 +13,15 @@ export default async function Cart({
 }: {
   params: { lang: Locale };
 }) {
-  const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+  const cart: IGetCheckoutResponseResult = await apiHandler(
+    '/checkout',
+    'GET',
+    undefined,
+    true,
+    false
+  );
+
+  console.log('CART: ', cart);
 
   const dict = await getDictionary(lang);
 

@@ -1,16 +1,13 @@
 import * as crypto from 'crypto';
-import { NextResponse } from 'next/server';
+import querystring from 'querystring';
 import { LANGUAGES } from '../enums';
+import { IGetCheckoutResponseResult } from '@/module/cart/types';
+import apiHandler from './apiHandler';
+import { IUser } from '@/module/(profile)/types';
 
 class Knet {
-  /* private isWallet: boolean;
-  private amount: number;
-  private resUrl: string;
-  private resultUrl: string; */
-  private amount;
   private lang;
-  constructor(amount = 0, lang = 'en') {
-    this.amount = amount;
+  constructor(lang = 'en') {
     this.lang = lang;
   }
 
@@ -37,9 +34,8 @@ class Knet {
     }
   };
 
-  private aesDecrypt = (text: string) => {
+  private aesDecrypt = (text: string, key: string) => {
     const AES_METHOD = 'aes-128-cbc';
-    const key = process.env.termResourceKey;
 
     const decipher = crypto.createDecipheriv(
       AES_METHOD,
@@ -54,25 +50,31 @@ class Knet {
     return decrypted.toString();
   };
 
-  pay = () => {
+  pay = async (hash: string, user: IUser) => {
     const kpayUrl = process.env.knet_payment_url;
     const tranportalId = process.env.knet_tranportal_id;
     const tranportalPassword = process.env.knet_req_tranportal_password;
     const termResourceKey = process.env.knet_term_resource_key;
-    const responseUrl = process.env.SITE_URL + '/checkout';
+    const responseUrl = process.env.SITE_URL + '/api/payment';
     const errorUrl = process.env.SITE_URL + '/checkout';
+
+    const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
 
     const paramData = {
       currencycode: '414',
       id: tranportalId,
       password: tranportalPassword,
       action: '1',
-      langid: this.lang.toUpperCase(),
-      amt: this.amount,
+      langid: this.lang === LANGUAGES.ARABIC ? this.lang.toUpperCase() : 'USA',
+      amt: parseFloat(cart.total),
       responseURL: responseUrl,
       errorURL: errorUrl,
-      trackid: Math.random(),
-      udf3: 12345678,
+      trackid: hash,
+      udf1: '',
+      udf2: '',
+      udf3: user && user.mobile && user.mobile.length === 8 ? user.mobile : '',
+      udf4: '',
+      udf5: hash,
     };
 
     let params = '';
@@ -85,9 +87,60 @@ class Knet {
 
     params = `${encryptedParams}&tranportalId=${tranportalId}&responseURL=${responseUrl}&errorURL=${errorUrl}`;
 
-    const url = `${kpayUrl}&param=paymentInit&trandata=${params}`;
+    const url = `${kpayUrl}&trandata=${params}`;
     return url;
-    //return NextResponse.redirect(new URL(url));
+  };
+
+  result = (bodyText: string) => {
+    const jsonBody = querystring.parse(bodyText);
+    console.log('json body: ', jsonBody);
+    const {
+      ErrorText,
+      paymentid,
+      trackid,
+      Error,
+      result,
+      postdate,
+      tranid,
+      auth,
+      avr,
+      ref,
+      amt,
+      udf1,
+      udf2,
+      udf3,
+      udf4,
+      udf5,
+    } = jsonBody;
+
+    const termResourceKey = process.env.knet_term_resource_key;
+
+    if (!ErrorText && !Error) {
+      const resTranData = jsonBody.trandata;
+      if (resTranData) {
+        const decrytedData = this.aesDecrypt(
+          resTranData as string,
+          termResourceKey as string
+        );
+        const url = process.env.SITE_URL + '/checkout?' + decrytedData;
+        return url;
+      }
+    } else {
+      const url =
+        process.env.SITE_URL +
+        '/checkout?' +
+        'Error=' +
+        Error +
+        '&ErrorText=' +
+        ErrorText +
+        '&trackid=' +
+        trackid +
+        '&amt=' +
+        amt +
+        '&paymentid=' +
+        paymentid;
+      return url;
+    }
   };
 }
 

@@ -129,13 +129,13 @@ export async function POST(request: NextRequest) {
 
   if (body.payment_method === 'knet') {
     const lang = request.cookies.get('language')?.value;
-    const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
-    const knet = new Knet(parseFloat(cart.total), lang);
-    const url = knet.pay();
+    const user = request.cookies.get('auth.user')?.value;
+    const knet = new Knet(lang);
+    const url = await knet.pay(valid.results.hash, user as any);
     console.log(
       '================================================================'
     );
-    console.log('redirect url: ', url, parseFloat(cart.total));
+    console.log('redirect url: ', url);
     console.log(
       '================================================================'
     );
