@@ -19,7 +19,7 @@ export default async function PointsPage({
     <>
       <Navbar
         className="bg-primary text-white"
-        title={user.points + ' ' + translate(dict, 'points')}
+        title={translate(dict, 'my_points') + ' (' + user.points + ')'}
       />
       <Container>
         <PointsCards />

@@ -73,6 +73,7 @@ export default function AddToCartButton({
             <div className="h-full max-w-lg mx-auto flex items-center justify-center">
               <div className="flex items-center justify-between gap-10">
                 <button
+                  type="button"
                   className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg"
                   onClick={handleIncrement}
                 >
@@ -84,6 +85,7 @@ export default function AddToCartButton({
                       {count}
                     </span>
                     <button
+                      type="button"
                       className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg ml-auto"
                       onClick={handleDecrement}
                     >
@@ -131,6 +133,7 @@ export default function AddToCartButton({
         <button
           className="text-primary shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg"
           onClick={handleIncrement}
+          type="button"
         >
           {/* {maxQantity > 0 ? (
           count < maxQantity ? (
@@ -157,6 +160,7 @@ export default function AddToCartButton({
           <button
             className="text-danger shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg ml-auto"
             onClick={handleDecrement}
+            type="button"
           >
             {count === 1 ? (
               <TrashIcon className="w-4 h-4" />

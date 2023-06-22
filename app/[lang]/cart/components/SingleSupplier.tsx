@@ -18,6 +18,9 @@ import { FormEvent, useContext, useState } from 'react';
 import { AuthContext } from '@/lib/providers/AuthProvider';
 import { AddressContext } from '@/lib/providers/AddressProvider';
 import { useFormik } from 'formik';
+import { checkout } from '../services';
+import { IResponse } from '@/lib/types';
+import { showErrorAlert } from '@/lib/utils/helpers';
 
 interface SingleSupplierProps {
   cart: IGetCheckoutResponseResult;
@@ -32,16 +35,53 @@ export default function SingleSupplier({
 }: SingleSupplierProps) {
   const data = cart.data[0];
 
-  const { translate } = useContext(AuthContext);
+  const { translate, isLoggedIn } = useContext(AuthContext);
   const { selectedAddress } = useContext(AddressContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
       payment_method: '',
       delivery_time: '',
     },
-    onSubmit: (values) => {
-      console.log('VALUES: ', values);
+    onSubmit: async (values) => {
+      if (!values.payment_method) {
+        showErrorAlert(translate('select_payment_method'), translate('ok'));
+        return;
+      }
+
+      if (!values.delivery_time) {
+        showErrorAlert(translate('select_delivery_time'), translate('ok'));
+        return;
+      }
+      const body: any = {
+        payment_method: values.payment_method,
+        delivery_time: values.delivery_time,
+        suppliers: [
+          {
+            supplier_id: data.supplier._id,
+            delivery_time: values.delivery_time,
+          },
+        ],
+      };
+
+      if (isLoggedIn) {
+        body.address_id = selectedAddress?.id;
+      } else {
+        body.user_data = {
+          fullname: selectedAddress?.name,
+          mobile: selectedAddress?.mobile,
+          email: selectedAddress?.email,
+          address: { ...selectedAddress },
+        };
+      }
+      setIsLoading(true);
+      const response: IResponse<{ url: string }> = await checkout(body);
+      if (response.success && response.results?.url) {
+        window.location.href = response.results.url;
+      } else {
+        setIsLoading(false);
+      }
     },
   });
 
@@ -158,7 +198,11 @@ export default function SingleSupplier({
       {cart.message && cart.purchase_possibility === false && (
         <div className="text-danger text-center mb-2">{cart.message}</div>
       )}
-      <Button disabled={cart.purchase_possibility === false} type="submit">
+      <Button
+        disabled={cart.purchase_possibility === false}
+        loading={isLoading}
+        type="submit"
+      >
         {translate('checkout')}
       </Button>
       <div className="text-center">

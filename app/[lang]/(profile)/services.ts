@@ -10,6 +10,8 @@ import {
   IOrder,
   IRegister,
   IRegisterResponseResult,
+  ISendToWallet,
+  ISendToWalletResponseResult,
   IUpdateCity,
   IUpdateCityResponseResult,
   IUpdatePassword,
@@ -75,3 +77,8 @@ export const convertPointsToWallet = (
   inputs: IConvertPoints
 ): Promise<IResponse<IConvertPointsResponseResult, IConvertPoints>> =>
   clientRequest('/profile/wallet', 'PUT', inputs);
+
+export const sendToWallet = (
+  inputs: ISendToWallet
+): Promise<IResponse<ISendToWalletResponseResult, ISendToWallet>> =>
+  clientRequest('/profile/wallet/send', 'PUT', inputs);

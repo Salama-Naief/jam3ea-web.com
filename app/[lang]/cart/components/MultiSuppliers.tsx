@@ -17,8 +17,11 @@ import Button from '@/components/Button';
 import webRoutes from '@/lib/utils/webRoutes';
 import ApplyCoupon from './ApplyCoupon';
 import useHttpClient from '@/lib/hooks/useHttpClient';
-import { getcheckout } from '../services';
+import { checkout, getcheckout } from '../services';
 import { useFormik } from 'formik';
+import { showErrorAlert } from '@/lib/utils/helpers';
+import { AddressContext } from '@/lib/providers/AddressProvider';
+import { IResponse } from '@/lib/types';
 
 interface MultiSuppliersProps {
   cart: IGetCheckoutResponseResult;
@@ -31,25 +34,72 @@ export default function MultiSuppliers({
   lang,
   dict,
 }: MultiSuppliersProps) {
-  const { translate, language } = useContext(AuthContext);
+  const { translate, language, isLoggedIn } = useContext(AuthContext);
+  const { selectedAddress } = useContext(AddressContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const suppliersData = cart.data.map((d) =>
+    d.supplier.delivery_time_text
+      ? null
+      : {
+          supplier_id: d.supplier._id,
+          delivery_time: '',
+        }
+  );
 
   const formik = useFormik({
     initialValues: {
       payment_method: '',
-      delivery_time: '',
+      suppliers: suppliersData,
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log('VALUES: ', values);
+      if (!values.payment_method) {
+        showErrorAlert(translate('select_payment_method'), translate('ok'));
+        return;
+      }
+
+      if (
+        values.suppliers.find(
+          (s: any) => s && s.supplier_id && !s.delivery_time
+        )
+      ) {
+        showErrorAlert(translate('select_delivery_time'), translate('ok'));
+        return;
+      }
+
+      const body: any = {
+        payment_method: values.payment_method,
+        suppliers: values.suppliers.filter((s) => s && s.supplier_id),
+      };
+
+      if (isLoggedIn) {
+        body.address_id = selectedAddress?.id;
+      } else {
+        body.user_data = {
+          fullname: selectedAddress?.name,
+          mobile: selectedAddress?.mobile,
+          email: selectedAddress?.email,
+          address: { ...selectedAddress },
+        };
+      }
+      setIsLoading(true);
+      const response: IResponse<{ url: string }> = await checkout(body);
+      if (response.success && response.results?.url) {
+        window.location.href = response.results.url;
+      } else {
+        setIsLoading(false);
+      }
     },
   });
 
   const { touched, errors, values, handleChange, handleSubmit, setFieldValue } =
     formik;
 
+  console.log('before values: ', values);
   return (
     <>
-      <form>
-        {cart.data.map((data) => (
+      <form onSubmit={handleSubmit}>
+        {cart.data.map((data, i) => (
           <div
             key={data.supplier._id}
             className="border-primary border mb-4 rounded-xl p-2"
@@ -110,7 +160,7 @@ export default function MultiSuppliers({
               <div className="py-5 rounded-xl bg-white">
                 <div className="text-center">
                   {typeof data.supplier.delivery_time_text === 'object'
-                    ? data.supplier.delivery_time_text['en']
+                    ? data.supplier.delivery_time_text[lang]
                     : data.supplier.delivery_time_text}
                 </div>
               </div>
@@ -122,8 +172,18 @@ export default function MultiSuppliers({
                   pick_delivery_time: dict.pick_delivery_time,
                 }}
                 onSelect={(v) => {
+                  setFieldValue(
+                    `suppliers.${i}.supplier_id`,
+                    data.supplier._id
+                  );
+                  setFieldValue(`suppliers.${i}.delivery_time`, v.full_date);
                   console.log('Selected time: ', v.full_date);
                 }}
+                selectedDeliveryTime={
+                  values.suppliers[i] != null
+                    ? values.suppliers[i]?.delivery_time
+                    : ''
+                }
               />
             )}
             <div className="flex flex-col  py-2">
@@ -271,7 +331,11 @@ export default function MultiSuppliers({
         {cart.message && cart.purchase_possibility === false && (
           <div className="text-danger text-center mb-2">{cart.message}</div>
         )}
-        <Button disabled={cart.purchase_possibility === false} type="submit">
+        <Button
+          disabled={cart.purchase_possibility === false}
+          loading={isLoading}
+          type="submit"
+        >
           {translate('checkout')}
         </Button>
         <div className="text-center">

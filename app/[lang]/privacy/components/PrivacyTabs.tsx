@@ -16,7 +16,7 @@ export default function PrivacyTabs() {
               : 'text-black px-4 py-2'
           }
         >
-          {translate('privacy')}
+          {translate('policy')}
         </Tab>
         <Tab
           className={({ selected }) =>
@@ -25,31 +25,61 @@ export default function PrivacyTabs() {
               : 'text-black px-4 py-2'
           }
         >
-          {translate('policy')}
+          {translate('privacy')}
         </Tab>
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel className={'py-5'}>
           <div className="bg-gray-300 rounded-lg mb-4">
-            <div className="text-primary p-2">text to replace</div>
-            <div className="bg-[#e8dcd4] p-2 rounded-b-lg">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Exercitationem quis expedita non doloribus totam ipsa ea
-              dignissimos explicabo voluptatum esse placeat, labore facilis
-              beatae qui aliquam culpa enim cumque dolore. Quaerat minus
-              provident labore autem non, quod laudantium facilis ullam expedita
-              culpa ut fugiat alias ab debitis atque magnam delectus?
+            <div className="text-primary p-2">
+              {translate('delivery_policy')}
+            </div>
+            <div className="bg-[#e8dcd4] p-2 rounded-b-lg whitespace-pre-line">
+              {translate('delivery_policy_content')}
             </div>
           </div>
-          <div className="bg-gray-300 rounded-lg">
-            <div className="text-primary p-2">text to replace</div>
-            <div className="bg-[#e8dcd4] p-2 rounded-b-lg">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Exercitationem quis expedita non doloribus totam ipsa ea
-              dignissimos explicabo voluptatum esse placeat, labore facilis
-              beatae qui aliquam culpa enim cumque dolore. Quaerat minus
-              provident labore autem non, quod laudantium facilis ullam expedita
-              culpa ut fugiat alias ab debitis atque magnam delectus?
+
+          <div className="bg-gray-300 rounded-lg mb-4">
+            <div className="text-primary p-2">
+              {translate('delivery_return_policy')}
+            </div>
+            <div className="bg-[#e8dcd4] p-2 rounded-b-lg whitespace-pre-line">
+              {translate('delivery_return_policy_content')}
+            </div>
+          </div>
+
+          <div className="bg-gray-300 rounded-lg mb-4">
+            <div className="text-primary p-2">
+              {translate('exchange_or_return')}
+            </div>
+            <div className="bg-[#e8dcd4] p-2 rounded-b-lg whitespace-pre-line">
+              {translate('exchange_or_return_content')}
+            </div>
+          </div>
+        </Tab.Panel>
+        <Tab.Panel>
+          <div className="bg-gray-300 rounded-lg mb-4">
+            <div className="text-primary p-2">
+              {translate('data_collected')}
+            </div>
+            <div className="bg-[#e8dcd4] p-2 rounded-b-lg whitespace-pre-line">
+              {translate('data_collected_content')}
+            </div>
+          </div>
+
+          <div className="bg-gray-300 rounded-lg mb-4">
+            <div className="text-primary p-2">
+              {translate('data_collection_use')}
+            </div>
+            <div className="bg-[#e8dcd4] p-2 rounded-b-lg whitespace-pre-line">
+              {translate('data_collection_use_content')}
+            </div>
+          </div>
+
+          <div className="bg-gray-300 rounded-lg mb-4">
+            <div className="text-primary p-2">{translate('data_security')}</div>
+            <div className="bg-[#e8dcd4] p-2 rounded-b-lg whitespace-pre-line">
+              {translate('data_security_content')}
             </div>
           </div>
         </Tab.Panel>

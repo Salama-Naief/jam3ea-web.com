@@ -3,14 +3,17 @@ import Swal from 'sweetalert2';
 export const clientRequest = async (
   route: string,
   method: string = 'GET',
-  body?: object | null | undefined
+  body?: object | null | undefined,
+  direct = false
 ) => {
   const res = await fetch(
-    `/api?route=${route}${
-      method !== 'POST' || (body && typeof body === 'object')
-        ? ''
-        : '&nobody=' + true
-    }`,
+    direct
+      ? route
+      : `/api?route=${route}${
+          method !== 'POST' || (body && typeof body === 'object')
+            ? ''
+            : '&nobody=' + true
+        }`,
     {
       method,
       body: body && typeof body === 'object' ? JSON.stringify(body) : undefined,

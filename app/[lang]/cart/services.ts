@@ -37,3 +37,12 @@ export const getcheckout = (
 
   return clientRequest(baseUrl + queryString);
 };
+
+export const checkout = (values: any): Promise<any> => {
+  return clientRequest(
+    'https://web.jm3eia.com/api/checkout',
+    'POST',
+    values,
+    true
+  );
+};

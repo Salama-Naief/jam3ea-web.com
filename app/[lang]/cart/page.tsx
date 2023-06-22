@@ -14,7 +14,6 @@ export default async function Cart({
   params: { lang: Locale };
 }) {
   const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
-  console.log('cart: ', cart);
 
   const dict = await getDictionary(lang);
 

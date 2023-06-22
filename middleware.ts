@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
     url.startsWith('/static/') ||
     url.startsWith('/assets') ||
     url.startsWith('/favicon.ico') ||
-    url === '/api'
+    url.startsWith('/api')
   ) {
     return response;
   }
@@ -35,7 +35,9 @@ export async function middleware(request: NextRequest) {
 
   const addresses = request.cookies.get('addresses')?.value;
   const selectedAddress = request.cookies.get('selectedAddress')?.value;
-  const isLoggedIn = request.cookies.get('isLoggedIn')?.value;
+  const isLoggedIn =
+    request.cookies.get('isLoggedIn')?.value &&
+    request.cookies.get('isLoggedIn')?.value == 'true';
 
   if (!token) {
     if (isRoute(url, webRoutes.splash)) {
@@ -53,7 +55,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (
-      url != '' &&
+      /* url != '' && */
       !isRoute(url, webRoutes.splash) &&
       !isRoute(url, webRoutes.addresses) &&
       !isRoute(url, webRoutes.register) &&
@@ -61,7 +63,10 @@ export async function middleware(request: NextRequest) {
       !isLoggedIn &&
       (!addresses || addresses?.length < 1)
     ) {
-      console.log('REDIRECTION #3 ', url, !isRoute(url, webRoutes.splash));
+      console.log(
+        'REDIRECTION #3 ',
+        new URL(webRoutes.splash, request.url).toString()
+      );
       return NextResponse.redirect(new URL(webRoutes.splash, request.url));
     }
 
@@ -71,10 +76,14 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  const urlToRedirect = authMiddleware(request, url);
+  /* const urlToRedirect = authMiddleware(request, url);
   if (urlToRedirect) {
     return NextResponse.redirect(urlToRedirect);
   }
+
+  if (!selectedAddress) {
+    return NextResponse.redirect(new URL(webRoutes.addresses, request.url));
+  } */
 
   const pathname = request.nextUrl.pathname;
 
@@ -90,10 +99,16 @@ export async function middleware(request: NextRequest) {
 
   if (!pathname.startsWith(`/${language}/`) && pathname !== `/${language}`) {
     if (!pathnameIsMissingLocale) {
-      console.log('REDIRECTION #5: ', pathname, language);
+      console.log('REDIRECTION #5');
       return NextResponse.redirect(new URL(`/${language}`, request.url));
     } else {
-      console.log('REDIRECTION #6');
+      console.log(
+        'REDIRECTION #6: ',
+        new URL(
+          `/${language}/${pathname}${request.nextUrl.search}`,
+          request.url
+        ).toString()
+      );
       return NextResponse.redirect(
         new URL(
           `/${language}/${pathname}${request.nextUrl.search}`,

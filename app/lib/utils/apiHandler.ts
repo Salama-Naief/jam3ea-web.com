@@ -13,7 +13,7 @@ const apiHandler = async (
   body?: object | null | undefined,
   onlyResults = true,
   cache = true,
-  defaultToken?: string
+  defaultToken?: string | null
 ) => {
   try {
     const cookieStore = cookies();
@@ -49,8 +49,6 @@ const apiHandler = async (
 
     const res = await fetch(url, options);
     const resData: IResponse<any, any> = await res.json();
-
-    console.log('RESDATA: ', resData);
 
     if (resData.status_message === STATUS_MESSAGES.INVALID_APP_AUTHENTICATION) {
       console.log('invalid token!');

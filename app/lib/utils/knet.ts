@@ -1,77 +1,94 @@
 import * as crypto from 'crypto';
+import { NextResponse } from 'next/server';
+import { LANGUAGES } from '../enums';
 
-const pkcs5Pad = (text: string) => {
-  const blocksize = 16;
-  const pad = blocksize - (text.length % blocksize);
-
-  return text + pad.toString().repeat(pad);
-};
-
-const aesEncrypt = (text: string, key: string) => {
-  const AES_METHOD = 'aes-128-cbc';
-  const content = pkcs5Pad(text);
-
-  try {
-    const cipher = crypto.createCipheriv(AES_METHOD, new Buffer(key), key);
-    let encrypted = cipher.update(content);
-
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
-
-    return `${encrypted.toString('hex')}`;
-  } catch (err) {
-    /* empty */
+class Knet {
+  /* private isWallet: boolean;
+  private amount: number;
+  private resUrl: string;
+  private resultUrl: string; */
+  private amount;
+  private lang;
+  constructor(amount = 0, lang = 'en') {
+    this.amount = amount;
+    this.lang = lang;
   }
-};
 
-const aesDecrypt = (text: string) => {
-  const AES_METHOD = 'aes-128-cbc';
-  const key = process.env.termResourceKey;
+  private pkcs5Pad = (text: string) => {
+    const blocksize = 16;
+    const pad = blocksize - (text.length % blocksize);
 
-  const decipher = crypto.createDecipheriv(
-    AES_METHOD,
-    new Buffer(key as string),
-    key as string
-  );
-  const encryptedText = new Buffer(text, 'hex');
-  let decrypted = decipher.update(encryptedText);
-
-  decrypted = Buffer.concat([decrypted, decipher.final()]);
-
-  return decrypted.toString();
-};
-
-/* const initiateKnetPayment = () => {
-  const kpayUrl = process.env.kpayUrl; // https://www.kpay.com.kw/kpg/PaymentHTTP.htm for production or https://www.kpaytest.com.kw/kpg/PaymentHTTP.htm for test
-  const tranportalId = process.env.tranportalId;
-  const tranportalPassword = process.env.tranportalPassword;
-  const termResourceKey = process.env.termResourceKey;
-  const responseUrl = process.env.kpayResponseUrl;
-  const errorUrl = process.env.kpayErrorUrl;
-
-  const paramData = {
-    currencycode: '414',
-    id: tranportalId,
-    password: tranportalPassword,
-    action: '1',
-    langid: 'AR',
-    amt: 20, // amount
-    responseURL: responseUrl,
-    errorURL: errorUrl,
-    trackid: Math.random(),
-    udf3: 12345678, // 8 digit numeric value as customer identifier
+    return text + pad.toString().repeat(pad);
   };
 
-  let params = '';
+  private aesEncrypt = (text: string, key: string) => {
+    const AES_METHOD = 'aes-128-cbc';
+    const content = this.pkcs5Pad(text);
 
-  Object.keys(paramData).forEach((key) => {
-    params += `${key}=${paramData[key as keyof typeof paramData]}&`;
-  });
+    try {
+      const cipher = crypto.createCipheriv(AES_METHOD, new Buffer(key), key);
+      let encrypted = cipher.update(content);
 
-  const encryptedParams = aesEncrypt(params, termResourceKey);
+      encrypted = Buffer.concat([encrypted, cipher.final()]);
 
-  params = `${encryptedParams}&tranportalId=${tranportalId}&responseURL=${responseUrl}&errorURL=${errorUrl}`;
+      return `${encrypted.toString('hex')}`;
+    } catch (err) {
+      /* empty */
+    }
+  };
 
-  const url = `${kpayUrl}?param=paymentInit&trandata=${params}`;
+  private aesDecrypt = (text: string) => {
+    const AES_METHOD = 'aes-128-cbc';
+    const key = process.env.termResourceKey;
 
-  Router.push(url);
-}; */
+    const decipher = crypto.createDecipheriv(
+      AES_METHOD,
+      new Buffer(key as string),
+      key as string
+    );
+    const encryptedText = new Buffer(text, 'hex');
+    let decrypted = decipher.update(encryptedText);
+
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    return decrypted.toString();
+  };
+
+  pay = () => {
+    const kpayUrl = process.env.knet_payment_url;
+    const tranportalId = process.env.knet_tranportal_id;
+    const tranportalPassword = process.env.knet_req_tranportal_password;
+    const termResourceKey = process.env.knet_term_resource_key;
+    const responseUrl = process.env.SITE_URL + '/checkout';
+    const errorUrl = process.env.SITE_URL + '/checkout';
+
+    const paramData = {
+      currencycode: '414',
+      id: tranportalId,
+      password: tranportalPassword,
+      action: '1',
+      langid: this.lang.toUpperCase(),
+      amt: this.amount,
+      responseURL: responseUrl,
+      errorURL: errorUrl,
+      trackid: Math.random(),
+      udf3: 12345678,
+    };
+
+    let params = '';
+
+    Object.keys(paramData).forEach((key) => {
+      params += `${key}=${paramData[key as keyof typeof paramData]}&`;
+    });
+
+    const encryptedParams = this.aesEncrypt(params, termResourceKey as any);
+
+    params = `${encryptedParams}&tranportalId=${tranportalId}&responseURL=${responseUrl}&errorURL=${errorUrl}`;
+
+    const url = `${kpayUrl}&param=paymentInit&trandata=${params}`;
+    return url;
+    //return NextResponse.redirect(new URL(url));
+  };
+}
+
+export default Knet;

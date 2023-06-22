@@ -34,6 +34,7 @@ export default function DeliveryTimePicker({
     <div>
       <h5 className="text-base mb-2">{dictionary.delivery_time}</h5>
       <button
+        type="button"
         onClick={() => {
           openModal();
         }}

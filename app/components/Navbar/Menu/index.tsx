@@ -42,12 +42,12 @@ export default function Menu() {
       icon: <CartIcon />,
       link: webRoutes.cart,
     },
-    /* {
-      title: 'Wallet (My credit) 0.000 Kwd',
-      icon: <span>icon</span>,
-      link: '#',
+    {
+      title: 'wallet_credit',
+      icon: <WalletIcon />,
+      link: webRoutes.wallet,
       auth: true,
-    }, */
+    },
     {
       title: 'wallet_points',
       icon: <WalletIcon />,
@@ -93,15 +93,6 @@ export default function Menu() {
       icon: <PrivacyIcon />,
       link: webRoutes.privacy,
     },
-    /* {
-      title: 'logout',
-      icon: <span>icon</span>,
-      link: '#',
-      onClick: () => {
-        logout();
-      },
-      auth: true,
-    }, */
   ];
 
   return (

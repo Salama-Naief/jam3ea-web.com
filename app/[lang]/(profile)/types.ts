@@ -166,3 +166,25 @@ export interface IConvertPointsResponseResult {
   points: number;
   wallet: number;
 }
+
+export interface IWalletHistory {
+  _id: string;
+  old_wallet: string;
+  new_wallet: string;
+  notes: string;
+  created: string;
+}
+
+export interface ISendToWallet {
+  mobile: string;
+  amount: string;
+}
+
+export interface ISendToWalletResponseResult {
+  member_id: string;
+  old_wallet: string;
+  new_wallet: string;
+  type: string;
+  notes: string;
+  created: string;
+}

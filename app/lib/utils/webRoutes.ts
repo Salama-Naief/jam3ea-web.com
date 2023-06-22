@@ -16,6 +16,7 @@ const webRoutes = {
   contact: '/contact',
   privacy: '/privacy',
   points: '/points',
+  wallet: '/wallet',
   trackOrder: (id: string) => `/orders/${id}/track`,
   orderDetails: (id: string) => `/orders/${id}`,
   category: (id: string, supplierId?: string) =>
