@@ -35,7 +35,7 @@ const apiHandler = async (
         'Content-Type': 'application/json',
       },
       body: body && typeof body == 'object' ? JSON.stringify(body) : undefined,
-      cache: cache ? 'default' : 'no-store',
+      cache: cache === true ? 'default' : 'no-store',
     };
 
     let url = process.env.API_BASE_URL + route;

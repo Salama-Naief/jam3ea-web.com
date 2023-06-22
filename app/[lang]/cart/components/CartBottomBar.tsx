@@ -54,6 +54,7 @@ export default function CartBottomBar() {
                   href={webRoutes.cart}
                   className="text-white"
                   type="button"
+                  prefetch={false}
                 >
                   {translate('view_cart')}
                 </Link>

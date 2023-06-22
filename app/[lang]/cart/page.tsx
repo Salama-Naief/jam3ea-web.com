@@ -21,8 +21,6 @@ export default async function Cart({
     false
   );
 
-  console.log('CART: ', cart);
-
   const dict = await getDictionary(lang);
 
   return (
