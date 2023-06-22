@@ -40,7 +40,7 @@ export const getcheckout = (
 
 export const checkout = (values: any): Promise<any> => {
   return clientRequest(
-    'http://web.jm3eia.com/api/checkout',
+    'https://web.jm3eia.com/api/checkout',
     'POST',
     values,
     true
