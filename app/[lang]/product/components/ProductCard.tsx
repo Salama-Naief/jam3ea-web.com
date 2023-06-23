@@ -36,7 +36,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   return (
     <div
-      className={`flex-shrink-0 flex flex-col bg-white w-36 rounded-xl p-4 relative overflow-hidden ${className}`}
+      className={`flex-shrink-0 flex flex-col bg-white w-full rounded-xl p-4 relative overflow-hidden ${className}`}
     >
       {oldPrice && (
         <div className="bg-danger text-white w-fit px-2 absolute right-0 top-0 text-sm">
