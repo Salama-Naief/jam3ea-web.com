@@ -50,7 +50,13 @@ export default function AddressCard({
               : city.name
             : ''}
         </div>
-        <button className="ml-auto" onClick={onEdit}>
+        <button
+          className="ml-auto"
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit();
+          }}
+        >
           <FontAwesomeIcon icon={faPen} className="text-[#ccc]" />
         </button>
       </div>
@@ -62,7 +68,13 @@ export default function AddressCard({
             'house'
           )}. ${house}`}
         </div>
-        <button className="ml-auto" onClick={onDelete}>
+        <button
+          className="ml-auto"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+        >
           <FontAwesomeIcon icon={faTrashCan} className="text-[#ccc]" />
         </button>
       </div>

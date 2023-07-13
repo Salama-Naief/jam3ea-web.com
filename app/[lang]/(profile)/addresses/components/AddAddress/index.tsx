@@ -1,7 +1,7 @@
 'use client';
 
 import Popup from '@/components/Popup';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AddAddressForm from './AddAddressForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';

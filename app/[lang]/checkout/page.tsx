@@ -67,6 +67,11 @@ const checkout = async (searchParams: any) => {
       false
     );
 
+    console.log(
+      '========================================== CHECKOUT RESPONSE ==========================================\n',
+      checkoutResponse
+    );
+
     let params = '';
     Object.keys(body).forEach((key) => {
       params += `${key}=${body[key as keyof typeof body]}&`;

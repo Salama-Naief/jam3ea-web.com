@@ -26,6 +26,7 @@ interface AddAddressProps {
 const AddressSchema = Yup.object().shape({
   name: Yup.string().required(),
   mobile: Yup.string().required().length(8),
+  street: Yup.string().required(),
   city_id: Yup.string().required(),
 });
 

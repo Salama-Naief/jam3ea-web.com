@@ -53,6 +53,7 @@ const AddressProvider = ({ children }: any) => {
     'city',
     'isLoggedIn',
     'data',
+    'auth.token',
   ]);
 
   const [city, setCity] = useState<ICity | null>(cookies['city']);
@@ -63,7 +64,9 @@ const AddressProvider = ({ children }: any) => {
 
   const [addresses, setAddresses] = useState<IAddress[]>([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(cookies['isLoggedIn'] || false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    cookies['isLoggedIn'] === 'true'
+  );
 
   const router = useRouter();
 
@@ -74,7 +77,7 @@ const AddressProvider = ({ children }: any) => {
   } as any;
 
   useEffect(() => {
-    setIsLoggedIn(cookies['isLoggedIn']);
+    setIsLoggedIn(cookies['isLoggedIn'] === 'true');
   }, [cookies['isLoggedIn']]);
 
   useEffect(() => {
@@ -140,7 +143,14 @@ const AddressProvider = ({ children }: any) => {
       request: Promise<IResponse<IAddAddressResponseResult, IAddAddress>>
     ) => Promise<boolean>
   ) => {
-    if (isLoggedIn) {
+    if (values.city && values.city.children) delete values.city.children;
+    console.log(
+      'started...',
+      isLoggedIn,
+      cookies['isLoggedIn'],
+      cookies['isLoggedIn'] === 'true'
+    );
+    if (isLoggedIn && cookies['auth.token']) {
       const status = await sendRequest(storeAddress(values));
       if (status) {
         const addressesResponse = await getAddresses();
@@ -151,6 +161,7 @@ const AddressProvider = ({ children }: any) => {
       }
       return status;
     } else {
+      console.log('we are here: ', values);
       const newAddress = {
         ...values,
         id: generateUniqueAddressId(),
@@ -159,6 +170,7 @@ const AddressProvider = ({ children }: any) => {
         ...(addresses as IAddress[]),
         newAddress,
       ];
+      console.log('new addresses: ', newAddresses);
       setCookie('addresses', newAddresses, options);
       setAddresses(newAddresses);
 

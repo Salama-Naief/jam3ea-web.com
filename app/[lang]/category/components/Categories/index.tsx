@@ -23,6 +23,7 @@ export default async function Categories({
     <>
       <Suspense fallback={<Loader />}>
         {categories &&
+          categories.data &&
           categories.data.map(({ _id, name, picture, children }, i) => {
             if (limit && i >= limit) return;
             return (

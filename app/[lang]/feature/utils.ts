@@ -1,6 +1,7 @@
 import webRoutes from '@/lib/utils/webRoutes';
 
 export const getSlideUrl = (url: string, supplierId?: string) => {
+  if (!url) return '#';
   const pattern = /supplier_id=([\w]+)/;
   const match = url.match(pattern);
   if (match) {

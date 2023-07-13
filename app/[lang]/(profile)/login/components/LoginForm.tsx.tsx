@@ -9,7 +9,7 @@ import webRoutes from '@/lib/utils/webRoutes';
 import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '@/lib/providers/AuthProvider';
 
 export default function LoginForm() {
@@ -20,6 +20,7 @@ export default function LoginForm() {
     sendRequest,
   } = useHttpClient<ILoginResponseResult, ILogin>();
   const { translate, login: makeLogin } = useContext(AuthContext);
+  const [redirecting, setRedirecting] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -29,6 +30,7 @@ export default function LoginForm() {
     onSubmit: async (values) => {
       const status = await sendRequest(login(values));
       if (status == true) {
+        setRedirecting(true);
         makeLogin();
       }
     },
@@ -80,7 +82,7 @@ export default function LoginForm() {
           {translate('reset_password')}
         </Link>
       </div> */}
-      <Button type="submit" loading={isLoading}>
+      <Button type="submit" loading={isLoading || redirecting}>
         {translate('login')}
       </Button>
       <Link

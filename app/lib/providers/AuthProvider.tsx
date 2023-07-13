@@ -86,14 +86,14 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
   };
 
   const logout = () => {
-    setCookie('isLoggedIn', false);
+    removeCookie('isLoggedIn');
     removeCookie('auth.user');
     removeCookie('auth.token');
     removeCookie('visitor.token');
     removeCookie('addresses');
     removeCookie('selectedAddress');
     removeCookie('city');
-    if (window) window.location.href = webRoutes.splash;
+    if (window) window.location.href = webRoutes.home;
     else router.replace(webRoutes.splash);
   };
 

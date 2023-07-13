@@ -24,6 +24,7 @@ import { LanguageIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 export default function Menu() {
   const [showDrawer, setShowDrawer] = useState(false);
   const [isDomReady, setIsDomReady] = useState(false);
+  const [isLanguageChangind, setIsLanguageChanging] = useState(false);
   const { isLoggedIn, translate, changeLanguage, language, logout } =
     useContext(AuthContext);
 
@@ -134,14 +135,16 @@ export default function Menu() {
               )}
               <li>
                 <button
-                  onClick={() =>
+                  onClick={() => {
+                    setIsLanguageChanging(true);
                     changeLanguage(
                       language === LANGUAGES.ENGLISH
                         ? LANGUAGES.ARABIC
                         : LANGUAGES.ENGLISH,
                       true
-                    )
-                  }
+                    );
+                  }}
+                  disabled={isLanguageChangind}
                   className="flex items-center p-2 text-gray-900 hover:bg-primary-soft w-full"
                 >
                   <LanguageIcon className="w-6 h-6 text-primary" />

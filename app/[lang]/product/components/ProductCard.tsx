@@ -44,7 +44,7 @@ export default function ProductCard({
         </div>
       )}
       <AddToWishlist sku={sku} isInWhishlist={isInWhishlist} />
-      <Link href={webRoutes.product(sku)}>
+      <Link href={webRoutes.product(sku)} prefetch={false}>
         <div className="w-20 h-20 mx-auto">
           <img className="w-full object-cover" src={picture} /* alt={name} */ />
         </div>
