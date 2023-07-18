@@ -9,6 +9,7 @@ import SingleSupplier from './SingleSupplier';
 import MultiSuppliers from './MultiSuppliers';
 import { AuthContext } from '@/lib/providers/AuthProvider';
 import Loader from '@/components/Loader';
+import { AddressContext } from '@/lib/providers/AddressProvider';
 
 interface CartWrapperProps {
   lang: Locale;
@@ -16,13 +17,19 @@ interface CartWrapperProps {
 }
 
 export default function CartWrapper({ dict, lang }: CartWrapperProps) {
-  const { results: cart, sendRequest, isLoading } =
-    useHttpClient<IGetCheckoutResponseResult>();
+  const {
+    results: cart,
+    sendRequest,
+    isLoading,
+  } = useHttpClient<IGetCheckoutResponseResult>();
   const { translate } = useContext(AuthContext);
+  const { selectedAddress } = useContext(AddressContext);
 
   useEffect(() => {
     const fetchCart = async () => {
-      const status = await sendRequest(getcheckout());
+      const status = await sendRequest(
+        getcheckout(undefined, selectedAddress?.city_id)
+      );
       if (status) {
         console.log('this is results: ', cart);
       }

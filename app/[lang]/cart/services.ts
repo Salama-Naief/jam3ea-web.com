@@ -28,14 +28,17 @@ export const removeCoupon = (removeCouponInputs: IApplyCoupon) =>
   clientRequest(`/coupon?code=${removeCouponInputs.code}`, 'DELETE');
 
 export const getcheckout = (
-  suppliers?: string[]
+  suppliers?: string[],
+  cityId?: string
 ): Promise<IResponse<IGetCheckoutResponseResult>> => {
   const baseUrl = '/checkout';
   const queryString = suppliers
-    ? `?supplier_id=${suppliers.join('&supplier_id=')}`
+    ? `&supplier_id=${suppliers.join('&supplier_id=')}`
     : '';
 
-  return clientRequest(baseUrl + queryString);
+  return clientRequest(
+    baseUrl + `?city_id=${cityId ? cityId : ''}` + queryString
+  );
 };
 
 export const checkout = (values: any, cityId?: string): Promise<any> => {
