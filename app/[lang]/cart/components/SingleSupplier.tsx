@@ -76,7 +76,10 @@ export default function SingleSupplier({
         };
       }
       setIsLoading(true);
-      const response: IResponse<{ url: string }> = await checkout(body);
+      const response: IResponse<{ url: string }> = await checkout(
+        body,
+        selectedAddress?.city_id
+      );
       if (response.success && response.results?.url) {
         window.location.href = response.results.url;
       } else {

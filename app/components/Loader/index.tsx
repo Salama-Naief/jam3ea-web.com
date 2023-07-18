@@ -1,3 +1,9 @@
+import { LoadingIcon } from '../Icons';
+
 export default function Loader() {
-  return <div className="spinner"></div>;
+  return (
+    <div className="text-center">
+      <LoadingIcon />
+    </div>
+  );
 }

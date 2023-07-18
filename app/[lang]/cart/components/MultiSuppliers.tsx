@@ -52,7 +52,6 @@ export default function MultiSuppliers({
       suppliers: suppliersData,
     },
     onSubmit: async (values) => {
-      console.log('VALUES: ', values);
       if (!values.payment_method) {
         showErrorAlert(translate('select_payment_method'), translate('ok'));
         return;
@@ -83,7 +82,10 @@ export default function MultiSuppliers({
         };
       }
       setIsLoading(true);
-      const response: IResponse<{ url: string }> = await checkout(body);
+      const response: IResponse<{ url: string }> = await checkout(
+        body,
+        selectedAddress?.city_id
+      );
       if (response.success && response.results?.url) {
         window.location.href = response.results.url;
       } else {

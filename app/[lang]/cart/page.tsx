@@ -7,19 +7,20 @@ import MultiSuppliers from './components/MultiSuppliers';
 import { Locale } from '../../../i18n-config';
 import { getDictionary } from '@/lib/utils/dictionary';
 import { translate } from '@/lib/utils/serverHelpers';
+import CartWrapper from './components/CartWrapper';
 
 export default async function Cart({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const cart: IGetCheckoutResponseResult = await apiHandler(
+  /* const cart: IGetCheckoutResponseResult = await apiHandler(
     '/checkout',
     'GET',
     undefined,
     true,
     false
-  );
+  ); */
 
   const dict = await getDictionary(lang);
 
@@ -27,17 +28,7 @@ export default async function Cart({
     <div>
       <Navbar title={translate(dict, 'cart')} />
       <Container>
-        {cart && cart.data ? (
-          cart.data.length === 1 ? (
-            <SingleSupplier cart={cart} lang={lang} dict={dict} />
-          ) : (
-            <MultiSuppliers cart={cart} lang={lang} dict={dict} />
-          )
-        ) : (
-          <div className="flex flex-col mt-20 justify-center items-center">
-            <div>{translate(dict, 'no_data')}</div>
-          </div>
-        )}
+        <CartWrapper dict={dict} lang={lang} />
       </Container>
     </div>
   );

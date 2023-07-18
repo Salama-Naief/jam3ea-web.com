@@ -38,9 +38,9 @@ export const getcheckout = (
   return clientRequest(baseUrl + queryString);
 };
 
-export const checkout = (values: any): Promise<any> => {
+export const checkout = (values: any, cityId?: string): Promise<any> => {
   return clientRequest(
-    'https://web.jm3eia.com/api/checkout',
+    `https://web.jm3eia.com/api/checkout${cityId ? '?city_id=' + cityId : ''}`,
     'POST',
     values,
     true
