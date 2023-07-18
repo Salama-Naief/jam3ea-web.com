@@ -14,13 +14,13 @@ export default async function Cart({
 }: {
   params: { lang: Locale };
 }) {
-  /* const cart: IGetCheckoutResponseResult = await apiHandler(
+  const cart: IGetCheckoutResponseResult = await apiHandler(
     '/checkout',
     'GET',
     undefined,
     true,
     false
-  ); */
+  );
 
   const dict = await getDictionary(lang);
 
@@ -28,7 +28,17 @@ export default async function Cart({
     <div>
       <Navbar title={translate(dict, 'cart')} />
       <Container>
-        <CartWrapper dict={dict} lang={lang} />
+        {cart && cart.data ? (
+          cart.data.length === 1 ? (
+            <SingleSupplier cart={cart} lang={lang} dict={dict} />
+          ) : (
+            <MultiSuppliers cart={cart} lang={lang} dict={dict} />
+          )
+        ) : (
+          <div className="flex flex-col mt-20 justify-center items-center">
+            <div>{translate(dict, 'no_data')}</div>
+          </div>
+        )}
       </Container>
     </div>
   );
