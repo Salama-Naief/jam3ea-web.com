@@ -132,13 +132,6 @@ export async function POST(request: NextRequest) {
     const user = request.cookies.get('auth.user')?.value;
     const knet = new Knet(lang);
     const url = await knet.pay(valid.results.hash, user as any);
-    console.log(
-      '================================================================'
-    );
-    console.log('redirect url: ', url);
-    console.log(
-      '================================================================'
-    );
     const response: IResponse<{ url: string }> = {
       errors: null,
       results: { url },

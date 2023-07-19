@@ -69,7 +69,12 @@ const checkout = async (searchParams: any) => {
 
     console.log(
       '========================================== CHECKOUT RESPONSE ==========================================\n',
-      checkoutResponse
+      checkoutResponse,
+      body
+    );
+
+    console.log(
+      '========================================================================================================='
     );
 
     let params = '';
@@ -105,8 +110,6 @@ export default async function Checkout({ params, searchParams }: any) {
   if (!checkoutResponse || !checkoutResponse.success) {
     return redirect(webRoutes.cart);
   }
-
-  console.log('RESPONSE: ', checkoutResponse.results.user_data);
 
   return (
     <div>
