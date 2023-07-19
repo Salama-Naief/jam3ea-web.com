@@ -47,7 +47,7 @@ const checkout = async (searchParams: any) => {
 
     const body = {
       payment_details: paymentDetails,
-      payment_method: searchParams['payment_method'],
+      payment_method: searchParams['payment_method'] == 'cod' ? 'cod' : 'knet',
       discount_by_wallet: checkoutData['discount_by_wallet'],
       delivery_time: checkoutData['delivery_time'],
       notes: checkoutData['notes'],
@@ -61,7 +61,7 @@ const checkout = async (searchParams: any) => {
     const isVIP = checkoutData.isVIP ? checkoutData.isVIP : false;
 
     const checkoutResponse = await apiHandler(
-      '/checkout?isVIP=' + isVIP,
+      '/checkout?web=true&isVIP=' + isVIP,
       'POST',
       body,
       false

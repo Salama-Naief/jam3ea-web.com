@@ -9,6 +9,7 @@ import Button from '@/components/Button';
 import Link from 'next/link';
 import webRoutes from '@/lib/utils/webRoutes';
 import Variants from '@/module/product/components/Variants';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface IAddToCartButtonProps {
   sku: string;
@@ -34,6 +35,8 @@ export default function AddToCartButton({
     useContext(CartContext);
   const { translate } = useContext(AuthContext);
   const [sku, setSku] = useState(defaultSku);
+  const router = useRouter();
+  const pathName = usePathname();
 
   const handleIncrement = async () => {
     try {
@@ -44,6 +47,9 @@ export default function AddToCartButton({
         const status = await addProductToCart({ sku, quantity: count + 1 });
         if (status) {
           setCount((prevCount) => prevCount + 1);
+          if (pathName.includes(webRoutes.cart)) {
+            router.refresh();
+          }
         }
       }
     } catch (err) {
@@ -56,11 +62,17 @@ export default function AddToCartButton({
       const status = await addProductToCart({ sku, quantity: count - 1 });
       if (status) {
         setCount((prevCount) => prevCount - 1);
+        if (pathName.includes(webRoutes.cart)) {
+          router.refresh();
+        }
       }
     } else {
       const status = await removeProductFromCart(sku);
       if (status) {
         setCount(0);
+        if (pathName.includes(webRoutes.cart)) {
+          router.refresh();
+        }
       }
     }
   };
