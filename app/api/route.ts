@@ -36,29 +36,29 @@ export async function POST(request: Request) {
       loginResponse
     );
     if (loginResponse.success == true) {
-      nextResponse.cookies.set('auth.token', response.results.token);
+      nextResponse.cookies.set('auth.token', loginResponse.results.token);
       nextResponse.cookies.set(
         'auth.user',
-        JSON.stringify(response.results.user)
+        JSON.stringify(loginResponse.results.user)
       );
       const updateCityResponse = await apiHandler(
         '/profile/updatecity',
         'PUT',
         {
-          city_id: response.results.user.address.city_id,
+          city_id: loginResponse.results.user.address.city_id,
         },
         true,
         false,
-        response.results.token
+        loginResponse.results.token
       );
 
       return setCookiesData(
         nextResponse,
-        response.results.user.language || 'en',
+        loginResponse.results.user.language || 'en',
         'kw',
         updateCityResponse.results.data.city,
         {
-          ...response.results.user.address,
+          ...loginResponse.results.user.address,
           id: 'primary',
         }
       );
