@@ -20,21 +20,10 @@ export async function POST(request: Request) {
   const body = !searchParams.get('nobody') ? await request.json() : undefined;
   const response = await apiHandler(route, 'POST', body);
 
-  if (route == '/profile/register') {
-    console.log(
-      '================ Register Response =================\n',
-      response
-    );
-  }
-
   const nextResponse = NextResponse.json(response);
 
   if (route == '/profile/register' && response.success == true) {
     const loginResponse = await apiHandler('/profile/login', 'POST', body);
-    console.log(
-      '================ Register Login Response =================\n',
-      loginResponse
-    );
     if (loginResponse.success == true) {
       nextResponse.cookies.set('auth.token', loginResponse.results.token);
       nextResponse.cookies.set(

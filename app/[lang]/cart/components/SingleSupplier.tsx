@@ -247,9 +247,9 @@ export default function SingleSupplier({
                     transform="translate(-15.831 -53.181)"
                     fill="none"
                     stroke="#f77d0f"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                   />
                 </g>
               </g>

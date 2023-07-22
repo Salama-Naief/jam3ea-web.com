@@ -313,6 +313,53 @@ export const BackIcon = ({ className = '' }: IconProps) => {
   );
 };
 
+export const ForwardIcon = ({ className = '' }: IconProps) => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        className={className}
+        style={{ transform: 'rotate(180deg)' }}
+      >
+        <g id="Group_10" data-name="Group 10" transform="translate(-16 -49)">
+          <rect
+            id="Rectangle_4"
+            data-name="Rectangle 4"
+            width="24"
+            height="24"
+            transform="translate(16 49)"
+            fill="none"
+          />
+          <g id="Group_9" data-name="Group 9" transform="translate(2.68 1.158)">
+            <line
+              id="Line_2"
+              data-name="Line 2"
+              x2="18.174"
+              transform="translate(16.5 59.897)"
+              fill="none"
+              stroke="#1d1a1b"
+              strokeLinecap="round"
+              strokeWidth="2"
+            />
+            <path
+              id="Path_333"
+              data-name="Path 333"
+              d="M23.462,53.181l-7.631,7.631,7.631,7.631"
+              transform="translate(0 -0.911)"
+              fill="none"
+              stroke="#1d1a1b"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </g>
+        </g>
+      </svg>
+    );
+  };
+
 export const LoadingIcon = ({ className = '' }: IconProps) => {
   return (
     <svg

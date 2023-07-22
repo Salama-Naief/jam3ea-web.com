@@ -37,14 +37,11 @@ export default function MultiSuppliers({
   const { translate, language, isLoggedIn } = useContext(AuthContext);
   const { selectedAddress } = useContext(AddressContext);
   const [isLoading, setIsLoading] = useState(false);
-  const suppliersData = cart.data.map((d) =>
-    d.supplier.delivery_time_text
-      ? null
-      : {
-          supplier_id: d.supplier._id,
-          delivery_time: '',
-        }
-  );
+  const suppliersData = cart.data.map((d) => ({
+    supplier_id: d.supplier._id,
+    delivery_time: '',
+    requires_delivery_time: !d.supplier.delivery_time_text,
+  }));
 
   const formik = useFormik({
     initialValues: {
@@ -59,7 +56,8 @@ export default function MultiSuppliers({
 
       if (
         values.suppliers.find(
-          (s: any) => s && s.supplier_id && !s.delivery_time
+          (s: any) =>
+            s && s.supplier_id && s.requires_delivery_time && !s.delivery_time
         )
       ) {
         showErrorAlert(translate('select_delivery_time'), translate('ok'));
@@ -68,8 +66,16 @@ export default function MultiSuppliers({
 
       const body: any = {
         payment_method: values.payment_method,
-        suppliers: values.suppliers.filter((s) => s && s.supplier_id),
+        suppliers: values.suppliers
+          .filter((s) => s && s.supplier_id)
+          .map((s) => ({
+            supplier_id: s.supplier_id,
+            delivery_time: s.delivery_time,
+          })),
       };
+
+      console.log('BODY: ', body);
+      return;
 
       if (isLoggedIn) {
         body.address_id = selectedAddress?.id;
@@ -181,11 +187,7 @@ export default function MultiSuppliers({
                   setFieldValue(`suppliers.${i}.delivery_time`, v.full_date);
                   console.log('Selected time: ', v.full_date);
                 }}
-                selectedDeliveryTime={
-                  values.suppliers[i] != null
-                    ? values.suppliers[i]?.delivery_time
-                    : ''
-                }
+                selectedDeliveryTime={values.suppliers[i]?.delivery_time}
               />
             )}
             <div className="flex flex-col  py-2">
@@ -195,18 +197,10 @@ export default function MultiSuppliers({
                 </div>
                 <div className="flex">
                   {data.payment_methods.map((pm) => (
-                    <>
-                      {pm.id === 'cod' && (
-                        <div className="ms-auto bg-white p-2 rounded-xl border">
-                          <CODIcon />
-                        </div>
-                      )}
-                      {pm.id === 'knet' && (
-                        <div className="ms-auto bg-white p-2 rounded-xl border">
-                          <KnetIcon />
-                        </div>
-                      )}
-                    </>
+                    <div key={pm.id} className="ms-auto bg-white p-2 rounded-xl border">
+                      {pm.id === 'cod' && <CODIcon />}
+                      {pm.id === 'knet' && <KnetIcon />}
+                    </div>
                   ))}
                 </div>
               </div>

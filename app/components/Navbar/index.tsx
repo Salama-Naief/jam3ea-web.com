@@ -1,7 +1,6 @@
 import Menu from './Menu';
 import CategoriesMenu from './CategoriesMenu';
-import { BackIcon, SearchIcon } from '../Icons';
-import IconButton from './IconButton';
+import { SearchIcon } from '../Icons';
 import AddressSelector from './AddressSelector';
 import webRoutes from '@/lib/utils/webRoutes';
 import Link from 'next/link';
