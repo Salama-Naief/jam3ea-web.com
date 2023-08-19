@@ -91,7 +91,29 @@ const checkout = async (searchParams: any) => {
     }
   } else {
     if (searchParams['payment_method'] == 'visa') {
-      console.log('========= CHECKOUT VISA =========: ', searchParams['success'], searchParams['reference']);
+      const res = await fetch(
+        `https://pay.jm3eia.com/api/v1/payment-requests/${searchParams['request_number']}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'app-key': 'APIJM3_PK_6421ed8d44f6f0.41407586',
+            'app-secret': 'APIJM3_SK_6421ed7acb1d98.96769374',
+          },
+        }
+      );
+
+      const resData = await res.json();
+
+      console.log(
+        '========= CHECKOUT VISA =========: ',
+        res.ok,
+        searchParams['success'],
+        searchParams['reference'],
+        searchParams['request_number'],
+        resData.data
+      );
     }
     const response: IResponse<{ url: string }> = {
       errors: null,
