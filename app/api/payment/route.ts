@@ -11,6 +11,5 @@ export async function POST(request: NextRequest) {
   const body = await request.text();
   const knet = new Knet();
   const url = knet.result(body);
-  console.log('URL: ', url);
   return redirect(url || process.env.SITE_URL + webRoutes.cart);
 }

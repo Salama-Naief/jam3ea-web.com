@@ -143,8 +143,53 @@ export async function POST(request: NextRequest) {
     jsonResponse.cookies.set('checkout', JSON.stringify(body));
     return jsonResponse;
   }
+
+  if (body.payment_method === 'visa') {
+    const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+    const res = await fetch(
+      `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
+        cart.total
+      )}&full_name=${body.fullname}&mobile_number=${body.mobile}&email=${
+        body.email
+      }&payment_method=`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'app-key': '9cKkvPW6y9hpes0Q01ikfOkdwmpIc2T6r8OBmOjbapmwKw',
+          'app-secret': 'jNmZGUyZTJlpGRRyF35tti0BHkN64WI4AlxNXIxL45gX2i',
+        },
+      }
+    );
+
+    if (!res.ok) {
+      return NextResponse.json({
+        success: false,
+        errors: { message: 'Cannot make the payment' },
+      });
+    }
+
+    const resData = await res.json();
+
+    const url = resData.redirect_url;
+    const data = resData.data;
+
+    console.log(
+      '====================== this is the data =====================: ',
+      data,
+      url,
+      resData
+    );
+
+    const response: IResponse<{ url: string }> = {
+      errors: null,
+      results: { url },
+      status_code: 200,
+      status_message: STATUS_MESSAGES.RESOURCE_EXISTS,
+      success: true,
+    };
+    const jsonResponse = NextResponse.json(response);
+    jsonResponse.cookies.set('checkout', JSON.stringify(body));
+    return jsonResponse;
+  }
 }
-
-export async function PUT(request: NextRequest) {}
-
-export async function DELETE(request: NextRequest) {}

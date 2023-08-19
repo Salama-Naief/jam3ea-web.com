@@ -64,9 +64,9 @@ export default function PointsCards() {
                     transform="translate(-2.91 -3.248)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_403"
@@ -76,7 +76,7 @@ export default function PointsCards() {
                     fill="none"
                     stroke="#fff"
                     stroke-miterlimit="10"
-                    stroke-width="1.4"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_404"
@@ -85,9 +85,9 @@ export default function PointsCards() {
                     transform="translate(-2.394 -3.722)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_405"
@@ -96,9 +96,9 @@ export default function PointsCards() {
                     transform="translate(-2.295 -2)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_406"
@@ -107,9 +107,9 @@ export default function PointsCards() {
                     transform="translate(-2.04 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_407"
@@ -118,9 +118,9 @@ export default function PointsCards() {
                     transform="translate(-3.46 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                 </g>
               </svg>
@@ -215,9 +215,9 @@ export default function PointsCards() {
                     transform="translate(-2.91 -3.248)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_403"
@@ -227,7 +227,7 @@ export default function PointsCards() {
                     fill="none"
                     stroke="#fff"
                     stroke-miterlimit="10"
-                    stroke-width="1.4"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_404"
@@ -236,9 +236,9 @@ export default function PointsCards() {
                     transform="translate(-2.394 -3.722)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_405"
@@ -247,9 +247,9 @@ export default function PointsCards() {
                     transform="translate(-2.295 -2)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_406"
@@ -258,9 +258,9 @@ export default function PointsCards() {
                     transform="translate(-2.04 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_407"
@@ -269,9 +269,9 @@ export default function PointsCards() {
                     transform="translate(-3.46 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                 </g>
               </svg>
@@ -366,9 +366,9 @@ export default function PointsCards() {
                     transform="translate(-2.91 -3.248)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_403"
@@ -378,7 +378,7 @@ export default function PointsCards() {
                     fill="none"
                     stroke="#fff"
                     stroke-miterlimit="10"
-                    stroke-width="1.4"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_404"
@@ -387,9 +387,9 @@ export default function PointsCards() {
                     transform="translate(-2.394 -3.722)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_405"
@@ -398,9 +398,9 @@ export default function PointsCards() {
                     transform="translate(-2.295 -2)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_406"
@@ -409,9 +409,9 @@ export default function PointsCards() {
                     transform="translate(-2.04 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_407"
@@ -420,9 +420,9 @@ export default function PointsCards() {
                     transform="translate(-3.46 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                 </g>
               </svg>
@@ -517,9 +517,9 @@ export default function PointsCards() {
                     transform="translate(-2.91 -3.248)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_403"
@@ -529,7 +529,7 @@ export default function PointsCards() {
                     fill="none"
                     stroke="#fff"
                     stroke-miterlimit="10"
-                    stroke-width="1.4"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_404"
@@ -538,9 +538,9 @@ export default function PointsCards() {
                     transform="translate(-2.394 -3.722)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_405"
@@ -549,9 +549,9 @@ export default function PointsCards() {
                     transform="translate(-2.295 -2)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_406"
@@ -560,9 +560,9 @@ export default function PointsCards() {
                     transform="translate(-2.04 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_407"
@@ -571,9 +571,9 @@ export default function PointsCards() {
                     transform="translate(-3.46 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                 </g>
               </svg>
@@ -668,9 +668,9 @@ export default function PointsCards() {
                     transform="translate(-2.91 -3.248)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_403"
@@ -680,7 +680,7 @@ export default function PointsCards() {
                     fill="none"
                     stroke="#fff"
                     stroke-miterlimit="10"
-                    stroke-width="1.4"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_404"
@@ -689,9 +689,9 @@ export default function PointsCards() {
                     transform="translate(-2.394 -3.722)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_405"
@@ -700,9 +700,9 @@ export default function PointsCards() {
                     transform="translate(-2.295 -2)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_406"
@@ -711,9 +711,9 @@ export default function PointsCards() {
                     transform="translate(-2.04 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_407"
@@ -722,9 +722,9 @@ export default function PointsCards() {
                     transform="translate(-3.46 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                 </g>
               </svg>
@@ -819,9 +819,9 @@ export default function PointsCards() {
                     transform="translate(-2.91 -3.248)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_403"
@@ -831,7 +831,7 @@ export default function PointsCards() {
                     fill="none"
                     stroke="#fff"
                     stroke-miterlimit="10"
-                    stroke-width="1.4"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_404"
@@ -840,9 +840,9 @@ export default function PointsCards() {
                     transform="translate(-2.394 -3.722)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_405"
@@ -851,9 +851,9 @@ export default function PointsCards() {
                     transform="translate(-2.295 -2)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_406"
@@ -862,9 +862,9 @@ export default function PointsCards() {
                     transform="translate(-2.04 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_407"
@@ -873,9 +873,9 @@ export default function PointsCards() {
                     transform="translate(-3.46 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                 </g>
               </svg>
@@ -970,9 +970,9 @@ export default function PointsCards() {
                     transform="translate(-2.91 -3.248)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_403"
@@ -982,7 +982,7 @@ export default function PointsCards() {
                     fill="none"
                     stroke="#fff"
                     stroke-miterlimit="10"
-                    stroke-width="1.4"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_404"
@@ -991,9 +991,9 @@ export default function PointsCards() {
                     transform="translate(-2.394 -3.722)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_405"
@@ -1002,9 +1002,9 @@ export default function PointsCards() {
                     transform="translate(-2.295 -2)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_406"
@@ -1013,9 +1013,9 @@ export default function PointsCards() {
                     transform="translate(-2.04 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                   <path
                     id="Path_407"
@@ -1024,9 +1024,9 @@ export default function PointsCards() {
                     transform="translate(-3.46 -2.202)"
                     fill="none"
                     stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.4"
                   />
                 </g>
               </svg>

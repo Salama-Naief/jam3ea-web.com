@@ -420,9 +420,9 @@ export const ChevronRight = ({
             transform="translate(7.631 15.262) rotate(180)"
             fill="none"
             stroke={color}
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
           />
         </g>
       </g>
@@ -446,9 +446,9 @@ export const EmptyWishlistIcon = ({ className = '' }: IconProps) => {
           transform="translate(-1 -1)"
           fill="none"
           stroke="#bfbfbf"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="3"
           fill-rule="evenodd"
         />
         <path
@@ -458,9 +458,9 @@ export const EmptyWishlistIcon = ({ className = '' }: IconProps) => {
           transform="translate(55.298 16.071)"
           fill="none"
           stroke="#bfbfbf"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="3"
         />
       </g>
     </svg>
@@ -619,7 +619,7 @@ export const TimePickerIcon = ({ className = '' }: IconProps) => {
         data-name="Ellipse 34"
         fill="#fff"
         stroke="#f77d0f"
-        stroke-width="2"
+        strokeWidth="2"
       >
         <circle cx="12" cy="12" r="12" stroke="none" />
         <circle cx="12" cy="12" r="11" fill="none" />
@@ -631,9 +631,9 @@ export const TimePickerIcon = ({ className = '' }: IconProps) => {
         transform="translate(-39 -153)"
         fill="none"
         stroke="#f77d0f"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
       />
     </svg>
   );
@@ -664,10 +664,10 @@ export const LogoutIcon = () => {
             transform="translate(-2 -2)"
             fill="none"
             stroke="#f77d0f"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             stroke-miterlimit="10"
-            stroke-width="1.5"
+            strokeWidth="1.5"
           />
           <path
             id="Path_394"
@@ -676,9 +676,9 @@ export const LogoutIcon = () => {
             transform="translate(-12.31 -2.11)"
             fill="none"
             stroke="#f77d0f"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_395"
@@ -687,9 +687,9 @@ export const LogoutIcon = () => {
             transform="translate(-17.17 -2)"
             fill="none"
             stroke="#f77d0f"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
           />
         </g>
       </g>
@@ -717,9 +717,9 @@ export const ContactIcon = () => (
           transform="translate(0)"
           fill="none"
           stroke="#f77d0f"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
         />
         <path
           id="Path_383"
@@ -728,9 +728,9 @@ export const ContactIcon = () => (
           transform="translate(-0.524 -1.4)"
           fill="none"
           stroke="#f77d0f"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
         />
       </g>
     </g>
@@ -757,9 +757,9 @@ export const WalletIcon = () => (
           transform="translate(-2.128 -3.641)"
           fill="none"
           stroke="#f77d0f"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
         />
         <path
           id="Path_368"
@@ -768,9 +768,9 @@ export const WalletIcon = () => (
           transform="translate(-2.381 -3.665)"
           fill="none"
           stroke="#f77d0f"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
         />
         <path
           id="Path_369"
@@ -779,9 +779,9 @@ export const WalletIcon = () => (
           transform="translate(-2 -3.5)"
           fill="none"
           stroke="#f77d0f"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
         />
       </g>
     </g>
@@ -802,9 +802,9 @@ export const PrivacyIcon = () => (
       transform="translate(-2.34 -1.241)"
       fill="none"
       stroke="#f77d0f"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
     />
   </svg>
 );

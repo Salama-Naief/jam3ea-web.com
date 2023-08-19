@@ -1,5 +1,4 @@
 import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
 import { STATUS_MESSAGES } from '@/lib/enums';
 import { IResponse } from '@/lib/types';
 import apiHandler from '@/lib/utils/apiHandler';
