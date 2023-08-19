@@ -90,6 +90,9 @@ const checkout = async (searchParams: any) => {
       return jsonResponse;
     }
   } else {
+    if (searchParams['payment_method'] == 'visa') {
+      console.log('========= CHECKOUT VISA =========: ', searchParams['success'], searchParams['reference']);
+    }
     const response: IResponse<{ url: string }> = {
       errors: null,
       results: null,

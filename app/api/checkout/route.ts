@@ -156,8 +156,8 @@ export async function POST(request: NextRequest) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'app-key': '9cKkvPW6y9hpes0Q01ikfOkdwmpIc2T6r8OBmOjbapmwKw',
-          'app-secret': 'jNmZGUyZTJlpGRRyF35tti0BHkN64WI4AlxNXIxL45gX2i',
+          'app-key': 'APIJM3_PK_6421ed8d44f6f0.41407586',
+          'app-secret': 'APIJM3_SK_6421ed7acb1d98.96769374',
         },
       }
     );
