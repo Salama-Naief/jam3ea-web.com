@@ -77,8 +77,8 @@ export default function PaymentMethods({
             value="visa"
             name="payment_method"
             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-            checked={selectedPaymentMethod === pm.id}
-            onChange={() => onSelect(pm)}
+            checked={selectedPaymentMethod === 'visa'}
+            onChange={() => onSelect({ id: 'visa', name: 'visa', valid: true })}
           />
           <label
             htmlFor="visa"
