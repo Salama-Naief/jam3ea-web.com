@@ -162,6 +162,12 @@ export async function POST(request: NextRequest) {
       }
     );
 
+    const resData = await res.json();
+    console.log(
+      '====================== this is the data #1 =====================: ',
+      resData
+    );
+
     if (!res.ok) {
       return NextResponse.json({
         success: false,
@@ -169,16 +175,13 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const resData = await res.json();
-
     const url = resData.redirect_url;
     const data = resData.data;
 
     console.log(
-      '====================== this is the data =====================: ',
+      '====================== this is the data #2 =====================: ',
       data,
-      url,
-      resData
+      url
     );
 
     const response: IResponse<{ url: string }> = {
