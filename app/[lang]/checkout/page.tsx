@@ -14,6 +14,15 @@ const checkout = async (searchParams: any) => {
   const cookiesData: any = cookies().get('checkout')?.value || '{}';
   const checkoutData = JSON.parse(cookiesData);
 
+  if (searchParams['payment_method'] == 'visa') {
+    console.log(
+      '========= CHECKOUT VISA #1 =========: ',
+      searchParams['success'],
+      searchParams['reference'],
+      searchParams['request_number']
+    );
+  }
+
   if (
     (searchParams['result'] && searchParams['result'] == 'CAPTURED') ||
     (searchParams['payment_method'] == 'cod' && searchParams['hash']) ||
@@ -135,9 +144,9 @@ const checkout = async (searchParams: any) => {
 export default async function Checkout({ params, searchParams }: any) {
   const checkoutResponse: any = await (await checkout(searchParams)).json();
 
-  if (!checkoutResponse || !checkoutResponse.success) {
+  /* if (!checkoutResponse || !checkoutResponse.success) {
     return redirect(webRoutes.cart);
-  }
+  } */
 
   return (
     <div>
