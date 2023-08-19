@@ -75,7 +75,6 @@ export default function MultiSuppliers({
       };
 
       console.log('BODY: ', body);
-      return;
 
       if (isLoggedIn) {
         body.address_id = selectedAddress?.id;
