@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
         cart.total
       )}&full_name=${body.fullname}&mobile_number=${body.mobile}&email=${
         body.email
-      }&payment_method=`,
+      }&order_number=0000000000`,
       {
         method: 'POST',
         headers: {
