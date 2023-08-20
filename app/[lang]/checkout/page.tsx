@@ -143,6 +143,7 @@ const checkout = async (searchParams: any) => {
 
 export default async function Checkout({ params, searchParams }: any) {
   const checkoutResponse: any = await (await checkout(searchParams)).json();
+  console.log('PARAMS: ', params);
 
   /* if (!checkoutResponse || !checkoutResponse.success) {
     return redirect(webRoutes.cart);
