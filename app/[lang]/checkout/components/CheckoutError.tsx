@@ -4,7 +4,7 @@ import webRoutes from '@/lib/utils/webRoutes';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-export default async function CheckoutError({ params: { lang } }: any) {
+export default async function CheckoutError({ lang }: any) {
   const dict = await getDictionary(lang);
   return (
     <div className="bg-secondary pt-[6rem]">
