@@ -143,7 +143,7 @@ const checkout = async (searchParams: any) => {
 
 export default async function Checkout({ params, searchParams }: any) {
   const checkoutResponse: any = await (await checkout(searchParams)).json();
-  console.log('PARAMS: ', params);
+  const lang = params.lang;
 
   /* if (!checkoutResponse || !checkoutResponse.success) {
     return redirect(webRoutes.cart);
@@ -156,7 +156,7 @@ export default async function Checkout({ params, searchParams }: any) {
           <>
             {/* @ts-expect-error Server Component */}
             <ThankYou
-              lang={params.lang}
+              lang={lang}
               user_data={checkoutResponse.results.user_data}
               orderId={checkoutResponse.results._id}
             />
@@ -164,7 +164,7 @@ export default async function Checkout({ params, searchParams }: any) {
         ) : (
           <>
             {/* @ts-expect-error Server Component */}
-            <CheckoutError lang={params.lang} />
+            <CheckoutError lang={lang} />
           </>
         )}
       </Container>
