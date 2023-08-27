@@ -149,8 +149,8 @@ export async function POST(request: NextRequest) {
     const res = await fetch(
       `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
         cart.total
-      )}&full_name=${body.fullname}&mobile_number=${body.mobile}&email=${
-        body.email
+      )}&full_name=${body.user_data.fullname}&mobile_number=${body.user_data.mobile}&email=${
+        body.user_data.email
       }`,
       {
         method: 'POST',
