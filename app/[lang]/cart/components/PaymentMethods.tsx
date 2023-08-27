@@ -70,7 +70,7 @@ export default function PaymentMethods({
             )}
           </>
         ))}
-        <div className="flex items-center pl-4 border-b opacity-0">
+        <div className="flex items-center pl-4 border-b">
           <input
             id="visa"
             type="radio"
