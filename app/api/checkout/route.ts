@@ -107,7 +107,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body: any = await request.json();
-  const valid = await apiHandler('/checkout?validation=only', 'POST', body);
+  /* const valid = await apiHandler('/checkout?validation=only', 'POST', body);
 
   if (!valid.success) {
     return NextResponse.json(valid);
@@ -142,21 +142,21 @@ export async function POST(request: NextRequest) {
     const jsonResponse = NextResponse.json(response);
     jsonResponse.cookies.set('checkout', JSON.stringify(body));
     return jsonResponse;
-  }
+  } */
 
   if (body.payment_method === 'visa') {
-    const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+    //const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
     const res = await fetch(
       `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
-        cart.total
-      )}&full_name=${body.user_data.fullname}&mobile_number=${body.user_data.mobile}&email=${
-        body.user_data.email
-      }`,
+        '10.000'
+      )}&full_name=${body.user_data.fullname}&mobile_number=${
+        body.user_data.mobile
+      }&email=${body.user_data.email}`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'app-key': 'APIJM3_PK_6421ed8d44f6f0.41407586',
           'app-secret': 'APIJM3_SK_6421ed7acb1d98.96769374',
         },
@@ -165,7 +165,7 @@ export async function POST(request: NextRequest) {
 
     const resData = await res.json();
     console.log(
-      '====================== this is the data #1 =====================: ',
+      '====================== payment request data =====================: ',
       resData
     );
 
@@ -178,12 +178,6 @@ export async function POST(request: NextRequest) {
 
     const url = resData.redirect_url;
     const data = resData.data;
-
-    console.log(
-      '====================== this is the data #2 =====================: ',
-      data,
-      url
-    );
 
     const response: IResponse<{ url: string }> = {
       errors: null,
