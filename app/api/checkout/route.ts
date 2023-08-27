@@ -107,6 +107,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body: any = await request.json();
+  console.log('BODY: ', body);
   /* const valid = await apiHandler('/checkout?validation=only', 'POST', body);
 
   if (!valid.success) {

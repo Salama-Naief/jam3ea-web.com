@@ -43,14 +43,14 @@ export async function middleware(request: NextRequest) {
     if (isRoute(url, webRoutes.splash)) {
       return checkAuth(response);
     } else {
-      console.log('REDIRECTION #1');
+      //console.log('REDIRECTION #1');
       return NextResponse.redirect(
         new URL('/en' + webRoutes.splash, request.url)
       );
     }
   } else {
     if (isRoute(url, webRoutes.splash) && addresses && addresses.length > 0) {
-      console.log('REDIRECTION #2');
+      //console.log('REDIRECTION #2');
       return NextResponse.redirect(new URL(webRoutes.home, request.url));
     }
 
@@ -63,15 +63,12 @@ export async function middleware(request: NextRequest) {
       !isLoggedIn &&
       (!addresses || addresses?.length < 1)
     ) {
-      console.log(
-        'REDIRECTION #3 ',
-        new URL(webRoutes.splash, request.url).toString()
-      );
+      //console.log('REDIRECTION #3 ', new URL(webRoutes.splash, request.url).toString());
       return NextResponse.redirect(new URL(webRoutes.splash, request.url));
     }
 
     if (addresses && addresses?.length > 0 && !selectedAddress) {
-      console.log('REDIRECTION #4');
+      //console.log('REDIRECTION #4');
       return NextResponse.redirect(new URL(webRoutes.addresses, request.url));
     }
   }
@@ -99,16 +96,10 @@ export async function middleware(request: NextRequest) {
 
   if (!pathname.startsWith(`/${language}/`) && pathname !== `/${language}`) {
     if (!pathnameIsMissingLocale) {
-      console.log('REDIRECTION #5');
+      //console.log('REDIRECTION #5');
       return NextResponse.redirect(new URL(`/${language}`, request.url));
     } else {
-      console.log(
-        'REDIRECTION #6: ',
-        new URL(
-          `/${language}/${pathname}${request.nextUrl.search}`,
-          request.url
-        ).toString()
-      );
+      //console.log('REDIRECTION #6: ',new URL(`/${language}/${pathname}${request.nextUrl.search}`,request.url).toString());
       return NextResponse.redirect(
         new URL(
           `/${language}/${pathname}${request.nextUrl.search}`,

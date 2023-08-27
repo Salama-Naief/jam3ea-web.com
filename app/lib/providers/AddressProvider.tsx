@@ -84,6 +84,7 @@ const AddressProvider = ({ children }: any) => {
     //if (addresses.length < 1) {
     if (isLoggedIn) {
       getAddresses().then((res) => {
+        console.log('GET ADDRESSES LOGS: ', res.results);
         if (res.results) {
           setAddresses(res.results);
           setCookie('addresses', res.results, options);
