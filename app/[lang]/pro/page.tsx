@@ -1,8 +1,8 @@
 import Container from '@/components/Container';
 
-export default function Test() {
+export default function Pro() {
   return (
-    <Container>
+    <Container className='px-0'>
       <div className="space-y-4 relative">
         <div className="flex flex-col bg-gradient-to-r from-primary to-[#f77d0fb5] relative p-3 h-[180px] pt-10 overflow-hidden">
           <button className="bg-white rounded-full w-fit p-2 mb-4">
@@ -32,7 +32,7 @@ export default function Test() {
             </div>
           </div>
           <div className="absolute bottom-0 right-0">
-            <img src="/assets/pay.svg" className="w-52 scale-x-[-1]" alt="" />
+            <img src="/assets/pay.svg" className="w-52" alt="" />
           </div>
         </div>
 

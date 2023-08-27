@@ -85,10 +85,7 @@ const checkout = async (searchParams: any) => {
 
     const body = {
       payment_details: paymentDetails,
-      payment_method:
-        searchParams['payment_method'] == 'knet'
-          ? 'knet'
-          : searchParams['payment_method'],
+      payment_method: searchParams['payment_method'],
       discount_by_wallet: checkoutData['discount_by_wallet'],
       delivery_time: checkoutData['delivery_time'],
       notes: checkoutData['notes'],
