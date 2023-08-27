@@ -151,8 +151,8 @@ export async function POST(request: NextRequest) {
     request.cookies.get('isLoggedIn')?.value == 'true' &&
     request.cookies.get('auth.user')?.value
   ) {
-    const user = request.cookies.get('auth.user')?.value as any;
-    console.log('USER: ', user);
+    const user = JSON.parse(request.cookies.get('auth.user')?.value as any);
+
     userData = {
       fullname: user?.fullname,
       mobile: user?.mobile,
