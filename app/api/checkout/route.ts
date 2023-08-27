@@ -171,7 +171,7 @@ export async function POST(request: NextRequest) {
     const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
     const res = await fetch(
       `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
-        '10.000'
+        cart.total
       )}&full_name=${userData.fullname}&mobile_number=${
         userData.mobile
       }&email=${userData.email}`,
