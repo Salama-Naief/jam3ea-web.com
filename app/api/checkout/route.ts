@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const body: any = await request.json();
   console.log('BODY: ', body);
-  const valid = await apiHandler('/checkout?validation=only', 'POST', body);
+  /* const valid = await apiHandler('/checkout?validation=only', 'POST', body);
 
   if (!valid.success) {
     return NextResponse.json(valid);
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
     const jsonResponse = NextResponse.json(response);
     jsonResponse.cookies.set('checkout', JSON.stringify(body));
     return jsonResponse;
-  }
+  } */
 
   let userData: any = {};
 
@@ -152,6 +152,7 @@ export async function POST(request: NextRequest) {
     request.cookies.get('auth.user')?.value
   ) {
     const user = request.cookies.get('auth.user')?.value as any;
+    console.log('USER: ', user);
     userData = {
       fullname: user?.fullname,
       mobile: user?.mobile,
