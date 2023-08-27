@@ -145,12 +145,34 @@ export async function POST(request: NextRequest) {
     return jsonResponse;
   } */
 
+  let userData: any = {};
+
+  if (
+    request.cookies.get('isLoggedIn')?.value == 'true' &&
+    request.cookies.get('auth.user')?.value
+  ) {
+    const user = request.cookies.get('auth.user')?.value as any;
+    userData = {
+      fullname: user?.fullname,
+      mobile: user?.mobile,
+      email: user?.email,
+    };
+  } else {
+    userData = {
+      fullname: body.user_data.fullname,
+      mobile: body.user_data.mobile,
+      email: body.user_data.email,
+    };
+  }
+
+  console.log('use data: ', userData);
+
   if (body.payment_method === 'visa') {
     //const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
     const res = await fetch(
       `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
         '10.000'
-      )}&full_name=${body.user_data.fullname}&mobile_number=${
+      )}&full_name=${userData.fullname}&mobile_number=${
         body.user_data.mobile
       }&email=${body.user_data.email}`,
       {
