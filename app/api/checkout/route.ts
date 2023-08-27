@@ -107,8 +107,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body: any = await request.json();
-  console.log('BODY: ', body);
-  /* const valid = await apiHandler('/checkout?validation=only', 'POST', body);
+  const valid = await apiHandler('/checkout?validation=only', 'POST', body);
 
   if (!valid.success) {
     return NextResponse.json(valid);
@@ -143,7 +142,7 @@ export async function POST(request: NextRequest) {
     const jsonResponse = NextResponse.json(response);
     jsonResponse.cookies.set('checkout', JSON.stringify(body));
     return jsonResponse;
-  } */
+  }
 
   let userData: any = {};
 
@@ -169,7 +168,7 @@ export async function POST(request: NextRequest) {
   console.log('use data: ', userData);
 
   if (body.payment_method === 'visa') {
-    //const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+    const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
     const res = await fetch(
       `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
         '10.000'
