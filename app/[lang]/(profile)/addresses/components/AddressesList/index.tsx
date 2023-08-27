@@ -22,7 +22,6 @@ export default function AddressesList() {
 
   const fetchCities = useCallback(async () => {
     const resData = await getCities();
-    console.log(resData);
     if (
       resData.success &&
       resData.results?.data &&

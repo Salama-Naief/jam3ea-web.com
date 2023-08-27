@@ -32,8 +32,6 @@ export default async function Home({
       ? inventories.data[0].suppliers
       : [];
 
-  console.log('INVENTORIES: ', typeof inventories);
-
   const isVIP = cookies().get('isVIP');
 
   return (
