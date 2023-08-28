@@ -174,7 +174,7 @@ export async function POST(request: NextRequest) {
         cart.total
       )}&full_name=${userData.fullname}&mobile_number=${
         userData.mobile
-      }&email=${userData.email}`,
+      }&email=${userData.email}&source_host=web.jm3eia.com`,
       {
         method: 'POST',
         headers: {
