@@ -21,7 +21,7 @@ const checkout = async (searchParams: any) => {
       (searchParams['payment_method'] == 'visa' &&
         searchParams['success'] == 'true')
     ) {
-      const paymentDetails =
+      let paymentDetails: any =
         searchParams['result'] && searchParams['result'] == 'CAPTURED'
           ? {
               paymentid: searchParams['paymentid'],
@@ -71,7 +71,7 @@ const checkout = async (searchParams: any) => {
           !resData.data ||
           resData.data.status != '2'
         ) {
-          console.log('*** NOT PAID ***')
+          console.log('*** NOT PAID ***');
           const response: IResponse<{ url: string }> = {
             errors: null,
             results: null,
@@ -83,6 +83,7 @@ const checkout = async (searchParams: any) => {
           jsonResponse.cookies.delete('checkout');
           return jsonResponse;
         }
+        paymentDetails = resData.data;
       }
 
       const body = {
