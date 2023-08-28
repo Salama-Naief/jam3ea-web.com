@@ -165,16 +165,17 @@ export async function POST(request: NextRequest) {
     };
   }
 
-  console.log('use data: ', userData);
-
   if (body.payment_method === 'visa') {
     const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+    console.log('HASH: ', valid.results.hash);
     const res = await fetch(
       `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
         cart.total
       )}&full_name=${userData.fullname}&mobile_number=${
         userData.mobile
-      }&email=${userData.email}&source_host=web.jm3eia.com`,
+      }&email=${userData.email}&request_number=${
+        valid.results.hash
+      }&source_host=web.jm3eia.com`,
       {
         method: 'POST',
         headers: {

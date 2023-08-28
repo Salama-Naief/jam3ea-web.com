@@ -51,7 +51,7 @@ const checkout = async (searchParams: any) => {
 
       if (searchParams['payment_method'] == 'visa') {
         const res = await fetch(
-          `https://pay.jm3eia.com/api/v1/payment-requests/${searchParams['reference']}`,
+          `https://pay.jm3eia.com/api/v1/payment-requests?request_number=${searchParams['reference']}`,
           {
             method: 'GET',
             headers: {
