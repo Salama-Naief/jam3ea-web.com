@@ -180,8 +180,8 @@ export async function POST(request: NextRequest) {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          'app-key': 'APIJM3_PK_6421ed8d44f6f0.41407586',
-          'app-secret': 'APIJM3_SK_6421ed7acb1d98.96769374',
+          'app-key': 'APIJM3_PK_5843cx8q99t6b5.64795315',
+          'app-secret': 'APIJM3_SK_6421rt7klo1q98.88472366',
         },
       }
     );
