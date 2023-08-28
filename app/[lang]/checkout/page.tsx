@@ -46,12 +46,12 @@ const checkout = async (searchParams: any) => {
         searchParams['payment_method'] == 'cod'
           ? searchParams['hash']
           : searchParams['payment_method'] == 'visa'
-          ? searchParams['request_number']
+          ? searchParams['reference']
           : paymentDetails?.trackid;
 
       if (searchParams['payment_method'] == 'visa') {
         const res = await fetch(
-          `https://pay.jm3eia.com/api/v1/payment-requests/${searchParams['request_number']}`,
+          `https://pay.jm3eia.com/api/v1/payment-requests/${searchParams['reference']}`,
           {
             method: 'GET',
             headers: {
@@ -64,15 +64,25 @@ const checkout = async (searchParams: any) => {
         );
 
         const resData = await res.json();
-
-        console.log(
-          '========= CHECKOUT VISA =========: ',
-          res.ok,
-          searchParams['success'],
-          searchParams['reference'],
-          searchParams['request_number'],
-          resData
-        );
+        console.log('========= CHECKOUT VISA =========: ', res.ok, resData);
+        if (
+          !res.ok ||
+          !resData ||
+          !resData.data ||
+          resData.data.status != '2'
+        ) {
+          console.log('*** NOT PAID ***')
+          const response: IResponse<{ url: string }> = {
+            errors: null,
+            results: null,
+            status_code: 200,
+            status_message: STATUS_MESSAGES.RESOURCE_EXISTS,
+            success: false,
+          };
+          const jsonResponse = NextResponse.json(response);
+          jsonResponse.cookies.delete('checkout');
+          return jsonResponse;
+        }
       }
 
       const body = {
@@ -94,6 +104,7 @@ const checkout = async (searchParams: any) => {
         '/checkout?web=true&isVIP=' + isVIP,
         'POST',
         body,
+        false,
         false
       );
 
