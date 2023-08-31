@@ -21,6 +21,7 @@ import { useFormik } from 'formik';
 import { checkout } from '../services';
 import { IResponse } from '@/lib/types';
 import { showErrorAlert } from '@/lib/utils/helpers';
+import Visa from './Visa';
 
 interface SingleSupplierProps {
   cart: IGetCheckoutResponseResult;
@@ -38,6 +39,7 @@ export default function SingleSupplier({
   const { translate, isLoggedIn } = useContext(AuthContext);
   const { selectedAddress } = useContext(AddressContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -161,6 +163,8 @@ export default function SingleSupplier({
         }}
         selectedPaymentMethod={values.payment_method}
       />
+
+      <Visa />
 
       <div className="flex flex-col bg-white rounded-2xl gap-2 p-4 mb-2">
         <div className="flex items-center">

@@ -1,108 +1,75 @@
 import { STATUS_MESSAGES } from '@/lib/enums';
 import { IResponse } from '@/lib/types';
 import apiHandler from '@/lib/utils/apiHandler';
+import CyberSource from '@/lib/utils/cybersource';
 import Knet from '@/lib/utils/knet';
 import { IGetCheckoutResponseResult } from '@/module/cart/types';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  const checkoutData: any = request.cookies.get('checkout')?.value || {};
-  const { searchParams } = new URL(request.url);
+  /* const body: any = await request.json();
+  const valid = await apiHandler('/checkout?validation=only', 'POST', body);
 
-  if (
-    (searchParams.get('result') && searchParams.get('result') == 'CAPTURED') ||
-    (searchParams.get('payment_method') == 'cod' && searchParams.get('hash'))
+  if (!valid.success) {
+    return NextResponse.json(valid);
+  } */
+  //const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+  const visa = new CyberSource();
+  visa.amount = 3;
+  visa.referenceId = '44anything5ds2dsdqdf';
+  let userData: any = {
+    fullname: 'Osamas ddev4',
+    mobile: '061130045222',
+    email: 'osama@test5.com',
+  };
+  /* if (request.cookies.get('isLoggedIn')?.value == 'true' &&
+    request.cookies.get('auth.user')?.value
   ) {
-    console.log('first #1');
-    const paymentDetails =
-      searchParams.get('result') && searchParams.get('result') == 'CAPTURED'
-        ? {
-            paymentid: searchParams.get('paymentid'),
-            trackid: searchParams.get('trackid'),
-            tranid: searchParams.get('tranid'),
-            auth: searchParams.get('auth'),
-            ref: searchParams.get('ref'),
-            amt: searchParams.get('amt'),
-            result: searchParams.get('result'),
-            udf1: searchParams.get('udf1'),
-            udf2: searchParams.get('udf2'),
-            udf3: searchParams.get('udf3'),
-            udf4: searchParams.get('udf4'),
-            udf5: searchParams.get('udf5'),
-            postdate: searchParams.get('postdate'),
-            avr: searchParams.get('avr'),
-            authRespCode: searchParams.get('authRespCode'),
-          }
-        : null;
+    const user = JSON.parse(request.cookies.get('auth.user')?.value as any);
 
-    const hash =
-      searchParams.get('payment_method') == 'cod'
-        ? searchParams.get('hash')
-        : paymentDetails?.trackid;
-
-    const body = {
-      payment_details: paymentDetails,
-      payment_method: searchParams.get('payment_method'),
-      discount_by_wallet: checkoutData.discount_by_wallet,
-      delivery_time: checkoutData.delivery_time,
-      notes: checkoutData.notes,
-      suppliers: checkoutData.suppliers,
-      address_id: checkoutData.address_id,
-      user_data: checkoutData.user_data,
-      isVIP: checkoutData.isVIP,
-      hash,
+    userData = {
+      fullname: user?.fullname,
+      mobile: user?.mobile,
+      email: user?.email,
     };
-
-    const isVIP = checkoutData.isVIP ? checkoutData.isVIP : false;
-
-    const checkoutResponse = await apiHandler(
-      '/checkout?isVIP=' + isVIP,
-      'POST',
-      body,
-      false
-    );
-
-    console.log('checkoutresponse: ' + checkoutResponse);
-
-    let params = '';
-    Object.keys(body).forEach((key) => {
-      params += `${key}=${body[key as keyof typeof body]}&`;
-    });
-    if (checkoutResponse.success) {
-      const response: IResponse<{ url: string }> = {
-        errors: null,
-        results: { url: '/checkout?' + params },
-        status_code: 200,
-        status_message: STATUS_MESSAGES.RESOURCE_EXISTS,
-        success: true,
-      };
-      const jsonResponse = NextResponse.json(response);
-      jsonResponse.cookies.delete('checkout');
-      return jsonResponse;
-    } else {
-      const response: IResponse<{ url: string }> = {
-        errors: null,
-        results: { url: '/checkout?' + params },
-        status_code: 200,
-        status_message: STATUS_MESSAGES.RESOURCE_EXISTS,
-        success: false,
-      };
-      const jsonResponse = NextResponse.json(response);
-      jsonResponse.cookies.delete('checkout');
-      return jsonResponse;
-    }
   } else {
-    const response: IResponse<{ url: string }> = {
-      errors: null,
-      results: { url: '/checkout' },
-      status_code: 200,
-      status_message: STATUS_MESSAGES.RESOURCE_EXISTS,
-      success: false,
+    userData = {
+      fullname: body.user_data.fullname,
+      mobile: body.user_data.mobile,
+      email: body.user_data.email,
     };
-    const jsonResponse = NextResponse.json(response);
-    jsonResponse.cookies.delete('checkout');
-    return jsonResponse;
-  }
+  } */
+  const splittedFullName = userData.fullname.split(' ');
+  const firstName =
+    splittedFullName.length > 1 ? splittedFullName[0] : userData.fullname;
+  const lastName =
+    splittedFullName.length > 1 ? splittedFullName[1] : userData.fullname;
+  visa.setBillingData({
+    billing_forename: firstName,
+    billing_surename: lastName,
+    billing_email: userData.email,
+    billing_phone: userData.mobile,
+    billing_adress_line1: 'Kuwait',
+    billing_address_line2: 'Kuwait city',
+    billing_city: 'Kuwait',
+    billing_state: 'Kuwait',
+    billing_country: 'KW',
+    billing_postalcode: '12344',
+    bill_trans_ref_no: '44anything5ds2dsdqdf',
+  });
+
+  visa.preparePayload();
+
+  const response: IResponse<CyberSource> = {
+    errors: null,
+    results: visa,
+    status_code: 200,
+    status_message: STATUS_MESSAGES.RESOURCE_EXISTS,
+    success: true,
+  };
+  const jsonResponse = NextResponse.json(response);
+  //jsonResponse.cookies.set('checkout', JSON.stringify(body));
+  return jsonResponse;
 }
 
 export async function POST(request: NextRequest) {
@@ -144,7 +111,7 @@ export async function POST(request: NextRequest) {
     return jsonResponse;
   }
 
-  let userData: any = {};
+  /* let userData: any = {};
 
   if (
     request.cookies.get('isLoggedIn')?.value == 'true' &&
@@ -167,45 +134,11 @@ export async function POST(request: NextRequest) {
 
   if (body.payment_method === 'visa') {
     const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
-    console.log('HASH: ', valid.results.hash);
-    const res = await fetch(
-      `https://pay.jm3eia.com/api/v1/payment-requests?amount=${parseFloat(
-        cart.total
-      )}&full_name=${userData.fullname}&mobile_number=${
-        userData.mobile
-      }&email=${userData.email}&request_number=${
-        valid.results.hash
-      }&source_host=web.jm3eia.com`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          'app-key': 'APIJM3_PK_5843cx8q99t6b5.64795315',
-          'app-secret': 'APIJM3_SK_6421rt7klo1q98.88472366',
-        },
-      }
-    );
-
-    const resData = await res.json();
-    console.log(
-      '====================== payment request data =====================: ',
-      resData
-    );
-
-    if (!res.ok) {
-      return NextResponse.json({
-        success: false,
-        errors: { message: 'Cannot make the payment' },
-      });
-    }
-
-    const url = resData.redirect_url;
-    const data = resData.data;
+    
 
     const response: IResponse<{ url: string }> = {
       errors: null,
-      results: { url },
+      results: { url: '' },
       status_code: 200,
       status_message: STATUS_MESSAGES.RESOURCE_EXISTS,
       success: true,
@@ -213,5 +146,5 @@ export async function POST(request: NextRequest) {
     const jsonResponse = NextResponse.json(response);
     jsonResponse.cookies.set('checkout', JSON.stringify(body));
     return jsonResponse;
-  }
+  } */
 }

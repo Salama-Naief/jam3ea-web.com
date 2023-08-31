@@ -1,9 +1,14 @@
+'use client';
+
 import Container from '@/components/Container';
+import Visa from '../cart/components/Visa';
+import { useState } from 'react';
 
 export default function Pro() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Container className='px-0'>
-      <div className="space-y-4 relative">
+    <Container className="">
+      {/* <div className="space-y-4 relative">
         <div className="flex flex-col bg-gradient-to-r from-primary to-[#f77d0fb5] relative p-3 h-[180px] pt-10 overflow-hidden">
           <button className="bg-white rounded-full w-fit p-2 mb-4">
             <svg
@@ -122,7 +127,9 @@ export default function Pro() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
+      <button onClick={() => setIsOpen(true)}>Checkout</button>
+      {isOpen && <Visa isOpen={isOpen} close={() => setIsOpen(false)} />}
     </Container>
   );
 }

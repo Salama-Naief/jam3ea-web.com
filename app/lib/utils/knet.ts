@@ -91,9 +91,7 @@ class Knet {
     return url;
   };
 
-  result = (bodyText: string) => {
-    const jsonBody = querystring.parse(bodyText);
-    console.log('json body: ', jsonBody);
+  result = (jsonBody: querystring.ParsedUrlQuery) => {
     const {
       ErrorText,
       paymentid,
