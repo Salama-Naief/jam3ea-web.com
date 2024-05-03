@@ -1,15 +1,15 @@
-import 'server-only';
-import type { Locale } from './../../../i18n-config';
-import { getLanguage } from './serverHelpers';
-import { LANGUAGES } from '../enums';
+import "server-only";
+import type { Locale } from "./../../../i18n-config";
+import { getLanguage } from "./serverHelpers";
+import { LANGUAGES } from "../enums";
 
 // We enumerate all dictionaries here for better linting and typescript support
 // We also get the default import for cleaner types
 const dictionaries = {
   en: () =>
-    import('./../../../dictionaries/en.json').then((module) => module.default),
+    import("./../../../dictionaries/en.json").then((module) => module.default),
   ar: () =>
-    import('./../../../dictionaries/ar.json').then((module) => module.default),
+    import("./../../../dictionaries/ar.json").then((module) => module.default),
 };
 
 export const getDictionary = async (locale: Locale) => {
@@ -18,7 +18,7 @@ export const getDictionary = async (locale: Locale) => {
   }
 
   if (!locale) {
-    locale = LANGUAGES.ENGLISH || 'en';
+    locale = LANGUAGES.ARABIC || "ar";
   }
 
   const selectedLocale = [LANGUAGES.ENGLISH, LANGUAGES.ARABIC].includes(

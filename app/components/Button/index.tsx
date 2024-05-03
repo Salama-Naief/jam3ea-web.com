@@ -1,5 +1,5 @@
-import { ButtonHTMLAttributes, FC } from 'react';
-import { LoadingIcon } from '../Icons';
+import { ButtonHTMLAttributes, FC } from "react";
+import { LoadingIcon } from "../Icons";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: JSX.Element | JSX.Element[] | string;
@@ -8,20 +8,20 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button({
   children,
-  className = '',
+  className = "",
   loading = false,
   disabled,
   ...props
 }: ButtonProps) {
   return (
     <button
-      className={`w-full py-2 rounded-full mb-3 ${
+      className={`w-full py-2 rounded-lg mb-3 ${
         disabled
-          ? 'focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-200 font-medium text-sm px-5 py-2.5 mr-2 mb-2 disabled:opacity-50 disabled:cursor-not-allowed'
-          : 'bg-primary text-white'
+          ? "focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-200 font-medium text-sm px-5 py-2.5 mr-2 mb-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          : "bg-primary text-white"
       } ${className}`}
       disabled={loading || disabled}
-      type={props.type || 'button'}
+      type={props.type || "button"}
       {...props}
     >
       {loading ? <LoadingIcon /> : children}

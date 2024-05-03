@@ -1,11 +1,11 @@
-import Menu from './Menu';
-import CategoriesMenu from './CategoriesMenu';
-import { SearchIcon } from '../Icons';
-import AddressSelector from './AddressSelector';
-import webRoutes from '@/lib/utils/webRoutes';
-import Link from 'next/link';
-import SearchForm from './searchForm';
-import BackButton from './BackButton';
+import Menu from "./Menu";
+import CategoriesMenu from "./CategoriesMenu";
+import { SearchIcon } from "../Icons";
+import AddressSelector from "./AddressSelector";
+import webRoutes from "@/lib/utils/webRoutes";
+import Link from "next/link";
+import SearchForm from "./searchForm";
+import BackButton from "./BackButton";
 
 interface NavbarProps {
   hasMenu?: Boolean;
@@ -28,20 +28,16 @@ export default function Navbar({
   hasBackButton = true,
   title,
   expandSearch = false,
-  searchValue = '',
+  searchValue = "",
   supplierId,
-  className = '',
+  className = "",
 }: NavbarProps) {
   return (
     <>
-      <nav
-        className={`app-container border-gray-200 px-0 mb-2 fixed top-0 left-1/2 transform rtl:translate-x-1/2 ltr:-translate-x-1/2 z-10 ${
-          className ? className : 'bg-white'
-        }`}
-      >
+      <nav>
         <div
           className={`max-w-screen-xl flex flex-wrap items-center justify-between mx-auto ${
-            hasBackButton ? 'px-1 py-2' : 'p-4'
+            hasBackButton ? "px-1 py-2" : "p-4"
           }`}
         >
           <div className="flex gap-6">
@@ -54,7 +50,7 @@ export default function Navbar({
           )}
           <div
             className={`flex gap-2 ${
-              hasSearch && expandSearch ? 'search-expanded' : ''
+              hasSearch && expandSearch ? "search-expanded" : ""
             }`}
           >
             {hasSearch && (

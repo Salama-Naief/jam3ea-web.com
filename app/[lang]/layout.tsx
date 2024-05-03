@@ -1,12 +1,15 @@
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import './../globals.css';
-import NextTopLoader from 'nextjs-toploader';
-import { AuthProvider } from '@/lib/providers/AuthProvider';
-import { AddressProvider } from '@/lib/providers/AddressProvider';
-import { CartProvider } from '@/module/cart/CartProvider';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { LANGUAGES } from '@/lib/enums';
-import { Locale } from '../../i18n-config';
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import "./../globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import NextTopLoader from "nextjs-toploader";
+import { AuthProvider } from "@/lib/providers/AuthProvider";
+import { AddressProvider } from "@/lib/providers/AddressProvider";
+import { CartProvider } from "@/module/(main)/cart/CartProvider";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { LANGUAGES } from "@/lib/enums";
+import { Locale } from "../../i18n-config";
+import Navbar from "@/components/Navbar/Navbar";
 
 interface IRootLayoutProps {
   children: React.ReactNode;
@@ -14,10 +17,10 @@ interface IRootLayoutProps {
 }
 
 export const metadata = {
-  title: 'Jm3eia dot com',
+  title: "Jm3eia dot com",
   verification: {
-    google: "YejFgWHiYkJdIY9hniJYUP1oZAP8PT4ZVZsPkQYBOgc"
-  }
+    google: "YejFgWHiYkJdIY9hniJYUP1oZAP8PT4ZVZsPkQYBOgc",
+  },
 };
 
 export default async function RootLayout({
@@ -34,7 +37,8 @@ export default async function RootLayout({
   return (
     <html
       lang={selectedLang}
-      dir={selectedLang === LANGUAGES.ARABIC ? 'rtl' : 'ltr'}
+      dir={selectedLang === LANGUAGES.ARABIC ? "rtl" : "ltr"}
+      suppressHydrationWarning={true}
     >
       <body suppressHydrationWarning={true}>
         <div>

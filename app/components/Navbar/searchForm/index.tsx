@@ -1,9 +1,9 @@
-'use client';
-
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import webRoutes from '@/lib/utils/webRoutes';
-import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+"use client";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import webRoutes from "@/lib/utils/webRoutes";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
+import { FiSearch } from "react-icons/fi";
 
 interface SearchFormProps {
   searchValue?: string;
@@ -23,41 +23,27 @@ export default function SearchForm({
         e.preventDefault();
         router.push(webRoutes.search(search, supplierId));
       }}
-      className="w-full"
+      className="w-full flex items-center "
     >
-      <label
+      {/* <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only"
       >
-        {translate('search')}
-      </label>
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg
-            aria-hidden="true"
-            className="w-5 h-5 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-        </div>
+        {translate("search")}
+      </label> */}
+      <div className="w-full bg-gray-200 rounded-lg h-[48px] overflow-hidden flex items-center">
         <input
           type="search"
           id="default-search"
-          className="block w-full py-3 pr-5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-orange-500 focus:border-orange-500"
-          placeholder={translate('search')}
+          className="block flex-grow py-3 h-full bg-transparent text-sm text-gray-900  rounded-lg ring-0 border-none"
+          placeholder={translate("search")}
           required
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <button className="px-4 h-full bg-secondary rounded-lg text-white">
+          <FiSearch size={24} />
+        </button>
       </div>
     </form>
   );

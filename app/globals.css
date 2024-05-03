@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  background-color: #fafafa;
+  background-color: #fcfcfc;
 }
 @layer components {
   .app-container {
@@ -29,25 +29,42 @@ body {
   }
 }
 
-.custom-tabs button{
-  color:var(--primary);
+.custom-tabs button {
+  color: var(--primary);
 }
 
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{
+.Input:focus {
+  @apply border-primary;
+}
+[type="text"]:focus,
+[type="email"]:focus,
+[type="url"]:focus,
+[type="password"]:focus,
+[type="number"]:focus,
+[type="date"]:focus,
+[type="datetime-local"]:focus,
+[type="month"]:focus,
+[type="search"]:focus,
+[type="tel"]:focus,
+[type="time"]:focus,
+[type="week"]:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
   outline: none !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }
-div:where(.swal2-icon){
+div:where(.swal2-icon) {
   margin: -2.5em auto 0 !important;
-  background:white;
+  background: white;
 }
 .custom-danger.swal2-icon {
-  background-color: #E82F3E !important;
+  background-color: #e82f3e !important;
   border-color: white !important;
 }
 .custom-success.swal2-icon {
-  background-color: #3DB754 !important;
+  background-color: #3db754 !important;
   border-color: white !important;
 }
 
@@ -56,5 +73,8 @@ div:where(.swal2-icon){
 }
 
 [lang="ar"] body * {
-  font-family: 'Cairo', sans-serif !important;
+  font-family: "Cairo", sans-serif !important;
+}
+.slick-dots {
+  top: 350px;
 }
