@@ -1,6 +1,6 @@
-import { IAddress } from '@/module/(profile)/types';
-import { IProduct } from '@/module/product/types';
-import { ISupplier } from '@/module/stores/types';
+import { IAddress } from "@/module/(main)/(profile)/types";
+import { IProduct } from "@/module/(main)/product/types";
+import { ISupplier } from "@/module/(main)/stores/types";
 
 export interface IAddToCart {
   sku: string;

@@ -33,10 +33,7 @@ body {
   color: var(--primary);
 }
 
-.Input:focus {
-  @apply border-primary;
-}
-[type="text"]:focus,
+/* [type="text"]:focus,
 [type="email"]:focus,
 [type="url"]:focus,
 [type="password"]:focus,
@@ -54,7 +51,7 @@ select:focus {
   outline: none !important;
   border-color: transparent !important;
   box-shadow: none !important;
-}
+} */
 div:where(.swal2-icon) {
   margin: -2.5em auto 0 !important;
   background: white;
@@ -76,5 +73,18 @@ div:where(.swal2-icon) {
   font-family: "Cairo", sans-serif !important;
 }
 .slick-dots {
-  top: 350px;
+  @apply top-[21rem] md:top-[23rem] lg:top-[28rem];
+}
+
+/* smooth scroll bar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+}
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(184, 184, 184);
 }

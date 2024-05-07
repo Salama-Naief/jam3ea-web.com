@@ -1,15 +1,16 @@
-'use client';
+"use client";
 
-import React, { useContext, useState } from 'react';
-import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { ICartStatus, IVariant } from '@/module/product/types';
-import { CartContext } from '../CartProvider';
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import Button from '@/components/Button';
-import Link from 'next/link';
-import webRoutes from '@/lib/utils/webRoutes';
-import Variants from '@/module/product/components/Variants';
-import { usePathname, useRouter } from 'next/navigation';
+import React, { useContext, useState } from "react";
+import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { BsPlus, BsDash } from "react-icons/bs";
+import { ICartStatus, IVariant } from "@/module/(main)/product/types";
+import { CartContext } from "../CartProvider";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import Button from "@/components/Button";
+import Link from "next/link";
+import webRoutes from "@/lib/utils/webRoutes";
+import Variants from "@/module/(main)/product/components/Variants";
+import { usePathname, useRouter } from "next/navigation";
 
 interface IAddToCartButtonProps {
   sku: string;
@@ -53,7 +54,7 @@ export default function AddToCartButton({
         }
       }
     } catch (err) {
-      console.log('ERR: ', err);
+      console.log("ERR: ", err);
     }
   };
 
@@ -77,73 +78,73 @@ export default function AddToCartButton({
     }
   };
 
-  if (normalBtn) {
-    return (
-      <>
-        {count > 0 ? (
-          <div className="h-12 bg-primary rounded-full mb-5">
-            <div className="h-full max-w-lg mx-auto flex items-center justify-center">
-              <div className="flex items-center justify-between gap-10">
-                <button
-                  type="button"
-                  className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg"
-                  onClick={handleIncrement}
-                >
-                  <PlusIcon className="w-8 h-8" />
-                </button>
-                {count && count >= 1 ? (
-                  <>
-                    <span className="w-5 h-5 flex items-center justify-center text-md text-white ">
-                      {count}
-                    </span>
-                    <button
-                      type="button"
-                      className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg ml-auto"
-                      onClick={handleDecrement}
-                    >
-                      <TrashIcon className="w-8 h-8" />
-                    </button>
-                  </>
-                ) : (
-                  ''
-                )}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <Button
-            loading={loading}
-            disabled={hasVariant && !sku.includes('-')}
-            onClick={handleIncrement}
-          >
-            {translate('add_to_cart')}
-          </Button>
-        )}
+  // if (normalBtn) {
+  //   return (
+  //     <>
+  //       {count > 0 ? (
+  //         <div className="h-12 bg-primary rounded-full mb-5">
+  //           <div className="h-full max-w-lg mx-auto flex items-center justify-center">
+  //             <div className="flex items-center justify-between gap-10">
+  //               <button
+  //                 type="button"
+  //                 className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg"
+  //                 onClick={handleIncrement}
+  //               >
+  //                 <PlusIcon className="w-8 h-8" />
+  //               </button>
+  //               {count && count >= 1 ? (
+  //                 <>
+  //                   <span className="w-5 h-5 flex items-center justify-center text-md text-white ">
+  //                     {count}
+  //                   </span>
+  //                   <button
+  //                     type="button"
+  //                     className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg ml-auto"
+  //                     onClick={handleDecrement}
+  //                   >
+  //                     <TrashIcon className="w-8 h-8" />
+  //                   </button>
+  //                 </>
+  //               ) : (
+  //                 ""
+  //               )}
+  //             </div>
+  //           </div>
+  //         </div>
+  //       ) : (
+  //         <Button
+  //           loading={loading}
+  //           disabled={hasVariant && !sku.includes("-")}
+  //           onClick={handleIncrement}
+  //         >
+  //           {translate("add_to_cart")}
+  //         </Button>
+  //       )}
 
-        {variants && (
-          <Variants
-            variants={variants}
-            onSelect={(sku: string) => {
-              setSku(sku);
-            }}
-          />
-        )}
-      </>
-    );
-  }
+  //       {variants && (
+  //         <Variants
+  //           variants={variants}
+  //           onSelect={(sku: string) => {
+  //             setSku(sku);
+  //           }}
+  //         />
+  //       )}
+  //     </>
+  //   );
+  // }
 
   return (
-    <div className="flex items-center ml-auto gap-1">
+    <div className="flex justify-between items-center gap-1 mt-1   w-full">
       {hasVariant ? (
         <Link
           href={webRoutes.product(sku)}
-          className="text-primary shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg"
+          className="text-white bg-primary shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg"
         >
           <PlusIcon className="w-4 h-4" />
         </Link>
       ) : (
         <button
-          className="text-primary shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg"
+          className="text-white bg-primary shadow  flex items-center justify-center rounded-full"
           onClick={handleIncrement}
           type="button"
         >
@@ -161,28 +162,26 @@ export default function AddToCartButton({
         ) : (
           <PlusIcon className="w-4 h-4" />
         )} */}
-          <PlusIcon className="w-4 h-4" />
+          <BsPlus size={28} />
         </button>
       )}
       {count && count > 0 ? (
         <>
-          <span className="w-5 h-5 flex items-center justify-center text-sm">
-            {count}
-          </span>
+          <div className=" text-center text-sm w-full">{count}</div>
           <button
-            className="text-danger shadow w-5 h-5 flex items-center justify-center p-0 rounded-lg ml-auto"
+            className="text-danger shadow flex items-center justify-center rounded-full ml-auto"
             onClick={handleDecrement}
             type="button"
           >
             {count === 1 ? (
               <TrashIcon className="w-4 h-4" />
             ) : (
-              <MinusIcon className="w-4 h-4" />
+              <BsDash size={28} />
             )}
           </button>
         </>
       ) : (
-        ''
+        ""
       )}
     </div>
   );

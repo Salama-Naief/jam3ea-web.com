@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Loader from '@/components/Loader';
-import Popup from '@/components/Popup';
-import { clientRequest } from '@/lib/utils/helpers';
-import { SetStateAction, useEffect, useState } from 'react';
+import Loader from "@/components/Loader";
+import Popup from "@/components/Popup";
+import { clientRequest } from "@/lib/utils/helpers";
+import { SetStateAction, useEffect, useState } from "react";
 
 interface VisaProps {
   isOpen: boolean;
@@ -16,8 +16,8 @@ export default function Visa({ close, isOpen }: VisaProps) {
   const fetchData = async () => {
     setIsLoading(true);
     const data = await clientRequest(
-      'http://localhost:3000/api/checkout',
-      'GET',
+      "http://localhost:3000/api/checkout",
+      "GET",
       undefined,
       true
     );
@@ -30,11 +30,11 @@ export default function Visa({ close, isOpen }: VisaProps) {
   }, []);
 
   const disabledFields = [
-    'card_number',
-    'card_expiry_date',
-    'response_return_url',
-    'card_cvn',
-    'card_type_name',
+    "card_number",
+    "card_expiry_date",
+    "response_return_url",
+    "card_cvn",
+    "card_type_name",
   ];
 
   return (
@@ -46,11 +46,12 @@ export default function Visa({ close, isOpen }: VisaProps) {
           <form action={result.results.apiEndPoint} method="POST">
             {Object.keys(result.results.payload)
               //.filter((p) => !disabledFields.includes(p))
-              .map((key: string) => (
+              .map((key: string, i) => (
                 <input
                   type="hidden"
                   name={key}
                   id={key}
+                  key={i}
                   value={result.results.payload[key]}
                 />
               ))}

@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 
 interface IRootLayoutProps {
@@ -16,6 +17,7 @@ export default async function RootLayout({ children }: IRootLayoutProps) {
     <div>
       <Navbar />
       <>{children}</>
+      <Footer />
     </div>
   );
 }

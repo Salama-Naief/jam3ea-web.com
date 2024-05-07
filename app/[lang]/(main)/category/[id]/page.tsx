@@ -1,18 +1,18 @@
-import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
-import ProductCard from '@/module/product/components/ProductCard';
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
+import ProductCard from "@/module/(main)/product/components/ProductCard";
 import {
   getCategoryById,
   getCategoryProducts,
   getRanksByCategoryId,
-} from '../services';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import webRoutes from '@/lib/utils/webRoutes';
-import { Locale } from '../../../../i18n-config';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { translate } from '@/lib/utils/serverHelpers';
-import CartBottomBar from '@/module/cart/components/CartBottomBar';
+} from "../services";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import webRoutes from "@/lib/utils/webRoutes";
+import { Locale } from "../../../../../i18n-config";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { translate } from "@/lib/utils/serverHelpers";
+import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
 
 export default async function CategoriesPage({
   params,
@@ -65,7 +65,7 @@ export default async function CategoriesPage({
                               .filter(
                                 ({ prod_n_categoryArr }) =>
                                   prod_n_categoryArr.findIndex(
-                                    (c) => c.rank_id && c.rank_id === _id
+                                    (c: any) => c.rank_id && c.rank_id === _id
                                   ) > -1
                               )
                               .map(
@@ -93,11 +93,11 @@ export default async function CategoriesPage({
                                     isAvailable={availability}
                                     maxQuantityCart={max_quantity_cart}
                                     hasVariants={has_variants}
-                                    currency={translate(dict, 'currency')}
+                                    currency={translate(dict, "currency")}
                                   />
                                 )
                               )
-                          : 'No results'}
+                          : "No results"}
                       </div>
                     </div>
                   ))}
@@ -130,7 +130,7 @@ export default async function CategoriesPage({
                           isAvailable={availability}
                           maxQuantityCart={max_quantity_cart}
                           hasVariants={has_variants}
-                          currency={translate(dict, 'currency')}
+                          currency={translate(dict, "currency")}
                         />
                       )
                     )}

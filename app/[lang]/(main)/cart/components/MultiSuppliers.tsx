@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { useContext, useState } from 'react';
-import { IGetCheckoutResponseResult } from '../types';
-import { Locale } from '../../../../i18n-config';
+import { useContext, useState } from "react";
+import { IGetCheckoutResponseResult } from "../types";
+import { Locale } from "../../../../../i18n-config";
 import {
   getPriceWithCurrency,
   getProductQuantityPrice,
-} from '@/module/product/utils';
-import AddToCartButton from './AddToCartButton';
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import { CODIcon, ChevronRight, KnetIcon } from '@/components/Icons';
-import DeliveryTimePicker from './DeliveryTimePicker';
-import PaymentMethods from './PaymentMethods';
-import Link from 'next/link';
-import Button from '@/components/Button';
-import webRoutes from '@/lib/utils/webRoutes';
-import ApplyCoupon from './ApplyCoupon';
-import useHttpClient from '@/lib/hooks/useHttpClient';
-import { checkout, getcheckout } from '../services';
-import { useFormik } from 'formik';
-import { showErrorAlert } from '@/lib/utils/helpers';
-import { AddressContext } from '@/lib/providers/AddressProvider';
-import { IResponse } from '@/lib/types';
+} from "@/module/(main)/product/utils";
+import AddToCartButton from "./AddToCartButton";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import { CODIcon, ChevronRight, KnetIcon } from "@/components/Icons";
+import DeliveryTimePicker from "./DeliveryTimePicker";
+import PaymentMethods from "./PaymentMethods";
+import Link from "next/link";
+import Button from "@/components/Button";
+import webRoutes from "@/lib/utils/webRoutes";
+import ApplyCoupon from "./ApplyCoupon";
+import useHttpClient from "@/lib/hooks/useHttpClient";
+import { checkout, getcheckout } from "../services";
+import { useFormik } from "formik";
+import { showErrorAlert } from "@/lib/utils/helpers";
+import { AddressContext } from "@/lib/providers/AddressProvider";
+import { IResponse } from "@/lib/types";
 
 interface MultiSuppliersProps {
   cart: IGetCheckoutResponseResult;
@@ -39,18 +39,18 @@ export default function MultiSuppliers({
   const [isLoading, setIsLoading] = useState(false);
   const suppliersData = cart.data.map((d) => ({
     supplier_id: d.supplier._id,
-    delivery_time: '',
+    delivery_time: "",
     requires_delivery_time: !d.supplier.delivery_time_text,
   }));
 
   const formik = useFormik({
     initialValues: {
-      payment_method: '',
+      payment_method: "",
       suppliers: suppliersData,
     },
     onSubmit: async (values) => {
       if (!values.payment_method) {
-        showErrorAlert(translate('select_payment_method'), translate('ok'));
+        showErrorAlert(translate("select_payment_method"), translate("ok"));
         return;
       }
 
@@ -60,7 +60,7 @@ export default function MultiSuppliers({
             s && s.supplier_id && s.requires_delivery_time && !s.delivery_time
         )
       ) {
-        showErrorAlert(translate('select_delivery_time'), translate('ok'));
+        showErrorAlert(translate("select_delivery_time"), translate("ok"));
         return;
       }
 
@@ -74,7 +74,7 @@ export default function MultiSuppliers({
           })),
       };
 
-      console.log('BODY: ', body);
+      console.log("BODY: ", body);
 
       if (isLoggedIn) {
         body.address_id = selectedAddress?.id;
@@ -102,7 +102,7 @@ export default function MultiSuppliers({
   const { touched, errors, values, handleChange, handleSubmit, setFieldValue } =
     formik;
 
-  console.log('before values: ', values);
+  console.log("before values: ", values);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -124,7 +124,7 @@ export default function MultiSuppliers({
                 htmlFor="checked-checkbox"
                 className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                {typeof data.supplier.name === 'object' &&
+                {typeof data.supplier.name === "object" &&
                 (data.supplier.name as any)[language]
                   ? (data.supplier.name as any)[language]
                   : data.supplier.name}
@@ -145,10 +145,10 @@ export default function MultiSuppliers({
                 <div className="flex flex-col gap-1">
                   <span className="text-md">{product.name}</span>
                   <span className="text-sm">
-                    {translate('price')}: {product.price}
+                    {translate("price")}: {product.price}
                   </span>
                   <span className="text-sm text-primary">
-                    {translate('total')}:{' '}
+                    {translate("total")}:{" "}
                     {getProductQuantityPrice(
                       parseFloat(product.price),
                       product.quantity
@@ -166,7 +166,7 @@ export default function MultiSuppliers({
             {data.supplier.delivery_time_text ? (
               <div className="py-5 rounded-xl bg-white">
                 <div className="text-center">
-                  {typeof data.supplier.delivery_time_text === 'object'
+                  {typeof data.supplier.delivery_time_text === "object"
                     ? data.supplier.delivery_time_text[lang]
                     : data.supplier.delivery_time_text}
                 </div>
@@ -184,7 +184,7 @@ export default function MultiSuppliers({
                     data.supplier._id
                   );
                   setFieldValue(`suppliers.${i}.delivery_time`, v.full_date);
-                  console.log('Selected time: ', v.full_date);
+                  console.log("Selected time: ", v.full_date);
                 }}
                 selectedDeliveryTime={values.suppliers[i]?.delivery_time}
               />
@@ -192,42 +192,45 @@ export default function MultiSuppliers({
             <div className="flex flex-col  py-2">
               <div className="flex items-center justify-between border-y py-2">
                 <div className="text-sm">
-                  {translate('available_payment_methods')}
+                  {translate("available_payment_methods")}
                 </div>
                 <div className="flex">
                   {data.payment_methods.map((pm) => (
-                    <div key={pm.id} className="ms-auto bg-white p-2 rounded-xl border">
-                      {pm.id === 'cod' && <CODIcon />}
-                      {pm.id === 'knet' && <KnetIcon />}
+                    <div
+                      key={pm.id}
+                      className="ms-auto bg-white p-2 rounded-xl border"
+                    >
+                      {pm.id === "cod" && <CODIcon />}
+                      {pm.id === "knet" && <KnetIcon />}
                     </div>
                   ))}
                 </div>
               </div>
               <div className="flex items-center py-1">
-                <div className="text-sm">{translate('subtotal')}</div>
+                <div className="text-sm">{translate("subtotal")}</div>
                 <div className="ms-auto text-sm">
-                  {getPriceWithCurrency(data.subtotal, translate('currency'))}
+                  {getPriceWithCurrency(data.subtotal, translate("currency"))}
                 </div>
               </div>
               <div className="flex items-center border-b py-1">
-                <div className="text-sm">{translate('shipping_cost')}</div>
+                <div className="text-sm">{translate("shipping_cost")}</div>
                 <div className="ms-auto text-sm">
                   {getPriceWithCurrency(
                     data.shipping_cost,
-                    translate('currency')
+                    translate("currency")
                   )}
                 </div>
               </div>
               {data.coupon && (
                 <div className="flex items-center border-b py-1">
-                  <div className="text-sm">{translate('discount')}</div>
+                  <div className="text-sm">{translate("discount")}</div>
                   <div className="ms-auto text-sm">{data.coupon.value}</div>
                 </div>
               )}
               <div className="flex items-center py-1">
-                <div className="text-sm">{translate('total')}</div>
+                <div className="text-sm">{translate("total")}</div>
                 <div className="ms-auto text-sm">
-                  {getPriceWithCurrency(data.total, translate('currency'))}
+                  {getPriceWithCurrency(data.total, translate("currency"))}
                 </div>
               </div>
             </div>
@@ -247,8 +250,8 @@ export default function MultiSuppliers({
             knet: dict.knet,
           }}
           onSelect={(pm) => {
-            console.log('payment method selected: ', pm);
-            setFieldValue('payment_method', pm.id);
+            console.log("payment method selected: ", pm);
+            setFieldValue("payment_method", pm.id);
           }}
           selectedPaymentMethod={values.payment_method}
         />
@@ -289,9 +292,9 @@ export default function MultiSuppliers({
         </div> */}
         <div className="bg-white p-4 rounded-xl">
           <div className="flex items-center">
-            <span className="text-lg">{translate('order_summary')}</span>
+            <span className="text-lg">{translate("order_summary")}</span>
             <div className="ml-auto bg-primary-soft text-primary p-2 rounded-full">
-              {cart.products.length} {translate('products')}
+              {cart.products.length} {translate("products")}
             </div>
           </div>
 
@@ -300,10 +303,10 @@ export default function MultiSuppliers({
               <tr>
                 <th className="py-2 text-start px-4 border-b"></th>
                 <th className="py-2 text-start px-4  border-b">
-                  {translate('number_of_items')}
+                  {translate("number_of_items")}
                 </th>
                 <th className="py-2 text-start px-4  border-b">
-                  {translate('amount')}
+                  {translate("amount")}
                 </th>
               </tr>
             </thead>
@@ -311,7 +314,7 @@ export default function MultiSuppliers({
               {cart.data.map((data) => (
                 <tr key={data.supplier._id}>
                   <td className="py-2 px-4 border-b">
-                    {typeof data.supplier.name === 'object' &&
+                    {typeof data.supplier.name === "object" &&
                     (data.supplier.name as any)[language]
                       ? (data.supplier.name as any)[language]
                       : data.supplier.name}
@@ -331,14 +334,14 @@ export default function MultiSuppliers({
           loading={isLoading}
           type="submit"
         >
-          {translate('checkout')}
+          {translate("checkout")}
         </Button>
         <div className="text-center">
           <Link
             href={webRoutes.home}
             className="text-primary text-lg text-center flex items-center w-full"
           >
-            <div className="ms-auto">{translate('back_to_home')}</div>
+            <div className="ms-auto">{translate("back_to_home")}</div>
 
             <div className="ms-auto">
               <ChevronRight color="#f77d0f" />

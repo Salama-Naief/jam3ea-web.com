@@ -1,5 +1,5 @@
-import Categories from '@/module/category/components/Categories';
-import CategoriesMenuWrapper from './categoriesMenuWrapper'
+import Categories from "@/module/(main)/category/components/Categories";
+import CategoriesMenuWrapper from "./categoriesMenuWrapper";
 
 export default function CategoriesMenu() {
   return (

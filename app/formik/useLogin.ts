@@ -1,7 +1,7 @@
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { AuthContext } from "@/lib/providers/AuthProvider";
-import { login } from "@/module/(profile)/services";
-import { ILogin, ILoginResponseResult } from "@/module/(profile)/types";
+import { login } from "@/module/(main)/(profile)/services";
+import { ILogin, ILoginResponseResult } from "@/module/(main)/(profile)/types";
 import LoginSchema from "@/validations/loginValidation";
 import { useFormik } from "formik";
 import { useContext, useState } from "react";
@@ -27,11 +27,12 @@ export const UseLogin = () => {
     validationSchema: LoginSchema(translate),
     onSubmit: async (values) => {
       console.log("login values", values);
-      // const status = await sendRequest(login(values));
-      // if (status == true) {
-      //   setRedirecting(true);
-      //   makeLogin();
-      // }
+      const status = await sendRequest(login(values));
+      console.log("status", status);
+      if (status == true) {
+        setRedirecting(true);
+        makeLogin();
+      }
     },
   });
 

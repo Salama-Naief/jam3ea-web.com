@@ -46,9 +46,7 @@ export default async function RootLayout({
             <NextTopLoader color="#F77D0F" />
             <AuthProvider dictionary={dictionary}>
               <AddressProvider>
-                <CartProvider>
-                  <>{children}</>
-                </CartProvider>
+                <CartProvider>{children}</CartProvider>
               </AddressProvider>
             </AuthProvider>
           </div>

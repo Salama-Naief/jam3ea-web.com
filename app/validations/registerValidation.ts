@@ -20,7 +20,7 @@ const RegisterSchema = (t: any) => {
         t("password_not_valid")
       ),
     address: Yup.object({
-      city_id: Yup.string().required(),
+      // city_id: Yup.string().required(),
       widget: Yup.string().required(),
       gada: Yup.string().optional(),
       street: Yup.string().required(),

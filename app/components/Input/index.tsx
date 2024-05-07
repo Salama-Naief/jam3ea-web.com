@@ -71,6 +71,7 @@ export default function Input({
                   disabled:opacity-70
                   disabled:cursor-not-allowed
                   text-start
+                  ring-0 focus:ring-0
                   ${
                     error
                       ? "border-danger focus:border-danger text-danger"

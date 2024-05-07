@@ -1,7 +1,8 @@
-import Link from 'next/link';
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 
 interface CategoryCardProps {
-  imageSrc: string;
+  imageSrc: string | StaticImageData;
   title: string;
   link: string;
 }
@@ -12,11 +13,18 @@ export default function CategoryCard({
   link,
 }: CategoryCardProps) {
   return (
-    <Link href={link} className="flex items-center flex-col gap-1">
-      <div className="bg-white shadow-sm rounded-3xl p-3 w-full min-h-[74px] h-full flex items-center justify-center overflow-hidden">
-        <img className="h-auto max-w-full" src={imageSrc} alt="" />
-      </div>
-      <span className="text-xs text-center">{title}</span>
-    </Link>
+    <div className="w-[140px] lg:w-[184px] h-[190px] bg-transparent">
+      <Link
+        href={link}
+        className="flex flex-col items-center justify-center gap-2"
+      >
+        <div className="bg-[#F1F1F1] shadow-sm py-3 px-1 relative rounded-3xl w-[100px]  h-[110px] lg:w-[130px] lg:h-[130px]  min-h-[74px] flex-grow flex items-center justify-center overflow-hidden">
+          <div className="  ">
+            <Image className="mx-auto" quality={100} src={imageSrc} alt="" />
+          </div>
+        </div>
+        <div className="font-bold text-center">{title}</div>
+      </Link>
+    </div>
   );
 }

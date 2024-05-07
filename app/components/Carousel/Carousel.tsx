@@ -38,7 +38,7 @@ const Banner = () => {
       <Slider {...settings} className="w-[100vw] overflow-hidden">
         {imgArray.map((item, index) => (
           <div key={index} className=" relative w-full h-96">
-            <img src={item} alt="" />
+            <Image src={item} alt="" />
           </div>
         ))}
       </Slider>
