@@ -26,12 +26,12 @@ export async function middleware(request: NextRequest) {
       ? request.cookies.get("auth.token")?.value
       : request.cookies.get("visitor.token")?.value;
 
-  // if (
-  //   !process.env.API_BASE_URL ||
-  //   !process.env.API_APP_KEY ||
-  //   !process.env.API_APP_SECRET
-  // )
-  //   throw new Error('Missing environment variables');
+  if (
+    !process.env.API_BASE_URL ||
+    !process.env.API_APP_KEY ||
+    !process.env.API_APP_SECRET
+  )
+    throw new Error("Missing environment variables");
 
   const addresses = request.cookies.get("addresses")?.value;
   const selectedAddress = request.cookies.get("selectedAddress")?.value;

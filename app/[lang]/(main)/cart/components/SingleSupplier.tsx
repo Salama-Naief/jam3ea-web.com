@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { IGetCheckoutResponseResult } from '../types';
-import Button from '@/components/Button';
-import webRoutes from '@/lib/utils/webRoutes';
+import Link from "next/link";
+import { IGetCheckoutResponseResult } from "../types";
+import Button from "@/components/Button";
+import webRoutes from "@/lib/utils/webRoutes";
 import {
   getPriceWithCurrency,
   getProductQuantityPrice,
-} from '@/module/product/utils';
-import { Locale } from '../../../../i18n-config';
+} from "@/module/(main)/product/utils";
+import { Locale } from "../../../../../i18n-config";
 //import { translate } from '@/lib/utils/serverHelpers';
-import DeliveryTimePicker from './DeliveryTimePicker';
-import AddToCartButton from './AddToCartButton';
-import ApplyCoupon from './ApplyCoupon';
-import PaymentMethods from './PaymentMethods';
-import { FormEvent, useContext, useState } from 'react';
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import { AddressContext } from '@/lib/providers/AddressProvider';
-import { useFormik } from 'formik';
-import { checkout } from '../services';
-import { IResponse } from '@/lib/types';
-import { showErrorAlert } from '@/lib/utils/helpers';
-import Visa from './Visa';
+import DeliveryTimePicker from "./DeliveryTimePicker";
+import AddToCartButton from "./AddToCartButton";
+import ApplyCoupon from "./ApplyCoupon";
+import PaymentMethods from "./PaymentMethods";
+import { FormEvent, useContext, useState } from "react";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import { AddressContext } from "@/lib/providers/AddressProvider";
+import { useFormik } from "formik";
+import { checkout } from "../services";
+import { IResponse } from "@/lib/types";
+import { showErrorAlert } from "@/lib/utils/helpers";
+import Visa from "./Visa";
 
 interface SingleSupplierProps {
   cart: IGetCheckoutResponseResult;
@@ -43,17 +43,17 @@ export default function SingleSupplier({
 
   const formik = useFormik({
     initialValues: {
-      payment_method: '',
-      delivery_time: '',
+      payment_method: "",
+      delivery_time: "",
     },
     onSubmit: async (values) => {
       if (!values.payment_method) {
-        showErrorAlert(translate('select_payment_method'), translate('ok'));
+        showErrorAlert(translate("select_payment_method"), translate("ok"));
         return;
       }
 
       if (!values.delivery_time) {
-        showErrorAlert(translate('select_delivery_time'), translate('ok'));
+        showErrorAlert(translate("select_delivery_time"), translate("ok"));
         return;
       }
       const body: any = {
@@ -96,7 +96,7 @@ export default function SingleSupplier({
   return (
     <form onSubmit={handleSubmit}>
       <h5 className="text-base mb-2">
-        {typeof data.supplier.name === 'object'
+        {typeof data.supplier.name === "object"
           ? data.supplier.name[lang]
           : data.supplier.name}
       </h5>
@@ -113,10 +113,10 @@ export default function SingleSupplier({
           <div className="flex flex-col gap-1">
             <span className="text-md">{product.name}</span>
             <span className="text-sm">
-              {translate('price')}: {product.price}
+              {translate("price")}: {product.price}
             </span>
             <span className="text-sm text-primary">
-              {translate('total')}:{' '}
+              {translate("total")}:{" "}
               {getProductQuantityPrice(
                 parseFloat(product.price),
                 product.quantity
@@ -139,8 +139,8 @@ export default function SingleSupplier({
           pick_delivery_time: dict.pick_delivery_time,
         }}
         onSelect={(v) => {
-          console.log('Selected time: ', v.full_date);
-          setFieldValue('delivery_time', v.full_date);
+          console.log("Selected time: ", v.full_date);
+          setFieldValue("delivery_time", v.full_date);
         }}
         selectedDeliveryTime={values.delivery_time}
       />
@@ -158,8 +158,8 @@ export default function SingleSupplier({
           knet: dict.knet,
         }}
         onSelect={(pm) => {
-          console.log('payment method selected: ', pm);
-          setFieldValue('payment_method', pm.id);
+          console.log("payment method selected: ", pm);
+          setFieldValue("payment_method", pm.id);
         }}
         selectedPaymentMethod={values.payment_method}
       />
@@ -168,37 +168,37 @@ export default function SingleSupplier({
 
       <div className="flex flex-col bg-white rounded-2xl gap-2 p-4 mb-2">
         <div className="flex items-center">
-          <div className="text-sm">{translate('order_summary')}</div>
+          <div className="text-sm">{translate("order_summary")}</div>
           <div className="bg-primary-soft text-primary py-2 px-4 text-sm rounded-2xl ms-auto">
-            {cart.products.length} {translate('products')}
+            {cart.products.length} {translate("products")}
           </div>
         </div>
         <div className="flex flex-col border-l-0 border-r-0 border py-2">
           <div className="flex items-center">
-            <div className="text-sm">{translate('subtotal')}</div>
+            <div className="text-sm">{translate("subtotal")}</div>
             <div className="ms-auto text-sm">
-              {getPriceWithCurrency(data.subtotal, translate('currency'))}
+              {getPriceWithCurrency(data.subtotal, translate("currency"))}
             </div>
           </div>
           <div className="flex items-center">
-            <div className="text-sm">{translate('shipping_cost')}</div>
+            <div className="text-sm">{translate("shipping_cost")}</div>
             <div className="ms-auto text-sm">
-              {getPriceWithCurrency(data.shipping_cost, translate('currency'))}
+              {getPriceWithCurrency(data.shipping_cost, translate("currency"))}
             </div>
           </div>
         </div>
         {cart.coupon && parseFloat(cart.coupon.value) > 0 && (
           <div className="flex items-center">
-            <div className="text-sm">{translate('discount')}</div>
+            <div className="text-sm">{translate("discount")}</div>
             <div className="ms-auto text-md font-semibold">
               {cart.coupon.value}
             </div>
           </div>
         )}
         <div className="flex items-center">
-          <div className="text-md">{translate('total')}</div>
+          <div className="text-md">{translate("total")}</div>
           <div className="ms-auto text-md font-semibold">
-            {getPriceWithCurrency(data.total, translate('currency'))}
+            {getPriceWithCurrency(data.total, translate("currency"))}
           </div>
         </div>
       </div>
@@ -210,14 +210,14 @@ export default function SingleSupplier({
         loading={isLoading}
         type="submit"
       >
-        {translate('checkout')}
+        {translate("checkout")}
       </Button>
       <div className="text-center">
         <Link
           href={webRoutes.home}
           className="text-primary text-lg text-center flex items-center w-full"
         >
-          <div className="ms-auto">{translate('back_to_home')}</div>
+          <div className="ms-auto">{translate("back_to_home")}</div>
 
           <div className="ms-auto">
             <svg

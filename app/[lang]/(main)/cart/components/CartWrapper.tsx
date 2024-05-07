@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import useHttpClient from '@/lib/hooks/useHttpClient';
-import { Locale } from '../../../../i18n-config';
-import { IGetCheckoutResponseResult } from '../types';
-import { getcheckout } from '../services';
-import { useContext, useEffect, useState } from 'react';
-import SingleSupplier from './SingleSupplier';
-import MultiSuppliers from './MultiSuppliers';
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import Loader from '@/components/Loader';
-import { AddressContext } from '@/lib/providers/AddressProvider';
+import useHttpClient from "@/lib/hooks/useHttpClient";
+import { Locale } from "../../../../../i18n-config";
+import { IGetCheckoutResponseResult } from "../types";
+import { getcheckout } from "../services";
+import { useContext, useEffect, useState } from "react";
+import SingleSupplier from "./SingleSupplier";
+import MultiSuppliers from "./MultiSuppliers";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import Loader from "@/components/Loader";
+import { AddressContext } from "@/lib/providers/AddressProvider";
 
 interface CartWrapperProps {
   lang: Locale;
@@ -31,7 +31,7 @@ export default function CartWrapper({ dict, lang }: CartWrapperProps) {
         getcheckout(undefined, selectedAddress?.city_id)
       );
       if (status) {
-        console.log('this is results: ', cart);
+        console.log("this is results: ", cart);
       }
     };
 
@@ -51,7 +51,7 @@ export default function CartWrapper({ dict, lang }: CartWrapperProps) {
         )
       ) : (
         <div className="flex flex-col mt-20 justify-center items-center">
-          <div>{translate('no_data')}</div>
+          <div>{translate("no_data")}</div>
         </div>
       )}
     </>

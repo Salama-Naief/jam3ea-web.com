@@ -1,13 +1,13 @@
-import { IDataLoadedResponse } from '@/lib/types';
-import apiHandler from '@/lib/utils/apiHandler';
-import { IFeature } from './types';
-import { IProduct } from '@/module/product/types';
+import { IDataLoadedResponse } from "@/lib/types";
+import apiHandler from "@/lib/utils/apiHandler";
+import { IFeature } from "./types";
+import { IProduct } from "@/module/(main)/product/types";
 
 export const getFeaturedProducts = async (
   supplierId?: string
 ): Promise<IFeature[]> =>
   await apiHandler(
-    `/product/featured${supplierId ? '?supplier_id=' + supplierId : ''}`
+    `/product/featured${supplierId ? "?supplier_id=" + supplierId : ""}`
   );
 
 export const getProductsByFeature = async (

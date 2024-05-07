@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Slider from "react-slick";
-import CarouselImg1 from "../../../public/assets/carousel/carousel-1.svg";
-import CarouselImg2 from "../../../public/assets/carousel/carousel-2.svg";
-import CarouselImg3 from "../../../public/assets/carousel/carousel-3.svg";
-import CarouselImg4 from "../../../public/assets/honey-image.png";
+import CarouselImg1 from "../../../public/assets/carousel/carousel1.png";
+import CarouselImg2 from "../../../public/assets/carousel/carousel2.png";
+import CarouselImg3 from "../../../public/assets/carousel/carousel3.png";
+
 import Image from "next/image";
 
 function Carousel() {
@@ -48,23 +48,17 @@ function Carousel() {
       );
     },
   };
-  const img1 =
-    "https://women-shop-shopify-t21s-kklm7oc03-engsalamanaief.vercel.app/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0662%2F0371%2F3755%2Fcollections%2Fflat-lay-woman-clothing-accessories-1376871.jpg%3Fv%3D1664959595&w=1920&q=75";
-  const img2 =
-    "https://women-shop-shopify-t21s-kklm7oc03-engsalamanaief.vercel.app/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0662%2F0371%2F3755%2Fcollections%2Fflat-lay-woman-clothing-accessories-1376871.jpg%3Fv%3D1664959595&w=1920&q=75";
-  const imgArray = [img1, img2];
+
+  const imgArray = [CarouselImg1, CarouselImg2, CarouselImg3];
   return (
-    <div className=" w-[100%]">
-      <Slider {...settings} className="w-[100%] h-96">
+    <div className=" w-[100%] relative">
+      <Slider {...settings} className="w-[100%] h-fit">
         {imgArray.map((img, index) => (
-          <div key={index} className="relative h-full w-full">
-            <Image
-              src={CarouselImg4}
-              alt=""
-              width={500}
-              height={500}
-              className="h-full w-full object-cover"
-            />
+          <div
+            key={index}
+            className="relative h-[25rem] md:h-[30rem] lg:h-[36rem] w-[100%]"
+          >
+            <Image src={img} alt="" fill objectFit="contian" />
           </div>
         ))}
       </Slider>
