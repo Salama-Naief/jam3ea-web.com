@@ -23,6 +23,7 @@ import Image from "next/image";
 import MainSlider from "@/components/Slider";
 import StoreCard from "@/components/StoreCard";
 import ProductSlider from "@/components/Slider/ProductSlider";
+import { getCategoriesList } from "./category/services";
 
 export default async function Home({
   params: { lang },
@@ -32,15 +33,29 @@ export default async function Home({
   const dict = await getDictionary(lang);
 
   const features = await getFeaturedProducts();
+  const categories = await getCategoriesList();
   const inventories = await getInventories();
   const stores =
     inventories && inventories.data && inventories.data.length === 1
       ? inventories.data[0].suppliers
       : [];
 
-  console.log("features", features);
+  await fetch("https://jm3eia.com/api?route=/category", {
+    // mode: 'no-cors',
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  }).then((response) => {
+    if (response.ok) {
+      response.json().then((json) => {
+        console.log("json============>", json);
+      });
+    }
+  });
+  console.log("categories", categories);
   console.log("inventories", inventories);
-  console.log("inventoriesvvv");
+  // console.log("data", data);
   // const isVIP = cookies().get('isVIP');
 
   return (
@@ -155,10 +170,13 @@ export default async function Home({
           </Link>
         </Container>
       </div>
-      <div className="font-bold text-4xl my-6 capitalize text-center text-primary">
-        {translate(dict, "best_seller")}
-      </div>
-      <ProductSlider type="bestSeller" items={products} />
+      <Container>
+        <div className="font-bold text-4xl my-6 capitalize text-center text-primary">
+          {translate(dict, "best_seller")}
+        </div>
+
+        <ProductSlider type="bestSeller" items={products} />
+      </Container>
       {/* <Suspense fallback={<Loader />}>
           {features &&
             Array.isArray(features) &&

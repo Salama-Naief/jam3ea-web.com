@@ -29,16 +29,16 @@ const apiHandler = async (
     const options: RequestInit = {
       method,
       headers: {
-        Authorization: "Bearer " + (defaultToken ? defaultToken : token),
+        // Authorization: "Bearer " + (defaultToken ? defaultToken : token),
         Language:
           language || process.env.DEFAULT_LOCALE_CODE || LANGUAGES.ENGLISH,
         "Content-Type": "application/json",
       },
-      body: body && typeof body == "object" ? JSON.stringify(body) : undefined,
+      //  body: body && typeof body == "object" ? JSON.stringify(body) : undefined,
       cache: cache === true ? "default" : "no-store",
     };
 
-    let url = process.env.API_BASE_URL + route;
+    let url = process.env.API_BASE_URL + "/api?route=" + route;
 
     if (isVIP && isVIP != null) {
       if (url.includes("?")) url += `&`;
@@ -48,8 +48,9 @@ const apiHandler = async (
     }
 
     const res = await fetch(url, options);
-    console.log("res===========>", res);
+    console.log("res===========>", url, options);
     const resData: IResponse<any, any> = await res.json();
+    console.log("resData===========>", resData);
     if (resData.status_message === STATUS_MESSAGES.INVALID_APP_AUTHENTICATION) {
       console.log("invalid token!");
       return NextResponse.redirect(

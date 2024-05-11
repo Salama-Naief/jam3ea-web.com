@@ -294,7 +294,7 @@ export default function MultiSuppliers({
           <div className="flex items-center">
             <span className="text-lg">{translate("order_summary")}</span>
             <div className="ml-auto bg-primary-soft text-primary p-2 rounded-full">
-              {cart.products.length} {translate("products")}
+              {cart.products?.length} {translate("products")}
             </div>
           </div>
 

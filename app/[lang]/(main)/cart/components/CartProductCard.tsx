@@ -3,12 +3,14 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { IProduct } from "../../product/types";
 import { BsDash, BsPlus } from "react-icons/bs";
+import Counter from "../../../../components/Counter/Counter";
+import MainSlider from "@/components/Slider";
 
 interface Props {
-  product: IProduct;
+  product: any;
 }
 function CartProductCard({ product }: Props) {
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(99);
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
@@ -18,9 +20,9 @@ function CartProductCard({ product }: Props) {
     setQuantity(qty);
   };
   return (
-    <div className="grid grid-cols-4 gap-2 w-full p-4 rounded bg-white my-4 shadow">
+    <div className="grid grid-cols-4 gap-4 w-full p-4 rounded bg-white my-4 shadow">
       <div className=" col-span-1 flex items-center justify-center p-2 shadow rounded">
-        <div className="relative   w-full aspect-square max-h-36">
+        <div className="relative   w-full aspect-square max-h-32">
           <Image src={product.picture} fill alt={product.name} />
         </div>
       </div>
@@ -43,14 +45,18 @@ function CartProductCard({ product }: Props) {
               onClick={handleDecrease}
               className="p-1 shadow rounded text-primary"
             >
-              <BsPlus size={22} />
+              <BsDash size={22} />
             </button>
-            <span>{quantity}</span>
+            {/* {typeof window !== "undefined" && (
+              <AnimatedCounter count={quantity} />
+            )} */}
+            {/* <Counter count={quantity} /> */}
+            <Counter count={quantity}></Counter>
             <button
               onClick={handleIncrease}
               className="p-1 shadow rounded text-primary"
             >
-              <BsDash size={22} />
+              <BsPlus size={22} />
             </button>
           </div>
         </div>

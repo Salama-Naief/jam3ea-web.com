@@ -100,7 +100,7 @@ export default function SingleSupplier({
           ? data.supplier.name[lang]
           : data.supplier.name}
       </h5>
-      {cart.products.map((product) => (
+      {cart.products?.map((product) => (
         <div
           key={product.sku}
           className="flex p-3 rounded-xl bg-white gap-3 items-center mb-3"
@@ -164,13 +164,13 @@ export default function SingleSupplier({
         selectedPaymentMethod={values.payment_method}
       />
 
-      <Visa />
+      {/* <Visa /> */}
 
       <div className="flex flex-col bg-white rounded-2xl gap-2 p-4 mb-2">
         <div className="flex items-center">
           <div className="text-sm">{translate("order_summary")}</div>
           <div className="bg-primary-soft text-primary py-2 px-4 text-sm rounded-2xl ms-auto">
-            {cart.products.length} {translate("products")}
+            {cart.products?.length} {translate("products")}
           </div>
         </div>
         <div className="flex flex-col border-l-0 border-r-0 border py-2">

@@ -93,40 +93,38 @@ function ProductSlider({
 
   return (
     <div>
-      <Container>
-        <div className="w-full mx-auto px-4 md:px-5 lg:px-10 bg-transparent">
-          {/* <Slider {...settings} className="w-full"> */}
-          <MainSlider
-            lgSize={lgSize}
-            xlSize={xlSize}
-            mdSize={mdSize}
-            smSize={smSize}
-            nextIcon={BsChevronRight}
-            prevIcon={BsChevronLeft}
-          >
-            {items.map((item: any) => (
-              <div key={item.id}>
-                <ProductCard
-                  cartStatus={item.cartStatus}
-                  currency={item.currency}
-                  hasVariants={item.hasVariants}
-                  isAvailable={item.isAvailable}
-                  isInWhishlist={item.isInWhishlist}
-                  maxQuantityCart={item.maxQuantityCart}
-                  name={item.name}
-                  picture={item.picture}
-                  price={item.price}
-                  sku={item.sku}
-                  oldPrice={item.oldPrice}
-                  type={type}
-                  size={size}
-                />
-              </div>
-            ))}
-          </MainSlider>
-          {/* </Slider> */}
-        </div>
-      </Container>
+      <div className="w-full mx-auto px-4 md:px-0 lg:px-0 bg-transparent">
+        {/* <Slider {...settings} className="w-full"> */}
+        <MainSlider
+          lgSize={lgSize}
+          xlSize={xlSize}
+          mdSize={mdSize}
+          smSize={smSize}
+          nextIcon={BsChevronRight}
+          prevIcon={BsChevronLeft}
+        >
+          {items.map((item: any) => (
+            <div key={item.id}>
+              <ProductCard
+                cartStatus={item.cartStatus}
+                currency={item.currency}
+                hasVariants={item.hasVariants}
+                isAvailable={item.isAvailable}
+                isInWhishlist={item.isInWhishlist}
+                maxQuantityCart={item.maxQuantityCart}
+                name={item.name}
+                picture={item.picture}
+                price={item.price}
+                sku={item.sku}
+                oldPrice={item.oldPrice}
+                type={type}
+                size={size}
+              />
+            </div>
+          ))}
+        </MainSlider>
+        {/* </Slider> */}
+      </div>
     </div>
   );
 }
