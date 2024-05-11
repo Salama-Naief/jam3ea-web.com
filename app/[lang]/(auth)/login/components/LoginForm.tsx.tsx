@@ -1,5 +1,6 @@
 "use client";
-
+//@ts-expect-error
+import { useFormState } from "react-dom";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import webRoutes from "@/lib/utils/webRoutes";
@@ -11,11 +12,19 @@ import Image from "next/image";
 import { UseLogin } from "@/formik/useLogin";
 import Logo from "@/components/Logo";
 import FormTitle from "../../FormTitle";
+import { Login } from "@/lib/server actions/login";
+
+const initialState = {
+  username: "",
+  password: "",
+};
 
 export default function LoginForm() {
   const router = useRouter();
   const { translate, login: makeLogin } = useContext(AuthContext);
   const [redirecting, setRedirecting] = useState(false);
+  const [state, formAction] = useFormState(Login, initialState);
+  console.log(state);
   const {
     errors,
     handleChange,
@@ -30,7 +39,8 @@ export default function LoginForm() {
     <div className="shadow-md rounded-xl px-3 pt-6 pb-8 bg-white h-full md:h-auto">
       <Logo />
       <FormTitle title={translate("login")} />
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}> */}
+      <form action={formAction}>
         <div className="px-4">
           <Input
             handleChange={handleChange}

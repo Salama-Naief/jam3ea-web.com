@@ -92,7 +92,7 @@ export interface IGetCheckoutResponseResult {
     payment_methods: IPaymentMethod[];
     coupon?: ISupplierCoupon;
   }[];
-  products: ICheckoutProduct[];
+  products?: ICheckoutProduct[];
 }
 
 export interface IApplyCoupon {

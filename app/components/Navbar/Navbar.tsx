@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import LogoSmall from "../Logo/LogoSmall";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import SearchForm from "./searchForm";
@@ -10,9 +10,12 @@ import UserAvatar from "./UserAvatar";
 import Container from "../Container";
 import Image from "next/image";
 import kuwaitImage from "../../../public/assets/Kuwait.svg";
+import { LANGUAGES } from "@/lib/enums";
 
 export default function Navbar() {
-  const { translate } = useContext(AuthContext);
+  const { isLoggedIn, translate, changeLanguage, language, logout } =
+    useContext(AuthContext);
+  const [isLanguageChangind, setIsLanguageChanging] = useState(false);
   return (
     <nav className=" py-4 bg-white shadow-md sticky top-0 z-50">
       <Container>
@@ -32,7 +35,20 @@ export default function Navbar() {
           </div>
           <div className="flex items-center justify-center gap-6">
             <Cart length="12" />
-            <Image src={kuwaitImage} alt="" />
+            {/* change lang */}
+            <button
+              onClick={() => {
+                setIsLanguageChanging(true);
+                changeLanguage(
+                  language === LANGUAGES.ENGLISH
+                    ? LANGUAGES.ARABIC
+                    : LANGUAGES.ENGLISH,
+                  true
+                );
+              }}
+            >
+              <Image src={kuwaitImage} alt="" />
+            </button>
             <UserAvatar />
           </div>
         </div>

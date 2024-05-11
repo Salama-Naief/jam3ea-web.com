@@ -1,14 +1,18 @@
-import { IDataLoadedResponse, IResponse } from '@/lib/types';
-import apiHandler from '@/lib/utils/apiHandler';
-import { ICategory, IRank } from './types';
-import { IProduct } from '@/module/product/types';
+import { IDataLoadedResponse, IResponse } from "@/lib/types";
+import apiHandler from "@/lib/utils/apiHandler";
+import { ICategory, IRank } from "./types";
+import { IProduct } from "@/module/(main)/product/types";
 
 export const getCategories = async (
   supplierId?: string
 ): Promise<IDataLoadedResponse<ICategory>> =>
   await apiHandler(
-    `/category${supplierId ? '?supplier_id=' + supplierId : ''}`
+    `/category${supplierId ? "?supplier_id=" + supplierId : ""}`
   );
+
+export const getCategoriesList = async (): Promise<
+  IDataLoadedResponse<ICategory>
+> => await apiHandler(`/category`);
 
 export const getCategoryById = async (id: string): Promise<ICategory> =>
   await apiHandler(`/category/${id}`);

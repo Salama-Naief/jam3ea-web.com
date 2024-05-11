@@ -2,6 +2,8 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./../globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "@mantine/core/styles.css";
+
 import NextTopLoader from "nextjs-toploader";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
 import { AddressProvider } from "@/lib/providers/AddressProvider";
@@ -10,6 +12,7 @@ import { getDictionary } from "@/lib/utils/dictionary";
 import { LANGUAGES } from "@/lib/enums";
 import { Locale } from "../../i18n-config";
 import Navbar from "@/components/Navbar/Navbar";
+import { MantineProvider } from "@mantine/core";
 
 interface IRootLayoutProps {
   children: React.ReactNode;
@@ -45,9 +48,11 @@ export default async function RootLayout({
           <div id="root">
             <NextTopLoader color="#F77D0F" />
             <AuthProvider dictionary={dictionary}>
-              <AddressProvider>
-                <CartProvider>{children}</CartProvider>
-              </AddressProvider>
+              <MantineProvider>
+                <AddressProvider>
+                  <CartProvider>{children}</CartProvider>
+                </AddressProvider>
+              </MantineProvider>
             </AuthProvider>
           </div>
           <div id="menu-drawer"></div>
