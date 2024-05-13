@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       "media.jm3eia.com",
       "women-shop-shopify-t21s-kklm7oc03-engsalamanaief.vercel.app",
+      "media.example.com",
     ],
     formats: ["image/webp"],
     // remotePatterns: [

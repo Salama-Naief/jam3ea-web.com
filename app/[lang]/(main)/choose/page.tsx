@@ -1,11 +1,11 @@
-import Container from '@/components/Container';
-import webRoutes from '@/lib/utils/webRoutes';
-import Image from 'next/image';
-import Link from 'next/link';
-import LanguageSelect from './components/LanguageSelect';
-import { Locale } from '../../../i18n-config';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { translate } from '@/lib/utils/serverHelpers';
+import Container from "@/components/Container";
+import webRoutes from "@/lib/utils/webRoutes";
+import Image from "next/image";
+import Link from "next/link";
+import LanguageSelect from "./components/LanguageSelect";
+import { Locale } from "../../../../i18n-config";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { translate } from "@/lib/utils/serverHelpers";
 
 export default async function Choose({
   params: { lang },
@@ -19,7 +19,7 @@ export default async function Choose({
       <Container>
         <div className="app-container pt-24">
           <Image
-            src={'/assets/logo.svg'}
+            src={"/assets/logo.svg"}
             className="mx-auto mb-16"
             alt="jamie"
             width={200}
@@ -32,14 +32,14 @@ export default async function Choose({
               href={webRoutes.login}
               className="bg-primary px-4 py-2 text-white rounded-full"
             >
-              {translate(dict, 'login')}
+              {translate(dict, "login")}
             </Link>
             <Link
               locale={lang}
               href={webRoutes.register}
               className="text-secondary"
             >
-              {translate(dict, 'register')}
+              {translate(dict, "register")}
             </Link>
           </div>
           <div className="flex">
@@ -48,7 +48,7 @@ export default async function Choose({
               className="text-secondary mx-auto"
               //as={`ar/${webRoutes.addresses}`}
             >
-              {translate(dict, 'shop_as_guest')}
+              {translate(dict, "shop_as_guest")}
             </Link>
           </div>
         </div>

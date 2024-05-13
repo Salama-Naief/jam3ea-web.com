@@ -1,5 +1,8 @@
-export interface ISubCategory extends ICategory {
+export interface ISubCategory {
+  _id: string;
   parent_id: string;
+  name: string;
+  picture?: string;
 }
 
 export interface ICategory {

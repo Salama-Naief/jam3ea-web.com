@@ -51,9 +51,25 @@ export const UseRegister = () => {
     onSubmit: async (values) => {
       console.log("register values", values);
       const status = await sendRequest(register(values));
-      if (status) {
-        makeLogin();
-      }
+      console.log("validationErrors", JSON.stringify(validationErrors));
+      console.log("register status", status);
+      // try {
+      //   const res = await fetch(
+      //     "https://jm3eia.com/api?route=/profile/register",
+      //     {
+      //       method: "POST",
+      //       body: JSON.stringify(values),
+      //     }
+      //   );
+      //   const data = await res.json();
+      //   console.log("data", data);
+      // } catch (error) {
+      //   console.log("error", error);
+      // }
+
+      // if (status) {
+      //   makeLogin();
+      // }
     },
   });
 
@@ -66,5 +82,6 @@ export const UseRegister = () => {
     handleChange,
     isLoading,
     massage,
+    validationErrors,
   };
 };

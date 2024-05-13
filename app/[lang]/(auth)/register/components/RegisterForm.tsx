@@ -15,6 +15,7 @@ import { AuthContext } from "@/lib/providers/AuthProvider";
 import { UseRegister } from "@/formik/useRegister";
 import FormTitle from "../../FormTitle";
 import Logo from "@/components/Logo";
+import { ValidationError } from "yup";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -31,12 +32,17 @@ export default function RegisterForm() {
     massage,
     touched,
     values,
+    validationErrors,
   } = UseRegister();
 
   useEffect(() => {
     citiesRequest(getCities());
   }, []);
 
+  console.log(
+    "JSON.stringify(ValidationError)",
+    JSON.stringify(ValidationError)
+  );
   return (
     <div className="shadow-md rounded-xl px-4 pt-6 pb-8 bg-white h-full md:h-auto">
       <Logo />
@@ -211,6 +217,7 @@ export default function RegisterForm() {
             handleChange={handleChange}
           />
         </div>
+        {ValidationError && <div>{JSON.stringify(ValidationError)}</div>}
         <Button type="submit" loading={isLoading}>
           {translate("register")}
         </Button>

@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
-import { IResponse } from '../types';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import { showErrorAlert, showSuccesAlert } from '../utils/helpers';
-import { AuthContext } from '../providers/AuthProvider';
-import { STATUS_MESSAGES } from '../enums';
+import { useState, useEffect, useCallback, useContext } from "react";
+import { IResponse } from "../types";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { showErrorAlert, showSuccesAlert } from "../utils/helpers";
+import { AuthContext } from "../providers/AuthProvider";
+import { STATUS_MESSAGES } from "../enums";
 
 const useHttpClient = <T, R = unknown>() =>
   /* showNotification? = false,
@@ -23,7 +23,7 @@ const useHttpClient = <T, R = unknown>() =>
 
         try {
           const response = await request;
-          console.log('response', response);
+          console.log("response=====>", response.errors);
           setResults(response.results);
           setErrors(response.errors);
           status = response.success;
@@ -35,12 +35,21 @@ const useHttpClient = <T, R = unknown>() =>
             ) {
               showSuccesAlert(
                 (response.results as any).message,
-                translate('ok')
+                translate("ok")
               );
             }
           } else {
-            if (response.errors && (response.errors as any).message) {
-              showErrorAlert((response.errors as any).message, translate('ok'));
+            console.log("response.errors", (response.errors as any).message);
+            // if (response.errors && (response.errors as any).message) {
+            //   showErrorAlert((response.errors as any).message, translate("ok"));
+            // }
+            if (response.errors) {
+              const errorRes = Object.values(response.errors)
+                .map((v) =>
+                  v && typeof v === "object" ? Object.values(v).join(",") : v
+                )
+                .join(",");
+              showErrorAlert(errorRes, translate("ok"));
             }
           }
         } catch (error) {

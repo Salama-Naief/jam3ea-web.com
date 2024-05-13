@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import webRoutes from "./webRoutes";
 import { IResponse } from "../types";
 import { NextResponse } from "next/server";
+import { useRouter } from "next/navigation";
 
 const apiHandler = async (
   route: string,
@@ -29,16 +30,16 @@ const apiHandler = async (
     const options: RequestInit = {
       method,
       headers: {
-        // Authorization: "Bearer " + (defaultToken ? defaultToken : token),
+        Authorization: "Bearer " + (defaultToken ? defaultToken : token),
         Language:
           language || process.env.DEFAULT_LOCALE_CODE || LANGUAGES.ENGLISH,
         "Content-Type": "application/json",
       },
-      //  body: body && typeof body == "object" ? JSON.stringify(body) : undefined,
+      body: body && typeof body == "object" ? JSON.stringify(body) : undefined,
       cache: cache === true ? "default" : "no-store",
     };
 
-    let url = process.env.API_BASE_URL + "/api?route=" + route;
+    let url = process.env.API_BASE_URL + route;
 
     if (isVIP && isVIP != null) {
       if (url.includes("?")) url += `&`;
@@ -53,18 +54,20 @@ const apiHandler = async (
     console.log("resData===========>", resData);
     if (resData.status_message === STATUS_MESSAGES.INVALID_APP_AUTHENTICATION) {
       console.log("invalid token!");
-      return NextResponse.redirect(
-        new URL(webRoutes.splash, process.env.SITE_URL)
-      );
+      // return NextResponse.redirect(
+      //   new URL(webRoutes.splash, process.env.SITE_URL)
+      // );
+      redirect(webRoutes.splash);
       // TODO: delete cache
       //return redirect(webRoutes.splash);
     }
 
     if (resData.status_message === STATUS_MESSAGES.CITY_REQUIRED) {
       console.log("city requuired!");
-      return NextResponse.redirect(
-        new URL(webRoutes.addresses, process.env.SITE_URL)
-      );
+      // return NextResponse.redirect(
+      //   new URL(webRoutes.addresses, process.env.SITE_URL)
+      // );
+      redirect(webRoutes.splash);
     }
 
     return method == "GET" && onlyResults === true ? resData.results : resData;

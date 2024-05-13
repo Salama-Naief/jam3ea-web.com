@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useParams, useRouter, usePathname } from "next/navigation";
 import { Menu, Button, Text, rem } from "@mantine/core";
+import webRoutes from "@/lib/utils/webRoutes";
 
 function UserAvatar() {
   const [open, setOpen] = useState<boolean>(false);
@@ -36,7 +37,9 @@ function UserAvatar() {
     <div className="relative">
       <Menu shadow="md" width={200}>
         <Menu.Target>
-          <Image src={avatar} alt="avatar" className="cursor-pointer" />
+          <Link href={webRoutes.login}>
+            <Image src={avatar} alt="avatar" className="cursor-pointer" />
+          </Link>
         </Menu.Target>
 
         <Menu.Dropdown p={0} className="bg-white">

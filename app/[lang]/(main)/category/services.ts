@@ -23,6 +23,8 @@ export const getRanksByCategoryId = async (
   await apiHandler(`/category/${id}/ranks`);
 
 export const getCategoryProducts = async (
-  id: string
+  id: string,
+  limit: number = 10,
+  skip: number = 1
 ): Promise<IDataLoadedResponse<IProduct>> =>
-  await apiHandler(`/product/${id}/category`);
+  await apiHandler(`/product/${id}/category?skip=${skip}&limit=${limit}`);
