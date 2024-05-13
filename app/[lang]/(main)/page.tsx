@@ -40,19 +40,19 @@ export default async function Home({
       ? inventories.data[0].suppliers
       : [];
 
-  await fetch("https://jm3eia.com/api?route=/category", {
-    // mode: 'no-cors',
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  }).then((response) => {
-    if (response.ok) {
-      response.json().then((json) => {
-        console.log("json============>", json);
-      });
-    }
-  });
+  // await fetch("https://jm3eia.com/api?route=/category", {
+  //   // mode: 'no-cors',
+  //   method: "GET",
+  //   headers: {
+  //     Accept: "application/json",
+  //   },
+  // }).then((response) => {
+  //   if (response.ok) {
+  //     response.json().then((json) => {
+  //       console.log("json============>", json);
+  //     });
+  //   }
+  // });
   console.log("categories", categories);
   console.log("inventories", inventories);
   // console.log("data", data);

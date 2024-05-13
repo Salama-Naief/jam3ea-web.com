@@ -13806,3 +13806,53 @@ export const checkout = {
     ],
   },
 };
+
+///support question
+
+export const supportQuestion = {
+  success: true,
+  status_code: 200,
+  status_message: "DATA_LOADED",
+  errors: null,
+  results: {
+    count: 1,
+    data: [
+      {
+        _id: "5de2b6f31b73c34700dbfac7",
+        enable_chatting: true,
+        enable_rating: true,
+        name: "أنا بحاجة للمساعدة مع طلب حالي",
+        children: [
+          {
+            _id: "5dec021a950680588c383c90",
+            parent_id: "5de2b6f31b73c34700dbfac7",
+            enable_chatting: true,
+            enable_rating: true,
+            name: "لدي ملاحظات عن جودة الطلب.",
+          },
+          {
+            _id: "5dec0013456de478eaaab459",
+            enable_chatting: true,
+            enable_rating: true,
+            parent_id: "5de2b6f31b73c34700dbfac7",
+            name: "وصلني طلب لا يظابق ما طلبته",
+          },
+          {
+            _id: "5debffd8456de478eaaab458",
+            enable_chatting: true,
+            enable_rating: true,
+            parent_id: "5de2b6f31b73c34700dbfac7",
+            name: "أنا بحاجة لتعديل طلبي.",
+          },
+          {
+            _id: "5debffab456de478eaaab457",
+            enable_chatting: true,
+            enable_rating: true,
+            parent_id: "5de2b6f31b73c34700dbfac7",
+            name: "أريد أن أغير العنوان المحدد في طلبي.",
+          },
+        ],
+      },
+    ],
+  },
+};

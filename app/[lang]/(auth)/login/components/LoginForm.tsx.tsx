@@ -39,8 +39,8 @@ export default function LoginForm() {
     <div className="shadow-md rounded-xl px-3 pt-6 pb-8 bg-white h-full md:h-auto">
       <Logo />
       <FormTitle title={translate("login")} />
-      {/* <form onSubmit={handleSubmit}> */}
-      <form action={formAction}>
+      <form onSubmit={handleSubmit}>
+        {/* <form action={formAction}> */}
         <div className="px-4">
           <Input
             handleChange={handleChange}

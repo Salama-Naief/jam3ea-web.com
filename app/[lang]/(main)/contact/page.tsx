@@ -1,9 +1,9 @@
-import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
-import { PhoneArrowUpRightIcon } from '@heroicons/react/24/solid';
-import { Locale } from '../../../i18n-config';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { translate } from '@/lib/utils/serverHelpers';
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
+import { PhoneArrowUpRightIcon } from "@heroicons/react/24/solid";
+import { Locale } from "../../../../i18n-config";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { translate } from "@/lib/utils/serverHelpers";
 
 export default async function Contact({
   params: { lang },
@@ -13,7 +13,6 @@ export default async function Contact({
   const dict = await getDictionary(lang);
   return (
     <div>
-      <Navbar title={translate(dict, 'contact')} />
       <div className="bg-gray-100 pt-10 pb-6 mb-4 w-full mx-auto sm:w-[40rem]">
         <div className="flex gap-3 justify-center">
           <a
@@ -74,35 +73,35 @@ export default async function Contact({
         <div className="bg-white rounded-xl flex flex-col gap-3 p-3">
           <div className="flex flex-col">
             <div className="text-sm text-primary">
-              {translate(dict, 'contact_us_via_email')}
+              {translate(dict, "contact_us_via_email")}
             </div>
             <div className="text-sm ">cs@jameai.com</div>
           </div>
           <div className="flex flex-col">
             <div className="text-sm text-primary">
-              {translate(dict, 'job_application')}
+              {translate(dict, "job_application")}
             </div>
             <div className="text-sm ">hr@jameai.com</div>
           </div>
           <div className="flex flex-col">
             <div className="text-sm text-primary">
-              {translate(dict, 'marketing')}
+              {translate(dict, "marketing")}
             </div>
             <div className="text-sm ">marketing@jameai.com</div>
           </div>
           <div className="flex flex-col">
             <div className="text-sm text-primary">
-              {translate(dict, 'purchase_management')}
+              {translate(dict, "purchase_management")}
             </div>
             <div className="text-sm ">Purchase@jameai.com</div>
           </div>
         </div>
         <div className="text-center ">
-          {translate(dict, 'for_complaints_call')}{' '}
+          {translate(dict, "for_complaints_call")}{" "}
           <a href="tel:22274222" className="text-primary">
             22274222
           </a>
-          , {translate(dict, 'communicate_via_chat')}
+          , {translate(dict, "communicate_via_chat")}
         </div>
       </Container>
       <div className="pt-20"></div>
