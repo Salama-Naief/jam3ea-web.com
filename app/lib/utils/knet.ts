@@ -1,13 +1,13 @@
-import * as crypto from 'crypto';
-import querystring from 'querystring';
-import { LANGUAGES } from '../enums';
-import { IGetCheckoutResponseResult } from '@/module/cart/types';
-import apiHandler from './apiHandler';
-import { IUser } from '@/module/(profile)/types';
+import * as crypto from "crypto";
+import querystring from "querystring";
+import { LANGUAGES } from "../enums";
+import { IGetCheckoutResponseResult } from "@/module/(main)/cart/types";
+import apiHandler from "./apiHandler";
+import { IUser } from "@/module/(main)/(profile)/types";
 
 class Knet {
   private lang;
-  constructor(lang = 'en') {
+  constructor(lang = "en") {
     this.lang = lang;
   }
 
@@ -19,7 +19,7 @@ class Knet {
   };
 
   private aesEncrypt = (text: string, key: string) => {
-    const AES_METHOD = 'aes-128-cbc';
+    const AES_METHOD = "aes-128-cbc";
     const content = this.pkcs5Pad(text);
 
     try {
@@ -28,21 +28,21 @@ class Knet {
 
       encrypted = Buffer.concat([encrypted, cipher.final()]);
 
-      return `${encrypted.toString('hex')}`;
+      return `${encrypted.toString("hex")}`;
     } catch (err) {
       /* empty */
     }
   };
 
   private aesDecrypt = (text: string, key: string) => {
-    const AES_METHOD = 'aes-128-cbc';
+    const AES_METHOD = "aes-128-cbc";
 
     const decipher = crypto.createDecipheriv(
       AES_METHOD,
       new Buffer(key as string),
       key as string
     );
-    const encryptedText = new Buffer(text, 'hex');
+    const encryptedText = new Buffer(text, "hex");
     let decrypted = decipher.update(encryptedText);
 
     decrypted = Buffer.concat([decrypted, decipher.final()]);
@@ -55,29 +55,29 @@ class Knet {
     const tranportalId = process.env.knet_tranportal_id;
     const tranportalPassword = process.env.knet_req_tranportal_password;
     const termResourceKey = process.env.knet_term_resource_key;
-    const responseUrl = process.env.SITE_URL + '/api/payment';
-    const errorUrl = process.env.SITE_URL + '/checkout';
+    const responseUrl = process.env.SITE_URL + "/api/payment";
+    const errorUrl = process.env.SITE_URL + "/checkout";
 
-    const cart: IGetCheckoutResponseResult = await apiHandler('/checkout');
+    const cart: IGetCheckoutResponseResult = await apiHandler("/checkout");
 
     const paramData = {
-      currencycode: '414',
+      currencycode: "414",
       id: tranportalId,
       password: tranportalPassword,
-      action: '1',
-      langid: this.lang === LANGUAGES.ARABIC ? this.lang.toUpperCase() : 'USA',
+      action: "1",
+      langid: this.lang === LANGUAGES.ARABIC ? this.lang.toUpperCase() : "USA",
       amt: parseFloat(cart.total),
       responseURL: responseUrl,
       errorURL: errorUrl,
       trackid: hash,
-      udf1: '',
-      udf2: '',
-      udf3: user && user.mobile && user.mobile.length === 8 ? user.mobile : '',
-      udf4: '',
+      udf1: "",
+      udf2: "",
+      udf3: user && user.mobile && user.mobile.length === 8 ? user.mobile : "",
+      udf4: "",
       udf5: hash,
     };
 
-    let params = '';
+    let params = "";
 
     Object.keys(paramData).forEach((key) => {
       params += `${key}=${paramData[key as keyof typeof paramData]}&`;
@@ -120,22 +120,22 @@ class Knet {
           resTranData as string,
           termResourceKey as string
         );
-        const url = process.env.SITE_URL + '/checkout?' + decrytedData;
+        const url = process.env.SITE_URL + "/checkout?" + decrytedData;
         return url;
       }
     } else {
       const url =
         process.env.SITE_URL +
-        '/checkout?' +
-        'Error=' +
+        "/checkout?" +
+        "Error=" +
         Error +
-        '&ErrorText=' +
+        "&ErrorText=" +
         ErrorText +
-        '&trackid=' +
+        "&trackid=" +
         trackid +
-        '&amt=' +
+        "&amt=" +
         amt +
-        '&paymentid=' +
+        "&paymentid=" +
         paymentid;
       return url;
     }

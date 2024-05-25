@@ -32,23 +32,30 @@ export default function AddToCartButton({
   normalBtn = false,
   variants,
 }: IAddToCartButtonProps) {
-  const [count, setCount] = useState(cartsStatus.quantity);
+  const [count, setCount] = useState(
+    cartsStatus && cartsStatus.quantity ? cartsStatus.quantity : 0
+  );
   const { addProductToCart, removeProductFromCart, loading } =
     useContext(CartContext);
   const { translate } = useContext(AuthContext);
   const [sku, setSku] = useState(defaultSku);
   const router = useRouter();
   const pathName = usePathname();
+  const homeRoute = pathName.split("/").filter((r) => r).length;
 
-  const handleIncrement = async () => {
+  const handleIncrement = async (type: "normal" | "increase" = "increase") => {
     try {
       if (
         isAvailable != false &&
         (maxQantity > 0 ? count < maxQantity : true)
       ) {
-        const status = await addProductToCart({ sku, quantity: count + 1 });
+        const status = await addProductToCart({
+          sku,
+          quantity: type === "normal" ? count : count + 1,
+        });
         if (status) {
-          setCount((prevCount) => prevCount + 1);
+          setCount((prevCount) => ("normal" ? prevCount : prevCount + 1));
+
           if (pathName.includes(webRoutes.cart)) {
             router.refresh();
           }
@@ -82,26 +89,26 @@ export default function AddToCartButton({
   if (normalBtn) {
     return (
       <>
-        {count > 0 ? (
-          <div className="h-12 px-4 rounded-full mb-5">
-            <div className="h-full max-w-lg mx-auto flex items-center justify-center">
-              <div className="flex items-center justify-between gap-10">
-                <button
-                  type="button"
-                  className="text-white bg-primary  p-1 rounded-full flex items-center justify-center "
-                  onClick={() => setCount(count + 1)}
-                >
-                  <BsPlus size={28} />
-                </button>
-                <Counter count={count} />
-                <button
-                  type="button"
-                  className="text-white p-1 bg-slate-500 flex items-center justify-center rounded-full"
-                  onClick={() => setCount(count - 1)}
-                >
-                  <BsDash size={28} />
-                </button>
-                {/* {count && count >= 1 ? (
+        {/* {count > 0 ? ( */}
+        <div className="h-12 px-4 rounded-full mb-5 ">
+          <div className="h-full max-w-lg mx-auto flex items-center justify-center">
+            <div className="flex items-center justify-between gap-10 w-full md:w-1/2 lg:w-1/4">
+              <button
+                type="button"
+                className="text-white bg-primary  p-1 rounded-full flex items-center justify-center "
+                onClick={() => setCount(count + 1)}
+              >
+                <BsPlus size={28} />
+              </button>
+              <Counter count={count} />
+              <button
+                type="button"
+                className="text-white p-1 bg-slate-500 flex items-center justify-center rounded-full"
+                onClick={() => setCount(count - 1)}
+              >
+                <BsDash size={28} />
+              </button>
+              {/* {count && count >= 1 ? (
                   <>
                     <span className="w-5 h-5 flex items-center justify-center text-md text-white ">
                       {count}
@@ -117,19 +124,19 @@ export default function AddToCartButton({
                 ) : (
                   ""
                 )} */}
-              </div>
             </div>
           </div>
-        ) : (
-          <Button
-            loading={loading}
-            disabled={hasVariant && !sku.includes("-")}
-            onClick={handleIncrement}
-            className="w-full"
-          >
-            {translate("add_to_cart")}
-          </Button>
-        )}
+        </div>
+        {/* ) : ( */}
+        <Button
+          loading={loading}
+          disabled={hasVariant && !sku.includes("-")}
+          onClick={() => handleIncrement("normal")}
+          className="w-full"
+        >
+          {translate("add_to_cart")}
+        </Button>
+        {/* )} */}
 
         {variants && (
           <Variants
@@ -155,7 +162,7 @@ export default function AddToCartButton({
       ) : (
         <button
           className="text-white bg-primary shadow  flex items-center justify-center rounded-full"
-          onClick={handleIncrement}
+          onClick={() => handleIncrement()}
           type="button"
         >
           {/* {maxQantity > 0 ? (
@@ -175,26 +182,27 @@ export default function AddToCartButton({
           <BsPlus size={28} />
         </button>
       )}
-      {count && count > 0 ? (
-        <>
-          <div className=" text-center text-sm w-full">
-            <Counter count={count} />
-          </div>
-          <button
-            className="text-danger shadow flex items-center justify-center rounded-full ml-auto"
-            onClick={handleDecrement}
-            type="button"
-          >
-            {count === 1 ? (
+      {/* {count && count > 0 ? ( */}
+      <>
+        <div className=" text-center text-sm w-full">
+          <Counter count={count} />
+        </div>
+        <button
+          disabled={count >= 0}
+          className="text-danger bg-gray-100 shadow flex items-center justify-center rounded-full ml-auto"
+          onClick={handleDecrement}
+          type="button"
+        >
+          {/* {count === 1 ? (
               <TrashIcon className="w-4 h-4" />
-            ) : (
-              <BsDash size={28} />
-            )}
-          </button>
-        </>
-      ) : (
+            ) : ( */}
+          <BsDash size={28} />
+          {/* )} */}
+        </button>
+      </>
+      {/* ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 }

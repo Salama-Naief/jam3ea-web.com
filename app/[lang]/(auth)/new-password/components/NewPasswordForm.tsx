@@ -1,7 +1,7 @@
 "use client";
 
-import { login } from "@/module/(profile)/services";
-import { ILogin, ILoginResponseResult } from "@/module/(profile)/types";
+import { login } from "@/module/(main)/(profile)/services";
+import { ILogin, ILoginResponseResult } from "@/module/(main)/(profile)/types";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import useHttpClient from "@/lib/hooks/useHttpClient";

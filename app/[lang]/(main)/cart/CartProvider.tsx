@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, {
   createContext,
@@ -6,10 +6,11 @@ import React, {
   useEffect,
   useState,
   useMemo,
-} from 'react';
-import PropTypes from 'prop-types';
-import { addToCart, removeFromCart } from './services';
-import { IAddToCart, IAddToCartResponseResult } from './types';
+} from "react";
+import PropTypes from "prop-types";
+import { addToCart, removeFromCart } from "./services";
+import { IAddToCart, IAddToCartResponseResult } from "./types";
+import { showSuccesAlert } from "@/lib/utils/helpers";
 
 interface ICartState {
   products: number;
@@ -18,7 +19,7 @@ interface ICartState {
 }
 
 const CartContext = createContext({
-  cart: { products: 0, quantity: 0, price: '' },
+  cart: { products: 0, quantity: 0, price: "" },
   addProductToCart: (v: IAddToCart): Promise<boolean> => Promise.resolve(false),
   removeProductFromCart: (sku: string): Promise<boolean> =>
     Promise.resolve(false),
@@ -30,7 +31,7 @@ const CartProvider = ({ children }: any) => {
   const [cart, setCart] = useState<ICartState>({
     products: 0,
     quantity: 0,
-    price: '',
+    price: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -64,6 +65,7 @@ const CartProvider = ({ children }: any) => {
         products: total_products,
       };
       setCart({ ...newCartValue });
+      showSuccesAlert((res.results as any).message, "deleted successfully");
     }
     return res.success;
   };
@@ -83,8 +85,8 @@ const CartProvider = ({ children }: any) => {
   );
 };
 
-CartProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+// CartProvider.propTypes = {
+//   children: PropTypes.node.isRequired,
+// };
 
 export { CartContext, CartProvider };

@@ -47,17 +47,24 @@ function SellectItem({ item }: Props) {
     <div className="h-fit mb-3 relative z-10">
       <div className="flex justify-between items-center h-fit">
         <div className="w-12 h-12 rounded-full overflow-hidden relative">
-          {item.picture && <Image src={item.picture} fill alt={item.name} />}
+          {item.picture && (
+            <Image
+              src={item.picture}
+              fill
+              sizes="(max-width:200px) 160px, 160px"
+              alt={item.name}
+            />
+          )}
         </div>
-        {/* <Link href={"category" + "?id=" + item._id}> */}
-        <h3
-          className={`text-lg font-bold capitalize ${
-            currentCategory.id === item._id ? "text-primary" : "text-gray-600"
-          }`}
-        >
-          {item.name}
-        </h3>
-        {/* </Link> */}
+        <Link href={"category" + "?id=" + item._id}>
+          <h3
+            className={`text-lg font-bold capitalize ${
+              currentCategory.id === item._id ? "text-primary" : "text-gray-600"
+            }`}
+          >
+            {item.name}
+          </h3>
+        </Link>
         <div className="cursor-pointer p-1 rounded-full shadow">
           <BsChevronDown size={21} onClick={() => setActive(!active)} />
         </div>
@@ -79,7 +86,12 @@ function SellectItem({ item }: Props) {
           >
             <div className="relative w-10 h-10 rounded-full overflow-hidden">
               {subItem.picture && (
-                <Image src={subItem.picture} fill alt={subItem.name} />
+                <Image
+                  src={subItem.picture}
+                  fill
+                  sizes="(max-width:200px) 160px, 160px"
+                  alt={subItem.name}
+                />
               )}
             </div>
             <h3

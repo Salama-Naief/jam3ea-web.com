@@ -13,11 +13,10 @@ async function Category({ searchParams }: { searchParams: any }) {
   const categories = await getCategories();
   const products = await getCategoryProducts(
     searchParams["id"],
-    12,
+    20,
     searchParams["skip"]
   );
   //const searchParams = useSearchParams();
-  console.log("searchParams", searchParams);
 
   const Links =
     categories && Array.isArray(categories.data)

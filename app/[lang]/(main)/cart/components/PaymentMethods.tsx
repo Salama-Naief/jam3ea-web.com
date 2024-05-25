@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { CODIcon, KnetIcon } from '@/components/Icons';
-import { IPaymentMethod } from '../types';
+import { CODIcon, KnetIcon } from "@/components/Icons";
+import { IPaymentMethod } from "../types";
 
 interface IPaymentMethodsProps {
   payment_methods: IPaymentMethod[];
@@ -21,14 +21,16 @@ export default function PaymentMethods({
   selectedPaymentMethod,
 }: IPaymentMethodsProps) {
   return (
-    <div>
-      <h5 className="text-base mb-2">{dictionary.payment_methods}</h5>
+    <div className="w-full">
+      <h5 className="text-xl mb-2 text-secondary font-bold text-center">
+        {dictionary.payment_methods}
+      </h5>
 
       <div className="flex flex-col bg-white rounded-2xl px-4 mb-3">
-        {payment_methods.map((pm) => (
-          <>
-            {pm.id === 'cod' && (
-              <div className="flex items-center pl-4 border-b">
+        {payment_methods.map((pm, i) => (
+          <div key={i}>
+            {pm.id === "cod" && (
+              <div key={pm.id} className="flex items-center pl-4 border-b">
                 <input
                   id="cod"
                   type="radio"
@@ -40,7 +42,7 @@ export default function PaymentMethods({
                 />
                 <label
                   htmlFor="cod"
-                  className="flex items-center gap-2 w-full py-4 ml-2 text-sm font-medium text-gray-900"
+                  className="flex text-base  items-center gap-2 w-full py-4 ml-2 font-semibold text-gray-900"
                 >
                   <CODIcon />
                   {dictionary.cod}
@@ -48,8 +50,8 @@ export default function PaymentMethods({
               </div>
             )}
 
-            {pm.id === 'knet' && (
-              <div className="flex items-center pl-4">
+            {pm.id === "knet" && (
+              <div key={pm.id} className="flex items-center pl-4">
                 <input
                   id="knet"
                   type="radio"
@@ -61,24 +63,24 @@ export default function PaymentMethods({
                 />
                 <label
                   htmlFor="knet"
-                  className="flex items-center gap-2 w-full py-4 ml-2 text-sm font-medium text-gray-900"
+                  className="flex items-center gap-2 w-full py-4 ml-2 text-base  font-semibold text-gray-900"
                 >
                   <KnetIcon />
                   {dictionary.knet}
                 </label>
               </div>
             )}
-          </>
+          </div>
         ))}
-        <div className="flex items-center pl-4 border-b">
+        {/* <div className="flex items-center pl-4 border-b">
           <input
             id="visa"
             type="radio"
             value="visa"
             name="payment_method"
             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-            checked={selectedPaymentMethod === 'visa'}
-            onChange={() => onSelect({ id: 'visa', name: 'visa', valid: true })}
+            checked={selectedPaymentMethod === "visa"}
+            onChange={() => onSelect({ id: "visa", name: "visa", valid: true })}
           />
           <label
             htmlFor="visa"
@@ -86,7 +88,7 @@ export default function PaymentMethods({
           >
             VISA
           </label>
-        </div>
+        </div> */}
       </div>
     </div>
   );

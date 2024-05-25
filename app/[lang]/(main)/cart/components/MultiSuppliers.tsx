@@ -22,6 +22,8 @@ import { useFormik } from "formik";
 import { showErrorAlert } from "@/lib/utils/helpers";
 import { AddressContext } from "@/lib/providers/AddressProvider";
 import { IResponse } from "@/lib/types";
+import Image from "next/image";
+import CartProductCard from "./CartProductCard";
 
 interface MultiSuppliersProps {
   cart: IGetCheckoutResponseResult;
@@ -42,7 +44,7 @@ export default function MultiSuppliers({
     delivery_time: "",
     requires_delivery_time: !d.supplier.delivery_time_text,
   }));
-
+  console.log("multi cart");
   const formik = useFormik({
     initialValues: {
       payment_method: "",
@@ -102,7 +104,8 @@ export default function MultiSuppliers({
   const { touched, errors, values, handleChange, handleSubmit, setFieldValue } =
     formik;
 
-  console.log("before values: ", values);
+  console.log("before suppliersData ", suppliersData);
+  console.log("before cart ", cart);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -130,107 +133,121 @@ export default function MultiSuppliers({
                   : data.supplier.name}
               </label>
             </div>
+            <div className="md:grid md:grid-cols-5 gap-8 items-start">
+              <div className="col-span-3 h-fit">
+                {/* Single seller */}
 
-            {/* Single seller */}
-            {data.products.map((product) => (
-              <div
-                key={product.sku}
-                className="flex p-3 rounded-xl bg-white gap-3 items-center mb-3"
-              >
-                <img
-                  className="max-w-full min-h-[74px] max-h-[74px] h-full"
-                  src={product.picture}
-                  alt=""
-                />
-                <div className="flex flex-col gap-1">
-                  <span className="text-md">{product.name}</span>
-                  <span className="text-sm">
-                    {translate("price")}: {product.price}
-                  </span>
-                  <span className="text-sm text-primary">
-                    {translate("total")}:{" "}
-                    {getProductQuantityPrice(
-                      parseFloat(product.price),
-                      product.quantity
-                    )}
-                  </span>
-                </div>
-                <AddToCartButton
-                  cartsStatus={product.cart_status}
-                  isAvailable={product.availability}
-                  maxQantity={product.max_quantity_cart}
-                  sku={product.sku}
-                />
+                {data.products.map((product) => (
+                  <CartProductCard key={i} product={product} />
+                  // <div
+                  //   key={product.sku}
+                  //   className="flex p-3 rounded-xl bg-white gap-3 items-center mb-3"
+                  // >
+                  //   <Image
+                  //     className="max-w-full relative min-h-[74px] max-h-[74px] h-full"
+                  //     src={product.picture}
+                  //     fill
+                  //     alt=""
+                  //   />
+                  //   <div className="flex flex-col gap-1">
+                  //     <span className="text-md">{product.name}</span>
+                  //     <span className="text-sm">
+                  //       {translate("price")}: {product.price}
+                  //     </span>
+                  //     <span className="text-sm text-primary">
+                  //       {translate("total")}:{" "}
+                  //       {getProductQuantityPrice(
+                  //         parseFloat(product.price),
+                  //         product.quantity
+                  //       )}
+                  //     </span>
+                  //   </div>
+                  //   <AddToCartButton
+                  //     cartsStatus={product.cart_status}
+                  //     isAvailable={product.availability}
+                  //     maxQantity={product.max_quantity_cart}
+                  //     sku={product.sku}
+                  //   />
+                  // </div>
+                ))}
               </div>
-            ))}
-            {data.supplier.delivery_time_text ? (
-              <div className="py-5 rounded-xl bg-white">
-                <div className="text-center">
-                  {typeof data.supplier.delivery_time_text === "object"
-                    ? data.supplier.delivery_time_text[lang]
-                    : data.supplier.delivery_time_text}
-                </div>
-              </div>
-            ) : (
-              <DeliveryTimePicker
-                deliveryTimes={data.delivery_times}
-                dictionary={{
-                  delivery_time: dict.delivery_time,
-                  pick_delivery_time: dict.pick_delivery_time,
-                }}
-                onSelect={(v) => {
-                  setFieldValue(
-                    `suppliers.${i}.supplier_id`,
-                    data.supplier._id
-                  );
-                  setFieldValue(`suppliers.${i}.delivery_time`, v.full_date);
-                  console.log("Selected time: ", v.full_date);
-                }}
-                selectedDeliveryTime={values.suppliers[i]?.delivery_time}
-              />
-            )}
-            <div className="flex flex-col  py-2">
-              <div className="flex items-center justify-between border-y py-2">
-                <div className="text-sm">
-                  {translate("available_payment_methods")}
-                </div>
-                <div className="flex">
-                  {data.payment_methods.map((pm) => (
-                    <div
-                      key={pm.id}
-                      className="ms-auto bg-white p-2 rounded-xl border"
-                    >
-                      {pm.id === "cod" && <CODIcon />}
-                      {pm.id === "knet" && <KnetIcon />}
+              <div className="col-span-2 bg-[#F1F1F1] p-6 rounded-xl flex flex-col items-center justify-center gap-4">
+                {data.supplier.delivery_time_text ? (
+                  <div className="py-5 rounded-xl bg-white">
+                    <div className="text-center">
+                      {typeof data.supplier.delivery_time_text === "object"
+                        ? data.supplier.delivery_time_text[lang]
+                        : data.supplier.delivery_time_text}
                     </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center py-1">
-                <div className="text-sm">{translate("subtotal")}</div>
-                <div className="ms-auto text-sm">
-                  {getPriceWithCurrency(data.subtotal, translate("currency"))}
-                </div>
-              </div>
-              <div className="flex items-center border-b py-1">
-                <div className="text-sm">{translate("shipping_cost")}</div>
-                <div className="ms-auto text-sm">
-                  {getPriceWithCurrency(
-                    data.shipping_cost,
-                    translate("currency")
+                  </div>
+                ) : (
+                  <DeliveryTimePicker
+                    deliveryTimes={data.delivery_times}
+                    dictionary={{
+                      delivery_time: dict.delivery_time,
+                      pick_delivery_time: dict.pick_delivery_time,
+                    }}
+                    onSelect={(v) => {
+                      setFieldValue(
+                        `suppliers.${i}.supplier_id`,
+                        data.supplier._id
+                      );
+                      setFieldValue(
+                        `suppliers.${i}.delivery_time`,
+                        v.full_date
+                      );
+                      console.log("Selected time: ", v.full_date);
+                    }}
+                    selectedDeliveryTime={values.suppliers[i]?.delivery_time}
+                  />
+                )}
+                <div className="flex flex-col  py-2">
+                  <div className="flex items-center justify-between border-y py-2">
+                    <div className="text-sm">
+                      {translate("available_payment_methods")}
+                    </div>
+                    <div className="flex">
+                      {data.payment_methods.map((pm) => (
+                        <div
+                          key={pm.id}
+                          className="ms-auto bg-white p-2 rounded-xl border"
+                        >
+                          {pm.id === "cod" && <CODIcon />}
+                          {pm.id === "knet" && <KnetIcon />}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center py-1">
+                    <div className="text-sm">{translate("subtotal")}</div>
+                    <div className="ms-auto text-sm">
+                      {getPriceWithCurrency(
+                        data.subtotal,
+                        translate("currency")
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center border-b py-1">
+                    <div className="text-sm">{translate("shipping_cost")}</div>
+                    <div className="ms-auto text-sm">
+                      {getPriceWithCurrency(
+                        data.shipping_cost,
+                        translate("currency")
+                      )}
+                    </div>
+                  </div>
+                  {data.coupon && (
+                    <div className="flex items-center border-b py-1">
+                      <div className="text-sm">{translate("discount")}</div>
+                      <div className="ms-auto text-sm">{data.coupon.value}</div>
+                    </div>
                   )}
-                </div>
-              </div>
-              {data.coupon && (
-                <div className="flex items-center border-b py-1">
-                  <div className="text-sm">{translate("discount")}</div>
-                  <div className="ms-auto text-sm">{data.coupon.value}</div>
-                </div>
-              )}
-              <div className="flex items-center py-1">
-                <div className="text-sm">{translate("total")}</div>
-                <div className="ms-auto text-sm">
-                  {getPriceWithCurrency(data.total, translate("currency"))}
+                  <div className="flex items-center py-1">
+                    <div className="text-sm">{translate("total")}</div>
+                    <div className="ms-auto text-sm">
+                      {getPriceWithCurrency(data.total, translate("currency"))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -258,27 +275,27 @@ export default function MultiSuppliers({
 
         {/* <div className="flex flex-col bg-white rounded-2xl gap-2 p-4 mb-2">
           <div className="flex items-center">
-            <div className="text-sm">{translate('order_summary')}</div>
-            <div className="bg-primary-soft text-primary py-2 px-4 text-sm rounded-2xl ms-auto">
-              {cart.products.length} {translate('product')}
-            </div>
+          <div className="text-sm">{translate('order_summary')}</div>
+          <div className="bg-primary-soft text-primary py-2 px-4 text-sm rounded-2xl ms-auto">
+          {cart.products.length} {translate('product')}
+          </div>
           </div>
           <div className="flex flex-col border-l-0 border-r-0 border py-2">
-            <div className="flex items-center">
-              <div className="text-sm">Total price</div>
-              <div className="ms-auto flex">
-                <div className="text-sm mx-2">test</div>
-                <div className="text-sm">
-                  {getPriceWithCurrency(cart.subtotal, translate('currency'))}
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center">
+          <div className="flex items-center">
+          <div className="text-sm">Total price</div>
+          <div className="ms-auto flex">
+          <div className="text-sm mx-2">test</div>
+          <div className="text-sm">
+          {getPriceWithCurrency(cart.subtotal, translate('currency'))}
+          </div>
+          </div>
+          </div>
+          <div className="flex items-center">
               <div className="text-sm">Delivery fee</div>
               <div className="ms-auto text-sm">
-                {getPriceWithCurrency(
-                  cart.shipping_cost,
-                  translate('currency')
+              {getPriceWithCurrency(
+                cart.shipping_cost,
+                translate('currency')
                 )}
               </div>
             </div>
@@ -286,10 +303,10 @@ export default function MultiSuppliers({
           <div className="flex items-center">
             <div className="text-md">Total Receipt</div>
             <div className="ms-auto text-md font-semibold">
-              {getPriceWithCurrency(cart.total, translate('currency'))}
+            {getPriceWithCurrency(cart.total, translate('currency'))}
             </div>
-          </div>
-        </div> */}
+            </div>
+          </div> */}
         <div className="bg-white p-4 rounded-xl">
           <div className="flex items-center">
             <span className="text-lg">{translate("order_summary")}</span>
@@ -336,18 +353,6 @@ export default function MultiSuppliers({
         >
           {translate("checkout")}
         </Button>
-        <div className="text-center">
-          <Link
-            href={webRoutes.home}
-            className="text-primary text-lg text-center flex items-center w-full"
-          >
-            <div className="ms-auto">{translate("back_to_home")}</div>
-
-            <div className="ms-auto">
-              <ChevronRight color="#f77d0f" />
-            </div>
-          </Link>
-        </div>
       </form>
     </>
   );

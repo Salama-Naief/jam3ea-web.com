@@ -1,10 +1,10 @@
-import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
-import ProductCard from '@/module/product/components/ProductCard';
-import { searchProduct } from '../services';
-import { Locale } from '../../../../i18n-config';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { translate } from '@/lib/utils/serverHelpers';
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
+import ProductCard from "@/module/(main)/product/components/ProductCard";
+import { searchProduct } from "../services";
+import { Locale } from "../../../../../i18n-config";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { translate } from "@/lib/utils/serverHelpers";
 
 export default async function SearchPage({
   params,
@@ -46,7 +46,7 @@ export default async function SearchPage({
                 isAvailable={availability}
                 maxQuantityCart={max_quantity_cart}
                 hasVariants={has_variants}
-                currency={translate(dict, 'currency')}
+                currency={translate(dict, "currency")}
               />
             )
           )}

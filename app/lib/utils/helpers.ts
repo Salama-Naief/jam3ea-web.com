@@ -20,7 +20,6 @@ export const clientRequest = async (
     cache: "no-store",
   });
   const resData = await res.json();
-  console.log("resData====l", resData);
   return resData;
 };
 

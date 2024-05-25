@@ -1,12 +1,12 @@
-import { ICity } from '@/module/city/types';
-import { LANGUAGES } from '@/lib/enums';
+import { ICity } from "@/module/(main)/city/types";
+import { LANGUAGES } from "@/lib/enums";
 import {
   ICheckoutProduct,
   ICoupon,
   IDeliveryTime,
   IPaymentMethod,
-} from '../cart/types';
-import { ISupplier } from '../stores/types';
+} from "../cart/types";
+import { ISupplier } from "../stores/types";
 
 export interface IUser {
   _id: string;

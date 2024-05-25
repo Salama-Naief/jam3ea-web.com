@@ -1,26 +1,37 @@
-import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
-import apiHandler from '@/lib/utils/apiHandler';
-import ProductCard from '@/module/product/components/ProductCard';
-import { IProduct } from '@/module/product/types';
-import { Locale } from '../../../i18n-config';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { translate } from '@/lib/utils/serverHelpers';
-import EmptyWishList from './components/EmptyWishlist';
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
+import apiHandler from "@/lib/utils/apiHandler";
+import ProductCard from "@/module/(main)/product/components/ProductCard";
+import { IProduct } from "@/module/(main)/product/types";
+import { Locale } from "../../../../i18n-config";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { translate } from "@/lib/utils/serverHelpers";
+import EmptyWishList from "./components/EmptyWishlist";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default async function Wishlist({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const products: IProduct[] = await apiHandler('/wishlist');
+  const products: IProduct[] = await apiHandler("/wishlist");
   const dict = await getDictionary(lang);
+
+  const links = [
+    {
+      label: "Home",
+      link: "/",
+    },
+    { label: "My Wish list", link: "/wishlist" },
+  ];
   return (
-    <div>
-      <Navbar title={translate(dict, 'wishlist')} />
+    <div className="bg-gray-50 p-8">
+      <div>
+        <Breadcrumbs items={links} />
+      </div>
       <Container>
         {products.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
             {products.map(
               ({
                 name,
@@ -32,6 +43,7 @@ export default async function Wishlist({
                 cart_status,
                 has_variants,
                 max_quantity_cart,
+                wishlist_status,
               }) => (
                 <ProductCard
                   key={sku}
@@ -45,8 +57,9 @@ export default async function Wishlist({
                   isAvailable={availability}
                   maxQuantityCart={max_quantity_cart}
                   hasVariants={has_variants}
-                  currency={translate(dict, 'currency')}
+                  currency={translate(dict, "currency")}
                   className="w-full"
+                  type="normal"
                 />
               )
             )}
@@ -54,8 +67,8 @@ export default async function Wishlist({
         ) : (
           <EmptyWishList
             dictionary={{
-              back_to_home: translate(dict, 'back_to_home'),
-              wishlist_empty: translate(dict, 'wishlist_empty'),
+              back_to_home: translate(dict, "back_to_home"),
+              wishlist_empty: translate(dict, "wishlist_empty"),
             }}
           />
         )}

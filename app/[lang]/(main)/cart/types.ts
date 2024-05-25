@@ -104,3 +104,22 @@ export interface IApplyCouponResponseResult {
   note: string;
   apply_on_discounted_products: boolean;
 }
+
+export interface ICart {
+  success: boolean;
+  data: [
+    {
+      sku: string;
+      price: number;
+      picture: string;
+      prod_n_categoryArr: [];
+      old_price: number;
+      name: string;
+      quantity: number;
+    }
+  ];
+  shipping_cost: number;
+  subtotal: string;
+  total_quantities: number;
+  total: string;
+}

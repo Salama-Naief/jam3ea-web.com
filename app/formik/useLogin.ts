@@ -6,7 +6,10 @@ import LoginSchema from "@/validations/loginValidation";
 import { useFormik } from "formik";
 import { useContext, useState } from "react";
 
-export const UseLogin = () => {
+interface Props {
+  close?: () => void;
+}
+export const UseLogin = ({ close }: Props) => {
   const [redirecting, setRedirecting] = useState(false);
   const { translate, login: makeLogin } = useContext(AuthContext);
   const [massage, setMessage] = useState<{
@@ -32,6 +35,7 @@ export const UseLogin = () => {
       if (status == true) {
         setRedirecting(true);
         makeLogin();
+        close && close();
       }
     },
   });

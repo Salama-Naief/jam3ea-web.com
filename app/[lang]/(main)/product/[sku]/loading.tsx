@@ -1,7 +1,8 @@
+import Product from "@/components/Skeletons/Product";
 import React from "react";
 
 function Loading() {
-  return <div>Loading...</div>;
+  return <Product />;
 }
 
 export default Loading;

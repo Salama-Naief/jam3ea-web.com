@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Router from 'next/router';
-import { useEffect } from 'react';
-import { done, start } from 'nprogress';
-import 'nprogress/nprogress.css';
+import Router from "next/router";
+import { useEffect } from "react";
+import { done, start } from "nprogress";
+import "nprogress/nprogress.css";
 
 const RoutingProgress = () => {
   useEffect(() => {
@@ -20,14 +20,14 @@ const RoutingProgress = () => {
       done();
     };
 
-    Router.events.on('routeChangeStart', handleStart);
-    Router.events.on('routeChangeComplete', handleEnd);
-    Router.events.on('routeChangeError', handleEnd);
+    Router.events.on("routeChangeStart", handleStart);
+    Router.events.on("routeChangeComplete", handleEnd);
+    Router.events.on("routeChangeError", handleEnd);
 
     return () => {
-      Router.events.off('routeChangeStart', handleStart);
-      Router.events.off('routeChangeComplete', handleEnd);
-      Router.events.off('routeChangeError', handleEnd);
+      Router.events.off("routeChangeStart", handleStart);
+      Router.events.off("routeChangeComplete", handleEnd);
+      Router.events.off("routeChangeError", handleEnd);
     };
   }, []);
 

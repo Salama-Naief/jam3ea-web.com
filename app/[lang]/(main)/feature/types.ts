@@ -1,5 +1,5 @@
-import { IProduct } from '@/module/product/types';
-import { ISlide } from '@/module/slide/types';
+import { IProduct } from "@/module/(main)/product/types";
+import { ISlide } from "@/module/(main)/slide/types";
 
 export interface IFeature {
   _id: string;

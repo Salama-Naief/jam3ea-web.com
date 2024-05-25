@@ -16,6 +16,8 @@ function Carousel() {
     slidesToScroll: 1,
     arrows: false,
     fade: true,
+    // lazyLoad: true,
+    rtl: true,
     waitForAnimate: true,
     autoplay: true,
     speed: 2000,
@@ -51,12 +53,12 @@ function Carousel() {
 
   const imgArray = [CarouselImg1, CarouselImg2, CarouselImg3];
   return (
-    <div className=" w-[100%] relative">
-      <Slider {...settings} className="w-[100%] h-fit">
+    <div className=" relative">
+      <Slider {...settings} className=" h-fit">
         {imgArray.map((img, index) => (
           <div
             key={index}
-            className="relative h-[25rem] md:h-[30rem] lg:h-[36rem] w-[100%]"
+            className="relative h-[25rem] md:h-[30rem] lg:h-[36rem] "
           >
             <Image src={img} alt="" fill objectFit="contian" />
           </div>

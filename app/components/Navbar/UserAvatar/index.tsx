@@ -1,66 +1,100 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { forwardRef, useContext, useEffect, useState } from "react";
 import avatar from "../../../../public/assets/avatar.svg";
-import { motion } from "framer-motion";
+import logedAvatar from "../../../../public/assets/logedIcon.svg";
 import Link from "next/link";
-import { useParams, useRouter, usePathname } from "next/navigation";
-import { Menu, Button, Text, rem } from "@mantine/core";
+import { usePathname } from "next/navigation";
+import { Group, Menu, Text, UnstyledButton } from "@mantine/core";
 import webRoutes from "@/lib/utils/webRoutes";
+import { BsHeart, BsPerson } from "react-icons/bs";
+import { MdOutlineLocationOn } from "react-icons/md";
+import { HiOutlineCreditCard } from "react-icons/hi2";
+
+import orderIcon from "../../../../public/assets/orders.svg";
+import walletIcon from "../../../../public/assets/WalletPoints.svg";
+import { AuthContext } from "@/lib/providers/AuthProvider";
 
 function UserAvatar() {
   const [open, setOpen] = useState<boolean>(false);
+  const { isLoggedIn, logout } = useContext(AuthContext);
+  const [isDomReady, setIsDomReady] = useState(false);
   const path = usePathname();
-  console.log("path", path);
+
+  useEffect(() => {
+    setIsDomReady(true);
+  }, []);
   const links = [
     {
       label: "Account Info",
-      link: "/",
+      link: "/account",
+      icon: <BsPerson size={25} />,
     },
     {
       label: "Saved Addresses",
       link: "/",
+      icon: <MdOutlineLocationOn size={25} />,
+    },
+
+    {
+      label: "Favourite",
+      link: "/wishlist",
+      icon: <BsHeart size={22} />,
     },
     {
-      label: "Wallet(My Credit) 22.00KD",
+      label: "My Orders",
       link: "/",
+      icon: <Image src={orderIcon} alt="My Orders" />,
     },
     {
-      label: "Wallet(My Points) 300 Point",
+      label: "Wallet(My Credit)",
       link: "/",
+      icon: <HiOutlineCreditCard size={25} />,
+    },
+    {
+      label: "Wallet(My Points)",
+      link: "/",
+      icon: <Image src={walletIcon} alt="Wallet(My Points) " />,
     },
   ];
 
   //handle logout
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <div className="relative">
-      <Menu shadow="md" width={200}>
-        <Menu.Target>
-          <Link href={webRoutes.login}>
-            <Image src={avatar} alt="avatar" className="cursor-pointer" />
-          </Link>
-        </Menu.Target>
+      {isDomReady && isLoggedIn ? (
+        <Menu shadow="md" width={200}>
+          <Menu.Target>
+            <Image src={logedAvatar} alt="avatar" className="cursor-pointer" />
+          </Menu.Target>
 
-        <Menu.Dropdown p={0} className="bg-white">
-          {links.map((item, i) => (
-            <Menu.Label p={0} key={i}>
-              <Link
-                href={item.link}
-                className="hover:bg-gray-300 block w-full py-2 px-4 text-base text-gray-800"
-              >
-                {item.label}
-              </Link>
-            </Menu.Label>
-          ))}
-          <Menu.Divider />
-          <Menu.Item p={0} onClick={() => handleLogout}>
-            <span className="hover:bg-gray-300 block w-full py-2 px-4 text-base text-gray-800">
-              Logout
-            </span>
-          </Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
+          <Menu.Dropdown p={0} className="bg-white">
+            {links.map((item, i) => (
+              <Menu.Item p={0} key={i} className="flex items-center gap-2">
+                <div className="flex items-center gap-2 px-2 hover:bg-gray-300  w-full py-2 text-base text-gray-800 rounded">
+                  {item.icon}
+                  <Link href={item.link} className="block font-semibold">
+                    {item.label}
+                  </Link>
+                </div>
+              </Menu.Item>
+            ))}
+            <Menu.Divider />
+            <Menu.Item p={0} onClick={() => handleLogout}>
+              <span className="hover:bg-gray-300 block w-full py-2 px-4 text-base text-gray-800">
+                Logout
+              </span>
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      ) : (
+        <Link href={webRoutes.login}>
+          <Image src={avatar} alt="avatar" className="cursor-pointer" />
+        </Link>
+      )}
+
       {/* {
         <motion.div
           initial={{ y: 20, opacity: 0, scaleY: 0 }}

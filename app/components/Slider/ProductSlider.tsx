@@ -5,15 +5,17 @@ import ProductCard from "@/module/(main)/product/components/ProductCard";
 import Container from "../Container";
 import Slider from "react-slick";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { IProduct } from "@/module/(main)/product/types";
 
 interface Props {
-  items: any;
+  items: IProduct[];
   type: "bestSeller" | "normal";
   size?: "small" | "large";
   lgSize?: number;
   xlSize?: number;
   mdSize?: number;
   smSize?: number;
+  autoAnimation?: boolean;
 }
 
 // arrows
@@ -51,6 +53,7 @@ function ProductSlider({
   mdSize = 3,
   smSize = 2,
   xlSize = 5,
+  autoAnimation = true,
 }: Props) {
   // var settings = {
   //   infinite: true,
@@ -96,27 +99,30 @@ function ProductSlider({
       <div className="w-full mx-auto px-4 md:px-0 lg:px-0 bg-transparent">
         {/* <Slider {...settings} className="w-full"> */}
         <MainSlider
-          lgSize={lgSize}
-          xlSize={xlSize}
-          mdSize={mdSize}
-          smSize={smSize}
+          lgSize={items.length > lgSize ? lgSize : items.length}
+          xlSize={items.length > xlSize ? xlSize : items.length}
+          mdSize={items.length > mdSize ? mdSize : items.length}
+          smSize={items.length > smSize ? smSize : items.length}
           nextIcon={BsChevronRight}
           prevIcon={BsChevronLeft}
+          autoAnimation={autoAnimation}
         >
-          {items.map((item: any) => (
-            <div key={item.id}>
+          {items.map((item) => (
+            <div key={item.sku}>
               <ProductCard
-                cartStatus={item.cartStatus}
-                currency={item.currency}
-                hasVariants={item.hasVariants}
-                isAvailable={item.isAvailable}
-                isInWhishlist={item.isInWhishlist}
-                maxQuantityCart={item.maxQuantityCart}
+                cartStatus={item.cart_status}
+                currency={"kwd"}
+                hasVariants={item.has_variants}
+                isAvailable={item.availability}
+                isInWhishlist={
+                  item.wishlist_status ? item.wishlist_status.is_exists : false
+                }
+                maxQuantityCart={item.max_quantity_cart}
                 name={item.name}
                 picture={item.picture}
                 price={item.price}
                 sku={item.sku}
-                oldPrice={item.oldPrice}
+                oldPrice={item.old_price}
                 type={type}
                 size={size}
               />

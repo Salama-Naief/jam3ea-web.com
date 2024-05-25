@@ -11,7 +11,7 @@ import { IconType } from "react-icons";
 function NextArrow(props: any) {
   const { className, style, onClick, icon: Icon } = props;
   return (
-    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100 shadow z-10 absolute top-1/2 -right-4 md:-right-10 cursor-pointer  text-2xl md:text-4xl">
+    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100 shadow z-10 absolute top-1/2 -end-4 md:-end-10 cursor-pointer  text-2xl md:text-4xl">
       <Icon
         className={""}
         style={{ ...style, display: "block" }}
@@ -24,7 +24,7 @@ function NextArrow(props: any) {
 function PrevArrow(props: any) {
   const { className, style, onClick, icon: Icon } = props;
   return (
-    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100 shadow z-10 absolute top-1/2 -left-4 md:-left-10 cursor-pointer  text-2xl md:text-4xl">
+    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100 shadow z-10 absolute top-1/2 -start-4 md:-start-10 cursor-pointer  text-2xl md:text-4xl">
       <Icon
         className={``}
         style={{ ...style, display: "block" }}
@@ -43,6 +43,7 @@ interface Props {
   rtl?: boolean;
   nextIcon?: IconType;
   prevIcon?: IconType;
+  autoAnimation?: boolean;
 }
 function MainSlider({
   children,
@@ -53,6 +54,7 @@ function MainSlider({
   rtl = false,
   nextIcon = BsArrowRight,
   prevIcon = BsArrowLeft,
+  autoAnimation = true,
 }: Props) {
   const settings = {
     infinite: true,
@@ -61,7 +63,7 @@ function MainSlider({
     slidesToScroll: 1,
     initialSlide: 0,
     arrows: true,
-    autoplay: true,
+    autoplay: autoAnimation,
     rtl: rtl,
     autoplaySpeed: 3000,
     cssEase: "linear",

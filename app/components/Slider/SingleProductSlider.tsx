@@ -5,9 +5,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { IProduct } from "@/module/(main)/product/types";
 
 interface Props {
-  product: any;
+  product: IProduct;
 }
 function SingleProductSlider({ product }: Props) {
   const [nav1, setNav1] = useState<any>(null);
@@ -25,7 +26,7 @@ function SingleProductSlider({ product }: Props) {
       <div className="absolute top-5 end-5 z-10">
         <AddToWishlist
           isLarge
-          isInWhishlist={product.isInWhishlist}
+          isInWhishlist={product.wishlist_status.is_exists}
           sku={product.sku}
         />
       </div>
@@ -37,44 +38,63 @@ function SingleProductSlider({ product }: Props) {
         fade={true}
         className="bg-gray-100 rounded-xl p-4 shadow-md "
       >
-        {product.images.map((img: any, i: number) => (
-          <div key={i} className="flex  flex-col ">
-            <div className="flex justify-end w-full"></div>
-            <div className="w-full flex justify-center items-center">
-              <Image src={img} alt={product.name} />
+        {product && product.gallery_pictures.length > 0 ? (
+          product.gallery_pictures.map((img: any, i: number) => (
+            <div key={i} className="flex  flex-col ">
+              <div className="flex justify-end w-full"></div>
+              <div className="w-full flex justify-center items-center">
+                <Image src={img} width={300} height={300} alt={product.name} />
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
-      <Slider
-        asNavFor={nav1}
-        ref={(slider) => setNav2(slider)}
-        slidesToShow={product.images.length}
-        swipeToSlide={true}
-        focusOnSelect={true}
-        arrows={false}
-        className="mt-4 shadow-md"
-      >
-        {product.images.map((img: any, i: number) => (
-          <div
-            key={i}
-            className={`cursor-pointer flex justify-center items-center flex-col bg-gray-100 rounded-md p-1
-              
-            `}
-            onClick={() => setActiveImg(i)}
-          >
+          ))
+        ) : (
+          <div className="w-full flex justify-center items-center">
             <Image
-              src={img}
-              width={100}
-              height={100}
+              src={product.picture}
+              width={300}
+              height={300}
               alt={product.name}
-              className={`${
-                activeImg === i ? "border-primary" : "border-gray-100"
-              } border p-1 rounded`}
+              className="mx-auto"
             />
           </div>
-        ))}
+        )}
       </Slider>
+      <div className="mt-4 shadow-md w-full bg-gray-100">
+        <Slider
+          asNavFor={nav1}
+          ref={(slider) => setNav2(slider)}
+          // slidesToShow={product.images.length}
+          slidesToShow={
+            product.gallery_pictures.length > 0
+              ? product.gallery_pictures.length
+              : 0
+          }
+          swipeToSlide={true}
+          focusOnSelect={true}
+          arrows={false}
+          className="mx-auto min-w-min w-fit"
+        >
+          {product.gallery_pictures.map((img: any, i: number) => (
+            <div
+              key={i}
+              className={`cursor-pointer flex justify-center items-center flex-col  rounded-md p-1
+          
+          `}
+              onClick={() => setActiveImg(i)}
+            >
+              <Image
+                src={img}
+                width={100}
+                height={100}
+                alt={product.name}
+                className={`${
+                  activeImg === i ? "border-primary" : "border-gray-100"
+                } border p-1 rounded mx-auto`}
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 }

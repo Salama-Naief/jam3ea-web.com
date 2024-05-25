@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import React, { createContext, useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import PropTypes from 'prop-types';
-import { LANGUAGES } from '@/lib/enums';
-import { ICity } from '@/module/city/types';
+import React, { createContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import PropTypes from "prop-types";
+import { LANGUAGES } from "@/lib/enums";
+import { ICity } from "@/module/(main)/city/types";
 import {
   IAddAddress,
   IAddAddressResponseResult,
   IAddress,
-} from '@/module/(profile)/types';
+} from "@/module/(main)/(profile)/types";
 import {
   getAddresses,
   addAddress as storeAddress,
   updateCity,
-} from '@/module/(profile)/services';
-import { IResponse } from '../types';
+} from "@/module/(main)/(profile)/services";
+import { IResponse } from "../types";
 
 const CookieContext = createContext({
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
-  language: 'en',
+  language: "en",
   changeLanguage: (l: LANGUAGES) => {},
   city: null as ICity | null,
   changeCity: (c: string) => {},
@@ -37,9 +37,9 @@ const CookieContext = createContext({
 });
 
 const CookieProvider = ({ children }: any) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['data']);
+  const [cookies, setCookie, removeCookie] = useCookies(["data"]);
   const [language, setLanguage] = useState<LANGUAGES>(
-    cookies.data && cookies.data.language ? cookies.data.language : 'en'
+    cookies.data && cookies.data.language ? cookies.data.language : "en"
   );
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
     cookies.data ? cookies.data.isLoggedIn : false
@@ -55,9 +55,9 @@ const CookieProvider = ({ children }: any) => {
   const [addresses, setAddresses] = useState<IAddress[]>([]);
 
   const options: any = {
-    sameSite: 'none',
+    sameSite: "none",
     secure: false,
-    path: '/',
+    path: "/",
   };
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const CookieProvider = ({ children }: any) => {
         getAddresses().then((res) => {
           if (res.results) {
             setAddresses(res.results);
-            setCookie('data', {
+            setCookie("data", {
               ...(cookies.data || {}),
               addresses: res.results,
             });
@@ -96,7 +96,7 @@ const CookieProvider = ({ children }: any) => {
     updateCity({ city_id: cityId }).then((res) => {
       if (res.results?.data.city) {
         setCookie(
-          'data',
+          "data",
           { ...cookies.data, city: res.results?.data.city },
           options
         );
@@ -106,7 +106,7 @@ const CookieProvider = ({ children }: any) => {
   };
 
   const changeLanguage = (language: LANGUAGES) => {
-    setCookie('data', { ...cookies.data, language }, options);
+    setCookie("data", { ...cookies.data, language }, options);
     setLanguage(language);
   };
 
@@ -118,13 +118,13 @@ const CookieProvider = ({ children }: any) => {
 
     if (foundAddress) {
       cookies.data.selectedAddress = foundAddress;
-      setCookie('data', cookies.data, options);
+      setCookie("data", cookies.data, options);
       setSelectedAddress(foundAddress);
       if (selectedAddress?.city_id) {
         changeCity(selectedAddress?.city_id);
       }
     } else {
-      console.log('address not found: ', addressId, mainAddresses);
+      console.log("address not found: ", addressId, mainAddresses);
     }
   };
 
@@ -153,7 +153,7 @@ const CookieProvider = ({ children }: any) => {
         ...(addresses as IAddress[]),
         newAddress,
       ];
-      setCookie('data', { ...cookies.data, addresses: newAddresses }, options);
+      setCookie("data", { ...cookies.data, addresses: newAddresses }, options);
       setAddresses(newAddresses);
 
       if (!selectedAddress) {
@@ -163,7 +163,6 @@ const CookieProvider = ({ children }: any) => {
       return true;
     }
   };
-  
 
   return (
     <CookieContext.Provider

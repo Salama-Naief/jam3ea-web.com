@@ -1,15 +1,15 @@
-import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
-import { Locale } from '../../../../i18n-config';
-import { getSupplierById } from '../services';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { translate } from '@/lib/utils/serverHelpers';
-import Categories from '@/module/category/components/Categories';
-import { getFeaturedProducts } from '@/module/feature/services';
-import { Suspense } from 'react';
-import { IFeature } from '@/module/feature/types';
-import Feature from '@/module/feature/components/Feature';
-import CartBottomBar from '@/module/cart/components/CartBottomBar';
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
+import { Locale } from "../../../../../i18n-config";
+import { getSupplierById } from "../services";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { translate } from "@/lib/utils/serverHelpers";
+import Categories from "@/module/(main)/category/components/Categories";
+import { getFeaturedProducts } from "@/module/(main)/feature/services";
+import { Suspense } from "react";
+import { IFeature } from "@/module/(main)/feature/types";
+import Feature from "@/module/(main)/feature/components/Feature";
+import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
 
 export default async function StorePage({
   params,
@@ -24,17 +24,17 @@ export default async function StorePage({
     <div>
       <Navbar
         title={
-          typeof supplier.name === 'object' ? supplier.name.en : supplier.name
+          typeof supplier.name === "object" ? supplier.name.en : supplier.name
         }
         hasSearch
         supplierId={params.id}
       />
       <Container>
-        <h2 className="font-bold text-lg">{translate(dict, 'sections')}</h2>
+        <h2 className="font-bold text-lg">{translate(dict, "sections")}</h2>
         <div className="grid grid-cols-4 gap-2 items-start">
           {/* @ts-expect-error Server Component */}
           <Categories
-            dictionary={{ all_sections: translate(dict, 'all_sections') }}
+            dictionary={{ all_sections: translate(dict, "all_sections") }}
             supplierId={params.id}
           />
         </div>
@@ -45,8 +45,8 @@ export default async function StorePage({
               feature={feature}
               supplierId={params.id}
               dictionary={{
-                view_all: translate(dict, 'view_all'),
-                currency: translate(dict, 'currency'),
+                view_all: translate(dict, "view_all"),
+                currency: translate(dict, "currency"),
               }}
             />
           ))}

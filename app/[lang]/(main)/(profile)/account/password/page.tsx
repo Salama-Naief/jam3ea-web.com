@@ -1,14 +1,14 @@
-import Navbar from '@/components/Navbar';
-import UpdatePasswordForm from './components/UpdatePasswordForm';
-import Container from '@/components/Container';
+import Navbar from "@/components/Navbar";
+import UpdatePasswordForm from "./components/UpdatePasswordForm";
+import Container from "@/components/Container";
+import SharedLayout from "../../components/SharedLayout";
 
 export default async function Profile() {
   return (
     <div>
-      <Navbar title="Update password" />
-      <Container>
+      <SharedLayout title="Change Password">
         <UpdatePasswordForm />
-      </Container>
+      </SharedLayout>
     </div>
   );
 }
