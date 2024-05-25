@@ -1,7 +1,7 @@
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { AuthContext } from "@/lib/providers/AuthProvider";
-import { login } from "@/module/(profile)/services";
-import { ILogin, ILoginResponseResult } from "@/module/(profile)/types";
+import { login } from "@/module/(main)/(profile)/services";
+import { ILogin, ILoginResponseResult } from "@/module/(main)/(profile)/types";
 import LoginSchema from "@/validations/loginValidation";
 import ResetPasswordSchema from "@/validations/resetPasswordValidation";
 import { useFormik } from "formik";

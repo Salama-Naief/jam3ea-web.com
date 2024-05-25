@@ -6,6 +6,10 @@ import LanguageSelect from "./components/LanguageSelect";
 import { Locale } from "../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
+import AddressSelector from "@/components/Navbar/AddressSelector";
+import { getCities } from "@/module/(main)/city/services";
+import apiHandler from "@/lib/utils/apiHandler";
+import ChooseCity from "./components/ChooseCity";
 
 export default async function Choose({
   params: { lang },
@@ -13,6 +17,9 @@ export default async function Choose({
   params: { lang: Locale };
 }) {
   const dict = await getDictionary(lang);
+
+  const cities: any = await apiHandler("/city", "GET", undefined, true);
+  console.log("citiesData===", cities);
 
   return (
     <div>
@@ -27,7 +34,7 @@ export default async function Choose({
           />
           <div className="flex"></div>
           <LanguageSelect />
-          <div className="flex gap-4 justify-center mb-8">
+          <div className="flex gap-4 items-center justify-center mb-8">
             <Link
               href={webRoutes.login}
               className="bg-primary px-4 py-2 text-white rounded-full"
@@ -43,13 +50,17 @@ export default async function Choose({
             </Link>
           </div>
           <div className="flex">
-            <Link
+            {/* <Link
               href={webRoutes.addresses}
               className="text-secondary mx-auto"
-              //as={`ar/${webRoutes.addresses}`}
+              // as={`ar/${webRoutes.addresses}`}
             >
               {translate(dict, "shop_as_guest")}
-            </Link>
+            </Link> */}
+            <ChooseCity
+              buttonLabel={translate(dict, "shop_as_guest")}
+              cities={cities.data ? cities.data[0] : []}
+            />
           </div>
         </div>
       </Container>

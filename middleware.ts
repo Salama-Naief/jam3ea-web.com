@@ -35,6 +35,8 @@ export async function middleware(request: NextRequest) {
     throw new Error("Missing environment variables");
 
   const addresses = request.cookies.get("addresses")?.value;
+  const city = request.cookies.get("city");
+  console.log("city===", city);
   const selectedAddress = request.cookies.get("selectedAddress")?.value;
   const isLoggedIn =
     request.cookies.get("isLoggedIn")?.value &&
@@ -50,9 +52,15 @@ export async function middleware(request: NextRequest) {
       );
     }
   } else {
+    // if (isRoute(url, webRoutes.splash) && city) {
+    //   //console.log('REDIRECTION #2');
+    //   return NextResponse.redirect(new URL(webRoutes.home, request.url));
+    //   // return redirect(webRoutes.home);
+    // }
     if (isRoute(url, webRoutes.splash) && addresses && addresses.length > 0) {
       //console.log('REDIRECTION #2');
       return NextResponse.redirect(new URL(webRoutes.home, request.url));
+      // return redirect(webRoutes.home);
     }
 
     if (
@@ -65,13 +73,13 @@ export async function middleware(request: NextRequest) {
       (!addresses || addresses?.length < 1)
     ) {
       //console.log('REDIRECTION #3 ', new URL(webRoutes.splash, request.url).toString());
-      //  return NextResponse.redirect(new URL(webRoutes.splash, request.url));
+      return NextResponse.redirect(new URL(webRoutes.splash, request.url));
     }
 
-    // if (addresses && addresses?.length > 0 && !selectedAddress) {
-    //   //console.log('REDIRECTION #4');
-    //   return NextResponse.redirect(new URL(webRoutes.addresses, request.url));
-    // }
+    if (addresses && addresses?.length > 0 && !selectedAddress) {
+      //   //console.log('REDIRECTION #4');
+      return NextResponse.redirect(new URL(webRoutes.addresses, request.url));
+    }
   }
 
   const urlToRedirect = authMiddleware(request, url);
@@ -127,8 +135,8 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
   const addresses = request.cookies.get("addresses")?.value;
 
   if (shouldNotBeAuth.includes(url) && isLoggedIn) {
-    // return new URL(webRoutes.home, request.url);
-    redirect(webRoutes.home);
+    return new URL(webRoutes.home, request.url);
+    // redirect(webRoutes.home);
   }
 
   if (shouldBeAuth.includes(url) && !isLoggedIn) {
@@ -136,11 +144,11 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
     redirect(webRoutes.login);
   }
 
-  // if (!selectedAddress && !isLoggedIn && !shouldNotBeAuth.includes(url)) {
-  //   if (addresses && addresses.length > 0)
-  //     return new URL(webRoutes.addresses, request.url);
-  //   else return new URL(webRoutes.splash, request.url);
-  // }
+  if (!selectedAddress && !isLoggedIn && !shouldNotBeAuth.includes(url)) {
+    if (addresses && addresses.length > 0)
+      return new URL(webRoutes.addresses, request.url);
+    else return new URL(webRoutes.splash, request.url);
+  }
 
   return null;
 };

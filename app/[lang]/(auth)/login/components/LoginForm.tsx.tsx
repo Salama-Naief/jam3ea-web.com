@@ -19,7 +19,11 @@ const initialState = {
   password: "",
 };
 
-export default function LoginForm() {
+interface Props {
+  close?: () => void;
+}
+
+export default function LoginForm({ close }: Props) {
   const router = useRouter();
   const { translate, login: makeLogin } = useContext(AuthContext);
   const [redirecting, setRedirecting] = useState(false);
@@ -33,7 +37,7 @@ export default function LoginForm() {
     massage,
     touched,
     values,
-  } = UseLogin();
+  } = UseLogin({ close });
 
   return (
     <div className="shadow-md rounded-xl px-3 pt-6 pb-8 bg-white h-full md:h-auto">

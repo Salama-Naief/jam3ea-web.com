@@ -21,7 +21,7 @@ export default async function Feature({
 
   return (
     <div>
-      <Navbar hasSearch title={name} supplierId={supplier} />
+      {/* <Navbar hasSearch title={name} supplierId={supplier} /> */}
       <Container>
         <div className="grid md:grid-cols-4 grid-cols-2 gap-2 items-stretch">
           {products &&

@@ -1,9 +1,9 @@
-'use client';
-import { Fragment, useState } from 'react';
-import { Dialog, Switch, Tab, Transition } from '@headlessui/react';
-import { IDeliveryTime, ITime } from '../types';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { TimePickerIcon } from '@/components/Icons';
+"use client";
+import { Fragment, useState } from "react";
+import { Dialog, Switch, Tab, Transition } from "@headlessui/react";
+import { IDeliveryTime, ITime } from "../types";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { TimePickerIcon } from "@/components/Icons";
 
 interface DeliveryTimePickerProps {
   deliveryTimes: IDeliveryTime[];
@@ -31,8 +31,10 @@ export default function DeliveryTimePicker({
   }
 
   return (
-    <div>
-      <h5 className="text-base mb-2">{dictionary.delivery_time}</h5>
+    <div className="w-full">
+      <h5 className="text-2xl font-bold text-secondary my-4 text-center ">
+        {dictionary.delivery_time}
+      </h5>
       <button
         type="button"
         onClick={() => {
@@ -50,7 +52,7 @@ export default function DeliveryTimePicker({
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-50" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -88,7 +90,7 @@ export default function DeliveryTimePicker({
                     </div>
                     <div>&nbsp;</div>
                   </Dialog.Title>
-                  <div className="p-6 pt-2 ">
+                  <div className="p-6 pt-2 max-h-screen pb-16 overflow-y-auto">
                     <Tab.Group>
                       <Tab.List className="">
                         {deliveryTimes.map((d, i) => (
@@ -96,8 +98,8 @@ export default function DeliveryTimePicker({
                             key={i}
                             className={({ selected }) =>
                               selected
-                                ? ' px-4 py-2  text-white bg-primary rounded-2xl'
-                                : 'text-black px-4 py-2'
+                                ? " px-4 py-2  text-white bg-primary rounded-2xl"
+                                : "text-black px-4 py-2"
                             }
                           >
                             {d.day}
@@ -106,7 +108,7 @@ export default function DeliveryTimePicker({
                       </Tab.List>
                       <Tab.Panels>
                         {deliveryTimes.map(({ times }, i) => (
-                          <Tab.Panel key={i} className={'py-5'}>
+                          <Tab.Panel key={i} className={"py-5"}>
                             <div className="flex flex-col gap-4">
                               {times.map((dt, i) => (
                                 <div

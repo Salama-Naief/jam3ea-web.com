@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import React, { createContext, useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import PropTypes from 'prop-types';
-import { LANGUAGES } from '@/lib/enums';
-import { usePathname, useRouter } from 'next/navigation';
-import { login } from '@/module/(profile)/services';
-import webRoutes from '../utils/webRoutes';
-import { IUser } from '@/module/(profile)/types';
+import React, { createContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import PropTypes from "prop-types";
+import { LANGUAGES } from "@/lib/enums";
+import { usePathname, useRouter } from "next/navigation";
+import { login } from "@/module/(main)/(profile)/services";
+import webRoutes from "../utils/webRoutes";
+import { IUser } from "@/module/(main)/(profile)/types";
 
 const AuthContext = createContext({
   isLoggedIn: false,
-  language: 'en',
+  language: "en",
   changeLanguage: (l: LANGUAGES, r?: boolean) => {},
-  translate: (k: string): string => '',
+  translate: (k: string): string => "",
   login: () => {},
   logout: () => {},
   user: null as any,
@@ -28,22 +28,22 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const [cookies, setCookie, removeCookie] = useCookies([
-    'isLoggedIn',
-    'language',
-    'auth.user',
-    'auth.token',
-    'addresses',
-    'selectedAddress',
-    'city',
-    'visitor.token',
+    "isLoggedIn",
+    "language",
+    "auth.user",
+    "auth.token",
+    "addresses",
+    "selectedAddress",
+    "city",
+    "visitor.token",
   ]);
   const [language, setLanguage] = useState<LANGUAGES>(
     cookies.language || LANGUAGES.ENGLISH
   );
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
-    cookies && cookies.isLoggedIn == 'true'
+    cookies && cookies.isLoggedIn == "true"
   );
-  const [user, setUser] = useState<IUser | null>(cookies['auth.user']);
+  const [user, setUser] = useState<IUser | null>(cookies["auth.user"]);
 
   useEffect(() => {
     if (cookies.language) {
@@ -54,45 +54,45 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
   }, [cookies.language]);
 
   useEffect(() => {
-    if (isLoggedIn && cookies['auth.user']) {
-      setUser(cookies['auth.user']);
+    if (isLoggedIn && cookies["auth.user"]) {
+      setUser(cookies["auth.user"]);
     }
-  }, [cookies.isLoggedIn, cookies['auth.user']]);
+  }, [cookies.isLoggedIn, cookies["auth.user"]]);
 
   const changeLanguage = (language: LANGUAGES, reload = true) => {
-    setCookie('language', language, {
-      sameSite: 'none',
+    setCookie("language", language, {
+      sameSite: "none",
       secure: true,
-      path: '/',
+      path: "/",
     });
     setLanguage(language);
 
     if (reload === true && window) {
       window.location.href =
-        '/' +
+        "/" +
         language +
-        pathname.replace(LANGUAGES.ENGLISH, '').replace(LANGUAGES.ARABIC, '');
+        pathname.replace(LANGUAGES.ENGLISH, "").replace(LANGUAGES.ARABIC, "");
     } else {
-      router.replace('/' + language + webRoutes.splash);
+      router.replace("/" + language + webRoutes.splash);
       router.refresh();
     }
   };
 
   const login = () => {
-    setCookie('isLoggedIn', true);
+    setCookie("isLoggedIn", true);
     setIsLoggedIn(true);
     if (window) window.location.href = webRoutes.home;
     else router.replace(webRoutes.home);
   };
 
   const logout = () => {
-    removeCookie('isLoggedIn');
-    removeCookie('auth.user');
-    removeCookie('auth.token');
-    removeCookie('visitor.token');
-    removeCookie('addresses');
-    removeCookie('selectedAddress');
-    removeCookie('city');
+    removeCookie("isLoggedIn");
+    removeCookie("auth.user");
+    removeCookie("auth.token");
+    removeCookie("visitor.token");
+    removeCookie("addresses");
+    removeCookie("selectedAddress");
+    removeCookie("city");
     if (window) window.location.href = webRoutes.home;
     else router.replace(webRoutes.splash);
   };

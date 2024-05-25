@@ -1,4 +1,4 @@
-import { VARIANT_OPTION_TYPES } from '@/lib/enums';
+import { VARIANT_OPTION_TYPES } from "@/lib/enums";
 
 export interface ICartStatus {
   is_exists: boolean;
@@ -25,7 +25,7 @@ export interface IProduct {
     quantity: number;
     status: boolean;
   }[];
-
+  gallery_pictures: string[];
   // NOTE: this is returned only in get product by sku and used in the product page
   categories?: {
     category_id: string;

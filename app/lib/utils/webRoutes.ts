@@ -9,6 +9,7 @@ const webRoutes = {
   profile: "/account",
   updateProfile: "/account/profile",
   updatePassword: "/account/password",
+  updateEmail: "/account/email",
   addresses: "/addresses",
   cart: "/cart",
   wishlist: "/wishlist",

@@ -14,7 +14,6 @@ interface Props {
 }
 function CategoryProducts({ products }: Props) {
   let total = 1;
-  console.log("products.total", products);
 
   if (products && products.total && products.per_page) {
     total = Math.ceil(Number(products.total) / Number(products.per_page));

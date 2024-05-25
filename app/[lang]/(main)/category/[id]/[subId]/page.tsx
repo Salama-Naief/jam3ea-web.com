@@ -1,16 +1,16 @@
-import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
-import ProductCard from '@/module/product/components/ProductCard';
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
+import ProductCard from "@/module/(main)/product/components/ProductCard";
 import {
   getCategoryById,
   getCategoryProducts,
   getRanksByCategoryId,
-} from '../../services';
-import SubCategoriesList from '@/module/category/components/Categories/SubCategoriesList';
-import { Locale } from '../../../../../i18n-config';
-import { getDictionary } from '@/lib/utils/dictionary';
-import { translate } from '@/lib/utils/serverHelpers';
-import CartBottomBar from '@/module/cart/components/CartBottomBar';
+} from "../../services";
+import SubCategoriesList from "@/module/(main)/category/components/Categories/SubCategoriesList";
+import { Locale } from "../../../../../../i18n-config";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { translate } from "@/lib/utils/serverHelpers";
+import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
 
 export default async function SubCategoriesPage({
   params,
@@ -95,11 +95,11 @@ export default async function SubCategoriesPage({
                                   isAvailable={availability}
                                   maxQuantityCart={max_quantity_cart}
                                   hasVariants={has_variants}
-                                  currency={translate(dict, 'currency')}
+                                  currency={translate(dict, "currency")}
                                 />
                               )
                             )
-                        : 'No results'}
+                        : "No results"}
                     </div>
                   </div>
                 ))}

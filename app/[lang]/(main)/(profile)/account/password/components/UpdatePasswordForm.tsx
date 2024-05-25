@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import useHttpClient from '@/lib/hooks/useHttpClient';
-import { useFormik } from 'formik';
-import { useRouter } from 'next/navigation';
+import Button from "@/components/Button";
+import Input from "@/components/Input";
+import useHttpClient from "@/lib/hooks/useHttpClient";
+import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
 import {
   IUpdatePassword,
   IUpdatePasswordResponseResult,
-} from '@/module/(profile)/types';
-import { updatePassword } from '@/module/(profile)/services';
+} from "@/module/(main)/(profile)/types";
+import { updatePassword } from "@/module/(main)/(profile)/services";
 
 export default function UpdatePasswordForm() {
   const router = useRouter();
@@ -21,9 +21,9 @@ export default function UpdatePasswordForm() {
 
   const formik = useFormik({
     initialValues: {
-      old_password: '',
-      new_password: '',
-      re_new_password: '',
+      old_password: "",
+      new_password: "",
+      re_new_password: "",
     },
     onSubmit: async (values) => {
       const status = await sendRequest(updatePassword(values));
@@ -45,9 +45,8 @@ export default function UpdatePasswordForm() {
           type="password"
           name="old_password"
           id="old_password"
-          required
           value={values.old_password}
-          onChange={handleChange}
+          handleChange={handleChange}
           error={
             touched.old_password && errors.old_password
               ? errors.old_password
@@ -63,9 +62,10 @@ export default function UpdatePasswordForm() {
           type="password"
           name="new_password"
           id="new_password"
-          required
+          // required
           value={values.new_password}
-          onChange={handleChange}
+          // onChange={handleChange}
+          handleChange={handleChange}
           error={
             touched.new_password && errors.new_password
               ? errors.new_password
@@ -81,9 +81,10 @@ export default function UpdatePasswordForm() {
           type="password"
           name="re_new_password"
           id="re_new_password"
-          required
+          // required
           value={values.re_new_password}
-          onChange={handleChange}
+          // onChange={handleChange}
+          handleChange={handleChange}
           error={
             touched.re_new_password && errors.re_new_password
               ? errors.re_new_password

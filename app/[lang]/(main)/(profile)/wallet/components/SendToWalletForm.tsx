@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import { useFormik } from 'formik';
-import { useContext, useState } from 'react';
-import { ISendToWallet, ISendToWalletResponseResult } from '../../types';
-import { sendToWallet } from '../../services';
-import useHttpClient from '@/lib/hooks/useHttpClient';
-import Input from '@/components/Input';
-import Button from '@/components/Button';
-import { getPriceWithCurrency } from '@/module/product/utils';
-import Popup from '@/components/Popup';
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import { useFormik } from "formik";
+import { useContext, useState } from "react";
+import { ISendToWallet, ISendToWalletResponseResult } from "../../types";
+import { sendToWallet } from "../../services";
+import useHttpClient from "@/lib/hooks/useHttpClient";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
+import { getPriceWithCurrency } from "@/module/(main)/product/utils";
+import Popup from "@/components/Popup";
 
 export default function SendToWalletForm() {
   const { translate } = useContext(AuthContext);
@@ -22,11 +22,11 @@ export default function SendToWalletForm() {
 
   const formik = useFormik({
     initialValues: {
-      mobile: '',
-      amount: '',
+      mobile: "",
+      amount: "",
     },
     onSubmit: async (values) => {
-      console.log('values: ', values);
+      console.log("values: ", values);
       const status = await sendRequest(sendToWallet(values));
       closeModal();
     },
@@ -43,14 +43,13 @@ export default function SendToWalletForm() {
       >
         <div className="flex flex-col w-full">
           <Input
-            placeholder={translate('mobile')}
+            placeholder={translate("mobile")}
             className="w-full border-0  !border-b-gray-300"
             type="text"
             name="mobile"
             id="mobile"
-            required
             value={values.mobile}
-            onChange={handleChange}
+            handleChange={handleChange}
             error={
               touched.mobile && errors.mobile
                 ? errors.mobile
@@ -60,14 +59,13 @@ export default function SendToWalletForm() {
             }
           />
           <Input
-            placeholder={translate('amount')}
+            placeholder={translate("amount")}
             className="w-full border-0  !border-b-gray-300"
             type="text"
             name="amount"
             id="amount"
-            required
             value={values.amount}
-            onChange={handleChange}
+            handleChange={handleChange}
             error={
               touched.amount && errors.amount
                 ? errors.amount
@@ -82,13 +80,13 @@ export default function SendToWalletForm() {
           className="bg-primary my-auto p-1 rounded-2xl h-fit text-white"
           onClick={() => setIsOpen(true)}
         >
-          {translate('send')}
+          {translate("send")}
         </button>
         <Popup isOpen={isOpen} close={close}>
           <div className="text-md">
-            {translate('do_you_want_to_transfer')}{' '}
-            {getPriceWithCurrency(values.amount, translate('currency'))}{' '}
-            {translate('to')} {values.mobile}
+            {translate("do_you_want_to_transfer")}{" "}
+            {getPriceWithCurrency(values.amount, translate("currency"))}{" "}
+            {translate("to")} {values.mobile}
           </div>
 
           <div className="mt-4 flex gap-4">
@@ -97,14 +95,14 @@ export default function SendToWalletForm() {
               loading={isLoading}
               //className="bg-primary p-3 rounded-full text-white w-full"
             >
-              {translate('ok')}
+              {translate("ok")}
             </Button>
             <button
               type="button"
               className="p-3 text-black w-full"
               onClick={close}
             >
-              {translate('cancel')}
+              {translate("cancel")}
             </button>
           </div>
         </Popup>

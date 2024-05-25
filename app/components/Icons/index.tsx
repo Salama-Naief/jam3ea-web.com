@@ -1,21 +1,23 @@
+import Image from "next/image";
+
 interface IconProps {
   className?: string;
   color?: string;
 }
 
-export const MenuIcon = ({ className = '' }: IconProps) => {
+export const MenuIcon = ({ className = "" }: IconProps) => {
   return <img src="/assets/bars-icon.svg" alt="" className={className} />;
 };
 
-export const SearchIcon = ({ className = '' }: IconProps) => {
+export const SearchIcon = ({ className = "" }: IconProps) => {
   return <img src="/assets/search-icon.svg" alt="" className={className} />;
 };
 
-export const CategoriesIcon = ({ className = '' }: IconProps) => {
+export const CategoriesIcon = ({ className = "" }: IconProps) => {
   return <img src="/assets/categories-icon.svg" alt="" className={className} />;
 };
 
-export const HomeIcon = ({ className = '' }: IconProps) => {
+export const HomeIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +62,7 @@ export const HomeIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const WhishListIcon = ({ className = '' }: IconProps) => {
+export const WhishListIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +104,7 @@ export const WhishListIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const CartIcon = ({ className = '' }: IconProps) => {
+export const CartIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +153,7 @@ export const CartIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const BrandIcon = ({ className = '' }: IconProps) => {
+export const BrandIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +191,7 @@ export const BrandIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const AccountIcon = ({ className = '' }: IconProps) => {
+export const AccountIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +239,7 @@ export const AccountIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const AddressIcon = ({ className = '' }: IconProps) => {
+export const AddressIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -267,7 +269,7 @@ export const AddressIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const BackIcon = ({ className = '' }: IconProps) => {
+export const BackIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -313,54 +315,54 @@ export const BackIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const ForwardIcon = ({ className = '' }: IconProps) => {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        className={className}
-        style={{ transform: 'rotate(180deg)' }}
-      >
-        <g id="Group_10" data-name="Group 10" transform="translate(-16 -49)">
-          <rect
-            id="Rectangle_4"
-            data-name="Rectangle 4"
-            width="24"
-            height="24"
-            transform="translate(16 49)"
+export const ForwardIcon = ({ className = "" }: IconProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      className={className}
+      style={{ transform: "rotate(180deg)" }}
+    >
+      <g id="Group_10" data-name="Group 10" transform="translate(-16 -49)">
+        <rect
+          id="Rectangle_4"
+          data-name="Rectangle 4"
+          width="24"
+          height="24"
+          transform="translate(16 49)"
+          fill="none"
+        />
+        <g id="Group_9" data-name="Group 9" transform="translate(2.68 1.158)">
+          <line
+            id="Line_2"
+            data-name="Line 2"
+            x2="18.174"
+            transform="translate(16.5 59.897)"
             fill="none"
+            stroke="#1d1a1b"
+            strokeLinecap="round"
+            strokeWidth="2"
           />
-          <g id="Group_9" data-name="Group 9" transform="translate(2.68 1.158)">
-            <line
-              id="Line_2"
-              data-name="Line 2"
-              x2="18.174"
-              transform="translate(16.5 59.897)"
-              fill="none"
-              stroke="#1d1a1b"
-              strokeLinecap="round"
-              strokeWidth="2"
-            />
-            <path
-              id="Path_333"
-              data-name="Path 333"
-              d="M23.462,53.181l-7.631,7.631,7.631,7.631"
-              transform="translate(0 -0.911)"
-              fill="none"
-              stroke="#1d1a1b"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            />
-          </g>
+          <path
+            id="Path_333"
+            data-name="Path 333"
+            d="M23.462,53.181l-7.631,7.631,7.631,7.631"
+            transform="translate(0 -0.911)"
+            fill="none"
+            stroke="#1d1a1b"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
         </g>
-      </svg>
-    );
-  };
+      </g>
+    </svg>
+  );
+};
 
-export const LoadingIcon = ({ className = '' }: IconProps) => {
+export const LoadingIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       aria-hidden="true"
@@ -383,8 +385,8 @@ export const LoadingIcon = ({ className = '' }: IconProps) => {
 };
 
 export const ChevronRight = ({
-  className = '',
-  color = '#707070',
+  className = "",
+  color = "#707070",
 }: IconProps) => {
   return (
     <svg
@@ -430,7 +432,7 @@ export const ChevronRight = ({
   );
 };
 
-export const EmptyWishlistIcon = ({ className = '' }: IconProps) => {
+export const EmptyWishlistIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -467,144 +469,148 @@ export const EmptyWishlistIcon = ({ className = '' }: IconProps) => {
   );
 };
 
-export const KnetIcon = ({ className = '' }: IconProps) => {
+import knetIcon from "../../../public/assets/knet.png";
+export const KnetIcon = ({ className = "" }: IconProps) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="23.625"
-      height="16.382"
-      viewBox="0 0 23.625 16.382"
-    >
-      <g
-        id="Group_828"
-        data-name="Group 828"
-        transform="translate(-285.57 -412.591)"
-      >
-        <rect
-          id="Rectangle_2983"
-          data-name="Rectangle 2983"
-          width="23.625"
-          height="16.382"
-          rx="1.671"
-          transform="translate(285.57 412.591)"
-          fill="#1670a2"
-        />
-        <g id="Group_75322" data-name="Group 75322">
-          <g id="Group_75317" data-name="Group 75317">
-            <rect
-              id="Rectangle_2976"
-              data-name="Rectangle 2976"
-              width="0.568"
-              height="0.353"
-              transform="translate(303.949 416.115)"
-              fill="#fff"
-            />
-            <rect
-              id="Rectangle_2977"
-              data-name="Rectangle 2977"
-              width="0.568"
-              height="0.353"
-              transform="translate(303.225 416.115)"
-              fill="#fff"
-            />
-            <path
-              id="Path_2577"
-              data-name="Path 2577"
-              d="M295.28,415.453h-.347v-.5h-.7v.5h-5.054l-.062-.132.479-.624v-.446h-.688l-.76.988.433.925h7.4v-1.21h-.7Z"
-              fill="#fff"
-            />
-            <rect
-              id="Rectangle_2978"
-              data-name="Rectangle 2978"
-              width="0.568"
-              height="0.353"
-              transform="translate(295.363 414.306)"
-              fill="#fff"
-            />
-            <rect
-              id="Rectangle_2979"
-              data-name="Rectangle 2979"
-              width="0.568"
-              height="0.353"
-              transform="translate(290.04 414.413)"
-              fill="#fff"
-            />
-            <rect
-              id="Rectangle_2980"
-              data-name="Rectangle 2980"
-              width="0.568"
-              height="0.353"
-              transform="translate(290.776 414.413)"
-              fill="#fff"
-            />
-            <path
-              id="Path_2578"
-              data-name="Path 2578"
-              d="M306.147,414.812H304.08l-.315-.262h2.2l-.229-.4h-2.757l-.044.141.947.789h1.629v.21H303.75l-.6-.5h-1.194v1.055h-1.963v-.433h1.658v-.62H298.97v1.567h3.7v-.832l.417.347h3.1l.434-.445v-.145Z"
-              fill="#fff"
-            />
-            <rect
-              id="Rectangle_2981"
-              data-name="Rectangle 2981"
-              width="1.309"
-              height="0.572"
-              transform="translate(296.67 415.148)"
-              fill="#fff"
-            />
-          </g>
-          <path
-            id="Path_2579"
-            data-name="Path 2579"
-            d="M304.222,422.825l-3.539-2.662,3.477-2.129h-6.228l-3.046,1.866v-1.866h-4.343v4.791h4.343v-2.494l2.788,2.494Z"
-            fill="#f7f719"
-          />
-          <g id="Group_75318" data-name="Group 75318">
-            <path
-              id="Path_2580"
-              data-name="Path 2580"
-              d="M289.965,427.1v-2.374h.622v.281a.855.855,0,0,1,.314-.258.936.936,0,0,1,.4-.087.782.782,0,0,1,.589.2.864.864,0,0,1,.195.615V427.1h-.636v-1.434a.6.6,0,0,0-.086-.365.34.34,0,0,0-.281-.109.476.476,0,0,0-.356.134.5.5,0,0,0-.131.366V427.1Z"
-              fill="#fff"
-            />
-            <path
-              id="Path_2581"
-              data-name="Path 2581"
-              d="M297.824,426.352h.633a1.02,1.02,0,0,1-.387.589,1.173,1.173,0,0,1-.711.213,1.028,1.028,0,0,1-.817-.346,1.378,1.378,0,0,1-.3-.938,1.338,1.338,0,0,1,.3-.919,1.026,1.026,0,0,1,.812-.336,1.076,1.076,0,0,1,.843.33,1.369,1.369,0,0,1,.3.943v.1c0,.022,0,.044-.005.065h-1.586a.669.669,0,0,0,.137.422.441.441,0,0,0,.355.142.5.5,0,0,0,.268-.065A.439.439,0,0,0,297.824,426.352Zm-.926-.716h.935a.544.544,0,0,0-.128-.366.452.452,0,0,0-.342-.126.426.426,0,0,0-.326.127.584.584,0,0,0-.14.365Z"
-              fill="#fff"
-            />
-            <path
-              id="Path_2582"
-              data-name="Path 2582"
-              d="M304.8,427.4l-.209.007c-.081,0-.132.005-.154.005a.7.7,0,0,1-.5-.136.784.784,0,0,1-.135-.538V425.45h-.314v-.445h.314v-.649h.629v.649h.367v.445h-.367v1.315a.143.143,0,0,0,.042.124.321.321,0,0,0,.17.03h.155Z"
-              fill="#fff"
-            />
-          </g>
-        </g>
-      </g>
-    </svg>
+    // <svg
+    //   xmlns="http://www.w3.org/2000/svg"
+    //   width="23.625"
+    //   height="16.382"
+    //   viewBox="0 0 23.625 16.382"
+    // >
+    //   <g
+    //     id="Group_828"
+    //     data-name="Group 828"
+    //     transform="translate(-285.57 -412.591)"
+    //   >
+    //     <rect
+    //       id="Rectangle_2983"
+    //       data-name="Rectangle 2983"
+    //       width="23.625"
+    //       height="16.382"
+    //       rx="1.671"
+    //       transform="translate(285.57 412.591)"
+    //       fill="#1670a2"
+    //     />
+    //     <g id="Group_75322" data-name="Group 75322">
+    //       <g id="Group_75317" data-name="Group 75317">
+    //         <rect
+    //           id="Rectangle_2976"
+    //           data-name="Rectangle 2976"
+    //           width="0.568"
+    //           height="0.353"
+    //           transform="translate(303.949 416.115)"
+    //           fill="#fff"
+    //         />
+    //         <rect
+    //           id="Rectangle_2977"
+    //           data-name="Rectangle 2977"
+    //           width="0.568"
+    //           height="0.353"
+    //           transform="translate(303.225 416.115)"
+    //           fill="#fff"
+    //         />
+    //         <path
+    //           id="Path_2577"
+    //           data-name="Path 2577"
+    //           d="M295.28,415.453h-.347v-.5h-.7v.5h-5.054l-.062-.132.479-.624v-.446h-.688l-.76.988.433.925h7.4v-1.21h-.7Z"
+    //           fill="#fff"
+    //         />
+    //         <rect
+    //           id="Rectangle_2978"
+    //           data-name="Rectangle 2978"
+    //           width="0.568"
+    //           height="0.353"
+    //           transform="translate(295.363 414.306)"
+    //           fill="#fff"
+    //         />
+    //         <rect
+    //           id="Rectangle_2979"
+    //           data-name="Rectangle 2979"
+    //           width="0.568"
+    //           height="0.353"
+    //           transform="translate(290.04 414.413)"
+    //           fill="#fff"
+    //         />
+    //         <rect
+    //           id="Rectangle_2980"
+    //           data-name="Rectangle 2980"
+    //           width="0.568"
+    //           height="0.353"
+    //           transform="translate(290.776 414.413)"
+    //           fill="#fff"
+    //         />
+    //         <path
+    //           id="Path_2578"
+    //           data-name="Path 2578"
+    //           d="M306.147,414.812H304.08l-.315-.262h2.2l-.229-.4h-2.757l-.044.141.947.789h1.629v.21H303.75l-.6-.5h-1.194v1.055h-1.963v-.433h1.658v-.62H298.97v1.567h3.7v-.832l.417.347h3.1l.434-.445v-.145Z"
+    //           fill="#fff"
+    //         />
+    //         <rect
+    //           id="Rectangle_2981"
+    //           data-name="Rectangle 2981"
+    //           width="1.309"
+    //           height="0.572"
+    //           transform="translate(296.67 415.148)"
+    //           fill="#fff"
+    //         />
+    //       </g>
+    //       <path
+    //         id="Path_2579"
+    //         data-name="Path 2579"
+    //         d="M304.222,422.825l-3.539-2.662,3.477-2.129h-6.228l-3.046,1.866v-1.866h-4.343v4.791h4.343v-2.494l2.788,2.494Z"
+    //         fill="#f7f719"
+    //       />
+    //       <g id="Group_75318" data-name="Group 75318">
+    //         <path
+    //           id="Path_2580"
+    //           data-name="Path 2580"
+    //           d="M289.965,427.1v-2.374h.622v.281a.855.855,0,0,1,.314-.258.936.936,0,0,1,.4-.087.782.782,0,0,1,.589.2.864.864,0,0,1,.195.615V427.1h-.636v-1.434a.6.6,0,0,0-.086-.365.34.34,0,0,0-.281-.109.476.476,0,0,0-.356.134.5.5,0,0,0-.131.366V427.1Z"
+    //           fill="#fff"
+    //         />
+    //         <path
+    //           id="Path_2581"
+    //           data-name="Path 2581"
+    //           d="M297.824,426.352h.633a1.02,1.02,0,0,1-.387.589,1.173,1.173,0,0,1-.711.213,1.028,1.028,0,0,1-.817-.346,1.378,1.378,0,0,1-.3-.938,1.338,1.338,0,0,1,.3-.919,1.026,1.026,0,0,1,.812-.336,1.076,1.076,0,0,1,.843.33,1.369,1.369,0,0,1,.3.943v.1c0,.022,0,.044-.005.065h-1.586a.669.669,0,0,0,.137.422.441.441,0,0,0,.355.142.5.5,0,0,0,.268-.065A.439.439,0,0,0,297.824,426.352Zm-.926-.716h.935a.544.544,0,0,0-.128-.366.452.452,0,0,0-.342-.126.426.426,0,0,0-.326.127.584.584,0,0,0-.14.365Z"
+    //           fill="#fff"
+    //         />
+    //         <path
+    //           id="Path_2582"
+    //           data-name="Path 2582"
+    //           d="M304.8,427.4l-.209.007c-.081,0-.132.005-.154.005a.7.7,0,0,1-.5-.136.784.784,0,0,1-.135-.538V425.45h-.314v-.445h.314v-.649h.629v.649h.367v.445h-.367v1.315a.143.143,0,0,0,.042.124.321.321,0,0,0,.17.03h.155Z"
+    //           fill="#fff"
+    //         />
+    //       </g>
+    //     </g>
+    //   </g>
+    // </svg>
+    <Image src={knetIcon} alt="knet payment" />
   );
 };
 
-export const CODIcon = ({ className = '' }: IconProps) => {
+import COdIcon from "../../../public/assets/cachOnDelivery.png";
+export const CODIcon = ({ className = "" }: IconProps) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24.66"
-      height="18.027"
-      viewBox="0 0 24.66 18.027"
-    >
-      <path
-        id="Path_3058"
-        data-name="Path 3058"
-        d="M15.974.488a29.472,29.472,0,0,0-5.558,1.977c-3.963,1.652-5,1.908-7.776,1.915C.815,4.385.6,4.4.5,4.57c-.08.143.259,1.052,1.491,4,.877,2.1,1.71,4.062,1.851,4.361A2.17,2.17,0,0,0,5.19,14.126a15.4,15.4,0,0,0,4.01.007,28.711,28.711,0,0,0,5.087-1.7c4.622-1.992,6.708-2.5,9.4-2.293,1.194.092,1.346.065,1.426-.258a75.675,75.675,0,0,0-3.735-8.83c-.559-.666-.8-.74-2.585-.784A9.257,9.257,0,0,0,15.974.488ZM11.554,3.567A3.877,3.877,0,0,0,9.261,8.6a4.6,4.6,0,0,0,2.261,2.265,3.782,3.782,0,0,0,2.818-.028,4.313,4.313,0,0,0,1.926-1.924,2.779,2.779,0,0,0,.307-1.578,2.875,2.875,0,0,0-.279-1.55,4.021,4.021,0,0,0-3.436-2.367A3.057,3.057,0,0,0,11.554,3.567Zm0,.927c-.253.137-.27.182-.169.448s.076.334-.166.595a1.334,1.334,0,0,0,.071,2c.236.175.486.228,1.211.257a3.757,3.757,0,0,1,1,.121c.315.3-.493.844-1.25.844-.33,0-.366.029-.365.29a2.567,2.567,0,0,0,.068.54c.061.229.108.245.552.192a3.914,3.914,0,0,0,.657-.125c.125-.049.2.02.283.253.105.3.129.313.434.207.414-.144.446-.206.3-.581-.1-.275-.085-.344.162-.611a1.448,1.448,0,0,0,.372-1.492c-.246-.645-.6-.825-1.69-.868-.736-.029-.962-.074-1.011-.2-.086-.225.328-.539.813-.617.608-.1.667-.165.581-.671l-.075-.446-.4.064a3.933,3.933,0,0,0-.549.121c-.09.035-.2-.047-.27-.21C11.983,4.294,11.941,4.286,11.557,4.494ZM.572,8.5c-.212.212-.245.109.967,2.991.548,1.3,1.3,3.1,1.68,4,.788,1.882,1,2.207,1.679,2.534.436.211.66.239,1.978.246,2.471.014,3.888-.353,8.016-2.073,4.457-1.857,5.03-2,7.933-2.02,1.749-.01,2.157-.041,2.236-.166.114-.182.08-.321-.34-1.392-.254-.646-.375-.831-.577-.882a15.277,15.277,0,0,0-1.857-.013A16.487,16.487,0,0,0,15.525,13.5c-4.5,1.937-6.627,2.489-9.074,2.353-2.138-.119-2.136-.117-3.875-4.278C1.36,8.665,1.2,8.336.982,8.336A.668.668,0,0,0,.572,8.5Z"
-        transform="translate(-0.458 -0.251)"
-        fill="#f77d0f"
-        fillRule="evenodd"
-      />
-    </svg>
+    // <svg
+    //   xmlns="http://www.w3.org/2000/svg"
+    //   width="24.66"
+    //   height="18.027"
+    //   viewBox="0 0 24.66 18.027"
+    // >
+    //   <path
+    //     id="Path_3058"
+    //     data-name="Path 3058"
+    //     d="M15.974.488a29.472,29.472,0,0,0-5.558,1.977c-3.963,1.652-5,1.908-7.776,1.915C.815,4.385.6,4.4.5,4.57c-.08.143.259,1.052,1.491,4,.877,2.1,1.71,4.062,1.851,4.361A2.17,2.17,0,0,0,5.19,14.126a15.4,15.4,0,0,0,4.01.007,28.711,28.711,0,0,0,5.087-1.7c4.622-1.992,6.708-2.5,9.4-2.293,1.194.092,1.346.065,1.426-.258a75.675,75.675,0,0,0-3.735-8.83c-.559-.666-.8-.74-2.585-.784A9.257,9.257,0,0,0,15.974.488ZM11.554,3.567A3.877,3.877,0,0,0,9.261,8.6a4.6,4.6,0,0,0,2.261,2.265,3.782,3.782,0,0,0,2.818-.028,4.313,4.313,0,0,0,1.926-1.924,2.779,2.779,0,0,0,.307-1.578,2.875,2.875,0,0,0-.279-1.55,4.021,4.021,0,0,0-3.436-2.367A3.057,3.057,0,0,0,11.554,3.567Zm0,.927c-.253.137-.27.182-.169.448s.076.334-.166.595a1.334,1.334,0,0,0,.071,2c.236.175.486.228,1.211.257a3.757,3.757,0,0,1,1,.121c.315.3-.493.844-1.25.844-.33,0-.366.029-.365.29a2.567,2.567,0,0,0,.068.54c.061.229.108.245.552.192a3.914,3.914,0,0,0,.657-.125c.125-.049.2.02.283.253.105.3.129.313.434.207.414-.144.446-.206.3-.581-.1-.275-.085-.344.162-.611a1.448,1.448,0,0,0,.372-1.492c-.246-.645-.6-.825-1.69-.868-.736-.029-.962-.074-1.011-.2-.086-.225.328-.539.813-.617.608-.1.667-.165.581-.671l-.075-.446-.4.064a3.933,3.933,0,0,0-.549.121c-.09.035-.2-.047-.27-.21C11.983,4.294,11.941,4.286,11.557,4.494ZM.572,8.5c-.212.212-.245.109.967,2.991.548,1.3,1.3,3.1,1.68,4,.788,1.882,1,2.207,1.679,2.534.436.211.66.239,1.978.246,2.471.014,3.888-.353,8.016-2.073,4.457-1.857,5.03-2,7.933-2.02,1.749-.01,2.157-.041,2.236-.166.114-.182.08-.321-.34-1.392-.254-.646-.375-.831-.577-.882a15.277,15.277,0,0,0-1.857-.013A16.487,16.487,0,0,0,15.525,13.5c-4.5,1.937-6.627,2.489-9.074,2.353-2.138-.119-2.136-.117-3.875-4.278C1.36,8.665,1.2,8.336.982,8.336A.668.668,0,0,0,.572,8.5Z"
+    //     transform="translate(-0.458 -0.251)"
+    //     fill="#f77d0f"
+    //     fillRule="evenodd"
+    //   />
+    // </svg>
+    <Image src={COdIcon} alt="cash on delivery" />
   );
 };
 
-export const TimePickerIcon = ({ className = '' }: IconProps) => {
+export const TimePickerIcon = ({ className = "" }: IconProps) => {
   return (
     <svg
       id="Group_539"

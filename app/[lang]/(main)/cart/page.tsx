@@ -21,15 +21,15 @@ export default async function Cart({
 }: {
   params: { lang: Locale };
 }) {
-  // const cart: IGetCheckoutResponseResult = await apiHandler(
-  //   "/checkout",
-  //   "GET",
-  //   undefined,
-  //   true,
-  //   false
-  // );
+  const cart: IGetCheckoutResponseResult = await apiHandler(
+    "/checkout",
+    "GET",
+    undefined,
+    true,
+    false
+  );
 
-  const cart = checkout;
+  // const cart = checkout;
 
   const dict = await getDictionary(lang);
 
@@ -43,6 +43,8 @@ export default async function Cart({
       link: "/cart",
     },
   ];
+
+  console.log("cart checkout===>", cart);
   return (
     <div>
       <Container>
@@ -58,35 +60,24 @@ export default async function Cart({
           lgSize={6}
           mdSize={4}
           smSize={2}
-          items={products}
+          // items={products}
+          items={[]}
           type="normal"
         />
         <div className="px-6">
-          <h3 className="text-lg font-bold text-secondary mp-4 mt-4 ">
-            Jm3eia prime
-          </h3>
           <div className="md:grid md:grid-cols-5 gap-8 items-start">
-            <Suspense>
+            {/* <Suspense>
               <div className="col-span-3 h-fit">
-                {products.map((product) => (
-                  <CartProductCard key={product.id} product={product} />
+                {cart.data.map(({ products }, i) => (
+                  <CartProductCard key={i} product={products} />
                 ))}
               </div>
-            </Suspense>
-            <div className="col-span-2 bg-[#F1F1F1] p-6 rounded-xl flex flex-col items-center justify-center gap-4">
-              <h1 className="text-lg font-bold text-secondary">
-                Delivery Time
-              </h1>
-              <button className="w-full text-center p-3 bg-white rounded">
-                <BsClock size={25} className="text-primary" />
-                <span>Pick Delivery Time</span>
-              </button>
-            </div>
+            </Suspense> */}
           </div>
         </div>
-        {cart && cart.results ? (
-          cart.results.data.length === 1 ? (
-            <SingleSupplier cart={cart.results} lang={lang} dict={dict} />
+        {cart && cart.data ? (
+          cart.data.length === 1 ? (
+            <SingleSupplier cart={cart} lang={lang} dict={dict} />
           ) : (
             <MultiSuppliers cart={cart} lang={lang} dict={dict} />
           )

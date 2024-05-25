@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
 import {
   IAddAddress,
   IAddAddressResponseResult,
   IAddress,
-} from '@/module/(profile)/types';
-import { ICity } from '@/module/city/types';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import Select from '@/components/Select';
-import useHttpClient from '@/lib/hooks/useHttpClient';
-import { getCities } from '@/module/city/services';
-import { IDataLoadedResponse } from '@/lib/types';
-import { useFormik } from 'formik';
-import { useContext, useEffect } from 'react';
-import { AddressContext } from '@/lib/providers/AddressProvider';
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import * as Yup from 'yup';
+} from "@/module/(main)/(profile)/types";
+import { ICity } from "@/module/(main)/city/types";
+import Button from "@/components/Button";
+import Input from "@/components/Input";
+import Select from "@/components/Select";
+import useHttpClient from "@/lib/hooks/useHttpClient";
+import { getCities } from "@/module/(main)/city/services";
+import { IDataLoadedResponse } from "@/lib/types";
+import { useFormik } from "formik";
+import { useContext, useEffect } from "react";
+import { AddressContext } from "@/lib/providers/AddressProvider";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import * as Yup from "yup";
 
 interface AddAddressProps {
   afterSubmit: () => void;
@@ -52,16 +52,16 @@ export default function AddAddressForm({
 
   const formik = useFormik({
     initialValues: address || {
-      name: '',
-      email: '',
-      mobile: '',
-      city_id: '',
-      widget: '',
-      gada: '',
-      street: '',
-      house: '',
-      floor: '',
-      apartment_number: '',
+      name: "",
+      email: "",
+      mobile: "",
+      city_id: "",
+      widget: "",
+      gada: "",
+      street: "",
+      house: "",
+      floor: "",
+      apartment_number: "",
     },
     validationSchema: AddressSchema,
     onSubmit: async (values) => {
@@ -105,21 +105,20 @@ export default function AddAddressForm({
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="text-lg font-bold mb-2">
-        {address ? translate('modify_address') : translate('add_new_address')}
+        {address ? translate("modify_address") : translate("add_new_address")}
       </h2>
       <div>
         <div className="text-primary mb-3">
-          {translate('personal_information')}
+          {translate("personal_information")}
         </div>
         <Input
-          placeholder={translate('fullname')}
-          aria-describedby={translate('fullname')}
+          placeholder={translate("fullname")}
+          aria-describedby={translate("fullname")}
           type="text"
           name="name"
           id="name"
-          required
-          value={values.name}
-          onChange={handleChange}
+          value={values.name || ""}
+          handleChange={handleChange}
           error={
             touched.name && errors.name
               ? errors.name
@@ -129,13 +128,13 @@ export default function AddAddressForm({
           }
         />
         <Input
-          placeholder={translate('email')}
-          aria-describedby={translate('email')}
+          placeholder={translate("email")}
+          aria-describedby={translate("email")}
           type="email"
           name="email"
           id="email"
-          value={values.email}
-          onChange={handleChange}
+          value={values.email || ""}
+          handleChange={handleChange}
           error={
             touched.email && errors.email
               ? errors.email
@@ -145,14 +144,13 @@ export default function AddAddressForm({
           }
         />
         <Input
-          placeholder={translate('mobile')}
-          aria-describedby={translate('mobile')}
+          placeholder={translate("mobile")}
+          aria-describedby={translate("mobile")}
           type="text"
           name="mobile"
           id="mobile"
-          required
-          value={values.mobile}
-          onChange={handleChange}
+          value={values.mobile || ""}
+          handleChange={handleChange}
           error={
             touched.mobile && errors.mobile
               ? errors.mobile
@@ -164,19 +162,19 @@ export default function AddAddressForm({
       </div>
       <div className="mb-2">
         <div className="text-primary mb-3">
-          {translate('residential_information')}
+          {translate("residential_information")}
         </div>
         <Select
-          placeholder={translate('choose_city')}
+          placeholder={translate("choose_city")}
           options={
             cities && cities.data
               ? cities.data.length == 1 && cities.data[0].children
                 ? cities.data[0].children.map(({ _id, name }) => ({
-                    label: typeof name === 'object' ? name.en : name,
+                    label: typeof name === "object" ? name.en : name,
                     value: _id,
                   }))
                 : cities.data.map(({ _id, name }) => ({
-                    label: typeof name === 'object' ? name.en : name,
+                    label: typeof name === "object" ? name.en : name,
                     value: _id,
                   }))
               : []
@@ -196,14 +194,13 @@ export default function AddAddressForm({
         />
 
         <Input
-          placeholder={translate('block')}
-          aria-describedby={translate('block')}
+          placeholder={translate("block")}
+          aria-describedby={translate("block")}
           type="text"
           name="widget"
           id="widget"
-          required
           value={values.widget}
-          onChange={handleChange}
+          handleChange={handleChange}
           error={
             touched.widget && errors.widget
               ? errors.widget
@@ -214,13 +211,13 @@ export default function AddAddressForm({
         />
 
         <Input
-          placeholder={translate('gada')}
-          aria-describedby={translate('gada')}
+          placeholder={translate("gada")}
+          aria-describedby={translate("gada")}
           type="text"
           name="gada"
           id="gada"
-          value={values.gada}
-          onChange={handleChange}
+          value={values.gada || ""}
+          handleChange={handleChange}
           error={
             touched.gada && errors.gada
               ? errors.gada
@@ -231,13 +228,13 @@ export default function AddAddressForm({
         />
 
         <Input
-          placeholder={translate('street')}
-          aria-describedby={translate('street')}
+          placeholder={translate("street")}
+          aria-describedby={translate("street")}
           type="text"
           name="street"
           id="street"
           value={values.street}
-          onChange={handleChange}
+          handleChange={handleChange}
           error={
             touched.street && errors.street
               ? errors.street
@@ -248,13 +245,13 @@ export default function AddAddressForm({
         />
 
         <Input
-          placeholder={translate('house')}
-          aria-describedby={translate('house')}
+          placeholder={translate("house")}
+          aria-describedby={translate("house")}
           type="text"
           name="house"
           id="house"
           value={values.house}
-          onChange={handleChange}
+          handleChange={handleChange}
           error={
             touched.house && errors.house
               ? errors.house
@@ -266,13 +263,13 @@ export default function AddAddressForm({
 
         <div className="flex gap-2">
           <Input
-            placeholder={translate('floor')}
-            aria-describedby={translate('floor')}
+            placeholder={translate("floor")}
+            aria-describedby={translate("floor")}
             type="text"
             name="floor"
             id="floor"
-            value={values.floor}
-            onChange={handleChange}
+            value={values.floor || ""}
+            handleChange={handleChange}
             error={
               touched.floor && errors.floor
                 ? errors.floor
@@ -282,13 +279,13 @@ export default function AddAddressForm({
             }
           />
           <Input
-            placeholder={translate('apartment')}
-            aria-describedby={translate('apartment')}
+            placeholder={translate("apartment")}
+            aria-describedby={translate("apartment")}
             type="text"
             name="apartment_number"
             id="apartment_number"
-            value={values.apartment_number}
-            onChange={handleChange}
+            value={values.apartment_number || ""}
+            handleChange={handleChange}
             error={
               touched.apartment_number && errors.apartment_number
                 ? errors.apartment_number
@@ -300,7 +297,7 @@ export default function AddAddressForm({
         </div>
       </div>
       <Button type="submit" loading={isLoading}>
-        {address ? translate('update') : translate('add_address')}
+        {address ? translate("update") : translate("add_address")}
       </Button>
     </form>
   );

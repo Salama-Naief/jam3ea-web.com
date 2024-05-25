@@ -11,7 +11,6 @@ import { CartProvider } from "@/module/(main)/cart/CartProvider";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { LANGUAGES } from "@/lib/enums";
 import { Locale } from "../../i18n-config";
-import Navbar from "@/components/Navbar/Navbar";
 import { MantineProvider } from "@mantine/core";
 
 interface IRootLayoutProps {
@@ -48,16 +47,16 @@ export default async function RootLayout({
           <div id="root">
             <NextTopLoader color="#F77D0F" />
             <AuthProvider dictionary={dictionary}>
-              <MantineProvider>
-                <AddressProvider>
+              <AddressProvider>
+                <MantineProvider>
                   <CartProvider>{children}</CartProvider>
-                </AddressProvider>
-              </MantineProvider>
+                </MantineProvider>
+              </AddressProvider>
             </AuthProvider>
           </div>
-          <div id="menu-drawer"></div>
+          {/* <div id="menu-drawer"></div>
           <div id="categories-drawer"></div>
-          <div id="popup"></div>
+          <div id="popup"></div> */}
         </div>
       </body>
     </html>

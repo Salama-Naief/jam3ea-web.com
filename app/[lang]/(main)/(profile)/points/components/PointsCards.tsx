@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import Popup from '@/components/Popup';
-import useHttpClient from '@/lib/hooks/useHttpClient';
-import { AuthContext } from '@/lib/providers/AuthProvider';
-import { getPriceWithCurrency } from '@/module/product/utils';
-import { useEffect, useContext, useState } from 'react';
-import { convertPointsToWallet } from '../../services';
-import Button from '@/components/Button';
+import Popup from "@/components/Popup";
+import useHttpClient from "@/lib/hooks/useHttpClient";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import { getPriceWithCurrency } from "@/module/(main)/product/utils";
+import { useEffect, useContext, useState } from "react";
+import { convertPointsToWallet } from "../../services";
+import Button from "@/components/Button";
 
 export default function PointsCards() {
   const { translate } = useContext(AuthContext);
   const { sendRequest, isLoading } = useHttpClient();
   const [selectedPoints, setSelectedPoints] = useState({ points: 0, value: 0 });
   const [isOpen, setIsOpen] = useState(false);
-  useEffect(() => {
-    document.body.classList.add('!bg-primary');
-  });
+  // useEffect(() => {
+  //   document.body.classList.add("!bg-primary");
+  // });
 
   const close = () => setIsOpen(false);
 
@@ -41,7 +41,7 @@ export default function PointsCards() {
           <div className="flex items-center justify-between mb-5">
             <img src="/assets/logo-light.svg" alt="" />
             <div className="text-xs text-white font-bold">
-              {translate('cacsh_back')}
+              {translate("cacsh_back")}
             </div>
           </div>
           <div className="flex items-center justify-between mb-5">
@@ -126,7 +126,7 @@ export default function PointsCards() {
               </svg>
             </div>
             <div className="text-lg text-white font-bold">
-              {getPriceWithCurrency(1, translate('currency'))}
+              {getPriceWithCurrency(1, translate("currency"))}
             </div>
             <div>
               <svg
@@ -183,7 +183,7 @@ export default function PointsCards() {
               </svg>
             </div>
           </div>
-          <div className="text-white text-xs">100 {translate('points')}</div>
+          <div className="text-white text-xs">100 {translate("points")}</div>
         </button>
         <button
           onClick={() => convertPoints(200, 4)}
@@ -192,7 +192,7 @@ export default function PointsCards() {
           <div className="flex items-center justify-between mb-5">
             <img src="/assets/logo-light.svg" alt="" />
             <div className="text-xs text-white font-bold">
-              {translate('cacsh_back')}
+              {translate("cacsh_back")}
             </div>
           </div>
           <div className="flex items-center justify-between mb-5">
@@ -277,7 +277,7 @@ export default function PointsCards() {
               </svg>
             </div>
             <div className="text-lg text-white font-bold">
-              {getPriceWithCurrency(4, translate('currency'))}
+              {getPriceWithCurrency(4, translate("currency"))}
             </div>
             <div>
               <svg
@@ -334,7 +334,7 @@ export default function PointsCards() {
               </svg>
             </div>
           </div>
-          <div className="text-white text-xs">200 {translate('points')}</div>
+          <div className="text-white text-xs">200 {translate("points")}</div>
         </button>
         <button
           onClick={() => convertPoints(300, 8)}
@@ -343,7 +343,7 @@ export default function PointsCards() {
           <div className="flex items-center justify-between mb-5">
             <img src="/assets/logo-light.svg" alt="" />
             <div className="text-xs text-white font-bold">
-              {translate('cacsh_back')}
+              {translate("cacsh_back")}
             </div>
           </div>
           <div className="flex items-center justify-between mb-5">
@@ -428,7 +428,7 @@ export default function PointsCards() {
               </svg>
             </div>
             <div className="text-lg text-white font-bold">
-              {getPriceWithCurrency(8, translate('currency'))}
+              {getPriceWithCurrency(8, translate("currency"))}
             </div>
             <div>
               <svg
@@ -485,7 +485,7 @@ export default function PointsCards() {
               </svg>
             </div>
           </div>
-          <div className="text-white text-xs">300 {translate('points')}</div>
+          <div className="text-white text-xs">300 {translate("points")}</div>
         </button>
         <button
           onClick={() => convertPoints(400, 12)}
@@ -494,7 +494,7 @@ export default function PointsCards() {
           <div className="flex items-center justify-between mb-5">
             <img src="/assets/logo-light.svg" alt="" />
             <div className="text-xs text-white font-bold">
-              {translate('cacsh_back')}
+              {translate("cacsh_back")}
             </div>
           </div>
           <div className="flex items-center justify-between mb-5">
@@ -579,7 +579,7 @@ export default function PointsCards() {
               </svg>
             </div>
             <div className="text-lg text-white font-bold">
-              {getPriceWithCurrency(12, translate('currency'))}
+              {getPriceWithCurrency(12, translate("currency"))}
             </div>
             <div>
               <svg
@@ -636,7 +636,7 @@ export default function PointsCards() {
               </svg>
             </div>
           </div>
-          <div className="text-white text-xs">400 {translate('points')}</div>
+          <div className="text-white text-xs">400 {translate("points")}</div>
         </button>
         <button
           onClick={() => convertPoints(500, 20)}
@@ -645,7 +645,7 @@ export default function PointsCards() {
           <div className="flex items-center justify-between mb-5">
             <img src="/assets/logo-light.svg" alt="" />
             <div className="text-xs text-white font-bold">
-              {translate('cacsh_back')}
+              {translate("cacsh_back")}
             </div>
           </div>
           <div className="flex items-center justify-between mb-5">
@@ -730,7 +730,7 @@ export default function PointsCards() {
               </svg>
             </div>
             <div className="text-lg text-white font-bold">
-              {getPriceWithCurrency(20, translate('currency'))}
+              {getPriceWithCurrency(20, translate("currency"))}
             </div>
             <div>
               <svg
@@ -787,7 +787,7 @@ export default function PointsCards() {
               </svg>
             </div>
           </div>
-          <div className="text-white text-xs">500 {translate('points')}</div>
+          <div className="text-white text-xs">500 {translate("points")}</div>
         </button>
         <button
           onClick={() => convertPoints(800, 40)}
@@ -796,7 +796,7 @@ export default function PointsCards() {
           <div className="flex items-center justify-between mb-5">
             <img src="/assets/logo-light.svg" alt="" />
             <div className="text-xs text-white font-bold">
-              {translate('cacsh_back')}
+              {translate("cacsh_back")}
             </div>
           </div>
           <div className="flex items-center justify-between mb-5">
@@ -881,7 +881,7 @@ export default function PointsCards() {
               </svg>
             </div>
             <div className="text-lg text-white font-bold">
-              {getPriceWithCurrency(40, translate('currency'))}
+              {getPriceWithCurrency(40, translate("currency"))}
             </div>
             <div>
               <svg
@@ -938,7 +938,7 @@ export default function PointsCards() {
               </svg>
             </div>
           </div>
-          <div className="text-white text-xs">800 {translate('points')}</div>
+          <div className="text-white text-xs">800 {translate("points")}</div>
         </button>
         <button
           onClick={() => convertPoints(1000, 80)}
@@ -947,7 +947,7 @@ export default function PointsCards() {
           <div className="flex items-center justify-between mb-5">
             <img src="/assets/logo-light.svg" alt="" />
             <div className="text-xs text-white font-bold">
-              {translate('cacsh_back')}
+              {translate("cacsh_back")}
             </div>
           </div>
           <div className="flex items-center justify-between mb-5">
@@ -1032,7 +1032,7 @@ export default function PointsCards() {
               </svg>
             </div>
             <div className="text-lg text-white font-bold">
-              {getPriceWithCurrency(80, translate('currency'))}
+              {getPriceWithCurrency(80, translate("currency"))}
             </div>
             <div>
               <svg
@@ -1089,15 +1089,15 @@ export default function PointsCards() {
               </svg>
             </div>
           </div>
-          <div className="text-white text-xs">1000 {translate('points')}</div>
+          <div className="text-white text-xs">1000 {translate("points")}</div>
         </button>
       </div>
       <Popup isOpen={isOpen} close={close}>
         <div className="text-md">
-          {translate('do_you_want_to_transfer')} {selectedPoints.points}{' '}
-          {translate('points')} {translate('to')}{' '}
-          {getPriceWithCurrency(selectedPoints.value, translate('currency'))}{' '}
-          {translate('credit')}
+          {translate("do_you_want_to_transfer")} {selectedPoints.points}{" "}
+          {translate("points")} {translate("to")}{" "}
+          {getPriceWithCurrency(selectedPoints.value, translate("currency"))}{" "}
+          {translate("credit")}
         </div>
 
         <div className="mt-4 flex gap-4">
@@ -1107,14 +1107,14 @@ export default function PointsCards() {
             //className="bg-primary p-3 rounded-full text-white w-full"
             onClick={pointsToWaller}
           >
-            {translate('ok')}
+            {translate("ok")}
           </Button>
           <button
             type="button"
             className="p-3 text-black w-full"
             onClick={close}
           >
-            {translate('cancel')}
+            {translate("cancel")}
           </button>
         </div>
       </Popup>

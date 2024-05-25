@@ -18,6 +18,7 @@ import { translate } from "@/lib/utils/serverHelpers";
 import NoteBar from "@/components/NoteBar";
 import { listStores } from "../../../../dummyData";
 import Image from "next/image";
+import inventoriesImage from "../../../../public/assets/inventories.png";
 
 export default async function StoresPage({
   params: { lang },
@@ -25,12 +26,12 @@ export default async function StoresPage({
   params: { lang: Locale };
 }) {
   const inventories = await getInventories();
-  // const stores =
-  //   inventories && inventories.data && inventories.data.length === 1
-  //     ? inventories.data[0].suppliers
-  //     : [];
+  const stores =
+    inventories && inventories.data && inventories.data.length === 1
+      ? inventories.data[0].suppliers
+      : [];
 
-  const stores = listStores.results.data[0];
+  //const stores = listStores.results.data[0];
 
   // Grouping function
   // const res = function groupBy(array: any, key: string) {
@@ -55,18 +56,22 @@ export default async function StoresPage({
           {/* <Link href={webRoutes.home}>
             <img src={`/assets/mart/${lang}.jpg`} className="mb-2" alt="Mart" />
           </Link> */}
-          <h1 className="text-primary text-2xl font-bold my-6">
-            Jameia Stores
-          </h1>
-          <div className="w-full h-96 relative">
-            <Image
-              src={stores.picture}
-              // width={1200}
-              // height={720}
-              fill
-              alt={stores.name}
-            />
-          </div>
+          {inventories && inventories.data && inventories.data.length && (
+            <h1 className="text-primary text-2xl font-bold my-6">
+              {inventories.data[0].name}
+            </h1>
+          )}
+          {inventories && inventories.data && inventories.data.length > 0 && (
+            <div className="w-full ">
+              <Image
+                src={inventoriesImage}
+                // width={1200}
+                // height={720}
+                className="mx-auto"
+                alt={"inventories"}
+              />
+            </div>
+          )}
           <div className="flex justify-between items-center">
             <h2 className="font-bold text-lg">{translate(dict, "stores")}</h2>
             {/* <div className="flex gap-2">
@@ -78,8 +83,8 @@ export default async function StoresPage({
               </button>
             </div> */}
           </div>
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 overflow-x-auto max-w-full py-4 gap-6">
-            {stores.suppliers.map((store) => (
+          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 overflow-x-auto max-w-full py-4 gap-8">
+            {stores.map((store) => (
               <Link
                 key={store._id}
                 href={webRoutes.store(store._id)}

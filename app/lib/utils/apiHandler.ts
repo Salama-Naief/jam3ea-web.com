@@ -49,11 +49,10 @@ const apiHandler = async (
     }
 
     const res = await fetch(url, options);
-    console.log("res===========>", url, options);
+
     const resData: IResponse<any, any> = await res.json();
-    console.log("resData===========>", resData);
+
     if (resData.status_message === STATUS_MESSAGES.INVALID_APP_AUTHENTICATION) {
-      console.log("invalid token!");
       // return NextResponse.redirect(
       //   new URL(webRoutes.splash, process.env.SITE_URL)
       // );

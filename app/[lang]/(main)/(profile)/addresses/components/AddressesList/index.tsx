@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { AddressContext } from '@/lib/providers/AddressProvider';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import AddressCard from './AddressCard';
-import { IAddress } from '@/module/(profile)/types';
-import Popup from '@/components/Popup';
-import AddAddressForm from '../AddAddress/AddAddressForm';
-import useHttpClient from '@/lib/hooks/useHttpClient';
-import { getCities } from '@/module/city/services';
-import { ICity } from '@/module/city/types';
+import { AddressContext } from "@/lib/providers/AddressProvider";
+import { useCallback, useContext, useEffect, useState } from "react";
+import AddressCard from "./AddressCard";
+import { IAddress } from "@/module/(main)/(profile)/types";
+import Popup from "@/components/Popup";
+import AddAddressForm from "../AddAddress/AddAddressForm";
+import useHttpClient from "@/lib/hooks/useHttpClient";
+import { getCities } from "@/module/(main)/city/services";
+import { ICity } from "@/module/(main)/city/types";
 
 export default function AddressesList() {
   const { addresses, changeAddress, selectedAddress, removeAddress } =
@@ -49,13 +49,13 @@ export default function AddressesList() {
                 (cities.find((c) => c._id == address.city_id) as any)
               }
               isSelected={selectedAddress?.id == address.id}
-              onSelect={() => changeAddress(address.id || '')}
+              onSelect={() => changeAddress(address.id || "")}
               onEdit={() => {
                 setIsOpen(true);
                 setAddress(address);
               }}
               onDelete={() => {
-                removeAddress(address.id || '', sendRequest);
+                removeAddress(address.id || "", sendRequest);
               }}
             />
           )}

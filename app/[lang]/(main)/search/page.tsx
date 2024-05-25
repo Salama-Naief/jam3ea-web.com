@@ -1,11 +1,12 @@
-import Container from '@/components/Container';
-import Navbar from '@/components/Navbar';
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
 
 export default async function SearchPage() {
   return (
     <div>
       <Navbar hasSearch expandSearch />
       <Container>
+        <div></div>
         {/* <div className="flex flex-nowrap overflow-x-auto max-w-full py-4 gap-3">
           {products?.data.map(
             ({

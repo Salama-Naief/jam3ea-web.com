@@ -15,7 +15,7 @@ export default function CartBottomBar() {
     useHttpClient<IGetCartResponseResult>();
   const { cart, setCart } = useContext(CartContext);
   const { translate } = useContext(AuthContext);
-
+  console.log("cart cart bottom Bar", cart);
   useEffect(() => {
     const fetchData = async () => {
       const status = await sendRequest(getCart());

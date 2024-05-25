@@ -1,9 +1,11 @@
-import { IFeature } from '../../types';
-import Link from 'next/link';
-import ProductCard from '../../../product/components/ProductCard';
-import webRoutes from '@/lib/utils/webRoutes';
-import { Locale } from '../../../../../i18n-config';
-import { getSlideUrl } from '../../utils';
+import { IFeature } from "../../types";
+import Link from "next/link";
+import ProductCard from "../../../product/components/ProductCard";
+import webRoutes from "@/lib/utils/webRoutes";
+import { Locale } from "../../../../../../i18n-config";
+import { getSlideUrl } from "../../utils";
+import Image from "next/image";
+import ProductSlider from "@/components/Slider/ProductSlider";
 
 interface FeatureProps {
   feature: IFeature;
@@ -22,14 +24,17 @@ export default function Feature({
   const { _id, name, products, slides } = feature;
 
   return (
-    <>
-      {slides.map(({ _id, picture, url, name }) => (
-        <Link key={_id} href={getSlideUrl(url, supplierId)}>
-          <img src={picture} alt={name} />
-        </Link>
-      ))}
+    <div className="w-full my-4">
+      {slides.length > 0 &&
+        slides.map(({ _id, picture, url, name }) => (
+          <Link key={_id} href={getSlideUrl(url, supplierId)}>
+            <div className="relative w-full h-96">
+              <Image src={picture} fill alt={name} />
+            </div>
+          </Link>
+        ))}
       <div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center my-4">
           <h2 className="font-bold text-lg">{name}</h2>
           <Link
             href={webRoutes.feature(_id, name, supplierId)}
@@ -38,8 +43,13 @@ export default function Feature({
             {dictionary.view_all}
           </Link>
         </div>
-        <div className="flex flex-nowrap overflow-x-auto max-w-full py-4 gap-3">
-          {products.map(
+        <div className="w-full">
+          <ProductSlider
+            type="bestSeller"
+            autoAnimation={false}
+            items={products.slice(0, 10)}
+          />
+          {/* {products.map(
             ({
               name,
               price,
@@ -67,9 +77,9 @@ export default function Feature({
                 currency={dictionary.currency}
               />
             )
-          )}
+          )} */}
         </div>
       </div>
-    </>
+    </div>
   );
 }

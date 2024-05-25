@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useContext } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { IAddress } from '@/module/(profile)/types';
-import { ICity } from '@/module/city/types';
-import { AuthContext } from '@/lib/providers/AuthProvider';
+import { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { IAddress } from "@/module/(main)/(profile)/types";
+import { ICity } from "@/module/(main)/city/types";
+import { AuthContext } from "@/lib/providers/AuthProvider";
 
 interface AddressCardProps {
   address: IAddress;
@@ -30,7 +30,7 @@ export default function AddressCard({
   return (
     <button
       className={`flex flex-col rounded-2xl p-3 gap-1 mb-3 w-full text-left ${
-        isSelected ? 'bg-primary text-white' : 'bg-white'
+        isSelected ? "bg-primary text-white" : "bg-white"
       }`}
       onClick={onSelect}
     >
@@ -45,10 +45,10 @@ export default function AddressCard({
       <div className="flex gap-2">
         <div className=" text-sm">
           {city != undefined
-            ? city.name && typeof city.name === 'object'
+            ? city.name && typeof city.name === "object"
               ? city.name.en
               : city.name
-            : ''}
+            : ""}
         </div>
         <button
           className="ml-auto"
@@ -62,10 +62,10 @@ export default function AddressCard({
       </div>
       <div className="flex gap-2">
         <div className=" text-sm">
-          {`${translate('block')} ${widget}, ${translate(
-            'street'
-          )} ${street}, ${translate('gada')} ${gada}, ${translate(
-            'house'
+          {`${translate("block")} ${widget}, ${translate(
+            "street"
+          )} ${street}, ${translate("gada")} ${gada}, ${translate(
+            "house"
           )}. ${house}`}
         </div>
         <button
