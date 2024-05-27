@@ -14,7 +14,7 @@ export interface ISupplier {
   shipping_cost: number;
   min_delivery_time: number;
   min_value: string;
-  delivery_time_text: string;
+  delivery_time_text: string | { en: string; ar: string };
   isOpen: boolean;
   avg_rating: number;
   reviews_count: number;

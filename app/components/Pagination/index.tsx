@@ -6,12 +6,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 interface Props {
   currentPage: number | null;
   total: number;
+  path?: string;
 }
-function PaginationComp({ currentPage, total }: Props) {
+function PaginationComp({ currentPage, total, path }: Props) {
   const { push, replace } = useRouter();
   const searchParams = useSearchParams();
   const handleChange = (v: number) => {
-    replace(`/category?id=${searchParams.get("id")}&skip=${v}`);
+    if (!path) {
+      replace(`/category?id=${searchParams.get("id")}&skip=${v}`);
+    } else {
+      replace(`${path}&skip=${v}`);
+    }
   };
   console.log("total", total);
 
