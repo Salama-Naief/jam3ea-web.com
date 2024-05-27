@@ -36,7 +36,8 @@ const apiHandler = async (
         "Content-Type": "application/json",
       },
       body: body && typeof body == "object" ? JSON.stringify(body) : undefined,
-      cache: cache === true ? "default" : "no-store",
+      // cache: cache === true ? "default" : "no-store",
+      next: { revalidate: cache === true ? 3600 : 0 },
     };
 
     let url = process.env.API_BASE_URL + route;

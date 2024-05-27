@@ -1,15 +1,11 @@
 import Container from "@/components/Container";
-import Navbar from "@/components/Navbar";
 import { getProductBySku, getProductCategoryRank } from "../services";
 import AddToCartButton from "@/module/(main)/cart/components/AddToCartButton";
 import { getPriceWithCurrency } from "../utils";
-import AddToWishlist from "@/module/(main)/wishlist/components/AddToWishlist";
 import { Locale } from "../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
-import { products } from "../../../../../dummyData";
-import Image from "next/image";
-import Button from "@/components/Button";
+
 import SingleProductSlider from "@/components/Slider/SingleProductSlider";
 import ProductSlider from "@/components/Slider/ProductSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -33,19 +29,6 @@ export default async function ProductPage({
         p[0].rank_id
       );
     }
-
-    console.log("pppppppp=>", p);
-    // Promise.all(
-    //   product.prod_n_categoryArr.map(async (item) => {
-    //     if (item.category_id && item.rank_id) {
-    //       productCategoryRank = await getProductCategoryRank(
-    //         item.category_id,
-    //         item.rank_id
-    //       );
-    //       return;
-    //     }
-    //   })
-    // );
   }
   const dict = await getDictionary(params.lang);
   if (!product) {
@@ -104,8 +87,6 @@ export default async function ProductPage({
         )
     : [];
 
-  const uniqueArray = categoryLinks;
-  console.log("lllll=====<", uniqueArray);
   const Links = [
     ...categoryLinks,
     {
@@ -117,7 +98,6 @@ export default async function ProductPage({
   const mainCategory = categories
     ? categories.filter((c) => c.name)[0].name
     : "";
-  console.log("productCategoryRank", productCategoryRank);
 
   return (
     <div className="my-10 w-screen">

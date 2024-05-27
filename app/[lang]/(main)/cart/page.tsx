@@ -15,6 +15,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { BsClock } from "react-icons/bs";
 import ApplyCoupon from "./components/ApplyCoupon";
 import { Suspense } from "react";
+import RelatedProducts from "./components/RelatedProducts";
 
 export default async function Cart({
   params: { lang },
@@ -32,7 +33,14 @@ export default async function Cart({
   // const cart = checkout;
 
   const dict = await getDictionary(lang);
-
+  const categoryId =
+    cart &&
+    cart.data.length > 0 &&
+    cart.data[0].products.length > 0 &&
+    cart.data[0].products[0].categories
+      ? //@ts-expect-error
+        cart.data[0].products[0].categories[0]._id
+      : undefined;
   const links = [
     {
       label: "Home",
@@ -44,7 +52,6 @@ export default async function Cart({
     },
   ];
 
-  console.log("cart checkout===>", cart);
   return (
     <div>
       <Container>
@@ -54,16 +61,12 @@ export default async function Cart({
             Items related to your cart
           </h1>
         </div>
-        <ProductSlider
-          size="small"
-          xlSize={7}
-          lgSize={6}
-          mdSize={4}
-          smSize={2}
-          // items={products}
-          items={[]}
-          type="normal"
-        />
+        <Suspense>
+          {cart && cart.data.length && (
+            /* @ts-ignore */
+            <RelatedProducts categoryId={categoryId} />
+          )}
+        </Suspense>
         <div className="px-6">
           <div className="md:grid md:grid-cols-5 gap-8 items-start">
             {/* <Suspense>

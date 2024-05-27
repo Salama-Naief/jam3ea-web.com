@@ -8,6 +8,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { getCategories, getCategoryProducts } from "./services";
 import { useSearchParams } from "next/navigation";
 import CategoryProducts from "./components/Categories/CategoryProducts";
+import CategoryProductSkeleton from "@/components/Skeletons/CategoryProductSkeleton";
 
 async function Category({ searchParams }: { searchParams: any }) {
   const categories = await getCategories();
@@ -68,8 +69,9 @@ async function Category({ searchParams }: { searchParams: any }) {
               <Breadcrumbs items={Links[0] ? Links[0] : []} />
             </div>
             <div>
-              <Suspense fallback={<Loader />}>
-                {products && <CategoryProducts products={products} />}
+              <Suspense fallback={<CategoryProductSkeleton />}>
+                {/* @ts-ignore */}
+                {<CategoryProducts searchParams={searchParams} />}
               </Suspense>
             </div>
           </div>

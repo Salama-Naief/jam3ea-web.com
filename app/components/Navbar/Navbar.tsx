@@ -42,8 +42,8 @@ export default function Navbar({ categories }: Props) {
                         <button>{item.label}</button>
                       </Menu.Target>
                       <Menu.Dropdown h={100} classNames={{ dropdown: "h-64" }}>
-                        <ScrollArea h={400}>
-                          <div className="bg-white grid grid-cols-2 ">
+                        <ScrollArea h={470}>
+                          <div className="bg-white grid grid-cols-5 ">
                             {categories &&
                               categories.map((item) => (
                                 <Menu.Item key={item._id}>
