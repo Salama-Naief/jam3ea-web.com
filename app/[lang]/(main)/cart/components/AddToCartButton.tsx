@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { BsPlus, BsDash } from "react-icons/bs";
 import { ICartStatus, IVariant } from "@/module/(main)/product/types";
@@ -12,6 +12,8 @@ import webRoutes from "@/lib/utils/webRoutes";
 import Variants from "@/module/(main)/product/components/Variants";
 import { usePathname, useRouter } from "next/navigation";
 import Counter from "../../../../components/Counter/Counter";
+import { LoadingIcon } from "@/components/Icons";
+import { showErrorAlert } from "@/lib/utils/helpers";
 
 interface IAddToCartButtonProps {
   sku: string;
@@ -35,6 +37,8 @@ export default function AddToCartButton({
   const [count, setCount] = useState(
     cartsStatus && cartsStatus.quantity ? cartsStatus.quantity : 0
   );
+  const [loadingIncrease, setLoadingIncrease] = useState<boolean>(false);
+  const [loadingDecrease, setLoadingDecrease] = useState<boolean>(false);
   const { addProductToCart, removeProductFromCart, loading } =
     useContext(CartContext);
   const { translate } = useContext(AuthContext);
@@ -49,17 +53,22 @@ export default function AddToCartButton({
         isAvailable != false &&
         (maxQantity > 0 ? count < maxQantity : true)
       ) {
+        setLoadingIncrease(true);
         const status = await addProductToCart({
           sku,
           quantity: type === "normal" ? count : count + 1,
         });
+        console.log("status", status);
         if (status) {
-          setCount((prevCount) => ("normal" ? prevCount : prevCount + 1));
+          setCount(type === "normal" ? count : count + 1);
 
           if (pathName.includes(webRoutes.cart)) {
             router.refresh();
           }
         }
+        setLoadingIncrease(false);
+      } else {
+        showErrorAlert("quantity not avalable");
       }
     } catch (err) {
       console.log("ERR: ", err);
@@ -68,6 +77,7 @@ export default function AddToCartButton({
 
   const handleDecrement = async () => {
     if (count > 1) {
+      setLoadingDecrease(true);
       const status = await addProductToCart({ sku, quantity: count - 1 });
       if (status) {
         setCount((prevCount) => prevCount - 1);
@@ -75,6 +85,7 @@ export default function AddToCartButton({
           router.refresh();
         }
       }
+      setLoadingDecrease(false);
     } else {
       const status = await removeProductFromCart(sku);
       if (status) {
@@ -85,6 +96,8 @@ export default function AddToCartButton({
       }
     }
   };
+
+  const Counte = useMemo(() => <Counter count={count} />, [count]);
 
   if (normalBtn) {
     return (
@@ -108,33 +121,16 @@ export default function AddToCartButton({
               >
                 <BsDash size={28} />
               </button>
-              {/* {count && count >= 1 ? (
-                  <>
-                    <span className="w-5 h-5 flex items-center justify-center text-md text-white ">
-                      {count}
-                    </span>
-                    <button
-                      type="button"
-                      className="text-white w-8 h-8 flex items-center justify-center p-0 rounded-lg ml-auto"
-                      onClick={handleDecrement}
-                    >
-                      <TrashIcon className="w-8 h-8" />
-                    </button>
-                  </>
-                ) : (
-                  ""
-                )} */}
             </div>
           </div>
         </div>
-        {/* ) : ( */}
         <Button
           loading={loading}
           disabled={hasVariant && !sku.includes("-")}
           onClick={() => handleIncrement("normal")}
           className="w-full"
         >
-          {translate("add_to_cart")}
+          <div className="font-bold text-lg">{translate("add_to_cart")}</div>
         </Button>
         {/* )} */}
 
@@ -161,48 +157,37 @@ export default function AddToCartButton({
         </Link>
       ) : (
         <button
+          disabled={count >= maxQantity}
           className="text-white bg-primary shadow  flex items-center justify-center rounded-full"
           onClick={() => handleIncrement()}
           type="button"
         >
-          {/* {maxQantity > 0 ? (
-          count < maxQantity ? (
-            <PlusIcon className="w-4 h-4" />
-          ) : (
-            <div
-              className="text-danger w-4 h-4 overflow-hidden"
-              style={{ fontSize: '5px' }}
-            >
-              {translate('max')}
+          {loadingIncrease ? (
+            <div className="flex items-center justify-center p-1">
+              <LoadingIcon />
             </div>
-          )
-        ) : (
-          <PlusIcon className="w-4 h-4" />
-        )} */}
-          <BsPlus size={28} />
+          ) : (
+            <BsPlus size={28} />
+          )}
         </button>
       )}
-      {/* {count && count > 0 ? ( */}
       <>
-        <div className=" text-center text-sm w-full">
-          <Counter count={count} />
-        </div>
+        <div className=" text-center text-sm w-full">{Counte}</div>
         <button
-          disabled={count >= 0}
+          disabled={count <= 0}
           className="text-danger bg-gray-100 shadow flex items-center justify-center rounded-full ml-auto"
           onClick={handleDecrement}
           type="button"
         >
-          {/* {count === 1 ? (
-              <TrashIcon className="w-4 h-4" />
-            ) : ( */}
-          <BsDash size={28} />
-          {/* )} */}
+          {loadingDecrease ? (
+            <div className="flex items-center justify-center p-1">
+              <LoadingIcon />
+            </div>
+          ) : (
+            <BsDash size={28} />
+          )}
         </button>
       </>
-      {/* ) : (
-        ""
-      )} */}
     </div>
   );
 }

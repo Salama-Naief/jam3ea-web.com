@@ -6,6 +6,7 @@ import { Locale } from "../../../../../../i18n-config";
 import { getSlideUrl } from "../../utils";
 import Image from "next/image";
 import ProductSlider from "@/components/Slider/ProductSlider";
+import Slider from "@/components/Slider/Carousal";
 
 interface FeatureProps {
   feature: IFeature;
@@ -34,50 +35,19 @@ export default function Feature({
           </Link>
         ))}
       <div>
-        <div className="flex justify-between items-center my-4">
-          <h2 className="font-bold text-lg">{name}</h2>
-          <Link
-            href={webRoutes.feature(_id, name, supplierId)}
-            className="text-sm text-primary"
-          >
-            {dictionary.view_all}
-          </Link>
+        <div className="flex justify-center items-center my-6">
+          <h2 className="font-bold text-2xl text-primary">{name}</h2>
         </div>
         <div className="w-full">
-          <ProductSlider
-            type="bestSeller"
-            autoAnimation={false}
-            items={products.slice(0, 10)}
-          />
-          {/* {products.map(
-            ({
-              name,
-              price,
-              old_price,
-              picture,
-              sku,
-              availability,
-              cart_status,
-              has_variants,
-              max_quantity_cart,
-              wishlist_status,
-            }) => (
-              <ProductCard
-                key={sku}
-                sku={sku}
-                name={name}
-                price={price}
-                oldPrice={old_price}
-                picture={picture}
-                isInWhishlist={wishlist_status.is_exists}
-                cartStatus={cart_status}
-                isAvailable={availability}
-                maxQuantityCart={max_quantity_cart}
-                hasVariants={has_variants}
-                currency={dictionary.currency}
-              />
-            )
-          )} */}
+          <Slider data={products.slice(0, 9)} />
+          <div className="flex justify-end">
+            <Link
+              href={webRoutes.feature(_id, name, supplierId)}
+              className="text-lg text-secondary"
+            >
+              {dictionary.view_all}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

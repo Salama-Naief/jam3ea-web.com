@@ -2,19 +2,25 @@ import PaginationComp from "@/components/Pagination";
 import ProductCard from "@/module/(main)/product/components/ProductCard";
 import { IProduct } from "@/module/(main)/product/types";
 import React from "react";
+import { getCategoryProducts } from "../../../services";
 
 interface Props {
-  products: {
-    total: number;
-    count: number;
-    per_page: number | null;
-    current_page: number | null;
-    data: IProduct[];
-  };
+  // products: {
+  //   total: number;
+  //   count: number;
+  //   per_page: number | null;
+  //   current_page: number | null;
+  //   data: IProduct[];
+  // };
+  searchParams: any;
 }
-function CategoryProducts({ products }: Props) {
+async function CategoryProducts({ searchParams }: Props) {
   let total = 1;
-
+  const products = await getCategoryProducts(
+    searchParams["id"],
+    20,
+    searchParams["skip"]
+  );
   if (products && products.total && products.per_page) {
     total = Math.ceil(Number(products.total) / Number(products.per_page));
   }

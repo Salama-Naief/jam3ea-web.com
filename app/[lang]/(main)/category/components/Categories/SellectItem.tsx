@@ -45,8 +45,8 @@ function SellectItem({ item }: Props) {
   }, [searchParams, item]);
   return (
     <div className="h-fit mb-3 relative z-10">
-      <div className="flex justify-between items-center h-fit">
-        <div className="w-12 h-12 rounded-full overflow-hidden relative">
+      <div className="flex justify-between gap-4 items-center h-fit">
+        <div className="w-10 h-10 rounded-full overflow-hidden relative">
           {item.picture && (
             <Image
               src={item.picture}
@@ -82,9 +82,9 @@ function SellectItem({ item }: Props) {
           <Link
             key={subItem._id}
             href={"category" + "?id=" + subItem._id}
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center gap-3 my-1 cursor-pointer"
           >
-            <div className="relative w-10 h-10 rounded-full overflow-hidden">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden">
               {subItem.picture && (
                 <Image
                   src={subItem.picture}

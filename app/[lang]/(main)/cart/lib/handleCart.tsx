@@ -21,9 +21,8 @@ export function HandleCart({
   sku,
 }: Props) {
   const [count, setCount] = useState(quantity);
-  const { addProductToCart, removeProductFromCart, loading } =
-    useContext(CartContext);
-
+  const { addProductToCart, removeProductFromCart } = useContext(CartContext);
+  const [loading, setLoading] = useState<boolean>(false);
   //   const [sku, setSku] = useState(defaultSku);
   const router = useRouter();
   const pathName = usePathname();
@@ -34,19 +33,21 @@ export function HandleCart({
         isAvailable != false &&
         (maxQantity > 0 ? count < maxQantity : true)
       ) {
+        setLoading(true);
         const status = await addProductToCart({
           sku,
           quantity: count + 1,
         });
-        console.log("status", status);
+        console.log("statuess,", status);
         if (status) {
           setCount((prevCount: number) => prevCount + 1);
           //   setCount("normal" ? count : count + 1);
-          router.refresh();
-          if (pathName.includes(webRoutes.cart)) {
-            router.refresh();
-          }
+          // router.refresh();
+          // if (pathName.includes(webRoutes.cart)) {
+          //   router.refresh();
+          // }
         }
+        setLoading(false);
       }
     } catch (err) {
       console.log("ERR: ", err);
@@ -54,14 +55,15 @@ export function HandleCart({
   };
 
   const handleDecrement = async () => {
+    setLoading(true);
     if (count > 1) {
       const status = await addProductToCart({ sku, quantity: count - 1 });
       if (status) {
         setCount((prevCount: number) => prevCount - 1);
         // setCount(count - 1);
-        if (pathName.includes(webRoutes.cart)) {
-          router.refresh();
-        }
+        // if (pathName.includes(webRoutes.cart)) {
+        //   router.refresh();
+        // }
       }
     } else {
       const status = await removeProductFromCart(sku);
@@ -72,6 +74,7 @@ export function HandleCart({
         }
       }
     }
+    setLoading(false);
   };
 
   const handleRemove = async () => {

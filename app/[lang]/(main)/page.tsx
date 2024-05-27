@@ -25,6 +25,8 @@ import StoreCard from "@/components/StoreCard";
 import ProductSlider from "@/components/Slider/ProductSlider";
 import { getCategoriesList } from "./category/services";
 import { getSlideUrl } from "./feature/utils";
+import FeatureServer from "./feature/components/FeatureServer";
+import SliderSkeleton from "@/components/Skeletons/SliderSkeleton";
 
 export default async function Home({
   params: { lang },
@@ -33,8 +35,7 @@ export default async function Home({
 }) {
   const dict = await getDictionary(lang);
 
-  const features = await getFeaturedProducts();
-  const categories = await getCategoriesList();
+  // const categories = await getCategoriesList();
   //const inventories = await getInventories();
   // const stores =
   //   inventories && inventories.data && inventories.data.length === 1
@@ -58,13 +59,6 @@ export default async function Home({
   // console.log("inventories", inventories);
   // console.log("data", data);
   // const isVIP = cookies().get('isVIP');
-
-  const categorySlider1 = categories
-    ? categories.data.slice(0, categories.data.length / 2)
-    : [];
-  const categorySlider2 = categories
-    ? categories.data.slice(categories.data.length / 2, categories.data.length)
-    : [];
 
   return (
     <div id="home">
@@ -158,72 +152,31 @@ export default async function Home({
       </div>
       <div className="block">
         <Container>
-          {/* @ts-expect-error Server Component */}
-          <Categories
-            dictionary={{ all_sections: translate(dict, "all_sections") }}
-            categories={categorySlider1 ? categorySlider1 : []}
-          />
-          <div className="py-1">
+          <Suspense>
             {/* @ts-expect-error Server Component */}
             <Categories
               dictionary={{ all_sections: translate(dict, "all_sections") }}
-              categories={categorySlider2 ? categorySlider2 : []}
-              rtl={true}
             />
-          </div>
-          {categories && (
-            <Link
-              href={`/category?id=${
-                categories.data[0] && categories.data[0].children
-                  ? categories.data[0].children[0]._id
-                  : categories.data[0]._id
-              }`}
-            >
-              <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl py-2 capitalize text-end text-secondary">
-                {translate(dict, "Show_all")}
-              </h2>
-            </Link>
-          )}
+            {/* {categories && (
+              <Link
+                href={`/category?id=${
+                  categories.data[0] && categories.data[0].children
+                    ? categories.data[0].children[0]._id
+                    : categories.data[0]._id
+                }`}
+              >
+                <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl py-2 capitalize text-end text-secondary">
+                  {translate(dict, "Show_all")}
+                </h2>
+              </Link>
+            )} */}
+          </Suspense>
         </Container>
       </div>
       <Container>
-        <div className="font-bold text-4xl my-6 capitalize text-center text-primary">
-          {translate(dict, "best_seller")}
-        </div>
-        {/* 
-        <ProductSlider
-          type="bestSeller"
-          items={features[0].products}
-          autoAnimation={false}
-        /> */}
-
-        <Suspense fallback={<Loader />}>
-          {features &&
-            Array.isArray(features) &&
-            features.map((feature: IFeature) => (
-              <Feature
-                key={feature._id}
-                feature={feature}
-                dictionary={{
-                  view_all: translate(dict, "view_all"),
-                  currency: translate(dict, "currency"),
-                }}
-              />
-              // <div key={feature._id} className="w-full">
-              //   {feature.slides.map(({ _id, picture, url, name }) => (
-              //     <Link key={_id} href={getSlideUrl(url)}>
-              //       <div className="relative w-full h-64">
-              //         <Image src={picture} fill alt={name} />
-              //       </div>
-              //     </Link>
-              //   ))}
-              //   <ProductSlider
-              //     type="bestSeller"
-              //     items={feature.products}
-              //     autoAnimation={false}
-              //   />
-              // </div>
-            ))}
+        <Suspense fallback={<SliderSkeleton />}>
+          {/* @ts-expect-error Server Component */}
+          <FeatureServer />
         </Suspense>
       </Container>
       {/* <CartBottomBar /> */}

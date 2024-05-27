@@ -14,7 +14,6 @@ interface CategoriesProps {
   };
   supplierId?: string;
   rtl?: boolean;
-  categories: ICategory[];
 }
 
 export default async function Categories({
@@ -22,35 +21,57 @@ export default async function Categories({
   dictionary,
   supplierId,
   rtl,
-  categories,
 }: CategoriesProps) {
-  //const categories = await getCategories(supplierId);
+  const categories = await getCategories(supplierId);
+
+  const categorySlider1 = categories
+    ? categories.data.slice(0, categories.data.length / 2)
+    : [];
+  const categorySlider2 = categories
+    ? categories.data.slice(categories.data.length / 2, categories.data.length)
+    : [];
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
-        <MainSlider lgSize={5} mdSize={4} xlSize={6} smSize={3} rtl={rtl}>
-          {categories &&
-            categories.map(({ _id, name, picture, children }, i) => {
-              if (limit && i >= limit) return;
-              return (
-                <CategoryCard
-                  key={_id}
-                  imageSrc={picture}
-                  link={
-                    `/category?id=${
-                      children.length > 0 ? children[0]._id : _id
-                    }`
-                    //supplierId && children.length === 1 ? children[0].id : id,
-                    //supplierId && children.length === 1 ? children[0].id : id,
-                    // supplierId
-                  }
-                  title={name}
-                />
-              );
-            })}
-        </MainSlider>
-        {/* {categories && limit && limit < categories.count && (
+      <MainSlider lgSize={5} mdSize={4} xlSize={6} smSize={3} rtl={rtl}>
+        {categories &&
+          categorySlider1.map(({ _id, name, picture, children }, i) => {
+            if (limit && i >= limit) return;
+            return (
+              <CategoryCard
+                key={_id}
+                imageSrc={picture}
+                link={
+                  `/category?id=${children.length > 0 ? children[0]._id : _id}`
+                  //supplierId && children.length === 1 ? children[0].id : id,
+                  //supplierId && children.length === 1 ? children[0].id : id,
+                  // supplierId
+                }
+                title={name}
+              />
+            );
+          })}
+      </MainSlider>
+      <MainSlider lgSize={5} mdSize={4} xlSize={6} smSize={3} rtl={rtl}>
+        {categories &&
+          categorySlider2.map(({ _id, name, picture, children }, i) => {
+            if (limit && i >= limit) return;
+            return (
+              <CategoryCard
+                key={_id}
+                imageSrc={picture}
+                link={
+                  `/category?id=${children.length > 0 ? children[0]._id : _id}`
+                  //supplierId && children.length === 1 ? children[0].id : id,
+                  //supplierId && children.length === 1 ? children[0].id : id,
+                  // supplierId
+                }
+                title={name}
+              />
+            );
+          })}
+      </MainSlider>
+      {/* {categories && limit && limit < categories.count && (
           <button className="flex items-center flex-col gap-1">
             <div className="bg-white shadow-sm rounded-3xl p-3 w-full min-h-[74px] max-h-[74px] h-full flex items-center justify-center overflow-hidden">
               <img
@@ -62,7 +83,6 @@ export default async function Categories({
             <button type='button' className="text-xs">{dictionary.all_sections}</button>
           </button>
         )} */}
-      </Suspense>
     </>
   );
 }

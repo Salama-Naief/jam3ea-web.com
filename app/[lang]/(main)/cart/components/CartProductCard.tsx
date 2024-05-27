@@ -93,7 +93,7 @@ function CartProductCard({ product }: Props) {
   //     }
   //   }
   // };
-  return (
+  return count > 0 ? (
     <div className="grid grid-cols-4 gap-4 w-full p-4 rounded bg-white my-4 shadow">
       <div className=" col-span-1 flex items-center justify-center p-2 shadow rounded">
         <div className="relative   w-full aspect-square max-h-32">
@@ -149,6 +149,8 @@ function CartProductCard({ product }: Props) {
         </div>
       </div>
     </div>
+  ) : (
+    <span></span>
   );
 }
 

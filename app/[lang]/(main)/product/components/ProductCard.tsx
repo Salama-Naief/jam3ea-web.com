@@ -8,7 +8,10 @@ import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { BsPlus, BsTrash } from "react-icons/bs";
 import { HandleCart } from "../../cart/lib/handleCart";
-import { LoadingIcon } from "@/components/Icons";
+import { Loader } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../cart/CartProvider";
+import { usePathname, useRouter } from "next/navigation";
 
 interface ProductCardProps {
   sku: string;
@@ -43,13 +46,87 @@ export default function ProductCard({
   type,
   size = "large",
 }: ProductCardProps) {
-  const { count, handleIncrement, handleRemove, loading } = HandleCart({
-    isAvailable,
-    maxQantity: maxQuantityCart,
-    quantity: cartStatus && cartStatus.quantity ? cartStatus.quantity : 0,
-    sku,
-  });
-  console.log("type", type);
+  // const { count, handleIncrement, handleRemove, loading } = HandleCart({
+  //   isAvailable,
+  //   maxQantity: maxQuantityCart,
+  //   quantity: cartStatus && cartStatus.quantity ? cartStatus.quantity : 0,
+  //   sku,
+  // });
+  const [count, setCount] = useState(0);
+  const { addProductToCart, removeProductFromCart } = useContext(CartContext);
+  const [removeloading, setRemoveLoading] = useState<boolean>(false);
+  const [addloading, setAddLoading] = useState<boolean>(false);
+  //   const [sku, setSku] = useState(defaultSku);
+  const router = useRouter();
+  const pathName = usePathname();
+
+  useEffect(() => {
+    setCount(cartStatus.quantity);
+  }, [cartStatus.quantity]);
+  const handleIncrement = async () => {
+    try {
+      if (
+        isAvailable != false &&
+        (maxQuantityCart > 0 ? count < maxQuantityCart : true)
+      ) {
+        setAddLoading(true);
+        const status = await addProductToCart({
+          sku,
+          quantity: count + 1,
+        });
+        console.log("statuess,", status);
+        if (status) {
+          console.log("count", count);
+          setCount((prevCount: number) => prevCount + 1);
+          //   setCount("normal" ? count : count + 1);
+          router.refresh();
+          if (pathName.includes(webRoutes.cart)) {
+            router.refresh();
+          }
+        }
+        setAddLoading(false);
+      }
+    } catch (err) {
+      console.log("ERR: ", err);
+    }
+  };
+
+  const handleDecrement = async () => {
+    setRemoveLoading(true);
+    if (count > 1) {
+      const status = await addProductToCart({ sku, quantity: count - 1 });
+      if (status) {
+        setCount((prevCount: number) => prevCount - 1);
+        // setCount(count - 1);
+        // if (pathName.includes(webRoutes.cart)) {
+        //   router.refresh();
+        // }
+      }
+    } else {
+      const status = await removeProductFromCart(sku);
+      if (status) {
+        setCount(0);
+        if (pathName.includes(webRoutes.cart)) {
+          router.refresh();
+        }
+      }
+    }
+    setRemoveLoading(false);
+  };
+
+  const handleRemove = async () => {
+    setRemoveLoading(true);
+    const status = await removeProductFromCart(sku);
+    if (status) {
+      setCount(0);
+      router.refresh();
+      if (pathName.includes(webRoutes.cart)) {
+        router.refresh();
+      }
+    }
+    setRemoveLoading(false);
+  };
+  console.log("count", count);
   return (
     <div className="px-2">
       <div
@@ -78,21 +155,30 @@ export default function ProductCard({
         {type === "normal" && (
           <div
             className={`flex items-center px-2 ${
-              cartStatus && cartStatus.is_exists && count !== 0
-                ? "justify-between"
-                : "justify-end"
+              count > 0 ? "justify-between" : "justify-end"
             }`}
           >
-            {cartStatus && cartStatus.is_exists && count !== 0 && (
-              <button onClick={() => handleRemove()} className="text-primary">
-                {loading ? <LoadingIcon /> : <BsTrash />}
+            {count > 0 && (
+              <button
+                disabled={removeloading}
+                onClick={() => handleRemove()}
+                className="text-primary"
+              >
+                {removeloading ? (
+                  <Loader size={"xs"} color="orange" />
+                ) : (
+                  <BsTrash />
+                )}
               </button>
             )}
             <button
+              disabled={addloading}
               onClick={() => handleIncrement()}
               className="flex justify-end"
             >
-              {cartStatus && cartStatus.is_exists && count !== 0 ? (
+              {addloading ? (
+                <Loader size={"xs"} color="orange" />
+              ) : count > 0 ? (
                 <span className="py-0.5 px-2.5 text-sm  rounded bg-primary text-white">
                   {count}
                 </span>
@@ -127,13 +213,15 @@ export default function ProductCard({
           </div>
         </Link>
         {type === "bestSeller" && (
-          <AddToCartButton
-            sku={sku}
-            cartsStatus={cartStatus}
-            maxQantity={maxQuantityCart}
-            isAvailable={isAvailable}
-            hasVariant={hasVariants}
-          />
+          <div className="w-2/3 mx-auto">
+            <AddToCartButton
+              sku={sku}
+              cartsStatus={cartStatus}
+              maxQantity={maxQuantityCart}
+              isAvailable={isAvailable}
+              hasVariant={hasVariants}
+            />
+          </div>
         )}
       </div>
     </div>

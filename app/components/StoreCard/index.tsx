@@ -19,6 +19,7 @@ function StoreCard({ image, label, link, name }: Props) {
             alt={name}
             quality={100}
             objectFit="contian"
+            priority
           />
         </div>
         <div className="text-center text-3xl text-secondary font-bold">
