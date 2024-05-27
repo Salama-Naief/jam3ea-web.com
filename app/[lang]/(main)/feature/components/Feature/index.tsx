@@ -11,6 +11,7 @@ import Slider from "@/components/Slider/Carousal";
 interface FeatureProps {
   feature: IFeature;
   supplierId?: string;
+  title?: "center" | "start";
   dictionary: {
     view_all: string;
     currency: string;
@@ -21,6 +22,7 @@ export default function Feature({
   feature,
   supplierId,
   dictionary,
+  title = "center",
 }: FeatureProps) {
   const { _id, name, products, slides } = feature;
 
@@ -35,9 +37,16 @@ export default function Feature({
           </Link>
         ))}
       <div>
-        <div className="flex justify-center items-center my-6">
-          <h2 className="font-bold text-2xl text-primary">{name}</h2>
-        </div>
+        <h2
+          className={`${
+            title === "center"
+              ? "text-primary text-center text-2xl"
+              : "text-start text-xl"
+          } font-bold  my-6`}
+        >
+          {name}
+        </h2>
+
         <div className="w-full">
           <Slider data={products.slice(0, 9)} />
           <div className="flex justify-end">

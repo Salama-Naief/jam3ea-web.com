@@ -149,6 +149,7 @@ export default function ProductCard({
               src={picture}
               sizes="(max-width:200px) 160px, 160px"
               alt={name}
+              quality={60}
             />
           </div>
         </Link>

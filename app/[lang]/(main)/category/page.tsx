@@ -12,11 +12,11 @@ import CategoryProductSkeleton from "@/components/Skeletons/CategoryProductSkele
 
 async function Category({ searchParams }: { searchParams: any }) {
   const categories = await getCategories();
-  const products = await getCategoryProducts(
-    searchParams["id"],
-    20,
-    searchParams["skip"]
-  );
+  // const products = await getCategoryProducts(
+  //   searchParams["id"],
+  //   20,
+  //   searchParams["skip"]
+  // );
   //const searchParams = useSearchParams();
 
   const Links =

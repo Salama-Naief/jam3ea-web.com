@@ -10,6 +10,8 @@ import { Suspense } from "react";
 import { IFeature } from "@/module/(main)/feature/types";
 import Feature from "@/module/(main)/feature/components/Feature";
 import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
+import Supplier from "../conponents/Supplier";
+import { Loader } from "@mantine/core";
 
 export default async function StorePage({
   params,
@@ -22,16 +24,13 @@ export default async function StorePage({
 
   return (
     <div>
-      <Navbar
-        title={
-          typeof supplier.name === "object" ? supplier.name.en : supplier.name
-        }
-        hasSearch
-        supplierId={params.id}
-      />
       <Container>
+        <Suspense fallback={<Loader color="orange" />}>
+          {/* @ts-expect-error Server Component */}
+          <Supplier lang={params.lang} supplierId={params.id} />
+        </Suspense>
         <h2 className="font-bold text-lg">{translate(dict, "sections")}</h2>
-        <div className="grid grid-cols-4 gap-2 items-start">
+        <div className="">
           {/* @ts-expect-error Server Component */}
           <Categories
             dictionary={{ all_sections: translate(dict, "all_sections") }}
@@ -43,6 +42,7 @@ export default async function StorePage({
             <Feature
               key={feature._id}
               feature={feature}
+              title="start"
               supplierId={params.id}
               dictionary={{
                 view_all: translate(dict, "view_all"),
@@ -51,7 +51,7 @@ export default async function StorePage({
             />
           ))}
       </Container>
-      <CartBottomBar />
+      {/* <CartBottomBar /> */}
     </div>
   );
 }

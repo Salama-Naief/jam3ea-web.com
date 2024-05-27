@@ -9,6 +9,7 @@ import { ICategory } from "../../types";
 
 interface CategoriesProps {
   limit?: number;
+  selectedCategoryId?: string;
   dictionary: {
     all_sections: string;
   };
@@ -21,28 +22,48 @@ export default async function Categories({
   dictionary,
   supplierId,
   rtl,
+  selectedCategoryId,
 }: CategoriesProps) {
   const categories = await getCategories(supplierId);
 
   const categorySlider1 = categories
-    ? categories.data.slice(0, categories.data.length / 2)
+    ? categories.data.length < 12
+      ? categories.data
+      : categories.data.slice(0, categories.data.length / 2)
     : [];
-  const categorySlider2 = categories
-    ? categories.data.slice(categories.data.length / 2, categories.data.length)
-    : [];
+  const categorySlider2 =
+    categories && categories.data.length > 12
+      ? categories.data.slice(
+          categories.data.length / 2,
+          categories.data.length
+        )
+      : [];
 
   return (
     <>
-      <MainSlider lgSize={5} mdSize={4} xlSize={6} smSize={3} rtl={rtl}>
+      <MainSlider
+        lgSize={categorySlider1.length > 5 ? 5 : categorySlider1.length}
+        mdSize={categorySlider1.length > 4 ? 4 : categorySlider1.length}
+        xlSize={categorySlider1.length > 6 ? 6 : categorySlider1.length}
+        smSize={categorySlider1.length > 3 ? 3 : categorySlider1.length}
+        rtl={rtl}
+      >
         {categories &&
           categorySlider1.map(({ _id, name, picture, children }, i) => {
             if (limit && i >= limit) return;
             return (
               <CategoryCard
+                selectedCategory={selectedCategoryId === _id}
                 key={_id}
                 imageSrc={picture}
                 link={
-                  `/category?id=${children.length > 0 ? children[0]._id : _id}`
+                  supplierId
+                    ? `/stores/${supplierId}/products/${
+                        children.length > 0 ? children[0]._id : _id
+                      }`
+                    : `/category?id=${
+                        children.length > 0 ? children[0]._id : _id
+                      }`
                   //supplierId && children.length === 1 ? children[0].id : id,
                   //supplierId && children.length === 1 ? children[0].id : id,
                   // supplierId
@@ -52,7 +73,12 @@ export default async function Categories({
             );
           })}
       </MainSlider>
-      <MainSlider lgSize={5} mdSize={4} xlSize={6} smSize={3} rtl={rtl}>
+      <MainSlider
+        lgSize={categorySlider2.length > 5 ? 5 : categorySlider1.length}
+        mdSize={categorySlider2.length > 4 ? 4 : categorySlider1.length}
+        xlSize={categorySlider2.length > 6 ? 6 : categorySlider1.length}
+        smSize={categorySlider2.length > 3 ? 3 : categorySlider1.length}
+      >
         {categories &&
           categorySlider2.map(({ _id, name, picture, children }, i) => {
             if (limit && i >= limit) return;
