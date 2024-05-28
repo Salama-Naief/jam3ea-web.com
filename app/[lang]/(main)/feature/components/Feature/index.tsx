@@ -32,7 +32,7 @@ export default function Feature({
         slides.map(({ _id, picture, url, name }) => (
           <Link key={_id} href={getSlideUrl(url, supplierId)}>
             <div className="relative w-full h-96">
-              <Image src={picture} fill alt={name} />
+              <Image src={picture} quality={60} fill alt={name} />
             </div>
           </Link>
         ))}

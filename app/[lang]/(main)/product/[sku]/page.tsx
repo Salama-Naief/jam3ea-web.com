@@ -38,7 +38,7 @@ export default async function ProductPage({
       </div>
     );
   }
-  // const product = products[7];
+
   const {
     picture,
     name,
@@ -54,21 +54,6 @@ export default async function ProductPage({
     has_variants,
   } = product;
 
-  // const {
-  //   cartStatus,
-  //   currency,
-  //   hasVariants,
-  //   id,
-  //   images,
-  //   isAvailable,
-  //   isInWhishlist,
-  //   maxQuantityCart,
-  //   name,
-  //   oldPrice,
-  //   picture,
-  //   price,
-  //   sku,
-  // } = product;
   const categoryLinks = categories
     ? categories
         // to remove any category with name=''

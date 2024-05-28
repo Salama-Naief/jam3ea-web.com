@@ -154,24 +154,29 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
 };
 
 const checkAuth = async (response: NextResponse) => {
-  const res = await fetch(`${process.env.API_BASE_URL}/auth/check`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Language: "en",
-    },
-    body: JSON.stringify({
-      appId: process.env.API_APP_KEY,
-      appSecret: process.env.API_APP_SECRET,
-    }),
-  });
+  try {
+    const res = await fetch(`${process.env.API_BASE_URL}/auth/check`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Language: "en",
+      },
+      body: JSON.stringify({
+        appId: process.env.API_APP_KEY,
+        appSecret: process.env.API_APP_SECRET,
+      }),
+    });
 
-  if (res.ok) {
-    const resData = await res.json();
-    if (resData.success && resData.results && resData.results.token) {
-      response.cookies.set("visitor.token", resData.results.token);
+    if (res.ok) {
+      const resData = await res.json();
+      if (resData.success && resData.results && resData.results.token) {
+        response.cookies.set("visitor.token", resData.results.token);
+      }
+
+      return response;
     }
-
+  } catch (error) {
+    console.error(error);
     return response;
   }
 };

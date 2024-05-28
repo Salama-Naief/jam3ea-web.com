@@ -18,7 +18,7 @@ function StoreCard({ image, label, link, name }: Props) {
             fill
             alt={name}
             quality={100}
-            objectFit="contian"
+            sizes="w-400 h-400"
             priority
           />
         </div>

@@ -5,7 +5,7 @@ import avatar from "../../../../public/assets/avatar.svg";
 import logedAvatar from "../../../../public/assets/logedIcon.svg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Group, Menu, Text, UnstyledButton } from "@mantine/core";
+import { Group, Menu, Modal, Text, UnstyledButton } from "@mantine/core";
 import webRoutes from "@/lib/utils/webRoutes";
 import { BsHeart, BsPerson } from "react-icons/bs";
 import { MdOutlineLocationOn } from "react-icons/md";
@@ -14,12 +14,12 @@ import { HiOutlineCreditCard } from "react-icons/hi2";
 import orderIcon from "../../../../public/assets/orders.svg";
 import walletIcon from "../../../../public/assets/WalletPoints.svg";
 import { AuthContext } from "@/lib/providers/AuthProvider";
+import { useDisclosure } from "@mantine/hooks";
 
 function UserAvatar() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [opened, { open, close }] = useDisclosure(false);
   const { isLoggedIn, logout } = useContext(AuthContext);
   const [isDomReady, setIsDomReady] = useState(false);
-  const path = usePathname();
 
   useEffect(() => {
     setIsDomReady(true);
@@ -32,7 +32,7 @@ function UserAvatar() {
     },
     {
       label: "Saved Addresses",
-      link: "/",
+      link: "/address",
       icon: <MdOutlineLocationOn size={25} />,
     },
 
@@ -64,10 +64,41 @@ function UserAvatar() {
   };
   return (
     <div className="relative">
+      <Modal opened={opened} onClose={close} centered>
+        <div>
+          <h3 className="text-center text-2xl font-bold ">Logout</h3>
+          <h6 className="text-center text-primary mt-2 mb-6">
+            Are you sure you want to log out?
+          </h6>
+          <div className="flex justify-around">
+            <button
+              onClick={() => handleLogout()}
+              className="bg-primary text-white font-bold rounded px-6 py-2"
+            >
+              Yes
+            </button>
+            <button
+              onClick={close}
+              className="bg-gray-300 font-bold rounded px-6 py-2"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </Modal>
       {isDomReady && isLoggedIn ? (
         <Menu shadow="md" width={200}>
           <Menu.Target>
-            <Image src={logedAvatar} alt="avatar" className="cursor-pointer" />
+            <div className="flex flex-col items-center">
+              <Image
+                src={logedAvatar}
+                alt="avatar"
+                width={40}
+                height={40}
+                className="cursor-pointer"
+              />
+              <div className="text-primary font-semibold">My Account</div>
+            </div>
           </Menu.Target>
 
           <Menu.Dropdown p={0} className="bg-white">
@@ -82,7 +113,7 @@ function UserAvatar() {
               </Menu.Item>
             ))}
             <Menu.Divider />
-            <Menu.Item p={0} onClick={() => handleLogout}>
+            <Menu.Item p={0} onClick={open}>
               <span className="hover:bg-gray-300 block w-full py-2 px-4 text-base text-gray-800">
                 Logout
               </span>
@@ -90,44 +121,17 @@ function UserAvatar() {
           </Menu.Dropdown>
         </Menu>
       ) : (
-        <Link href={webRoutes.login}>
-          <Image src={avatar} alt="avatar" className="cursor-pointer" />
+        <Link href={webRoutes.login} className="flex flex-col items-center">
+          <Image
+            src={avatar}
+            width={40}
+            height={40}
+            alt="avatar"
+            className="cursor-pointer"
+          />
+          <div className="font-semibold text-secondary">Login&Register</div>
         </Link>
       )}
-
-      {/* {
-        <motion.div
-          initial={{ y: 20, opacity: 0, scaleY: 0 }}
-          animate={
-            open
-              ? { y: 0, opacity: 1, scaleY: 1 }
-              : { y: 20, opacity: 0, scaleY: 0 }
-          }
-          transition={{ duration: 0.1 }}
-          className="bg-white origin-top rounded-md shadow  absolute top-10 -left-20 overflow-hidden"
-        >
-          <motion.ul
-            initial={{ x: -10 }}
-            animate={open ? { x: 0 } : { x: -10 }}
-          >
-            <li
-              className={`px-6 py-2 hover:bg-gray-300 transition-all duration-100 font-bold whitespace-nowrap mb-1 `}
-            >
-              <Link href={"/"}>Account Info</Link>
-            </li>
-            <li
-              className={`px-6 py-2 hover:bg-gray-300 transition-all duration-100 font-bold whitespace-nowrap mb-1 `}
-            >
-              <Link href={"/"}>Account Info</Link>
-            </li>
-            <li
-              className={`px-6 py-2 hover:bg-gray-300 transition-all duration-100 font-bold whitespace-nowrap mb-1 `}
-            >
-              <Link href={"/"}>Account Info</Link>
-            </li>
-          </motion.ul>
-        </motion.div>
-      } */}
     </div>
   );
 }
