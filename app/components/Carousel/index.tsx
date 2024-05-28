@@ -60,7 +60,7 @@ function Carousel() {
             key={index}
             className="relative h-[25rem] md:h-[30rem] lg:h-[36rem] "
           >
-            <Image src={img} alt="" fill objectFit="contian" />
+            <Image src={img} alt="" fill sizes="w-1080 h-720" />
           </div>
         ))}
       </Slider>

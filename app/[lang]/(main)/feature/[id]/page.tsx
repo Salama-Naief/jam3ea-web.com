@@ -23,7 +23,10 @@ export default async function Feature({
     <div>
       {/* <Navbar hasSearch title={name} supplierId={supplier} /> */}
       <Container>
-        <div className="grid md:grid-cols-4 grid-cols-2 gap-2 items-stretch">
+        <div className="my-10 text-2xl text-center text-secondary font-bold">
+          {name}
+        </div>
+        <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-4 items-stretch bg-gray-100 p-6">
           {products &&
             products.data.map(
               ({
@@ -51,12 +54,13 @@ export default async function Feature({
                   maxQuantityCart={max_quantity_cart}
                   hasVariants={has_variants}
                   currency={translate(dict, "currency")}
+                  type="normal"
                 />
               )
             )}
         </div>
       </Container>
-      <CartBottomBar />
+      {/* <CartBottomBar /> */}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import PropTypes from "prop-types";
 import { LANGUAGES } from "@/lib/enums";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { login } from "@/module/(main)/(profile)/services";
 import webRoutes from "../utils/webRoutes";
 import { IUser } from "@/module/(main)/(profile)/types";
@@ -81,8 +81,9 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
   const login = () => {
     setCookie("isLoggedIn", true);
     setIsLoggedIn(true);
-    if (window) window.location.href = webRoutes.home;
-    else router.replace(webRoutes.home);
+    router.push("/");
+    // if (window) window.location.href = webRoutes.home;
+    // else router.replace(webRoutes.home);
   };
 
   const logout = () => {
@@ -93,8 +94,10 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
     removeCookie("addresses");
     removeCookie("selectedAddress");
     removeCookie("city");
-    if (window) window.location.href = webRoutes.home;
-    else router.replace(webRoutes.splash);
+    // if (window) window.location.href = webRoutes.home;
+    // else router.replace(webRoutes.splash);
+    console.log("logout");
+    router.push("/choose");
   };
 
   const translate = (key: string): string => {

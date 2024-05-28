@@ -9,11 +9,12 @@ import Cart from "./Cart";
 import UserAvatar from "./UserAvatar";
 import Container from "../Container";
 import Image from "next/image";
-import kuwaitImage from "../../../public/assets/Kuwait.svg";
+
 import { LANGUAGES } from "@/lib/enums";
 import { ICart } from "@/module/(main)/cart/types";
 import { Menu, ScrollArea } from "@mantine/core";
 import { ICategory } from "@/module/(main)/category/types";
+import Lang from "./Language";
 
 interface Props {
   categories: ICategory[];
@@ -22,6 +23,7 @@ export default function Navbar({ categories }: Props) {
   const { isLoggedIn, translate, changeLanguage, language, logout } =
     useContext(AuthContext);
   const [isLanguageChangind, setIsLanguageChanging] = useState(false);
+  console.log("language", language);
   return (
     <nav className=" py-4 bg-white shadow-md sticky top-0 z-50">
       <Container>
@@ -78,19 +80,7 @@ export default function Navbar({ categories }: Props) {
           <div className="flex items-center justify-center gap-6">
             <Cart />
             {/* change lang */}
-            <button
-              onClick={() => {
-                setIsLanguageChanging(true);
-                changeLanguage(
-                  language === LANGUAGES.ENGLISH
-                    ? LANGUAGES.ARABIC
-                    : LANGUAGES.ENGLISH,
-                  true
-                );
-              }}
-            >
-              <Image src={kuwaitImage} alt="" />
-            </button>
+            <Lang />
             <UserAvatar />
           </div>
         </div>

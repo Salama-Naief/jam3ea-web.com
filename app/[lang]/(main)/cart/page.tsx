@@ -35,6 +35,7 @@ export default async function Cart({
   const dict = await getDictionary(lang);
   const categoryId =
     cart &&
+    cart.data &&
     cart.data.length > 0 &&
     cart.data[0].products.length > 0 &&
     cart.data[0].products[0].categories
@@ -62,7 +63,7 @@ export default async function Cart({
           </h1>
         </div>
         <Suspense>
-          {cart && cart.data.length && (
+          {cart && cart.data && cart.data.length && (
             /* @ts-ignore */
             <RelatedProducts categoryId={categoryId} />
           )}
