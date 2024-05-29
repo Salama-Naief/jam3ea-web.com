@@ -39,10 +39,6 @@ export default function RegisterForm() {
     citiesRequest(getCities());
   }, []);
 
-  console.log(
-    "JSON.stringify(ValidationError)",
-    JSON.stringify(ValidationError)
-  );
   return (
     <div className="shadow-md rounded-xl px-4 pt-6 pb-8 bg-white h-full md:h-auto">
       <Logo />

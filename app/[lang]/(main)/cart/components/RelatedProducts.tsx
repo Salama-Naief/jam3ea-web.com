@@ -12,7 +12,7 @@ async function RelatedProducts({ categoryId }: Props) {
   if (categoryId) {
     products = await getCategoryProducts(categoryId, 10, 1);
   }
-  console.log("productsproducts", products, categoryId);
+
   return (
     <div>
       {products && (

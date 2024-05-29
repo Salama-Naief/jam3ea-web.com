@@ -15,9 +15,9 @@ function Carousel() {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    fade: true,
+    //fade: true,
     // lazyLoad: true,
-    rtl: true,
+    // rtl: true,
     waitForAnimate: true,
     autoplay: true,
     speed: 2000,
@@ -33,7 +33,6 @@ function Carousel() {
       setCurrentSellect(next);
     },
     appendDots: (dots: any) => {
-      console.log(dots);
       return (
         <div className="">
           <ul> {dots} </ul>
@@ -60,7 +59,7 @@ function Carousel() {
             key={index}
             className="relative h-[25rem] md:h-[30rem] lg:h-[36rem] "
           >
-            <Image src={img} alt="" fill sizes="w-1080 h-720" />
+            <Image src={img} alt="" fill loading="lazy" sizes="w-1080 h-720" />
           </div>
         ))}
       </Slider>

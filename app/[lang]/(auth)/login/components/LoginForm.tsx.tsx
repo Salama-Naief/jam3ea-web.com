@@ -28,7 +28,7 @@ export default function LoginForm({ close }: Props) {
   const { translate, login: makeLogin } = useContext(AuthContext);
   const [redirecting, setRedirecting] = useState(false);
   const [state, formAction] = useFormState(Login, initialState);
-  console.log(state);
+
   const {
     errors,
     handleChange,

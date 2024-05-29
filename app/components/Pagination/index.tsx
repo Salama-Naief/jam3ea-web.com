@@ -18,7 +18,6 @@ function PaginationComp({ currentPage, total, path }: Props) {
       replace(`${path}&skip=${v}`);
     }
   };
-  console.log("total", total);
 
   return (
     <div className="Pagination">

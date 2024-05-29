@@ -32,9 +32,10 @@ export default function CategoryCard({
             sizes="w-32 h-32"
             src={imageSrc}
             alt=""
+            loading="lazy"
           />
         </div>
-        <div className="font-bold text-center">{title}</div>
+        <div className="font-semibold text-center">{title}</div>
       </Link>
     </div>
   );

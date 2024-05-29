@@ -42,8 +42,6 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
       ? cities.children.map((c) => ({ label: c.name as string, value: c._id }))
       : [];
 
-  console.log("selectCity======++", selectCity);
-
   const handleGuest = async () => {
     if (selectCity?.value) {
       changeCity(selectCity.value);

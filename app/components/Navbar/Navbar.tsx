@@ -15,6 +15,7 @@ import { ICart } from "@/module/(main)/cart/types";
 import { Menu, ScrollArea } from "@mantine/core";
 import { ICategory } from "@/module/(main)/category/types";
 import Lang from "./Language";
+import { useCookies } from "react-cookie";
 
 interface Props {
   categories: ICategory[];
@@ -23,7 +24,15 @@ export default function Navbar({ categories }: Props) {
   const { isLoggedIn, translate, changeLanguage, language, logout } =
     useContext(AuthContext);
   const [isLanguageChangind, setIsLanguageChanging] = useState(false);
-  console.log("language", language);
+  const [cookies, setCookie] = useCookies(["isVIP"]);
+
+  const handleIsVIP = (link: string) => {
+    if (link.includes("/mart")) {
+      setCookie("isVIP", true);
+    } else {
+      setCookie("isVIP", false);
+    }
+  };
   return (
     <nav className=" py-4 bg-white shadow-md sticky top-0 z-50">
       <Container>
@@ -37,7 +46,12 @@ export default function Navbar({ categories }: Props) {
               {navlinks(translate).map((item) => (
                 <div key={item.id}>
                   {!item.withSubEments ? (
-                    <Link href={item.link}>{item.label}</Link>
+                    <Link
+                      href={item.link}
+                      onClick={() => handleIsVIP(item.link)}
+                    >
+                      {item.label}
+                    </Link>
                   ) : (
                     <Menu trigger="click-hover" shadow="md">
                       <Menu.Target>

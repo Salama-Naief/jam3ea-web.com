@@ -12,6 +12,7 @@ import { LockClosedIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import DeleteAccount from "./components/DeleteAccount";
 import SharedLayout from "../components/SharedLayout";
 import Button from "./components/Button";
+import GoogleMaps from "../addresses/components/GoogleMap";
 
 export default async function Account({
   params: { lang },
@@ -25,6 +26,7 @@ export default async function Account({
       <SharedLayout title="My Account">
         {/* profile details */}
         <div>
+          {/* <GoogleMaps /> */}
           <div className="grid grid-cols-8 gap-4 items-center mb-4">
             <span className="text-bold col-span-1 text-lg">
               {translate(dict, "email")}

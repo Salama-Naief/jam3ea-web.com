@@ -36,7 +36,7 @@ export async function middleware(request: NextRequest) {
 
   const addresses = request.cookies.get("addresses")?.value;
   const city = request.cookies.get("city");
-  console.log("city===", city);
+
   const selectedAddress = request.cookies.get("selectedAddress")?.value;
   const isLoggedIn =
     request.cookies.get("isLoggedIn")?.value &&

@@ -6,21 +6,26 @@ export const clientRequest = async (
   body?: object | null | undefined,
   direct = false
 ) => {
-  const url = direct
-    ? route
-    : `/api?route=${route}${
-        method !== "POST" || (body && typeof body === "object")
-          ? ""
-          : "&nobody=" + true
-      }`;
-  console.log("url", url);
-  const res = await fetch(url, {
-    method,
-    body: body && typeof body === "object" ? JSON.stringify(body) : undefined,
-    cache: "no-store",
-  });
-  const resData = await res.json();
-  return resData;
+  try {
+    const url = direct
+      ? route
+      : `/api?route=${route}${
+          method !== "POST" || (body && typeof body === "object")
+            ? ""
+            : "&nobody=" + true
+        }`;
+
+    const res = await fetch(url, {
+      method,
+      body: body && typeof body === "object" ? JSON.stringify(body) : undefined,
+      cache: "no-store",
+    });
+    const resData = await res.json();
+    return resData;
+  } catch (error) {
+    console.error(error);
+    return { results: null };
+  }
 };
 
 export const showErrorAlert = (text: string, confirmation: string = "ok") => {

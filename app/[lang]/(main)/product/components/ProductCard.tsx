@@ -74,9 +74,8 @@ export default function ProductCard({
           sku,
           quantity: count + 1,
         });
-        console.log("statuess,", status);
+
         if (status) {
-          console.log("count", count);
           setCount((prevCount: number) => prevCount + 1);
           //   setCount("normal" ? count : count + 1);
           router.refresh();
@@ -126,7 +125,7 @@ export default function ProductCard({
     }
     setRemoveLoading(false);
   };
-  console.log("count", count);
+
   return (
     <div className="px-2">
       <div
@@ -150,6 +149,7 @@ export default function ProductCard({
               sizes="(max-width:200px) 160px, 160px"
               alt={name}
               quality={60}
+              loading="lazy"
             />
           </div>
         </Link>

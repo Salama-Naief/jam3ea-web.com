@@ -58,7 +58,7 @@ function SellectItem({ item }: Props) {
         </div>
         <Link href={"category" + "?id=" + item._id}>
           <h3
-            className={`text-lg font-bold capitalize ${
+            className={` font-bold capitalize ${
               currentCategory.id === item._id ? "text-primary" : "text-gray-600"
             }`}
           >
