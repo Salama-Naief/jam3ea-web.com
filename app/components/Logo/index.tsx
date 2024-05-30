@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 
 function Logo() {
   const [cookies, setCookie] = useCookies(["isVIP"]);
-  console.log("cookies", cookies);
+
   const handleIsVIP = () => {
     setCookie("isVIP", false);
   };

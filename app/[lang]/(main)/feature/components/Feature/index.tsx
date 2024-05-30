@@ -6,8 +6,9 @@ import { Locale } from "../../../../../../i18n-config";
 import { getSlideUrl } from "../../utils";
 import Image from "next/image";
 import ProductSlider from "@/components/Slider/ProductSlider";
-import Slider from "@/components/Slider/Carousal";
+import FeatureSlider from "../FeatueSlider";
 import { Loader } from "@mantine/core";
+import FeatureCarousel from "../FeatueCarousel";
 
 interface FeatureProps {
   feature: IFeature;
@@ -32,23 +33,25 @@ export default function Feature({
   return (
     <div className="w-full my-4">
       {
-        slides.length > 0 &&
-          // <Slider lgSize={1} mdSize={1} smSize={1} xlSize={1} autoPlay={true}>
-          slides.map(({ _id, picture, url, name }) => (
-            <Link key={_id} href={getSlideUrl(url, supplierId)}>
-              {picture && (
-                <div className="relative w-full h-96">
-                  <Image
-                    src={picture}
-                    quality={60}
-                    fill
-                    loading="lazy"
-                    alt={name}
-                  />
-                </div>
-              )}
-            </Link>
-          ))
+        slides.length > 0 && (
+          <FeatureCarousel data={slides} supplierId={supplierId} />
+        )
+        // <Slider lgSize={1} mdSize={1} smSize={1} xlSize={1} autoPlay={true}>
+        // slides.map(({ _id, picture, url, name }) => (
+        //   <Link key={_id} href={getSlideUrl(url, supplierId)}>
+        //     {picture && (
+        //       <div className="relative w-full h-96">
+        //         <Image
+        //           src={picture}
+        //           quality={60}
+        //           fill
+        //           loading="lazy"
+        //           alt={name}
+        //         />
+        //       </div>
+        //     )}
+        //   </Link>
+        // ))
         // </Slider>
       }
       <div>
@@ -68,26 +71,7 @@ export default function Feature({
               <Loader color="orange" />
             </div>
           ) : (
-            <Slider type={productType} data={products.slice(0, 9)} />
-            // <div className="flex w-screen gap-4 overflow-x-auto">
-            //   {products.slice(0, 9).map((product) => (
-            //     <ProductCard
-            //       key={product.sku}
-            //       sku={product.sku}
-            //       name={product.name}
-            //       price={product.price}
-            //       oldPrice={product.old_price}
-            //       picture={product.picture}
-            //       isInWhishlist={product.wishlist_status.is_exists}
-            //       cartStatus={product.cart_status}
-            //       isAvailable={product.availability}
-            //       maxQuantityCart={product.max_quantity_cart}
-            //       hasVariants={product.has_variants}
-            //       currency={"kwd"}
-            //       type={productType}
-            //     />
-            //   ))}
-            // </div>
+            <FeatureSlider type={productType} data={products.slice(0, 12)} />
           )}
           <div className="flex justify-end">
             <Link

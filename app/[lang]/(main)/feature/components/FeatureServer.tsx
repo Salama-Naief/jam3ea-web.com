@@ -13,38 +13,44 @@ interface Props {
   productType?: "normal" | "bestSeller";
   titlePos?: "start" | "center";
   dict: any;
+  home?: boolean;
 }
 async function FeatureServer({
   lang,
   productType = "bestSeller",
   titlePos = "start",
+  home = false,
 }: Props) {
   const features = await getFeaturedProducts();
   const dict = await getDictionary(lang);
 
   return (
     <div>
-      {features &&
-        // <FeatureClient
-        //   titlePos={titlePos}
-        //   data={features}
-        //   dict={dict}
-        //   productType={productType}
-        // />
-        //)
-        Array.isArray(features) &&
-        features.map((feature: IFeature, i) => (
-          <Feature
-            key={feature._id}
-            feature={feature}
-            dictionary={{
-              view_all: translate(dict, "view_all"),
-              currency: translate(dict, "currency"),
-            }}
-            title={titlePos}
+      {
+        features && (
+          <FeatureClient
+            titlePos={titlePos}
+            data={features}
+            dict={dict}
             productType={productType}
+            home={home}
           />
-        ))}
+        )
+
+        // Array.isArray(features) &&
+        // features.map((feature: IFeature, i) => (
+        //   <Feature
+        //     key={feature._id}
+        //     feature={feature}
+        //     dictionary={{
+        //       view_all: translate(dict, "view_all"),
+        //       currency: translate(dict, "currency"),
+        //     }}
+        //     title={titlePos}
+        //     productType={productType}
+        //   />
+        // ))
+      }
     </div>
   );
 }

@@ -25,7 +25,13 @@ export default async function StorePage({
   return (
     <div>
       <Container>
-        <Suspense fallback={<Loader color="orange" />}>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-start w-full h-20">
+              <Loader color="orange" />
+            </div>
+          }
+        >
           {/* @ts-expect-error Server Component */}
           <Supplier lang={params.lang} supplierId={params.id} />
         </Suspense>
@@ -48,6 +54,7 @@ export default async function StorePage({
                 view_all: translate(dict, "view_all"),
                 currency: translate(dict, "currency"),
               }}
+              productType="normal"
             />
           ))}
       </Container>

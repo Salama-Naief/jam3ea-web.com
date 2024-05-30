@@ -26,7 +26,7 @@ export default async function Home({
         </div>
         <Suspense fallback={<SliderSkeleton />}>
           {/* @ts-expect-error Server Component */}
-          <FeatureServer lang={lang} productType="normal" />
+          <FeatureServer lang={lang} productType="normal" home={true} />
         </Suspense>
       </Container>
     </div>

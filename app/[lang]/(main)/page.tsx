@@ -31,7 +31,7 @@ export default async function Home({
                   name={item.name}
                   image={item.image}
                   label={item.label}
-                  link={item.label}
+                  link={item.link}
                 />
               </div>
             ))}
@@ -55,7 +55,7 @@ export default async function Home({
         <Container>
           <Suspense fallback={<SliderSkeleton />}>
             {/* @ts-expect-error Server Component */}
-            <FeatureServer />
+            <FeatureServer home={true} />
           </Suspense>
         </Container>
       </div>

@@ -79,11 +79,12 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
   };
 
   const login = () => {
-    setCookie("isLoggedIn", true);
+    // setCookie("isLoggedIn", true);
     setIsLoggedIn(true);
-    router.push("/");
-    // if (window) window.location.href = webRoutes.home;
-    // else router.replace(webRoutes.home);
+    //router.push("/");
+
+    if (window) window.location.href = webRoutes.home;
+    else router.replace(webRoutes.home);
   };
 
   const logout = () => {
@@ -94,10 +95,10 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
     removeCookie("addresses");
     removeCookie("selectedAddress");
     removeCookie("city");
-    // if (window) window.location.href = webRoutes.home;
-    // else router.replace(webRoutes.splash);
+    if (window) window.location.href = webRoutes.home;
+    else router.replace(webRoutes.splash);
     console.log("logout");
-    router.push("/choose");
+    // router.push("/choose");
   };
 
   const translate = (key: string): string => {
