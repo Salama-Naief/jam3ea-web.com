@@ -40,7 +40,7 @@ function CartProductCard({ product }: Props) {
     sku: product.sku,
     quantity: product.quantity,
   });
-  console.log("count", count);
+
   // const handleIncrement = async () => {
   //   try {
   //     if (

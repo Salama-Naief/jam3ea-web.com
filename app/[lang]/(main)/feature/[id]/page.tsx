@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
-import { getProductsByFeature } from "../services";
+import { getFeaturedProducts, getProductsByFeature } from "../services";
 import ProductCard from "@/module/(main)/product/components/ProductCard";
 import { getCategoryById } from "@/module/(main)/category/services";
 import { Locale } from "../../../../../i18n-config";
@@ -18,7 +18,7 @@ export default async function Feature({
   const products = await getProductsByFeature(id);
 
   const dict = await getDictionary(lang);
-
+  console.log("feature products", products);
   return (
     <div>
       {/* <Navbar hasSearch title={name} supplierId={supplier} /> */}

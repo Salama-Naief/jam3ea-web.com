@@ -5,11 +5,12 @@ import { Locale } from "../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
 import Carousel from "@/components/Carousel";
-import { categories, products, storeCards } from "../../../dummyData";
+import { storeCards } from "../../../dummyData";
 import StoreCard from "@/components/StoreCard";
 
 import FeatureServer from "./feature/components/FeatureServer";
 import SliderSkeleton from "@/components/Skeletons/SliderSkeleton";
+import { Loader } from "@mantine/core";
 
 export default async function Home({
   params: { lang },
@@ -18,8 +19,9 @@ export default async function Home({
 }) {
   const dict = await getDictionary(lang);
   return (
-    <div id="home">
+    <div>
       <Carousel />
+
       <div className="h-fit my-8">
         <Container>
           <div className="lg:grid lg:grid-cols-3 gap-6 px-16 items-stretch">
@@ -29,7 +31,7 @@ export default async function Home({
                   name={item.name}
                   image={item.image}
                   label={item.label}
-                  link={item.label}
+                  link={item.link}
                 />
               </div>
             ))}
@@ -39,9 +41,9 @@ export default async function Home({
       <div className="font-bold text-2xl md:text-3xl lg:text-4xl my-6 capitalize text-center text-primary">
         {translate(dict, "categories")}
       </div>
-      <div className="block">
+      <div className="">
         <Container>
-          <Suspense>
+          <Suspense fallback={<Loader color="orange" />}>
             {/* @ts-expect-error Server Component */}
             <Categories
               dictionary={{ all_sections: translate(dict, "all_sections") }}
@@ -49,12 +51,14 @@ export default async function Home({
           </Suspense>
         </Container>
       </div>
-      <Container>
-        <Suspense fallback={<SliderSkeleton />}>
-          {/* @ts-expect-error Server Component */}
-          <FeatureServer />
-        </Suspense>
-      </Container>
+      <div>
+        <Container>
+          <Suspense fallback={<SliderSkeleton />}>
+            {/* @ts-expect-error Server Component */}
+            <FeatureServer home={true} />
+          </Suspense>
+        </Container>
+      </div>
     </div>
   );
 }

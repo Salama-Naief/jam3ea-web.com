@@ -13,4 +13,10 @@ export const getFeaturedProducts = async (
 export const getProductsByFeature = async (
   id: string
 ): Promise<IDataLoadedResponse<IProduct>> =>
-  await apiHandler(`/product/${id}/category?featured=true`);
+  await apiHandler(
+    `/product/${id}/category?featured=true`,
+    "GET",
+    undefined,
+    true,
+    false
+  );

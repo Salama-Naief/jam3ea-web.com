@@ -157,7 +157,6 @@ export default function AddToCartButton({
         </Link>
       ) : (
         <button
-          disabled={count >= maxQantity}
           className="text-white bg-primary shadow  flex items-center justify-center rounded-full"
           onClick={() => handleIncrement()}
           type="button"

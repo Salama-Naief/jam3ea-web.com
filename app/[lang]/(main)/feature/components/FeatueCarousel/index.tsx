@@ -6,6 +6,10 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { IFeature } from "@/module/(main)/feature/types";
 import ProductCard from "@/module/(main)/product/components/ProductCard";
 import { IProduct } from "@/module/(main)/product/types";
+import { ISlide } from "@/module/(main)/slide/types";
+import Link from "next/link";
+import Image from "next/image";
+import { getSlideUrl } from "../../utils";
 
 //arrows
 function PrevArrow({ onClick, ...rest }: any) {
@@ -43,39 +47,25 @@ function NextArrow({ onClick, ...rest }: any) {
 }
 
 interface Props {
-  type?: "normal" | "bestSeller";
-  autoPlay?: boolean;
-  xlSize?: number;
-  lgSize?: number;
-  mdSize?: number;
-  smSize?: number;
-  // children: React.ReactNode;
-  data: IProduct[];
+  data: ISlide[];
+  supplierId?: string;
 }
-function Slider({
-  type = "bestSeller",
-  autoPlay = false,
-  lgSize = 5,
-  mdSize = 3,
-  smSize = 2,
-  xlSize = 5,
-  data,
-}: Props) {
+function FeatureCarousel({ data, supplierId }: Props) {
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: lgSize,
+      items: 1,
       slidesToSlide: 1, // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: mdSize,
+      items: 1,
       slidesToSlide: 1, // optional, default to 1.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: smSize,
+      items: 1,
       slidesToSlide: 1, // optional, default to 1.
     },
   };
@@ -88,34 +78,32 @@ function Slider({
         showDots={false}
         responsive={responsive}
         infinite={true}
-        autoPlay={autoPlay}
+        autoPlay={data.length > 1 ? true : false}
         beforeChange={() => setIsMoving(true)}
         afterChange={() => setIsMoving(false)}
         containerClass="first-carousel-container container"
         //   deviceType={this.props.deviceType}
-        customRightArrow={autoPlay ? <div></div> : <PrevArrow />}
-        customLeftArrow={autoPlay ? <div></div> : <NextArrow />}
+        customRightArrow={<div></div>}
+        customLeftArrow={<div></div>}
       >
-        {data.map((product) => (
-          <ProductCard
-            key={product.sku}
-            sku={product.sku}
-            name={product.name}
-            price={product.price}
-            oldPrice={product.old_price}
-            picture={product.picture}
-            isInWhishlist={product.wishlist_status.is_exists}
-            cartStatus={product.cart_status}
-            isAvailable={product.availability}
-            maxQuantityCart={product.max_quantity_cart}
-            hasVariants={product.has_variants}
-            currency={"kwd"}
-            type={type}
-          />
+        {data.map(({ _id, picture, url, name }) => (
+          <Link key={_id} href={getSlideUrl(url, supplierId)}>
+            {picture && (
+              <div className="relative w-full h-96">
+                <Image
+                  src={picture}
+                  quality={60}
+                  fill
+                  loading="lazy"
+                  alt={name}
+                />
+              </div>
+            )}
+          </Link>
         ))}
       </Carousel>
     </div>
   );
 }
 
-export default Slider;
+export default FeatureCarousel;

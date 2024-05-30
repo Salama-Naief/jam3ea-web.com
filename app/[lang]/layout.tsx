@@ -12,6 +12,8 @@ import { getDictionary } from "@/lib/utils/dictionary";
 import { LANGUAGES } from "@/lib/enums";
 import { Locale } from "../../i18n-config";
 import { MantineProvider } from "@mantine/core";
+import { cookies } from "next/headers";
+import { RedirectType, redirect, useRouter } from "next/navigation";
 
 interface IRootLayoutProps {
   children: React.ReactNode;
@@ -20,9 +22,9 @@ interface IRootLayoutProps {
 
 export const metadata = {
   title: "Jm3eia dot com",
-  verification: {
-    google: "YejFgWHiYkJdIY9hniJYUP1oZAP8PT4ZVZsPkQYBOgc",
-  },
+  // verification: {
+  //   google: "YejFgWHiYkJdIY9hniJYUP1oZAP8PT4ZVZsPkQYBOgc",
+  // },
 };
 
 export default async function RootLayout({
@@ -36,13 +38,18 @@ export default async function RootLayout({
     : process.env.DEFAULT_LOCALE_CODE;
 
   const dictionary = await getDictionary(selectedLang as Locale);
+  // const cookie = cookies();
+  // console.log("cookie.get==", cookie.get("auth.token"));
+  // if (cookie.get("auth.token") && cookie.get("auth.user")) {
+  //   redirect("/choose", RedirectType.push);
+  // }
   return (
     <html
       lang={selectedLang}
       dir={selectedLang === LANGUAGES.ARABIC ? "rtl" : "ltr"}
-      suppressHydrationWarning={true}
+      // suppressHydrationWarning={true}
     >
-      <body suppressHydrationWarning={true}>
+      <body>
         <div>
           <div id="root">
             <NextTopLoader showSpinner={false} color="#F77D0F" />

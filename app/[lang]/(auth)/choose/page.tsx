@@ -10,6 +10,8 @@ import AddressSelector from "@/components/Navbar/AddressSelector";
 import { getCities } from "@/module/(main)/city/services";
 import apiHandler from "@/lib/utils/apiHandler";
 import ChooseCity from "./components/ChooseCity";
+import { cookies } from "next/headers";
+import { RedirectType, redirect } from "next/navigation";
 
 export default async function Choose({
   params: { lang },
@@ -17,9 +19,13 @@ export default async function Choose({
   params: { lang: Locale };
 }) {
   const dict = await getDictionary(lang);
+  const cookie = cookies();
+
+  // if (cookie.get("auth.token") && cookie.get("auth.user")) {
+  //   redirect("/", RedirectType.push);
+  // }
 
   const cities: any = await apiHandler("/city", "GET", undefined, true);
-  console.log("citiesData===", cities);
 
   return (
     <div>

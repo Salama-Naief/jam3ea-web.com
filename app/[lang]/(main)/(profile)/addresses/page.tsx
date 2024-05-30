@@ -5,6 +5,7 @@ import AddressesList from "./components/AddressesList";
 import { Locale } from "../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
+import GoogleMaps from "./components/Map";
 
 export default async function Addresses({
   params: { lang },
@@ -18,6 +19,7 @@ export default async function Addresses({
       <Container>
         <AddAddress />
         <AddressesList />
+        {/* <GoogleMaps /> */}
       </Container>
     </div>
   );
