@@ -127,7 +127,7 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
     webRoutes.login,
     webRoutes.register,
     webRoutes.splash,
-    webRoutes.addresses,
+    // webRoutes.addresses,
   ];
 
   const isLoggedIn = request.cookies.get("isLoggedIn")?.value == "true";

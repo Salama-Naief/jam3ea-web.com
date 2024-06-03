@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
-import { getInventories } from "./services";
+import { getInventories, getSupplierFeature } from "./services";
 import {
   ClockIcon,
   ListBulletIcon,
@@ -30,7 +30,8 @@ export default async function StoresPage({
     inventories && inventories.data && inventories.data.length === 1
       ? inventories.data[0].suppliers
       : [];
-
+  const supplier = await getSupplierFeature();
+  console.log("supplier", supplier);
   //const stores = listStores.results.data[0];
 
   // Grouping function

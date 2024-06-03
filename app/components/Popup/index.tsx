@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { SetStateAction } from 'react';
-import { BackIcon } from '../Icons';
+import { SetStateAction } from "react";
+import { BackIcon } from "../Icons";
 
 interface PopupProps {
   backBtn?: boolean;
@@ -53,8 +53,8 @@ export default function Popup({
         </div>
       )} */}
       <div
-        className={`fixed z-10 inset-0 overflow-y-auto ${
-          isOpen ? 'block' : 'hidden'
+        className={`fixed z-50 inset-0 overflow-y-auto ${
+          isOpen ? "block" : "hidden"
         }`}
       >
         <div className="flex items-center justify-center min-h-screen p-4">

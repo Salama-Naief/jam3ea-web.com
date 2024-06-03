@@ -12,18 +12,24 @@ import { LockClosedIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import DeleteAccount from "./components/DeleteAccount";
 import SharedLayout from "../components/SharedLayout";
 import Button from "./components/Button";
-import GoogleMaps from "../addresses/components/GoogleMap";
+import GoogleMaps from "../addresses/components/Map";
 
 export default async function Account({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const user: IUser = await apiHandler("/profile");
+  const user: IUser = await apiHandler(
+    "/profile",
+    "GET",
+    undefined,
+    true,
+    false
+  );
   const dict = await getDictionary(lang);
   return (
     <div>
-      <SharedLayout title="My Account">
+      <SharedLayout user={user} title="My Account">
         {/* profile details */}
         <div>
           {/* <GoogleMaps /> */}

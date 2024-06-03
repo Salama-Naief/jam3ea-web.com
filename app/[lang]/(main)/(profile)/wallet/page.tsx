@@ -7,6 +7,7 @@ import apiHandler from "@/lib/utils/apiHandler";
 import { IDataLoadedResponse } from "@/lib/types";
 import { IUser, IWalletHistory } from "../types";
 import { translate } from "@/lib/utils/serverHelpers";
+import SharedLayout from "../components/SharedLayout";
 
 export default async function WalletPage({
   params: { lang },
@@ -22,12 +23,11 @@ export default async function WalletPage({
 
   return (
     <div>
-      <Navbar title={translate(dict, "my_wallet") + " (" + user.wallet + ")"} />
-      <Container>
-        <div className="bg-white mt-4 px-2 py-4 rounded-2xl rounded-b-none min-h-screen h-full">
+      <SharedLayout user={user} title={`My Wallet (${user.wallet})`}>
+        <div className="bg-white px-2 pb-4 rounded-2xl rounded-b-none min-h-screen h-full">
           {history && history.data && <WalletTabs history={history.data} />}
         </div>
-      </Container>
+      </SharedLayout>
     </div>
   );
 }

@@ -62,6 +62,8 @@ export interface IAddress {
   mobile?: string;
   email?: string;
   city?: ICity;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface IAddAddress {
