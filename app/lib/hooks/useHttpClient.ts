@@ -33,10 +33,10 @@ const useHttpClient = <T, R = unknown>() =>
               response.status_message !== STATUS_MESSAGES.DATA_LOADED &&
               (response.results as any).message
             ) {
-              showSuccesAlert(
-                (response.results as any).message,
-                translate("ok")
-              );
+              // showSuccesAlert(
+              //   (response.results as any).message,
+              //   translate("ok")
+              // );
             }
           } else {
             console.log("response.errors", (response.errors as any).message);
