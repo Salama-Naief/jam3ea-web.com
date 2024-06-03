@@ -14,7 +14,11 @@ export default async function Orders({
   params: { lang: Locale };
 }) {
   const ordersResponse: IDataLoadedResponse<IOrder> = await apiHandler(
-    "/order"
+    "/order",
+    "GET",
+    undefined,
+    true,
+    false
   );
 
   const dict = await getDictionary(lang);

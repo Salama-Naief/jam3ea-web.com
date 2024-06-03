@@ -26,25 +26,29 @@ import CartProductCard from "./CartProductCard";
 import { Modal } from "@mantine/core";
 import LoginForm from "@/module/(auth)/login/components/LoginForm.tsx";
 import { useDisclosure } from "@mantine/hooks";
+import { IUser } from "../../(profile)/types";
+import { useRouter } from "next/navigation";
 
 interface SingleSupplierProps {
   cart: IGetCheckoutResponseResult;
   lang: Locale;
   dict: any;
+  user: IUser;
 }
 
 export default function SingleSupplier({
   cart,
   lang,
   dict,
+  user,
 }: SingleSupplierProps) {
   const data = cart.data[0];
   const { translate, isLoggedIn } = useContext(AuthContext);
-  const { selectedAddress } = useContext(AddressContext);
+  const { selectedAddress, addresses } = useContext(AddressContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
-
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       payment_method: "",
@@ -52,9 +56,16 @@ export default function SingleSupplier({
     },
     onSubmit: async (values) => {
       console.log("values", values);
-      if (isLoggedIn) {
+      if (!isLoggedIn) {
         open();
         return;
+      }
+      if (!user.mobile) {
+        showErrorAlert(
+          translate("please sellect mobile number"),
+          translate("ok")
+        );
+        router.push("/account");
       }
       if (!values.payment_method) {
         showErrorAlert(translate("select_payment_method"), translate("ok"));
@@ -76,21 +87,23 @@ export default function SingleSupplier({
         ],
       };
 
-      if (isLoggedIn) {
-        body.address_id = selectedAddress?.id;
-      } else {
-        body.user_data = {
-          fullname: selectedAddress?.name,
-          mobile: selectedAddress?.mobile,
-          email: selectedAddress?.email,
-          address: { ...selectedAddress },
-        };
-      }
+      //   if (isLoggedIn) {
+      //  //   body.address_id = selectedAddress?.id;
+      //   } else {
+      body.user_data = {
+        fullname: user.fullname,
+        mobile: user.mobile,
+        email: user.email,
+        address: user.address,
+      };
+      //}
       setIsLoading(true);
       const response: IResponse<{ url: string }> = await checkout(
         body,
         selectedAddress?.city_id
       );
+      console.log("response checkout", response);
+      console.log("body checkout", body);
       if (response.success && response.results?.url) {
         window.location.href = response.results.url;
       } else {

@@ -16,6 +16,7 @@ import { BsClock } from "react-icons/bs";
 import ApplyCoupon from "./components/ApplyCoupon";
 import { Suspense } from "react";
 import RelatedProducts from "./components/RelatedProducts";
+import { IUser } from "../(profile)/types";
 
 export default async function Cart({
   params: { lang },
@@ -24,6 +25,14 @@ export default async function Cart({
 }) {
   const cart: IGetCheckoutResponseResult = await apiHandler(
     "/checkout",
+    "GET",
+    undefined,
+    true,
+    false
+  );
+
+  const user: IUser = await apiHandler(
+    "/profile",
     "GET",
     undefined,
     true,
@@ -81,7 +90,7 @@ export default async function Cart({
         </div>
         {cart && cart.data ? (
           cart.data.length === 1 ? (
-            <SingleSupplier cart={cart} lang={lang} dict={dict} />
+            <SingleSupplier user={user} cart={cart} lang={lang} dict={dict} />
           ) : (
             <MultiSuppliers cart={cart} lang={lang} dict={dict} />
           )

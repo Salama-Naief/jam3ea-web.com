@@ -28,8 +28,8 @@ export default function AddressCard({
   const { translate } = useContext(AuthContext);
 
   return (
-    <button
-      className={`flex flex-col rounded-2xl p-3 gap-1 mb-3 w-full text-left ${
+    <div
+      className={`flex  cursor-pointer flex-col rounded-2xl p-3 gap-1 mb-3 w-full text-left ${
         isSelected ? "bg-primary text-white" : "bg-white"
       }`}
       onClick={onSelect}
@@ -37,9 +37,9 @@ export default function AddressCard({
       <div className="flex gap-2">
         <div className=" text-sm">{name}</div>
         {isSelected && (
-          <span className="ml-auto">
+          <div className="ml-auto">
             <FontAwesomeIcon icon={faCheck} className="text-success" />
-          </span>
+          </div>
         )}
       </div>
       <div className="flex gap-2">
@@ -78,6 +78,6 @@ export default function AddressCard({
           <FontAwesomeIcon icon={faTrashCan} className="text-[#ccc]" />
         </button>
       </div>
-    </button>
+    </div>
   );
 }

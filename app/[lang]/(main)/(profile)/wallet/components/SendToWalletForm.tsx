@@ -39,9 +39,12 @@ export default function SendToWalletForm() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex border mb-3 justify-center rounded-2xl align-center p-1"
+        className="flex border items-end gap-4 pb-4 rounded-2xl p-4 shadow-md"
       >
         <div className="flex flex-col w-full">
+          <h6 className="text-gray-4 text-lg mt-2">
+            Enter the amount to be sent from the wallet
+          </h6>
           <Input
             placeholder={translate("mobile")}
             className="w-full border-0  !border-b-gray-300"
@@ -77,7 +80,7 @@ export default function SendToWalletForm() {
         </div>
         <button
           type="button"
-          className="bg-primary my-auto p-1 rounded-2xl h-fit text-white"
+          className="bg-secondary  px-6 py-3 rounded-md h-fit text-white"
           onClick={() => setIsOpen(true)}
         >
           {translate("send")}

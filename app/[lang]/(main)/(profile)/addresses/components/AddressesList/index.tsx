@@ -3,14 +3,18 @@
 import { AddressContext } from "@/lib/providers/AddressProvider";
 import { useCallback, useContext, useEffect, useState } from "react";
 import AddressCard from "./AddressCard";
-import { IAddress } from "@/module/(main)/(profile)/types";
+import { IAddress, IUser } from "@/module/(main)/(profile)/types";
 import Popup from "@/components/Popup";
 import AddAddressForm from "../AddAddress/AddAddressForm";
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { getCities } from "@/module/(main)/city/services";
 import { ICity } from "@/module/(main)/city/types";
+import StaticMap from "../StaticMapMap";
 
-export default function AddressesList() {
+interface Props {
+  user: IUser;
+}
+export default function AddressesList({ user }: Props) {
   const { addresses, changeAddress, selectedAddress, removeAddress } =
     useContext(AddressContext);
 
@@ -37,30 +41,32 @@ export default function AddressesList() {
   }, []);
 
   return (
-    <>
-      {addresses.map((address: IAddress, i) => (
-        <>
-          {address && address.id && (
-            <AddressCard
-              key={address.id || i}
-              address={address}
-              city={
-                address.city ||
-                (cities.find((c) => c._id == address.city_id) as any)
-              }
-              isSelected={selectedAddress?.id == address.id}
-              onSelect={() => changeAddress(address.id || "")}
-              onEdit={() => {
-                setIsOpen(true);
-                setAddress(address);
-              }}
-              onDelete={() => {
-                removeAddress(address.id || "", sendRequest);
-              }}
-            />
-          )}
-        </>
-      ))}
+    <div>
+      {user &&
+        user.addresses &&
+        user.addresses.map((address: IAddress, i) => (
+          <div key={i}>
+            {address && address.id && (
+              <AddressCard
+                key={address.id || i}
+                address={address}
+                city={
+                  address.city ||
+                  (cities.find((c) => c._id == address.city_id) as any)
+                }
+                isSelected={selectedAddress?.id == address.id}
+                onSelect={() => changeAddress(address.id || "")}
+                onEdit={() => {
+                  setIsOpen(true);
+                  setAddress(address);
+                }}
+                onDelete={() => {
+                  removeAddress(address.id || "", sendRequest);
+                }}
+              />
+            )}
+          </div>
+        ))}
       {address && (
         <Popup isOpen={isOpen} close={setIsOpen} backBtn>
           <AddAddressForm
@@ -69,6 +75,6 @@ export default function AddressesList() {
           />
         </Popup>
       )}
-    </>
+    </div>
   );
 }

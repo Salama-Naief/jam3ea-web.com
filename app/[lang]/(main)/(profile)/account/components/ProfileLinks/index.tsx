@@ -2,8 +2,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { IUser } from "../../../types";
 
-function ProfileLinks() {
+interface Props {
+  user: IUser;
+}
+function ProfileLinks({ user }: Props) {
   const path = usePathname();
 
   const currentPath = path
@@ -21,11 +25,11 @@ function ProfileLinks() {
       link: "addresses",
     },
     {
-      label: "Wallet(My Credit)",
+      label: `Wallet(My Credit) ${user ? user.wallet : 0} KD`,
       link: "wallet",
     },
     {
-      label: "Wallet(My Points) 300 Point",
+      label: `Wallet(My Points) ${user ? user.points : 0} Point`,
       link: "points",
     },
   ];

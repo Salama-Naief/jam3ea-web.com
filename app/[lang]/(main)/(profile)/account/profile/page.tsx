@@ -9,7 +9,7 @@ export default async function Profile() {
   const user: IUser = await apiHandler("/profile");
   return (
     <div>
-      <SharedLayout title="Update Profile">
+      <SharedLayout user={user} title="Update Profile">
         <UpdateProfileForm user={user} />
       </SharedLayout>
     </div>
