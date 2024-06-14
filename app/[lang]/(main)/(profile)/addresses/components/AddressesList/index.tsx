@@ -69,10 +69,7 @@ export default function AddressesList({ user }: Props) {
         ))}
       {address && (
         <Popup isOpen={isOpen} close={setIsOpen} backBtn>
-          <AddAddressForm
-            afterSubmit={() => setIsOpen(false)}
-            address={address}
-          />
+          <AddAddressForm afterSubmit={() => setIsOpen(false)} user={user} />
         </Popup>
       )}
     </div>
