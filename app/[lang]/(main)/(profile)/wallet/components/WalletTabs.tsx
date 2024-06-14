@@ -88,74 +88,23 @@ export default function WalletTabs({ history }: WalletTabsProps) {
         )}
       </Disclosure>
       <Tab.Panels>
-        <Tab.Panel className={"py-5"}>
+        <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
           {history.map((h, i) => (
             <WalletCard key={h._id} wallet={h} />
-            // <div key={h._id} className="flex items-center border gap-4 mb-3">
-            //   <div className="flex flex-col items-center justify-center border-r w-16 h-16">
-            //     <div className="text-sm">{getCustomDate(h.created).day}</div>
-            //     <div className="text-xs font-bold">
-            //       {getCustomDate(h.created).month}
-            //     </div>
-            //   </div>
-            //   <div className="flex flex-col">
-            //     <div className="text-sm font-bold">{h.notes}</div>
-            //     <div className="text-xs text-gray-400">
-            //       {isDeposit(h) ? translate("deposit") : translate("withdraw")}
-            //     </div>
-            //   </div>
-            //   <div className="ms-auto text-base font-bold p-3">
-            //     {isWithdraw(h) ? h.old_wallet : h.new_wallet}
-            //   </div>
-            // </div>
           ))}
         </Tab.Panel>
-        <Tab.Panel className={"py-5"}>
+        <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
           {history
             .filter((h) => isDeposit(h))
             .map((h) => (
               <WalletCard key={h._id} wallet={h} />
-              // <div key={h._id} className="flex items-center border gap-4 mb-3">
-              //   <div className="flex flex-col items-center justify-center border-r w-16 h-16">
-              //     <div className="text-sm">{getCustomDate(h.created).day}</div>
-              //     <div className="text-xs font-bold">
-              //       {getCustomDate(h.created).month}
-              //     </div>
-              //   </div>
-              //   <div className="flex flex-col">
-              //     <div className="text-sm font-bold">{h.notes}</div>
-              //     <div className="text-xs text-gray-400">
-              //       {translate("deposit")}
-              //     </div>
-              //   </div>
-              //   <div className="ms-auto text-base font-bold p-3">
-              //     {isWithdraw(h) ? h.old_wallet : h.new_wallet}
-              //   </div>
-              // </div>
             ))}
         </Tab.Panel>
-        <Tab.Panel className={"py-5"}>
+        <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
           {history
             .filter((h) => isWithdraw(h))
             .map((h) => (
               <WalletCard key={h._id} wallet={h} />
-              // <div key={h._id} className="flex items-center border gap-4 mb-3">
-              //   <div className="flex flex-col items-center justify-center border-r w-16 h-16">
-              //     <div className="text-sm">{getCustomDate(h.created).day}</div>
-              //     <div className="text-xs font-bold">
-              //       {getCustomDate(h.created).month}
-              //     </div>
-              //   </div>
-              //   <div className="flex flex-col">
-              //     <div className="text-sm font-bold">{h.notes}</div>
-              //     <div className="text-xs text-gray-400">
-              //       {translate("withdraw")}
-              //     </div>
-              //   </div>
-              //   <div className="ms-auto text-base font-bold p-3">
-              //     {isWithdraw(h) ? h.old_wallet : h.new_wallet}
-              //   </div>
-              // </div>
             ))}
         </Tab.Panel>
       </Tab.Panels>
