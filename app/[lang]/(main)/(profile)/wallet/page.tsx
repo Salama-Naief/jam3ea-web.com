@@ -16,7 +16,11 @@ export default async function WalletPage({
 }) {
   const dict = await getDictionary(lang);
   const history: IDataLoadedResponse<IWalletHistory> = await apiHandler(
-    "/profile/wallet_history"
+    "/profile/wallet_history",
+    "GET",
+    undefined,
+    true,
+    false
   );
 
   const user: IUser = await apiHandler("/profile");

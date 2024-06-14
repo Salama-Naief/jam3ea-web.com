@@ -10,9 +10,11 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { getPriceWithCurrency } from "@/module/(main)/product/utils";
 import Popup from "@/components/Popup";
+import { useRouter } from "next/navigation";
 
 export default function SendToWalletForm() {
   const { translate } = useContext(AuthContext);
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const {
     isLoading,
@@ -28,7 +30,10 @@ export default function SendToWalletForm() {
     onSubmit: async (values) => {
       console.log("values: ", values);
       const status = await sendRequest(sendToWallet(values));
-      closeModal();
+      if (status) {
+        router.refresh();
+        closeModal();
+      }
     },
   });
 
@@ -85,8 +90,8 @@ export default function SendToWalletForm() {
         >
           {translate("send")}
         </button>
-        <Popup isOpen={isOpen} close={close}>
-          <div className="text-md">
+        <Popup isOpen={isOpen} close={closeModal}>
+          <div className="text-lg p-4">
             {translate("do_you_want_to_transfer")}{" "}
             {getPriceWithCurrency(values.amount, translate("currency"))}{" "}
             {translate("to")} {values.mobile}
@@ -102,8 +107,8 @@ export default function SendToWalletForm() {
             </Button>
             <button
               type="button"
-              className="p-3 text-black w-full"
-              onClick={close}
+              className="py-1.5 mb-3 rounded-lg text-black w-full border border-primary"
+              onClick={closeModal}
             >
               {translate("cancel")}
             </button>

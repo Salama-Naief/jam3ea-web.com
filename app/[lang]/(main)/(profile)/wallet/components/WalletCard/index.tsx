@@ -18,10 +18,7 @@ function WalletCard({ wallet }: Props) {
     });
     return { day: dayOfMonth, month: startDay };
   };
-
-  const isWithdraw = (h: IWalletHistory) => {
-    return parseFloat(h.old_wallet) > parseFloat(h.new_wallet);
-  };
+  console.log("history wallet", wallet);
 
   const isDeposit = (h: IWalletHistory) => {
     return parseFloat(h.new_wallet) > parseFloat(h.old_wallet);
@@ -34,15 +31,17 @@ function WalletCard({ wallet }: Props) {
         <div className=" font-bold"> {getCustomDate(wallet.created).month}</div>
       </div>
       <div className="flex flex-col px-4 py-6">
-        <div className=" text-lg font-semibold">{wallet.notes}</div>
-        <h1 className="text-3xl font-extrabold text-center my-6">80.000K.D</h1>
-        <div className="text-2xl px-3 capitalize font-bold text-primary ">
+        <div className=" font-semibold">{wallet.notes}</div>
+        <h1 className="text-2xl font-extrabold text-center my-6">
+          {isDeposit(wallet)
+            ? Number(wallet.new_wallet) - Number(wallet.old_wallet)
+            : Number(wallet.old_wallet) - Number(wallet.new_wallet)}
+          K.D
+        </h1>
+        <div className="text-xl px-3 capitalize font-bold text-primary ">
           {isDeposit(wallet) ? translate("deposit") : translate("withdraw")}
         </div>
       </div>
-      {/* <div className="ms-auto text-base font-bold p-3">
-                {isWithdraw(h) ? h.old_wallet : h.new_wallet}
-              </div> */}
     </div>
   );
 }
