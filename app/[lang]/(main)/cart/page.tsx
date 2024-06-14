@@ -7,8 +7,7 @@ import MultiSuppliers from "./components/MultiSuppliers";
 import { Locale } from "../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
-import CartWrapper from "./components/CartWrapper";
-import ProductSlider from "@/components/Slider/ProductSlider";
+
 import { checkout, products } from "../../../../dummyData";
 import CartProductCard from "./components/CartProductCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
