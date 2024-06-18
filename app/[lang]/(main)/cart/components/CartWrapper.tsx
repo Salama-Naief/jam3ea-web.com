@@ -10,13 +10,15 @@ import MultiSuppliers from "./MultiSuppliers";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import Loader from "@/components/Loader";
 import { AddressContext } from "@/lib/providers/AddressProvider";
+import { IUser } from "../../(profile)/types";
 
 interface CartWrapperProps {
   lang: Locale;
   dict: any;
+  user: IUser;
 }
 
-export default function CartWrapper({ dict, lang }: CartWrapperProps) {
+export default function CartWrapper({ dict, lang, user }: CartWrapperProps) {
   const {
     results: cart,
     sendRequest,
@@ -45,7 +47,7 @@ export default function CartWrapper({ dict, lang }: CartWrapperProps) {
     <>
       {cart && cart.data ? (
         cart.data.length === 1 ? (
-          <SingleSupplier cart={cart} lang={lang} dict={dict} />
+          <SingleSupplier user={user} cart={cart} lang={lang} dict={dict} />
         ) : (
           <MultiSuppliers cart={cart} lang={lang} dict={dict} />
         )

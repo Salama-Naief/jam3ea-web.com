@@ -15,12 +15,15 @@ export const clientRequest = async (
             : "&nobody=" + true
         }`;
 
+    console.log("rouiter", url);
     const res = await fetch(url, {
       method,
       body: body && typeof body === "object" ? JSON.stringify(body) : undefined,
-      cache: "no-store",
+      next: { revalidate: 0 },
     });
+
     const resData = await res.json();
+    console.log("res Data", resData);
     return resData;
   } catch (error) {
     console.error(error);
