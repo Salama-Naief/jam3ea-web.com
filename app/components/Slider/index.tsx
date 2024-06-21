@@ -56,6 +56,8 @@ function MainSlider({
   prevIcon = BsArrowLeft,
   autoAnimation = true,
 }: Props) {
+  console.log("prevIcon", prevIcon);
+  console.log("nextIcon", nextIcon);
   const settings = {
     infinite: true,
     speed: 500,

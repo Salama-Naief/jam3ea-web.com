@@ -82,7 +82,7 @@ export default function UpdateProfileForm({ user }: UpdateProfileFormProps) {
         />
       </div>
 
-      <Button type="submit" loading={isLoading}>
+      <Button type="submit" className="mt-4" loading={isLoading}>
         {translate("update")}
       </Button>
     </form>
