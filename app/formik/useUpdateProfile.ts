@@ -45,6 +45,7 @@ export const UseUpdateProfile = ({ initialValues }: Props) => {
     onSubmit: async (values) => {
       const status = await sendRequest(updateProfile(values));
       if (status == true) {
+        router.refresh();
         router.back();
       }
     },

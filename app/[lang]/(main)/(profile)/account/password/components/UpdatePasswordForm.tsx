@@ -28,6 +28,7 @@ export default function UpdatePasswordForm() {
     onSubmit: async (values) => {
       const status = await sendRequest(updatePassword(values));
       if (status == true) {
+        router.refresh();
         router.back();
       }
     },
@@ -94,7 +95,7 @@ export default function UpdatePasswordForm() {
           }
         />
       </div>
-      <Button type="submit" loading={isLoading}>
+      <Button type="submit" className="mt-4" loading={isLoading}>
         Update
       </Button>
     </form>

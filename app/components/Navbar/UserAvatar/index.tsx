@@ -27,33 +27,33 @@ function UserAvatar() {
   const links = [
     {
       label: "Account Info",
-      link: "/account",
+      link: webRoutes.profile,
       icon: <BsPerson size={25} />,
     },
     {
       label: "Saved Addresses",
-      link: "/address",
+      link: webRoutes.addresses,
       icon: <MdOutlineLocationOn size={25} />,
     },
 
     {
       label: "Favourite",
-      link: "/wishlist",
+      link: webRoutes.wishlist,
       icon: <BsHeart size={22} />,
     },
     {
       label: "My Orders",
-      link: "/",
+      link: webRoutes.orders,
       icon: <Image src={orderIcon} alt="My Orders" />,
     },
     {
       label: "Wallet(My Credit)",
-      link: "/",
+      link: webRoutes.wallet,
       icon: <HiOutlineCreditCard size={25} />,
     },
     {
       label: "Wallet(My Points)",
-      link: "/",
+      link: webRoutes.points,
       icon: <Image src={walletIcon} alt="Wallet(My Points) " />,
     },
   ];

@@ -60,7 +60,7 @@ export default function UpdateEmailForm({ user }: UpdateProfileFormProps) {
         />
       </div>
 
-      <Button type="submit" loading={isLoading}>
+      <Button type="submit" className="mt-4" loading={isLoading}>
         {translate("update")}
       </Button>
     </form>
