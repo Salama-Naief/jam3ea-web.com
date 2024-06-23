@@ -43,9 +43,8 @@ export const getcheckout = (
 
 export const checkout = (values: any, cityId?: string): Promise<any> => {
   return clientRequest(
-    `${process.env.API_BASE_URL}/checkout${cityId ? "?city_id=" + cityId : ""}`,
+    `/checkout${cityId ? "?city_id=" + cityId : ""}`,
     "POST",
-    values,
-    true
+    values
   );
 };

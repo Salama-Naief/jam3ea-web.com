@@ -5,8 +5,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import webRoutes from "./webRoutes";
 import { IResponse } from "../types";
-import { NextResponse } from "next/server";
-import { useRouter } from "next/navigation";
 
 const apiHandler = async (
   route: string,

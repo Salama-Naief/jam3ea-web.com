@@ -19,7 +19,7 @@ import { AuthContext } from "@/lib/providers/AuthProvider";
 import { AddressContext } from "@/lib/providers/AddressProvider";
 import { useFormik } from "formik";
 import { checkout } from "../services";
-import { IResponse } from "@/lib/types";
+import { IDataLoadedResponse, IResponse } from "@/lib/types";
 import { showErrorAlert } from "@/lib/utils/helpers";
 import Visa from "./Visa";
 import CartProductCard from "./CartProductCard";
@@ -28,6 +28,7 @@ import LoginForm from "@/module/(auth)/login/components/LoginForm.tsx";
 import { useDisclosure } from "@mantine/hooks";
 import { IUser } from "../../(profile)/types";
 import { useRouter } from "next/navigation";
+import useHttpClient from "@/lib/hooks/useHttpClient";
 
 interface SingleSupplierProps {
   cart: IGetCheckoutResponseResult;
@@ -48,6 +49,8 @@ export default function SingleSupplier({
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
+  const { results: cities, sendRequest: citiesRequest } =
+    useHttpClient<IDataLoadedResponse<any>>();
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -79,6 +82,8 @@ export default function SingleSupplier({
       const body: any = {
         payment_method: values.payment_method,
         delivery_time: values.delivery_time,
+        address_id: "Primary",
+
         suppliers: [
           {
             supplier_id: data.supplier._id,
@@ -98,10 +103,8 @@ export default function SingleSupplier({
       };
       //}
       setIsLoading(true);
-      const response: IResponse<{ url: string }> = await checkout(
-        body,
-        selectedAddress?.city_id
-      );
+      const response = await checkout(body, user.address?.city_id);
+
       console.log("response checkout", response);
       console.log("body checkout", body);
       if (response.success && response.results?.url) {
