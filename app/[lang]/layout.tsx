@@ -12,8 +12,6 @@ import { getDictionary } from "@/lib/utils/dictionary";
 import { LANGUAGES } from "@/lib/enums";
 import { Locale } from "../../i18n-config";
 import { MantineProvider } from "@mantine/core";
-import { cookies } from "next/headers";
-import { RedirectType, redirect, useRouter } from "next/navigation";
 
 interface IRootLayoutProps {
   children: React.ReactNode;
