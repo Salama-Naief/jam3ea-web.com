@@ -3,7 +3,6 @@ import Loader from "@/components/Loader";
 import React, { Suspense } from "react";
 import { category, subCategories } from "../../../../dummyData";
 import SellectItem from "./components/Categories/SellectItem";
-import ProductCard from "../product/components/ProductCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { getCategories, getCategoryProducts } from "./services";
 import { useSearchParams } from "next/navigation";

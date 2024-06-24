@@ -7,8 +7,9 @@ import SliderSkeleton from "@/components/Skeletons/SliderSkeleton";
 import martPageImage from "../../../../public/assets/martPage.png";
 
 import Image from "next/image";
+import { translate } from "@/lib/utils/serverHelpers";
 
-export default async function Home({
+export default async function MartPage({
   params: { lang },
 }: {
   params: { lang: Locale };
@@ -19,7 +20,9 @@ export default async function Home({
     <div id="mart" className="pt-4">
       <Container>
         <div className="">
-          <h1 className="text-3xl font-bold text-primary my-6">Jameia Mart</h1>
+          <h1 className="text-3xl font-bold text-primary my-6">
+            {translate(dict, dict.jameia_mart)}
+          </h1>
           <div className="mb-6">
             <Image src={martPageImage} alt="Jameia Mart" className="mx-auto" />
           </div>

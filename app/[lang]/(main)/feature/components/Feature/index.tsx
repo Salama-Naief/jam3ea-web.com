@@ -1,6 +1,5 @@
 import { IFeature } from "../../types";
 import Link from "next/link";
-import ProductCard from "../../../product/components/ProductCard";
 import webRoutes from "@/lib/utils/webRoutes";
 import { Locale } from "../../../../../../i18n-config";
 import { getSlideUrl } from "../../utils";

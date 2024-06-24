@@ -39,21 +39,7 @@ async function StoreProducts({
       {products && products.data && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:grid-cols-5 xl:grid-cols-5">
           {products.data.map((product) => (
-            <ProductCard
-              key={product.sku}
-              cartStatus={product.cart_status}
-              currency="Kwd"
-              hasVariants={product.has_variants}
-              isAvailable={product.availability}
-              isInWhishlist={product.wishlist_status.is_exists}
-              maxQuantityCart={product.max_quantity_cart}
-              name={product.name}
-              picture={product.picture}
-              price={product.price}
-              sku={product.sku}
-              oldPrice={product.old_price}
-              type="normal"
-            />
+            <ProductCard key={product.sku} product={product} type="normal" />
           ))}
         </div>
       )}

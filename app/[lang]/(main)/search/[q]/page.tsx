@@ -21,35 +21,9 @@ export default async function SearchPage({
       <Navbar hasSearch expandSearch searchValue={params.q} />
       <Container>
         <div className="grid md:grid-cols-4 grid-cols-2 gap-2 items-stretch">
-          {products?.data.map(
-            ({
-              name,
-              price,
-              old_price,
-              picture,
-              sku,
-              availability,
-              cart_status,
-              has_variants,
-              max_quantity_cart,
-              wishlist_status,
-            }) => (
-              <ProductCard
-                key={sku}
-                sku={sku}
-                name={name}
-                price={price}
-                oldPrice={old_price}
-                picture={picture}
-                isInWhishlist={wishlist_status.is_exists}
-                cartStatus={cart_status}
-                isAvailable={availability}
-                maxQuantityCart={max_quantity_cart}
-                hasVariants={has_variants}
-                currency={translate(dict, "currency")}
-              />
-            )
-          )}
+          {products?.data.map((product) => (
+            <ProductCard key={product.sku} product={product} />
+          ))}
         </div>
       </Container>
     </div>

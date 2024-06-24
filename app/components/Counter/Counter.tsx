@@ -61,7 +61,10 @@ function Counter({ count }: Props) {
     verticalSwiping: true,
   };
   return (
-    <div className="w-full flex justify-center items-center">
+    <div
+      className="w-full flex justify-center items-center "
+      style={{ direction: "ltr" }}
+    >
       {arrayOfDigits.length === 3 && (
         <div className="w-4">
           <Slider

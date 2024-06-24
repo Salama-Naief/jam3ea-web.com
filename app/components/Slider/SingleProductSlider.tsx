@@ -6,11 +6,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IProduct } from "@/module/(main)/product/types";
+import { getDiscountPercentage } from "@/module/(main)/product/utils";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 interface Props {
   product: IProduct;
+  isVip: string | undefined;
 }
-function SingleProductSlider({ product }: Props) {
+function SingleProductSlider({ product, isVip = undefined }: Props) {
   const [nav1, setNav1] = useState<any>(null);
   const [nav2, setNav2] = useState<any>(null);
   const [activeImg, setActiveImg] = useState<number>(0);
@@ -23,12 +26,34 @@ function SingleProductSlider({ product }: Props) {
   }, []);
   return (
     <div className="slider-container relative">
-      <div className="absolute top-5 end-5 z-10">
-        <AddToWishlist
-          isLarge
-          isInWhishlist={product.wishlist_status.is_exists}
-          sku={product.sku}
-        />
+      <div className="absolute top-5 start-0 z-10  px-6 flex justify-between w-full">
+        <div>
+          <AddToWishlist
+            isLarge
+            isInWhishlist={product.wishlist_status.is_exists}
+            sku={product.sku}
+          />
+        </div>
+        <div className="">
+          {isVip
+            ? product.vip_old_price &&
+              product.vip_price && (
+                <div className="bg-danger rounded text-white w-fit px-2 text-sm">
+                  {getDiscountPercentage(
+                    parseFloat(product.vip_price || ""),
+                    parseFloat(product.vip_old_price)
+                  )}
+                </div>
+              )
+            : product.old_price && (
+                <div className="bg-danger rounded text-white w-fit px-2 text-sm">
+                  {getDiscountPercentage(
+                    parseFloat(product.price),
+                    parseFloat(product.old_price)
+                  )}
+                </div>
+              )}
+        </div>
       </div>
       <Slider
         asNavFor={nav2}

@@ -1,27 +1,36 @@
 import Container from "@/components/Container";
-import Categories from "@/module/(main)/category/components/Categories";
 import { Suspense } from "react";
 import { Locale } from "../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
-import { translate } from "@/lib/utils/serverHelpers";
-import Carousel from "@/components/Carousel";
-import { storeCards } from "../../../../dummyData";
-import StoreCard from "@/components/StoreCard";
-
 import FeatureServer from "../feature/components/FeatureServer";
 import SliderSkeleton from "@/components/Skeletons/SliderSkeleton";
-import { Loader } from "@mantine/core";
+import martPageImage from "../../../../public/assets/martPage.png";
 
-export default async function Home({
+import Image from "next/image";
+import { translate } from "@/lib/utils/serverHelpers";
+
+export default async function PrimePage({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
   const dict = await getDictionary(lang);
+
   return (
-    <div>
+    <div id="mart" className="pt-4">
       <Container>
-        <div>Prime page</div>
+        <div className="">
+          <h1 className="text-3xl font-bold text-primary my-6">
+            {translate(dict, dict.jameia_prime)}
+          </h1>
+          <div className="mb-6">
+            <Image src={martPageImage} alt="Jameia Mart" className="mx-auto" />
+          </div>
+        </div>
+        <Suspense fallback={<SliderSkeleton />}>
+          {/* @ts-expect-error Server Component */}
+          <FeatureServer lang={lang} productType="normal" home={true} />
+        </Suspense>
       </Container>
     </div>
   );

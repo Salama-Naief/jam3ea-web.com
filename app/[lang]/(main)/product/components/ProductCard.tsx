@@ -1,5 +1,5 @@
 "use client";
-import { ICartStatus } from "../types";
+import { IProduct } from "../types";
 import { getDiscountPercentage, getPriceWithCurrency } from "../utils";
 import AddToCartButton from "@/module/(main)/cart/components/AddToCartButton";
 import AddToWishlist from "@/module/(main)/wishlist/components/AddToWishlist";
@@ -12,36 +12,19 @@ import { Loader } from "@mantine/core";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../cart/CartProvider";
 import { usePathname, useRouter } from "next/navigation";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import { useCookies } from "react-cookie";
+import { LANGUAGES } from "@/lib/enums";
 
 interface ProductCardProps {
-  sku: string;
-  price: string;
-  oldPrice?: string;
-  picture: string | StaticImageData;
-  name: string;
-  isAvailable: boolean;
-  cartStatus: ICartStatus;
-  isInWhishlist: boolean;
-  maxQuantityCart: number;
-  hasVariants: boolean;
-  currency: string;
+  product: IProduct;
   className?: string;
   type?: "bestSeller" | "normal";
   size?: "small" | "large";
 }
 
 export default function ProductCard({
-  name,
-  picture,
-  price,
-  sku,
-  oldPrice,
-  isInWhishlist,
-  cartStatus,
-  isAvailable,
-  maxQuantityCart,
-  currency,
-  hasVariants,
+  product,
   className = "",
   type,
   size = "large",
@@ -56,22 +39,28 @@ export default function ProductCard({
   const { addProductToCart, removeProductFromCart } = useContext(CartContext);
   const [removeloading, setRemoveLoading] = useState<boolean>(false);
   const [addloading, setAddLoading] = useState<boolean>(false);
-  //   const [sku, setSku] = useState(defaultSku);
+  const { translate, language } = useContext(AuthContext);
+  const [cookies, setCookie] = useCookies(["isVIP"]);
+
+  const isVip = cookies["isVIP"];
+
   const router = useRouter();
   const pathName = usePathname();
 
   useEffect(() => {
-    setCount(cartStatus.quantity);
-  }, [cartStatus.quantity]);
+    setCount(product.cart_status.quantity);
+  }, [product.cart_status.quantity]);
   const handleIncrement = async () => {
     try {
       if (
-        isAvailable != false &&
-        (maxQuantityCart > 0 ? count < maxQuantityCart : true)
+        product.availability != false &&
+        (product.max_quantity_cart > 0
+          ? count < product.max_quantity_cart
+          : true)
       ) {
         setAddLoading(true);
         const status = await addProductToCart({
-          sku,
+          sku: product.sku,
           quantity: count + 1,
         });
 
@@ -90,10 +79,23 @@ export default function ProductCard({
     }
   };
 
+  if (product.sku === "80002358") {
+    console.log(
+      "product",
+      product.price,
+      product.old_price,
+      product.vip_price,
+      isVip
+    );
+  }
+
   const handleDecrement = async () => {
     setRemoveLoading(true);
     if (count > 1) {
-      const status = await addProductToCart({ sku, quantity: count - 1 });
+      const status = await addProductToCart({
+        sku: product.sku,
+        quantity: count - 1,
+      });
       if (status) {
         setCount((prevCount: number) => prevCount - 1);
         // setCount(count - 1);
@@ -102,7 +104,7 @@ export default function ProductCard({
         // }
       }
     } else {
-      const status = await removeProductFromCart(sku);
+      const status = await removeProductFromCart(product.sku);
       if (status) {
         setCount(0);
         if (pathName.includes(webRoutes.cart)) {
@@ -115,7 +117,7 @@ export default function ProductCard({
 
   const handleRemove = async () => {
     setRemoveLoading(true);
-    const status = await removeProductFromCart(sku);
+    const status = await removeProductFromCart(product.sku);
     if (status) {
       setCount(0);
       router.refresh();
@@ -127,17 +129,33 @@ export default function ProductCard({
   };
 
   return (
-    <div className="px-2">
+    <div className="p-2 h-[100%]">
       <div
-        className={`flex-shrink-0 flex flex-col bg-white w-full  mx-auto rounded-xl p-4 relative overflow-hidden ${className}`}
+        className={`flex-shrink-0 flex flex-col bg-white w-full  mx-auto rounded-xl p-4 relative overflow-hidden shadow-md ${className}`}
       >
-        {oldPrice && (
-          <div className="bg-danger rounded text-white w-fit px-2 absolute start-0 top-0 text-sm">
-            {getDiscountPercentage(parseFloat(price), parseFloat(oldPrice))}
-          </div>
-        )}
-        <AddToWishlist sku={sku} isInWhishlist={isInWhishlist} />
-        <Link href={webRoutes.product(sku)} prefetch={false}>
+        {isVip === true && isVip !== undefined
+          ? product.vip_old_price &&
+            product.vip_price && (
+              <div className="bg-danger rounded text-white w-fit px-2 absolute start-0 top-0 text-sm">
+                {getDiscountPercentage(
+                  parseFloat(product.vip_price || ""),
+                  parseFloat(product.vip_old_price)
+                )}
+              </div>
+            )
+          : product.old_price && (
+              <div className="bg-danger rounded text-white w-fit px-2 absolute start-0 top-0 text-sm">
+                {getDiscountPercentage(
+                  parseFloat(product.price),
+                  parseFloat(product.old_price)
+                )}
+              </div>
+            )}
+        <AddToWishlist
+          sku={product.sku}
+          isInWhishlist={product.wishlist_status.is_exists}
+        />
+        <Link href={webRoutes.product(product.sku)} prefetch={false}>
           <div
             className={`relative mx-auto ${
               size === "small" ? "w-20 h-20" : "w-40 h-40"
@@ -145,9 +163,9 @@ export default function ProductCard({
           >
             <Image
               fill
-              src={picture}
+              src={product.picture}
               sizes="(max-width:200px) 160px, 160px"
-              alt={name}
+              alt={product.name}
               quality={60}
               loading="lazy"
             />
@@ -193,14 +211,71 @@ export default function ProductCard({
           </div>
         )}
         <Link
-          href={webRoutes.product(sku)}
+          href={webRoutes.product(product.sku)}
           prefetch={false}
           className="mt-2 block"
         >
           <div>
-            <div>
-              <span className="font-semibold">{price}</span>
-              <sup>{currency}</sup>
+            <div className="px-2">
+              {isVip === true && isVip !== undefined ? (
+                <div
+                  className={`${
+                    product.vip_old_price &&
+                    parseFloat(product.vip_old_price) > 0
+                      ? "justify-between"
+                      : language === LANGUAGES.ARABIC
+                      ? "justify-end"
+                      : "justify-start"
+                  } flex`}
+                >
+                  <div>
+                    <span className="font-semibold">{product.vip_price}</span>
+                    <sup>{translate("currency")}</sup>
+                  </div>
+
+                  {product.vip_old_price &&
+                    parseFloat(product.vip_old_price) > 0 && (
+                      <div>
+                        <span
+                          className={`
+                        line-through decoration-danger decoration-2
+                       font-semibold`}
+                        >
+                          {product.vip_old_price}
+                        </span>
+                        <sup>{translate("currency")}</sup>
+                      </div>
+                    )}
+                </div>
+              ) : (
+                <div
+                  className={`${
+                    product.old_price && parseFloat(product.old_price) > 0
+                      ? "justify-between"
+                      : language === LANGUAGES.ARABIC
+                      ? "justify-end"
+                      : "justify-start"
+                  } flex`}
+                >
+                  <div>
+                    <span className="font-semibold">{product.price}</span>
+                    <sup>{translate("currency")}</sup>
+                  </div>
+
+                  {product.old_price && parseFloat(product.old_price) > 0 && (
+                    <div>
+                      <span
+                        className={`
+                         line-through decoration-danger decoration-2
+                       font-semibold`}
+                      >
+                        {product.old_price}
+                      </span>
+                      <sup>{translate("currency")}</sup>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
             <p
               className={`${
@@ -209,18 +284,18 @@ export default function ProductCard({
                   : " text-base font-bold"
               }`}
             >
-              {name}
+              {product.name}
             </p>
           </div>
         </Link>
         {type === "bestSeller" && (
           <div className="w-2/3 mx-auto">
             <AddToCartButton
-              sku={sku}
-              cartsStatus={cartStatus}
-              maxQantity={maxQuantityCart}
-              isAvailable={isAvailable}
-              hasVariant={hasVariants}
+              sku={product.sku}
+              cartsStatus={product.cart_status}
+              maxQantity={product.max_quantity_cart}
+              isAvailable={product.availability}
+              hasVariant={product.has_variants}
             />
           </div>
         )}

@@ -32,37 +32,14 @@ export default async function Wishlist({
       <Container>
         {products.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-            {products.map(
-              ({
-                name,
-                price,
-                old_price,
-                picture,
-                sku,
-                availability,
-                cart_status,
-                has_variants,
-                max_quantity_cart,
-                wishlist_status,
-              }) => (
-                <ProductCard
-                  key={sku}
-                  sku={sku}
-                  name={name}
-                  price={price}
-                  oldPrice={old_price}
-                  picture={picture}
-                  isInWhishlist={true}
-                  cartStatus={cart_status}
-                  isAvailable={availability}
-                  maxQuantityCart={max_quantity_cart}
-                  hasVariants={has_variants}
-                  currency={translate(dict, "currency")}
-                  className="w-full"
-                  type="normal"
-                />
-              )
-            )}
+            {products.map((product) => (
+              <ProductCard
+                key={product.sku}
+                product={product}
+                className="w-full"
+                type="normal"
+              />
+            ))}
           </div>
         ) : (
           <EmptyWishList

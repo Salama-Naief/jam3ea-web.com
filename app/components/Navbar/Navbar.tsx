@@ -16,6 +16,8 @@ import { Menu, ScrollArea } from "@mantine/core";
 import { ICategory } from "@/module/(main)/category/types";
 import Lang from "./Language";
 import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 interface Props {
   categories: ICategory[];
@@ -25,12 +27,15 @@ export default function Navbar({ categories }: Props) {
     useContext(AuthContext);
   const [isLanguageChangind, setIsLanguageChanging] = useState(false);
   const [cookies, setCookie] = useCookies(["isVIP"]);
+  const path = usePathname();
 
   const handleIsVIP = (link: string) => {
     if (link.includes("/mart")) {
-      setCookie("isVIP", true);
+      setCookie("isVIP", true, { path: "/" });
+    } else if (link.includes("/prime")) {
+      setCookie("isVIP", false, { path: "/" });
     } else {
-      setCookie("isVIP", false);
+      setCookie("isVIP", false, { path: "/" });
     }
   };
   return (
@@ -49,6 +54,9 @@ export default function Navbar({ categories }: Props) {
                     <Link
                       href={item.link}
                       onClick={() => handleIsVIP(item.link)}
+                      className={`${
+                        path.includes(item.link) ? "text-primary" : "text-black"
+                      }`}
                     >
                       {item.label}
                     </Link>
@@ -57,9 +65,9 @@ export default function Navbar({ categories }: Props) {
                       <Menu.Target>
                         <button>{item.label}</button>
                       </Menu.Target>
-                      <Menu.Dropdown h={100} classNames={{ dropdown: "h-64" }}>
+                      <Menu.Dropdown classNames={{ dropdown: "h-64" }}>
                         <ScrollArea h={470}>
-                          <div className="bg-white grid grid-cols-5 ">
+                          <div className="bg-white grid grid-cols-4 ">
                             {categories &&
                               categories.map((item) => (
                                 <Menu.Item key={item._id}>

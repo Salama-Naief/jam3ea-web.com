@@ -28,36 +28,9 @@ export default async function Feature({
         </div>
         <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-4 items-stretch bg-gray-100 p-6">
           {products &&
-            products.data.map(
-              ({
-                name,
-                price,
-                old_price,
-                picture,
-                sku,
-                availability,
-                cart_status,
-                has_variants,
-                max_quantity_cart,
-                wishlist_status,
-              }) => (
-                <ProductCard
-                  key={sku}
-                  sku={sku}
-                  name={name}
-                  price={price}
-                  oldPrice={old_price}
-                  picture={picture}
-                  isInWhishlist={wishlist_status.is_exists}
-                  cartStatus={cart_status}
-                  isAvailable={availability}
-                  maxQuantityCart={max_quantity_cart}
-                  hasVariants={has_variants}
-                  currency={translate(dict, "currency")}
-                  type="normal"
-                />
-              )
-            )}
+            products.data.map((product) => (
+              <ProductCard key={product.sku} product={product} type="normal" />
+            ))}
         </div>
       </Container>
       {/* <CartBottomBar /> */}

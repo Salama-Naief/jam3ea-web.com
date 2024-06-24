@@ -29,7 +29,9 @@ export default function DeliveryTimePicker({
   function openModal() {
     setIsOpen(true);
   }
-
+  if (!deliveryTimes || deliveryTimes.length < 0) {
+    return <div>No time available</div>;
+  }
   return (
     <div className="w-full">
       <h5 className="text-2xl font-bold text-secondary my-4 text-center ">
@@ -120,9 +122,9 @@ export default function DeliveryTimePicker({
                                   className="bg-white rounded-2xl w-full flex p-4 cursor-pointer"
                                 >
                                   <div className="flex flex-col">
-                                    <div>{dt.time}</div>
+                                    <div>{dt && dt.time}</div>
                                     <div className="text-sm text-success">
-                                      {dt.text}
+                                      {dt && dt.text}
                                     </div>
                                   </div>
                                 </div>
