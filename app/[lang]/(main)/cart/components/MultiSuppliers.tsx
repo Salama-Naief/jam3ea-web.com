@@ -24,6 +24,7 @@ import { AddressContext } from "@/lib/providers/AddressProvider";
 import { IResponse } from "@/lib/types";
 import Image from "next/image";
 import CartProductCard from "./CartProductCard";
+import { BsClock } from "react-icons/bs";
 
 interface MultiSuppliersProps {
   cart: IGetCheckoutResponseResult;
@@ -173,11 +174,14 @@ export default function MultiSuppliers({
               </div>
               <div className="col-span-2 bg-[#F1F1F1] p-6 rounded-xl flex flex-col items-center justify-center gap-4">
                 {data.supplier.delivery_time_text ? (
-                  <div className="py-5 rounded-xl bg-white">
-                    <div className="text-center">
-                      {typeof data.supplier.delivery_time_text === "object"
-                        ? data.supplier.delivery_time_text[lang]
-                        : data.supplier.delivery_time_text}
+                  <div className="py-5 w-full rounded-xl bg-white">
+                    <div className="flex justify-center items-center gap-4">
+                      <BsClock size={25} className="text-primary" />
+                      <span className="font-semibold">
+                        {typeof data.supplier.delivery_time_text === "object"
+                          ? data.supplier.delivery_time_text[lang]
+                          : data.supplier.delivery_time_text}
+                      </span>
                     </div>
                   </div>
                 ) : (
@@ -201,7 +205,7 @@ export default function MultiSuppliers({
                     selectedDeliveryTime={values.suppliers[i]?.delivery_time}
                   />
                 )}
-                <div className="flex flex-col  py-2">
+                <div className="flex flex-col w-full  py-2">
                   <div className="flex items-center justify-between border-y py-2">
                     <div className="text-sm">
                       {translate("available_payment_methods")}

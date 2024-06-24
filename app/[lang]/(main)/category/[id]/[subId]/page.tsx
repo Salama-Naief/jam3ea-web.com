@@ -11,6 +11,7 @@ import { Locale } from "../../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
 import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
+import { cookies } from "next/headers";
 
 export default async function SubCategoriesPage({
   params,
@@ -27,6 +28,8 @@ export default async function SubCategoriesPage({
 
   const dict = await getDictionary(params.lang);
 
+  const cookie = cookies();
+  const isVip = cookie.get("isVIP")?.value;
   return (
     <>
       <Navbar supplierId={supplier} title={category.name} />
@@ -70,35 +73,12 @@ export default async function SubCategoriesPage({
                                   (c) => c.rank_id && c.rank_id === _id
                                 ) > -1
                             )
-                            .map(
-                              ({
-                                name,
-                                price,
-                                old_price,
-                                picture,
-                                sku,
-                                availability,
-                                cart_status,
-                                has_variants,
-                                max_quantity_cart,
-                                wishlist_status,
-                              }) => (
-                                <ProductCard
-                                  key={sku}
-                                  sku={sku}
-                                  name={name}
-                                  price={price}
-                                  oldPrice={old_price}
-                                  picture={picture}
-                                  isInWhishlist={wishlist_status.is_exists}
-                                  cartStatus={cart_status}
-                                  isAvailable={availability}
-                                  maxQuantityCart={max_quantity_cart}
-                                  hasVariants={has_variants}
-                                  currency={translate(dict, "currency")}
-                                />
-                              )
-                            )
+                            .map((product) => (
+                              <ProductCard
+                                key={product.sku}
+                                product={product}
+                              />
+                            ))
                         : "No results"}
                     </div>
                   </div>

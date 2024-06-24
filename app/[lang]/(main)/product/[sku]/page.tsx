@@ -9,6 +9,7 @@ import { translate } from "@/lib/utils/serverHelpers";
 import SingleProductSlider from "@/components/Slider/SingleProductSlider";
 import ProductSlider from "@/components/Slider/ProductSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { cookies } from "next/headers";
 
 export default async function ProductPage({
   params,
@@ -16,6 +17,8 @@ export default async function ProductPage({
   params: { sku: string; lang: Locale };
 }) {
   const product = await getProductBySku(params.sku);
+  const cookie = await cookies();
+  const isVip = cookie.get("isVIP")?.value;
   let productCategoryRank: any = [];
   if (product && product.prod_n_categoryArr) {
     const p = product.prod_n_categoryArr
@@ -84,6 +87,7 @@ export default async function ProductPage({
     ? categories.filter((c) => c.name)[0].name
     : "";
 
+  console.log("isvip----=-=-", isVip);
   return (
     <div className="my-10 w-screen">
       <Container>
@@ -92,13 +96,26 @@ export default async function ProductPage({
             <div>
               <Breadcrumbs items={Links} />
               <div className=" md:grid md:grid-cols-2 gap-6">
-                {product && <SingleProductSlider product={product} />}
+                {product && (
+                  <SingleProductSlider product={product} isVip={isVip} />
+                )}
 
                 <div className="p-4">
                   <h1 className="text-xl md:text-2xl mb-4 font-bold">{name}</h1>
-                  <span className="font-bold text-secondary text-lg">
-                    {getPriceWithCurrency(price, translate(dict, "currency"))}
-                  </span>
+                  <div className="flex justify-between">
+                    <span className="font-bold text-secondary text-lg">
+                      {isVip && product.vip_price
+                        ? getPriceWithCurrency(
+                            product.vip_price,
+                            translate(dict, "currency")
+                          )
+                        : getPriceWithCurrency(
+                            price,
+                            translate(dict, "currency")
+                          )}
+                    </span>
+                  </div>
+
                   <div className="grid grid-cols-2 my-4 gap-4">
                     <div className="bg-gray-100 w-full text-primary font-bold rounded-lg py-2 text-center">
                       {mainCategory}

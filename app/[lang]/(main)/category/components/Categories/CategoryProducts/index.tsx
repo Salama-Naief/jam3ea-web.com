@@ -3,6 +3,7 @@ import ProductCard from "@/module/(main)/product/components/ProductCard";
 import { IProduct } from "@/module/(main)/product/types";
 import React from "react";
 import { getCategoryProducts } from "../../../services";
+import { cookies } from "next/headers";
 
 interface Props {
   // products: {
@@ -21,6 +22,9 @@ async function CategoryProducts({ searchParams }: Props) {
     20,
     searchParams["skip"]
   );
+  const cookie = cookies();
+  const isVip = cookie.get("isVIP")?.value;
+
   if (products && products.total && products.per_page) {
     total = Math.ceil(Number(products.total) / Number(products.per_page));
   }
@@ -41,21 +45,7 @@ async function CategoryProducts({ searchParams }: Props) {
         >
           {products.data.map((product) => (
             <div key={product.sku}>
-              <ProductCard
-                cartStatus={product.cart_status}
-                currency={"kwd"}
-                hasVariants={product.has_variants}
-                isAvailable={product.availability}
-                isInWhishlist={product.wishlist_status.is_exists}
-                name={product.name}
-                picture={product.picture}
-                price={product.price}
-                oldPrice={product.old_price}
-                sku={product.sku}
-                type="normal"
-                maxQuantityCart={product.max_quantity_cart}
-                className="w-full"
-              />
+              <ProductCard product={product} type="normal" className="w-full" />
             </div>
           ))}
         </div>

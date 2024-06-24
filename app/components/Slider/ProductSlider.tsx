@@ -109,23 +109,7 @@ function ProductSlider({
         >
           {items.map((item) => (
             <div key={item.sku}>
-              <ProductCard
-                cartStatus={item.cart_status}
-                currency={"kwd"}
-                hasVariants={item.has_variants}
-                isAvailable={item.availability}
-                isInWhishlist={
-                  item.wishlist_status ? item.wishlist_status.is_exists : false
-                }
-                maxQuantityCart={item.max_quantity_cart}
-                name={item.name}
-                picture={item.picture}
-                price={item.price}
-                sku={item.sku}
-                oldPrice={item.old_price}
-                type={type}
-                size={size}
-              />
+              <ProductCard product={item} type={type} size={size} />
             </div>
           ))}
         </MainSlider>

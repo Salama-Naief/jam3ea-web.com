@@ -97,21 +97,7 @@ function Slider({
         customLeftArrow={autoPlay ? <div></div> : <NextArrow />}
       >
         {data.map((product) => (
-          <ProductCard
-            key={product.sku}
-            sku={product.sku}
-            name={product.name}
-            price={product.price}
-            oldPrice={product.old_price}
-            picture={product.picture}
-            isInWhishlist={product.wishlist_status.is_exists}
-            cartStatus={product.cart_status}
-            isAvailable={product.availability}
-            maxQuantityCart={product.max_quantity_cart}
-            hasVariants={product.has_variants}
-            currency={"kwd"}
-            type={type}
-          />
+          <ProductCard key={product.sku} product={product} type={type} />
         ))}
       </Carousel>
     </div>
