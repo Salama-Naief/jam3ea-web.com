@@ -60,7 +60,7 @@ export default function Navbar({ categories, notifications }: Props) {
                       className={`${
                         path.includes(item.link)
                           ? "text-white bg-primary"
-                          : "text-black bg-gray-200"
+                          : "text-black bg-gray-100"
                       } rounded px-4 py-1 hover:text-white hover:bg-primary transition-all duration-100`}
                     >
                       {item.label}
