@@ -18,17 +18,20 @@ import Lang from "./Language";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
+import Notificatoins from "./Notifications";
 
 interface Props {
   categories: ICategory[];
+  notifications?: any;
 }
-export default function Navbar({ categories }: Props) {
+export default function Navbar({ categories, notifications }: Props) {
   const { isLoggedIn, translate, changeLanguage, language, logout } =
     useContext(AuthContext);
   const [isLanguageChangind, setIsLanguageChanging] = useState(false);
   const [cookies, setCookie] = useCookies(["isVIP"]);
   const path = usePathname();
 
+  console.log(" path.includes(item.link)", path.includes("category"));
   const handleIsVIP = (link: string) => {
     if (link.includes("/mart")) {
       setCookie("isVIP", true, { path: "/" });
@@ -47,7 +50,7 @@ export default function Navbar({ categories }: Props) {
           </div>
           <div className="flex-grow">
             <SearchForm />
-            <div className="flex justify-between text-xl capitalize font-bold pt-2">
+            <div className="flex justify-between text-[16px] capitalize font-bold pt-3">
               {navlinks(translate).map((item) => (
                 <div key={item.id}>
                   {!item.withSubEments ? (
@@ -55,15 +58,25 @@ export default function Navbar({ categories }: Props) {
                       href={item.link}
                       onClick={() => handleIsVIP(item.link)}
                       className={`${
-                        path.includes(item.link) ? "text-primary" : "text-black"
-                      }`}
+                        path.includes(item.link)
+                          ? "text-white bg-primary"
+                          : "text-black bg-gray-200"
+                      } rounded px-4 py-1 hover:text-white hover:bg-primary transition-all duration-100`}
                     >
                       {item.label}
                     </Link>
                   ) : (
                     <Menu trigger="click-hover" shadow="md">
                       <Menu.Target>
-                        <button>{item.label}</button>
+                        <button
+                          className={`${
+                            path.includes(item.link)
+                              ? "text-white bg-primary"
+                              : "text-black bg-gray-200"
+                          } rounded px-4 py-1 hover:text-white hover:bg-primary transition-all duration-100`}
+                        >
+                          {item.label}
+                        </button>
                       </Menu.Target>
                       <Menu.Dropdown classNames={{ dropdown: "h-64" }}>
                         <ScrollArea h={470}>
@@ -102,6 +115,7 @@ export default function Navbar({ categories }: Props) {
           <div className="flex items-center justify-center gap-6">
             <Cart />
             {/* change lang */}
+            <Notificatoins notifications={notifications} />
             <Lang />
             <UserAvatar />
           </div>

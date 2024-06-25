@@ -35,6 +35,7 @@ export async function middleware(request: NextRequest) {
     throw new Error("Missing environment variables");
 
   const addresses = request.cookies.get("addresses")?.value;
+  console.log("addresses middlerware", addresses);
   const city = request.cookies.get("city");
 
   const selectedAddress = request.cookies.get("selectedAddress")?.value;
@@ -77,8 +78,9 @@ export async function middleware(request: NextRequest) {
     }
 
     if (addresses && addresses?.length > 0 && !selectedAddress) {
+      // if (addresses && addresses?.length > 0) {
       //   //console.log('REDIRECTION #4');
-      return NextResponse.redirect(new URL(webRoutes.addresses, request.url));
+      return NextResponse.redirect(new URL(webRoutes.home, request.url));
     }
   }
 
