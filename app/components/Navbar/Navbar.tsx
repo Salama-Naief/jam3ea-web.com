@@ -61,7 +61,7 @@ export default function Navbar({ categories, notifications }: Props) {
                         path.includes(item.link)
                           ? "text-white bg-primary"
                           : "text-black bg-gray-100"
-                      } rounded px-4 py-1 hover:text-white hover:bg-primary transition-all duration-100`}
+                      } block rounded px-4 py-1  hover:text-white hover:bg-primary transition-all duration-100`}
                     >
                       {item.label}
                     </Link>
@@ -72,13 +72,13 @@ export default function Navbar({ categories, notifications }: Props) {
                           className={`${
                             path.includes(item.link)
                               ? "text-white bg-primary"
-                              : "text-black bg-gray-200"
+                              : "text-black bg-gray-100"
                           } rounded px-4 py-1 hover:text-white !text-[16px] hover:bg-primary transition-all duration-100`}
                         >
                           {item.label}
                         </button>
                       </Menu.Target>
-                      <Menu.Dropdown classNames={{ dropdown: "h-64" }}>
+                      <Menu.Dropdown classNames={{ dropdown: "h-[470px]" }}>
                         <ScrollArea h={470}>
                           <div className="bg-white grid grid-cols-4 ">
                             {categories &&
