@@ -20,6 +20,7 @@ import {
   IUpdateProfileResponseResult,
 } from "./types";
 import { IDataLoadedResponse, IResponse } from "@/lib/types";
+import { cookies } from "next/headers";
 
 export const register = (
   registerInputs: IRegister
@@ -50,10 +51,43 @@ export const deleteAddresses = (
 ): Promise<IResponse<IAddAddressResponseResult, IAddAddress>> =>
   clientRequest(`/address/${addressId}`, "DELETE");
 
-export const updateCity = (
+export const updateCity = async (
   updateCityInputs: IUpdateCity
-): Promise<IResponse<IUpdateCityResponseResult, IUpdateCity>> =>
-  clientRequest("/profile/updatecity", "PUT", updateCityInputs);
+): Promise<IResponse<IUpdateCityResponseResult, IUpdateCity>> => {
+  const data = await clientRequest(
+    "/profile/updatecity",
+    "PUT",
+    updateCityInputs
+  );
+  console.log("/profile/updatecity", data);
+  // const cookie = cookies();
+  // const options = {
+  //   sameSite: "none",
+  //   secure: true,
+  //   path: "/",
+  // } as any;
+  // cookie.set(
+  //   "city",
+  //   JSON.stringify({
+  //     _id: data.results?.data.city._id,
+  //     name: data.results?.data.city.name,
+  //     store_id: data.results?.data.city.store_id,
+  //     parent_id: data.results?.data.city.parent_id,
+  //   }),
+  //   { sameSite: "none", secure: true, path: "/" }
+  // );
+  // cookie.set(
+  //   "city",
+  //   {
+  //     _id: data.results?.data.city._id,
+  //     name: data.results?.data.city.name,
+  //     store_id: data.results?.data.city.store_id,
+  //     parent_id: data.results?.data.city.parent_id,
+  //   },
+  //   options
+  // );
+  return data;
+};
 
 export const updateProfile = (
   updateProfileInputs: IUpdateProfile

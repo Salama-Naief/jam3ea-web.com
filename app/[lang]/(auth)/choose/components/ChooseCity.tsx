@@ -3,7 +3,7 @@
 import { useFormState } from "react-dom";
 import { ComboboxItem, Select } from "@mantine/core";
 import { ICity } from "@/module/(main)/city/types";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { IDataLoadedResponse } from "@/lib/types";
 import Button from "../../../(main)/(profile)/account/components/Button";
@@ -20,6 +20,8 @@ import {
   AddressContext,
   AddressProvider,
 } from "@/lib/providers/AddressProvider";
+import { relative } from "path";
+import { useCookies } from "react-cookie";
 
 interface Props {
   cities: ICity;
@@ -32,21 +34,87 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
   const {
     isLoading,
     errors: validationErrors,
+    results,
     sendRequest,
   } = useHttpClient<IUpdateCityResponseResult, IUpdateCity>();
   const router = useRouter();
   const [state, formAction] = useFormState(SetGuestCityId, { city_id: "" });
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "city",
+    "addresses",
+    "selectedAddress",
+  ]);
 
   const citiesData =
     cities && cities.children && cities.children.length > 0
       ? cities.children.map((c) => ({ label: c.name as string, value: c._id }))
       : [];
 
-  const handleGuest = async () => {
-    if (selectCity?.value) {
-      changeCity(selectCity.value);
-      if (city) {
+  useEffect(() => {
+    if (results) {
+      const options = {
+        sameSite: "none",
+        secure: true,
+        path: "/",
+      } as any;
+      console.log("useEffect results", results);
+      if (results?.data.city) {
+        setCookie(
+          "city",
+          {
+            _id: results?.data.city._id,
+            name: results?.data.city.name,
+            store_id: results?.data.city.store_id,
+            parent_id: results?.data.city.parent_id,
+          },
+          options
+        );
+        setCookie(
+          "addresses",
+          {
+            city_id: results?.data.city._id,
+            widget: "1",
+            street: "1",
+            gada: "1",
+            house: "10",
+            floor: "1",
+            apartment_number: "1",
+            latitude: "29.32514313374099",
+            longitude: "47.678556769644985",
+          },
+          options
+        );
+        setCookie(
+          "selectedAddress",
+          {
+            city_id: results?.data.city._id,
+            widget: "1",
+            street: "1",
+            gada: "1",
+            house: "10",
+            floor: "1",
+            apartment_number: "1",
+            latitude: "29.32514313374099",
+            longitude: "47.678556769644985",
+          },
+          options
+        );
+        // setCity(res.results?.data.city);
         router.push("/");
+      }
+    }
+  }, [results]);
+  const handleGuest = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (selectCity?.value) {
+      // const status = await sendRequest(changeCity(selectCity.value));
+      const status = await sendRequest(
+        updateCity({ city_id: selectCity.value })
+      );
+      console.log(status);
+      console.log("results", results);
+      if (city) {
+        // router.push("/");
       }
     }
   };
@@ -55,7 +123,7 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
       {isGuest ? (
         citiesData && (
           //   <form action={formAction}>
-          <form onSubmit={() => handleGuest()}>
+          <form onSubmit={(e) => handleGuest(e)}>
             <Select
               data={citiesData}
               value={selectCity?.value || null}

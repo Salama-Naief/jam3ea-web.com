@@ -101,7 +101,7 @@ function UserAvatar() {
             </div>
           </Menu.Target>
 
-          <Menu.Dropdown p={0} className="bg-white">
+          <Menu.Dropdown p={0} className="bg-white ">
             {links.map((item, i) => (
               <Menu.Item p={0} key={i} className="flex items-center gap-2">
                 <div className="flex items-center gap-2 px-2 hover:bg-gray-300  w-full py-2 text-base text-gray-800 rounded">
