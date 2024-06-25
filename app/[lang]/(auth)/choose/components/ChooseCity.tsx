@@ -22,6 +22,7 @@ import {
 } from "@/lib/providers/AddressProvider";
 import { relative } from "path";
 import { useCookies } from "react-cookie";
+import { AuthContext } from "@/lib/providers/AuthProvider";
 
 interface Props {
   cities: ICity;
@@ -37,6 +38,7 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
     results,
     sendRequest,
   } = useHttpClient<IUpdateCityResponseResult, IUpdateCity>();
+  const { translate } = useContext(AuthContext);
   const router = useRouter();
   const [state, formAction] = useFormState(SetGuestCityId, { city_id: "" });
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -129,6 +131,7 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
               value={selectCity?.value || null}
               name="city_id"
               id="city_id"
+              placeholder={translate("choose_city")}
               onChange={(_value, option) => setSelectCity(option)}
               classNames={{
                 root: "w-full",

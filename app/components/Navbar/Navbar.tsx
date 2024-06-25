@@ -50,7 +50,7 @@ export default function Navbar({ categories, notifications }: Props) {
           </div>
           <div className="flex-grow">
             <SearchForm />
-            <div className="flex justify-between text-[16px] capitalize font-bold pt-3">
+            <div className="flex justify-between !text-[16px] capitalize font-bold pt-3">
               {navlinks(translate).map((item) => (
                 <div key={item.id}>
                   {!item.withSubEments ? (
@@ -73,7 +73,7 @@ export default function Navbar({ categories, notifications }: Props) {
                             path.includes(item.link)
                               ? "text-white bg-primary"
                               : "text-black bg-gray-200"
-                          } rounded px-4 py-1 hover:text-white hover:bg-primary transition-all duration-100`}
+                          } rounded px-4 py-1 hover:text-white !text-[16px] hover:bg-primary transition-all duration-100`}
                         >
                           {item.label}
                         </button>
