@@ -56,8 +56,8 @@ export default function SearchForm({
             handleSearch();
           }}
         />
-        <button className="px-4 h-full bg-secondary rounded-lg text-white">
-          <FiSearch size={24} />
+        <button className="px-3 h-full bg-secondary rounded-lg text-white">
+          <FiSearch size={22} />
         </button>
         {results && search && (
           <div className=" absolute top-12 z-10 end-0 h-96 w-full bg-white shadow-md rounded-lg ">

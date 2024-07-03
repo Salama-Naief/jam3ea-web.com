@@ -9,28 +9,29 @@ import { getInventories } from "../../services";
 import Link from "next/link";
 import Image from "next/image";
 import { BsArrowRight, BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import { IInventory } from "../../types";
+import { IInventory, ISupp, ISupplierResults } from "../../types";
 import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
-  inventories?: IInventory;
+  supplier?: ISupplierResults;
 }
-export default function SuppliersClient({ inventories }: Props) {
-  const stores = inventories ? inventories.suppliers : [];
+export default function SuppliersClient({ supplier }: Props) {
+  const stores = supplier ? supplier.suppliers : [];
   const path = usePathname();
   const storePage = path.includes("/stores");
 
+  console.log("supplier===>", supplier);
   return (
     <div className="my-6 pb-4">
-      {inventories && (
+      {supplier && supplier.suppliers.length > 0 && (
         <h3
           className={`${
             storePage
-              ? "text-black bg-gray-100 rounded-xl px-4 p-2"
+              ? "text-black bg-[#EEEEEE] rounded-full p-2"
               : "text-secondary pb-4"
-          } text-3xl font-bold  my-4  px-6 w-fit`}
+          } text-[20px] font-bold  my-4  px-10 w-fit`}
         >
-          {inventories.name}
+          {supplier.name}
         </h3>
       )}
       <MainSlider

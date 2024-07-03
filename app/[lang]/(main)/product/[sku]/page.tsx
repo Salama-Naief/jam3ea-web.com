@@ -57,35 +57,35 @@ export default async function ProductPage({
     has_variants,
   } = product;
 
-  const categoryLinks = categories
-    ? categories
-        // to remove any category with name=''
-        ?.filter((c) => c.name)
-        .map((cate) => ({
-          label: cate.name,
-          link: "/category?id=" + cate.category_id,
-        }))
-        //to remove repeated element
-        .filter(
-          (value, index, self) =>
-            index ===
-            self.findIndex(
-              (t) => t.label === value.label && t.label === value.label
-            )
-        )
-    : [];
+  // const categoryLinks = categories
+  //   ? categories
+  //       // to remove any category with name=''
+  //       ?.filter((c) => c.name)
+  //       .map((cate) => ({
+  //         label: cate.name,
+  //         link: "/category?id=" + cate.category_id,
+  //       }))
+  //       //to remove repeated element
+  //       .filter(
+  //         (value, index, self) =>
+  //           index ===
+  //           self.findIndex(
+  //             (t) => t.label === value.label && t.label === value.label
+  //           )
+  //       )
+  //   : [];
 
-  const Links = [
-    ...categoryLinks,
-    {
-      label: name,
-      link: "/",
-    },
-  ];
+  // const Links = [
+  //   ...categoryLinks,
+  //   {
+  //     label: name,
+  //     link: "/",
+  //   },
+  // ];
 
-  const mainCategory = categories
-    ? categories.filter((c) => c.name)[0].name
-    : "";
+  // const mainCategory = categories
+  //   ? categories.filter((c) => c.name)[0].name
+  //   : "";
 
   console.log("isvip----=-=-", isVip);
   return (
@@ -94,7 +94,7 @@ export default async function ProductPage({
         {product && (
           <>
             <div>
-              <Breadcrumbs items={Links} />
+              {/* <Breadcrumbs items={Links} /> */}
               <div className=" md:grid md:grid-cols-2 gap-6">
                 {product && (
                   <SingleProductSlider product={product} isVip={isVip} />
@@ -117,9 +117,9 @@ export default async function ProductPage({
                   </div>
 
                   <div className="grid grid-cols-2 my-4 gap-4">
-                    <div className="bg-gray-100 w-full text-primary font-bold rounded-lg py-2 text-center">
-                      {mainCategory}
-                    </div>
+                    {/* <div className="bg-gray-100 w-full text-primary font-bold rounded-lg py-2 text-center">
+                      {product.}
+                    </div> */}
                     {
                       <div
                         className={`${
@@ -147,11 +147,7 @@ export default async function ProductPage({
             </div>
             <div className="my-10">
               <ProductSlider
-                items={
-                  productCategoryRank && productCategoryRank.data
-                    ? productCategoryRank.data
-                    : []
-                }
+                items={product ? product.related_products : []}
                 type="normal"
               />
             </div>

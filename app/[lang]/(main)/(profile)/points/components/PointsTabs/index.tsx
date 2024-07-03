@@ -7,15 +7,18 @@ import { AuthContext } from "@/lib/providers/AuthProvider";
 import { LANGUAGES } from "@/lib/enums";
 
 import { handleClientScriptLoad } from "next/script";
-import { IPoint } from "../../types";
+import { IPoint, IProductReward } from "../../types";
 import HistoryPointCard from "../HistoryPointCard";
 import PointsCards from "../PointsCards";
+import { IProduct } from "@/module/(main)/product/types";
+import RewardProductCart from "../RewardCart";
 
 interface WalletTabsProps {
   points: IPoint[];
+  productReward: IProductReward[];
 }
 
-export default function PointsTabs({ points }: WalletTabsProps) {
+export default function PointsTabs({ points, productReward }: WalletTabsProps) {
   const { translate, language } = useContext(AuthContext);
 
   return (
@@ -51,7 +54,11 @@ export default function PointsTabs({ points }: WalletTabsProps) {
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel className={"py-5"}>
-          <div>Products</div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+            {productReward.map((product) => (
+              <RewardProductCart key={product._id} product={product} />
+            ))}
+          </div>
         </Tab.Panel>
         <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
           {points.length > 0 ? (

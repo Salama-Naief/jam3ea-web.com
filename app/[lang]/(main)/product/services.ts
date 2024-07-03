@@ -1,7 +1,7 @@
 import apiHandler from "@/lib/utils/apiHandler";
-import { IProduct } from "./types";
+import { IProduct, IProductBySku } from "./types";
 
-export const getProductBySku = async (sku: string): Promise<IProduct> =>
+export const getProductBySku = async (sku: string): Promise<IProductBySku> =>
   await apiHandler(`/product/${sku}`);
 export const getProductCategoryRank = async (
   categoryId: string,

@@ -14,3 +14,16 @@ export interface IPoint {
   created: string;
   notes: string;
 }
+
+export interface IProductReward {
+  _id: string;
+  product: {
+    name: string;
+    picture: string;
+  };
+  points: number;
+  sorting: number;
+  expires_at: string;
+  title: string;
+  description: string;
+}

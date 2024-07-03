@@ -9,6 +9,7 @@ import { IUser } from "../types";
 import SharedLayout from "../components/SharedLayout";
 import PointsTabs from "./components/PointsTabs";
 import { IPointsHistory } from "./types";
+import { getProductReward } from "./services";
 
 export default async function PointsPage({
   params: { lang },
@@ -31,10 +32,15 @@ export default async function PointsPage({
     false
   );
 
+  const productReward = await getProductReward();
+  console.log("points", points);
   return (
     <>
       <SharedLayout title={`My points (${user ? user.points : 0})`} user={user}>
-        <PointsTabs points={points ? points.data : []} />
+        <PointsTabs
+          productReward={productReward ? productReward.data : []}
+          points={points ? points.data : []}
+        />
       </SharedLayout>
     </>
   );

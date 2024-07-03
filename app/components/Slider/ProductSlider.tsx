@@ -108,9 +108,12 @@ function ProductSlider({
           autoAnimation={autoAnimation}
         >
           {items.map((item) => (
-            <div key={item.sku}>
-              <ProductCard product={item} type={type} size={size} />
-            </div>
+            <ProductCard
+              key={item.sku}
+              product={item}
+              type={type}
+              size={size}
+            />
           ))}
         </MainSlider>
         {/* </Slider> */}

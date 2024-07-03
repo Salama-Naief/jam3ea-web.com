@@ -21,11 +21,12 @@ function Cart() {
   }, []);
 
   useEffect(() => {
+    console.log();
     if (results && !errors) {
       setCart({
-        price: results.total,
-        quantity: results.total_quantities,
-        products: results.data.length,
+        price: results.Jm3eia.total,
+        quantity: results.Jm3eia.total_quantities,
+        products: results.Jm3eia.cart_products.length,
       });
       console.log("SUCCESS: ", cart, results);
     } else {
@@ -36,10 +37,10 @@ function Cart() {
   return (
     <div className=" relative">
       <Link href={webRoutes.cart}>
-        <span className="absolute -top-2 -end-2 text-sm bg-danger flex items-center justify-center text-white rounded-full w-6 h-6">
+        <span className="absolute -top-2 end-4 text-sm bg-danger flex items-center justify-center text-white rounded-full w-5 h-5">
           {cart.quantity}
         </span>
-        <Image src={cartIcon} alt="cart" />
+        <Image width={32} height={32} src={cartIcon} alt="cart" />
       </Link>
     </div>
   );
