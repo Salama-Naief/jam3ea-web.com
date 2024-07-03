@@ -93,11 +93,13 @@ function UserAvatar() {
               <Image
                 src={logedAvatar}
                 alt="avatar"
-                width={40}
-                height={40}
+                width={30}
+                height={30}
                 className="cursor-pointer"
               />
-              <div className="text-primary font-semibold">My Account</div>
+              <div className="text-primary text-sm font-semibold">
+                My Account
+              </div>
             </div>
           </Menu.Target>
 
@@ -124,12 +126,12 @@ function UserAvatar() {
         <Link href={webRoutes.login} className="flex flex-col items-center">
           <Image
             src={avatar}
-            width={40}
-            height={40}
+            width={30}
+            height={30}
             alt="avatar"
             className="cursor-pointer"
           />
-          <div className="font-semibold text-secondary">Login&Register</div>
+          <div className="font-semibold text-sm text-secondary">Login</div>
         </Link>
       )}
     </div>

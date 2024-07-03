@@ -87,7 +87,7 @@ function Slider({
         draggable={false}
         showDots={false}
         responsive={responsive}
-        infinite={true}
+        infinite={false}
         autoPlay={autoPlay}
         beforeChange={() => setIsMoving(true)}
         afterChange={() => setIsMoving(false)}

@@ -131,165 +131,169 @@ export default function ProductCard({
   return (
     <div className="p-2 h-[100%]">
       <div
-        className={`flex-shrink-0 flex flex-col bg-white w-full  mx-auto rounded-xl p-4 relative overflow-hidden shadow-md ${className}`}
+        className={`flex-shrink-0 flex h-full flex-col bg-white w-full  mx-auto rounded-xl p-4 relative overflow-hidden shadow-md ${className}`}
       >
-        {isVip === true && isVip !== undefined
-          ? product.vip_old_price &&
-            product.vip_price && (
-              <div className="bg-danger rounded text-white w-fit px-2 absolute start-0 top-0 text-sm">
-                {getDiscountPercentage(
-                  parseFloat(product.vip_price || ""),
-                  parseFloat(product.vip_old_price)
-                )}
-              </div>
-            )
-          : product.old_price && (
-              <div className="bg-danger rounded text-white w-fit px-2 absolute start-0 top-0 text-sm">
-                {getDiscountPercentage(
-                  parseFloat(product.price),
-                  parseFloat(product.old_price)
-                )}
-              </div>
-            )}
-        <AddToWishlist
-          sku={product.sku}
-          isInWhishlist={product.wishlist_status.is_exists}
-        />
-        <Link href={webRoutes.product(product.sku)} prefetch={false}>
-          <div
-            className={`relative mx-auto ${
-              size === "small" ? "w-20 h-20" : "w-40 h-40"
-            }`}
-          >
-            <Image
-              fill
-              src={product.picture}
-              sizes="(max-width:200px) 160px, 160px"
-              alt={product.name}
-              quality={60}
-              loading="lazy"
+        <div className="flex-1">
+          {isVip === true && isVip !== undefined
+            ? product.vip_old_price &&
+              product.vip_price && (
+                <div className="bg-danger rounded text-white w-fit px-2 z-10 absolute start-0 top-0 text-sm">
+                  {getDiscountPercentage(
+                    parseFloat(product.vip_price || ""),
+                    parseFloat(product.vip_old_price)
+                  )}
+                </div>
+              )
+            : product.old_price && (
+                <div className="bg-danger rounded text-white w-fit px-2 z-10 absolute start-0 top-0 text-sm">
+                  {getDiscountPercentage(
+                    parseFloat(product.price),
+                    parseFloat(product.old_price)
+                  )}
+                </div>
+              )}
+          <div className="absolute end-3 top-3 z-10">
+            <AddToWishlist
+              sku={product.sku}
+              isInWhishlist={product.wishlist_status.is_exists}
             />
           </div>
-        </Link>
-        {type === "normal" && (
-          <div
-            className={`flex items-center px-2 ${
-              count > 0 ? "justify-between" : "justify-end"
-            }`}
-          >
-            {count > 0 && (
+          <Link href={webRoutes.product(product.sku)} prefetch={false}>
+            <div
+              className={`relative mx-auto ${
+                size === "small" ? "w-20 h-20" : "w-40 h-40"
+              }`}
+            >
+              <Image
+                fill
+                src={product.picture}
+                sizes="(max-width:200px) 160px, 160px"
+                alt={product.name}
+                quality={60}
+                loading="lazy"
+              />
+            </div>
+          </Link>
+          {type === "normal" && (
+            <div
+              className={`flex items-center px-2 ${
+                count > 0 ? "justify-between" : "justify-end"
+              }`}
+            >
+              {count > 0 && (
+                <button
+                  disabled={removeloading}
+                  onClick={() => handleRemove()}
+                  className="text-primary"
+                >
+                  {removeloading ? (
+                    <Loader size={"xs"} color="orange" />
+                  ) : (
+                    <BsTrash />
+                  )}
+                </button>
+              )}
               <button
-                disabled={removeloading}
-                onClick={() => handleRemove()}
-                className="text-primary"
+                disabled={addloading}
+                onClick={() => handleIncrement()}
+                className="flex justify-end"
               >
-                {removeloading ? (
+                {addloading ? (
                   <Loader size={"xs"} color="orange" />
+                ) : count > 0 ? (
+                  <span className="py-0.5 px-2.5 text-sm  rounded bg-primary text-white">
+                    {count}
+                  </span>
                 ) : (
-                  <BsTrash />
+                  <BsPlus
+                    size={28}
+                    className="shadow  bg-gray-50 rounded-md text-primary"
+                  />
                 )}
               </button>
-            )}
-            <button
-              disabled={addloading}
-              onClick={() => handleIncrement()}
-              className="flex justify-end"
-            >
-              {addloading ? (
-                <Loader size={"xs"} color="orange" />
-              ) : count > 0 ? (
-                <span className="py-0.5 px-2.5 text-sm  rounded bg-primary text-white">
-                  {count}
-                </span>
-              ) : (
-                <BsPlus
-                  size={28}
-                  className="shadow  bg-gray-50 rounded-md text-primary"
-                />
-              )}
-            </button>
-          </div>
-        )}
-        <Link
-          href={webRoutes.product(product.sku)}
-          prefetch={false}
-          className="mt-2 block"
-        >
-          <div>
-            <div className="px-2">
-              {isVip === true && isVip !== undefined ? (
-                <div
-                  className={`${
-                    product.vip_old_price &&
-                    parseFloat(product.vip_old_price) > 0
-                      ? "justify-between"
-                      : language === LANGUAGES.ARABIC
-                      ? "justify-end"
-                      : "justify-start"
-                  } flex`}
-                >
-                  <div>
-                    <span className="font-semibold">{product.vip_price}</span>
-                    <sup>{translate("currency")}</sup>
-                  </div>
+            </div>
+          )}
+          <Link
+            href={webRoutes.product(product.sku)}
+            prefetch={false}
+            className="mt-2 block"
+          >
+            <div>
+              <div className="px-2">
+                {isVip === true && isVip !== undefined ? (
+                  <div
+                    className={`${
+                      product.vip_old_price &&
+                      parseFloat(product.vip_old_price) > 0
+                        ? "justify-between"
+                        : language === LANGUAGES.ARABIC
+                        ? "justify-end"
+                        : "justify-start"
+                    } flex`}
+                  >
+                    <div>
+                      <span className="font-semibold">{product.vip_price}</span>
+                      <sup>{translate("currency")}</sup>
+                    </div>
 
-                  {product.vip_old_price &&
-                    parseFloat(product.vip_old_price) > 0 && (
+                    {product.vip_old_price &&
+                      parseFloat(product.vip_old_price) > 0 && (
+                        <div>
+                          <span
+                            className={`
+                        line-through decoration-danger decoration-2
+                       font-semibold`}
+                          >
+                            {product.vip_old_price}
+                          </span>
+                          <sup>{translate("currency")}</sup>
+                        </div>
+                      )}
+                  </div>
+                ) : (
+                  <div
+                    className={`${
+                      product.old_price && parseFloat(product.old_price) > 0
+                        ? "justify-between"
+                        : language === LANGUAGES.ARABIC
+                        ? "justify-end"
+                        : "justify-start"
+                    } flex`}
+                  >
+                    <div>
+                      <span className="font-semibold">{product.price}</span>
+                      <sup>{translate("currency")}</sup>
+                    </div>
+
+                    {product.old_price && parseFloat(product.old_price) > 0 && (
                       <div>
                         <span
                           className={`
-                        line-through decoration-danger decoration-2
+                         line-through decoration-danger decoration-2
                        font-semibold`}
                         >
-                          {product.vip_old_price}
+                          {product.old_price}
                         </span>
                         <sup>{translate("currency")}</sup>
                       </div>
                     )}
-                </div>
-              ) : (
-                <div
-                  className={`${
-                    product.old_price && parseFloat(product.old_price) > 0
-                      ? "justify-between"
-                      : language === LANGUAGES.ARABIC
-                      ? "justify-end"
-                      : "justify-start"
-                  } flex`}
-                >
-                  <div>
-                    <span className="font-semibold">{product.price}</span>
-                    <sup>{translate("currency")}</sup>
                   </div>
-
-                  {product.old_price && parseFloat(product.old_price) > 0 && (
-                    <div>
-                      <span
-                        className={`
-                         line-through decoration-danger decoration-2
-                       font-semibold`}
-                      >
-                        {product.old_price}
-                      </span>
-                      <sup>{translate("currency")}</sup>
-                    </div>
-                  )}
-                </div>
-              )}
+                )}
+              </div>
+              <p
+                className={`${
+                  size === "small"
+                    ? " text-base font-semibold"
+                    : " text-base font-bold"
+                }`}
+              >
+                {product.name}
+              </p>
             </div>
-            <p
-              className={`${
-                size === "small"
-                  ? " text-base font-semibold"
-                  : " text-base font-bold"
-              }`}
-            >
-              {product.name}
-            </p>
-          </div>
-        </Link>
+          </Link>
+        </div>
         {type === "bestSeller" && (
-          <div className="w-2/3 mx-auto">
+          <div className="w-2/3 mx-auto flex-0">
             <AddToCartButton
               sku={product.sku}
               cartsStatus={product.cart_status}

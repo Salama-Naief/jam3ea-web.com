@@ -5,13 +5,23 @@ export interface ICartStatus {
   quantity: number;
 }
 
+export interface IProductBySku extends IProduct {
+  related_products: [IProduct];
+}
 export interface IProduct {
   sku: string;
   name: string;
+  barcode: string;
   description?: string;
   availability: boolean;
   has_variants: boolean;
   max_quantity_cart: number;
+  soft_code: string;
+  exchange_with_points: boolean;
+  points: number;
+  keywords: string;
+  contents: string;
+  brand: string;
   picture: string;
   cart_status: ICartStatus;
   wishlist_status: { is_exists: boolean };

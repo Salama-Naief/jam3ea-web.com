@@ -43,6 +43,7 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
   const [state, formAction] = useFormState(SetGuestCityId, { city_id: "" });
   const [cookies, setCookie, removeCookie] = useCookies([
     "city",
+    "city_id",
     "addresses",
     "selectedAddress",
   ]);
@@ -109,15 +110,55 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
   const handleGuest = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (selectCity?.value) {
-      // const status = await sendRequest(changeCity(selectCity.value));
-      const status = await sendRequest(
-        updateCity({ city_id: selectCity.value })
+      // // const status = await sendRequest(changeCity(selectCity.value));
+      // const status = await sendRequest(
+      //   updateCity({ city_id: selectCity.value })
+      // );
+      // console.log(status);
+      // console.log("results", results);
+      // if (city) {
+      //   // router.push("/");
+      // }
+      const options = {
+        sameSite: "none",
+        secure: true,
+        path: "/",
+      } as any;
+      console.log("useEffect results", results);
+
+      setCookie("city_id", selectCity?.value, options);
+      setCookie(
+        "addresses",
+        {
+          city_id: selectCity?.value,
+          widget: "1",
+          street: "1",
+          gada: "1",
+          house: "10",
+          floor: "1",
+          apartment_number: "1",
+          latitude: "29.32514313374099",
+          longitude: "47.678556769644985",
+        },
+        options
       );
-      console.log(status);
-      console.log("results", results);
-      if (city) {
-        // router.push("/");
-      }
+      setCookie(
+        "selectedAddress",
+        {
+          city_id: selectCity?.value,
+          widget: "1",
+          street: "1",
+          gada: "1",
+          house: "10",
+          floor: "1",
+          apartment_number: "1",
+          latitude: "29.32514313374099",
+          longitude: "47.678556769644985",
+        },
+        options
+      );
+      // setCity(res.results?.data.city);
+      router.refresh();
     }
   };
   return (

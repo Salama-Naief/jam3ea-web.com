@@ -23,7 +23,7 @@ function Lang() {
               <Image
                 src={kuwaitFlag}
                 alt="flag"
-                width={50}
+                width={40}
                 height={30}
                 className="cursor-pointer"
               />
@@ -43,7 +43,7 @@ function Lang() {
               onClick={() => changeLanguage(LANGUAGES.ARABIC, true)}
             >
               <div className="flex gap-3 items-center">
-                <Image src={kuwaitFlag} alt="flag" width={50} height={30} />
+                <Image src={kuwaitFlag} alt="flag" width={40} height={30} />
                 <p
                   className={`${
                     language === LANGUAGES.ARABIC
@@ -60,7 +60,7 @@ function Lang() {
               onClick={() => changeLanguage(LANGUAGES.ENGLISH, true)}
             >
               <div className="flex items-center gap-3">
-                <Image src={englishFlag} alt="flag" width={50} height={30} />
+                <Image src={englishFlag} alt="flag" width={40} height={30} />
                 <p
                   className={`${
                     language === LANGUAGES.ENGLISH

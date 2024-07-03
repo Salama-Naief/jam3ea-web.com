@@ -15,7 +15,7 @@ function PrevArrow({ onClick, ...rest }: any) {
     carouselState: { currentSlide, deviceType },
   } = rest;
   return (
-    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100  z-20 absolute top-1/2 start-0 md:start-0  shadow-md  cursor-pointer  text-2xl md:text-4xl">
+    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100 opacity-90  z-20 absolute top-1/2 -start-3 md:start-0  shadow-lg  cursor-pointer  text-2xl md:text-4xl">
       <BsChevronLeft
         className={``}
         style={{ display: "block" }}
@@ -32,7 +32,7 @@ function NextArrow({ onClick, ...rest }: any) {
     carouselState: { currentSlide, deviceType },
   } = rest;
   return (
-    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100  z-20 absolute top-1/2 end-0 md:end-0 shadow-md  cursor-pointer  text-2xl md:text-4xl">
+    <div className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-gray-100 opacity-90  z-20 absolute top-1/2 -end-3 md:end-0 shadow-lg  cursor-pointer  text-2xl md:text-4xl">
       <BsChevronRight
         className={``}
         style={{ display: "block" }}
@@ -87,7 +87,7 @@ function Slider({
         draggable={false}
         showDots={false}
         responsive={responsive}
-        infinite={true}
+        infinite={false}
         autoPlay={autoPlay}
         beforeChange={() => setIsMoving(true)}
         afterChange={() => setIsMoving(false)}

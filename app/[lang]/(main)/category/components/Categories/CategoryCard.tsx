@@ -15,7 +15,7 @@ export default function CategoryCard({
   selectedCategory = false,
 }: CategoryCardProps) {
   return (
-    <div className={`w-[140px] lg:w-[184px] h-[190px] bg-transparent `}>
+    <div className={`w-[140px] lg:w-[184px] h-[190px] bg-transparent mx-auto`}>
       <Link
         href={link}
         className={` flex flex-col items-center justify-center gap-2`}

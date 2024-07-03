@@ -4,15 +4,22 @@ import React, { useContext } from "react";
 import point2walletIcon from "../../../../../../../public/assets/point2wallet.svg";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import { IoIosWifi } from "react-icons/io";
+import { LANGUAGES } from "@/lib/enums";
 
 interface Props {
   points: number;
   KDamount: number;
 }
 export default function PointCard({ KDamount, points }: Props) {
-  const { translate } = useContext(AuthContext);
+  const { translate, language } = useContext(AuthContext);
   return (
-    <div className="relative bg-gray-50 overflow-hidden w-full flex items-end justify-end h-44 rounded-lg shadow-md ">
+    <div
+      className={`${
+        language === LANGUAGES.ARABIC
+          ? "items-end justify-start"
+          : "items-end justify-end"
+      } relative bg-gray-50 overflow-hidden w-full flex  h-44 rounded-lg shadow-md `}
+    >
       <Image
         src={point2walletIcon}
         width={120}
@@ -27,7 +34,13 @@ export default function PointCard({ KDamount, points }: Props) {
           <span>{KDamount}</span>
           <span>{translate("currency")}</span>
         </div>
-        <div className="text-start px-2">
+        <div
+          className={`${
+            language === LANGUAGES.ARABIC
+              ? "justify-end items-end"
+              : "justify-start items-start"
+          } flex flex-col  px-2`}
+        >
           <div className=" font-bold mb-1">
             {points + " " + translate("points")}
           </div>

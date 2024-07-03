@@ -19,11 +19,15 @@ export interface IAddToCartResponseResult {
 
 export interface IGetCartResponseResult {
   success: boolean;
-  data: IProduct[];
-  shipping_cost: number;
-  subtotal: string;
-  total_quantities: number;
-  total: string;
+  Jm3eia: {
+    data: IProduct[];
+    shipping_cost: number;
+    subtotal: string;
+    total_quantities: number;
+    total: string;
+    cart_products: IProduct[];
+    total_prices: number;
+  };
 }
 
 interface ISupplierCoupon {

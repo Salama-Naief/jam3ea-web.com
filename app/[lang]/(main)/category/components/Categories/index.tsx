@@ -42,10 +42,14 @@ export default async function Categories({
   return (
     <>
       <MainSlider
-        lgSize={categorySlider1.length > 5 ? 5 : categorySlider1.length}
-        mdSize={categorySlider1.length > 4 ? 4 : categorySlider1.length}
-        xlSize={categorySlider1.length > 6 ? 6 : categorySlider1.length}
-        smSize={categorySlider1.length > 3 ? 3 : categorySlider1.length}
+        // lgSize={categorySlider1.length > 5 ? 5 : categorySlider1.length}
+        // mdSize={categorySlider1.length > 4 ? 4 : categorySlider1.length}
+        // xlSize={categorySlider1.length > 6 ? 6 : categorySlider1.length}
+        // smSize={categorySlider1.length > 3 ? 3 : categorySlider1.length}
+        lgSize={6}
+        mdSize={4}
+        xlSize={7}
+        smSize={3}
         rtl={rtl}
       >
         {categories &&
