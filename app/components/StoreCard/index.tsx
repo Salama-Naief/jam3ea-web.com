@@ -25,8 +25,8 @@ function StoreCard({ image, label, link, name }: Props) {
 
   return (
     <Link href={link} onClick={() => handleIsVIP(link)}>
-      <div className="bg-gray-100  shadow-md p-3 w-full h-full rounded-xl">
-        <div className="relative w-full h-64">
+      <div className="bg-gray-100  shadow-md p-1 lg:p-3 w-full h-full rounded-2xl">
+        <div className="relative w-full h-24 md:h-44 lg:h-64">
           <Image
             src={image}
             fill
@@ -36,12 +36,12 @@ function StoreCard({ image, label, link, name }: Props) {
             priority
           />
         </div>
-        <div className="text-center text-3xl text-secondary font-bold">
+        <div className="text-center  md:text-xl lg:text-3xl text-secondary font-bold">
           {name}
         </div>
       </div>
       <div
-        className="text-center text-lg py-2"
+        className="text-center text-sm md:text-base font-semibold lg:text-lg py-2"
         dangerouslySetInnerHTML={{ __html: label }}
       />
     </Link>

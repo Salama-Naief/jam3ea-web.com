@@ -48,11 +48,20 @@ async function Category({ searchParams }: { searchParams: any }) {
   //     link: "/",
   //   },
   // ];
+  const selectedItem =
+    categories &&
+    categories.data.find((i) => {
+      if (i._id === searchParams["id"]) {
+        return i;
+      } else {
+        return i.children.find((sub) => sub._id === searchParams["id"]);
+      }
+    });
   return (
     <div className="py-5 bg-[#FCFCFC]">
       <Container>
-        <div className="grid grid-cols-5 gap-8 items-start">
-          <div className="col-span-1 h-auto ">
+        <div className="lg:grid lg:grid-cols-5 lg:gap-8 items-start">
+          <div className="hidden lg:block col-span-1 h-auto ">
             <Suspense fallback={<Loader />}>
               {categories &&
                 categories.data &&
@@ -70,7 +79,13 @@ async function Category({ searchParams }: { searchParams: any }) {
             <div>
               <Suspense fallback={<CategoryProductSkeleton />}>
                 {/* @ts-ignore */}
-                {<CategoryProducts searchParams={searchParams} />}
+                {
+                  /* @ts-ignore */
+                  <CategoryProducts
+                    selectedCategory={selectedItem}
+                    searchParams={searchParams}
+                  />
+                }
               </Suspense>
             </div>
           </div>

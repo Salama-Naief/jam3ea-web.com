@@ -12,10 +12,7 @@ import SuppliersClient from "./SupplierClient";
 
 export default async function Suppliers() {
   const inventories = await getInventories();
-  const stores =
-    inventories && inventories.data && inventories.data.length === 1
-      ? inventories.data[0]
-      : undefined;
-  console.log("inventories", inventories);
-  return <SuppliersClient inventories={stores} />;
+  const stores = inventories ? inventories.data : [];
+  console.log("stores", stores);
+  return <SuppliersClient supplier={stores} />;
 }

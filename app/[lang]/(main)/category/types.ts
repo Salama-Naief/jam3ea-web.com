@@ -3,8 +3,10 @@ export interface ISubCategory {
   parent_id: string;
   name: string;
   picture?: string;
+  children: ISubSubCategory[];
 }
 
+interface ISubSubCategory extends ISubCategory {}
 export interface ICategory {
   _id: string;
   name: string;

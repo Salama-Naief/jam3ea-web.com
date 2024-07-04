@@ -54,15 +54,25 @@ export default function Feature({
         // </Slider>
       }
       <div>
-        <h2
-          className={`${
-            title === "center"
-              ? "text-primary text-center text-2xl"
-              : "text-start text-xl"
-          } font-bold  my-6`}
-        >
-          {name}
-        </h2>
+        <div className="flex justify-between items-center px-4">
+          <h2
+            className={`${
+              title === "center"
+                ? "text-primary text-center text-xl md:text-2xl"
+                : "text-start text-lg md:text-xl"
+            } font-bold  my-6`}
+          >
+            {name}
+          </h2>
+          <div className="flex justify-end">
+            <Link
+              href={webRoutes.feature(_id, name, supplierId)}
+              className="lg:text-lg text-secondary"
+            >
+              {dictionary.view_all}
+            </Link>
+          </div>
+        </div>
 
         <div className="w-full">
           {typeof window === undefined ? (
@@ -72,14 +82,6 @@ export default function Feature({
           ) : (
             <FeatureSlider type={productType} data={products.slice(0, 12)} />
           )}
-          <div className="flex justify-end">
-            <Link
-              href={webRoutes.feature(_id, name, supplierId)}
-              className="text-lg text-secondary"
-            >
-              {dictionary.view_all}
-            </Link>
-          </div>
         </div>
       </div>
     </div>

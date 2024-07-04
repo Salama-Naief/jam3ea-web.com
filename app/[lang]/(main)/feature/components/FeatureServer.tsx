@@ -23,7 +23,6 @@ async function FeatureServer({
 }: Props) {
   const features = await getFeaturedProducts();
   const dict = await getDictionary(lang);
-  console.log("features", features);
 
   return (
     <div>

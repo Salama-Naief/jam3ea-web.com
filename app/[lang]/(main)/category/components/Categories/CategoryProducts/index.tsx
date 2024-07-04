@@ -1,9 +1,11 @@
 import PaginationComp from "@/components/Pagination";
 import ProductCard from "@/module/(main)/product/components/ProductCard";
-import { IProduct } from "@/module/(main)/product/types";
 import React from "react";
 import { getCategoryProducts } from "../../../services";
-import { cookies } from "next/headers";
+import { ICategory } from "../../../types";
+import MainSlider from "@/components/Slider";
+import Image from "next/image";
+import Link from "next/link";
 
 interface Props {
   // products: {
@@ -14,27 +16,52 @@ interface Props {
   //   data: IProduct[];
   // };
   searchParams: any;
+  selectedCategory?: ICategory;
 }
-async function CategoryProducts({ searchParams }: Props) {
+async function CategoryProducts({ searchParams, selectedCategory }: Props) {
   let total = 1;
   const products = await getCategoryProducts(
     searchParams["id"],
     20,
     searchParams["skip"]
   );
-  const cookie = cookies();
-  const isVip = cookie.get("isVIP")?.value;
 
   if (products && products.total && products.per_page) {
     total = Math.ceil(Number(products.total) / Number(products.per_page));
   }
   return (
-    <div className="ddd">
+    <div className="">
+      <div className="my-4">
+        {selectedCategory && (
+          <MainSlider xlSize={6} lgSize={5} mdSize={4} smSize={3}>
+            {selectedCategory.children.map((item) => (
+              <Link
+                href={"category" + "?id=" + item._id}
+                key={item._id}
+                className="block"
+              >
+                {item.picture && (
+                  <div
+                    className={`${
+                      item._id === searchParams["id"]
+                        ? "border-primary"
+                        : "border-gray-300"
+                    } border-2 p-1 relative w-16 h-16 md:w-20 md:h-20 overflow-hidden rounded-full shadow-md mx-auto`}
+                  >
+                    <Image src={item.picture} fill alt={item.name} />
+                  </div>
+                )}
+                <div className="md:font-semibold text-center">{item.name}</div>
+              </Link>
+            ))}
+          </MainSlider>
+        )}
+      </div>
       {products && products.data && products.data.length >= 1 ? (
         <div
           className="
     grid 
-    grid-cols-1
+    grid-cols-2
     sm:grid-cols-2
     md:grid-cols-3
     lg:grid-cols-4

@@ -11,8 +11,9 @@ import { useSearchParams } from "next/navigation";
 
 interface Props {
   item: ICategory;
+  close?: () => void;
 }
-function SellectItem({ item }: Props) {
+function SellectItem({ item, close }: Props) {
   const [active, setActive] = useState<boolean>(false);
   const [currentCategory, setCurrentCategory] = useState<{
     id: string | null;
@@ -56,7 +57,7 @@ function SellectItem({ item }: Props) {
             />
           )}
         </div>
-        <Link href={"category" + "?id=" + item._id}>
+        <Link onClick={close} href={"category" + "?id=" + item._id}>
           <h3
             className={` font-bold capitalize ${
               currentCategory.id === item._id ? "text-primary" : "text-gray-600"
@@ -80,6 +81,7 @@ function SellectItem({ item }: Props) {
       >
         {item.children.map((subItem) => (
           <Link
+            onClick={close}
             key={subItem._id}
             href={"category" + "?id=" + subItem._id}
             className="flex items-center gap-3 my-1 cursor-pointer"

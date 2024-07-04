@@ -30,7 +30,7 @@ export default async function Home({
 
       <div className="h-fit my-8">
         <Container>
-          <div className="lg:grid lg:grid-cols-3 gap-6 px-16 items-stretch">
+          <div className="grid grid-cols-3 gap-3 md:gap-6 lg:px-16 items-stretch">
             {storeCards.map((item) => (
               <div key={item.id} className="w-full h-fit">
                 <StoreCard
@@ -43,25 +43,75 @@ export default async function Home({
             ))}
           </div>
 
-          <div className="bg-primary p-10 flex gap-6 my-6 rounded">
-            <Image src={JImage} alt="jma3ea" />
-            <div className="text-white w-full">
-              <h1 className="text-8xl font-extrabold  font-mono">
-                {translate(dict, dict.free_points)}
-              </h1>
-              <h1 className="w-full text-3xl font-mono font-semibold text-end py-4">
-                {translate(dict, dict.free_points_description)}
-              </h1>
+          <div className="bg-primary p-3 md:p-5 lg:p-10 flex md:gap-4 lg:gap-6 my-6 rounded">
+            <div>
+              {/* <Image src={JImage} alt="jma3ea" className="hidden lg:bolck" /> */}
+              <div className="relative w-24 lg:w-28 h-full hidden md:block ">
+                <Image src={JImage} alt="jma3ea" fill className=" " />
+              </div>
+            </div>
 
-              <div className="flex justify-center gap-4 items-center">
-                <Image src={jma3eaImage} alt="jma3eaLogo" />
+            <div className="text-white w-full">
+              <div className="flex gap-4">
+                <Image
+                  src={JImage}
+                  alt="jma3ea"
+                  width={40}
+                  height={40}
+                  className=" md:hidden"
+                />
+                <div>
+                  <h1 className="text-4xl md:text-5xl lg:text-8xl font-extrabold  font-mono">
+                    {translate(dict, dict.free_points)}
+                  </h1>
+                  <h1 className="w-full text-xl md:text-2xl lg:text-3xl font-mono font-semibold lg:text-end py-2 lg:py-4">
+                    {translate(dict, dict.free_points_description)}
+                  </h1>
+                </div>
+              </div>
+
+              <div className="flex justify-center gap-2 md:gap-4 items-center">
+                <Image
+                  src={jma3eaImage}
+                  alt="jma3eaLogo"
+                  className="hidden md:block"
+                />
+                <Image
+                  src={jma3eaImage}
+                  width={95}
+                  height={40}
+                  alt="jma3eaLogo"
+                  className=" md:hidden"
+                />
                 <a href="/">
-                  <Image src={googleStore} alt="googleStore" />
+                  <Image
+                    src={googleStore}
+                    alt="googleStore"
+                    className="hidden md:block"
+                  />
+                  <Image
+                    src={googleStore}
+                    alt="googleStore"
+                    width={120}
+                    height={50}
+                    className=" md:hidden"
+                  />
                 </a>
                 <a href="/">
-                  <Image src={appStore} alt="appStore" />
+                  <Image
+                    src={appStore}
+                    alt="appStore"
+                    className="hidden md:block"
+                  />
+                  <Image
+                    src={appStore}
+                    alt="appStore"
+                    width={120}
+                    height={50}
+                    className=" md:hidden"
+                  />
                 </a>
-                <button className="px-10 py-3 text-4xl font-mono font-bold bg-secondary text-white">
+                <button className="px-1 text-base font-semibold py-1 whitespace-nowrap md:px-5 md:py-2 md:text-2xl lg:px-10 lg:py-3 lg:text-4xl font-mono md:font-bold bg-secondary text-white">
                   Shop Now
                 </button>
               </div>

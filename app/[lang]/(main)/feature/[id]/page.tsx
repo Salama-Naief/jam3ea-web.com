@@ -6,7 +6,6 @@ import { getCategoryById } from "@/module/(main)/category/services";
 import { Locale } from "../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
-import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
 
 export default async function Feature({
   params: { id, lang },
@@ -18,7 +17,7 @@ export default async function Feature({
   const products = await getProductsByFeature(id);
 
   const dict = await getDictionary(lang);
-  console.log("feature products", products);
+
   return (
     <div>
       {/* <Navbar hasSearch title={name} supplierId={supplier} /> */}
@@ -33,7 +32,6 @@ export default async function Feature({
             ))}
         </div>
       </Container>
-      {/* <CartBottomBar /> */}
     </div>
   );
 }

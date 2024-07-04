@@ -13,17 +13,22 @@ import { IInventory, ISupp, ISupplierResults } from "../../types";
 import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
-  supplier?: ISupplierResults;
+  supplier?: IInventory[];
+  supplierFeature?: ISupplierResults;
 }
-export default function SuppliersClient({ supplier }: Props) {
-  const stores = supplier ? supplier.suppliers : [];
+export default function SuppliersClient({ supplier, supplierFeature }: Props) {
+  const stores = supplier
+    ? supplier
+    : supplierFeature
+    ? supplierFeature.suppliers
+    : [];
   const path = usePathname();
   const storePage = path.includes("/stores");
 
   console.log("supplier===>", supplier);
   return (
     <div className="my-6 pb-4">
-      {supplier && supplier.suppliers.length > 0 && (
+      {stores && stores.length > 0 && (
         <h3
           className={`${
             storePage
@@ -31,14 +36,18 @@ export default function SuppliersClient({ supplier }: Props) {
               : "text-secondary pb-4"
           } text-[20px] font-bold  my-4  px-10 w-fit`}
         >
-          {supplier.name}
+          {"supplier."}
         </h3>
       )}
       <MainSlider
-        lgSize={stores.length > 5 ? 5 : stores.length}
-        mdSize={stores.length > 4 ? 4 : stores.length}
-        xlSize={stores.length > 6 ? 6 : stores.length}
-        smSize={stores.length > 3 ? 3 : stores.length}
+        // lgSize={stores.length > 5 ? 5 : stores.length}
+        // mdSize={stores.length > 4 ? 4 : stores.length}
+        // xlSize={stores.length > 6 ? 6 : stores.length}
+        // smSize={stores.length > 3 ? 3 : stores.length}
+        lgSize={5}
+        mdSize={4}
+        xlSize={6}
+        smSize={3}
         nextIcon={BsChevronRight}
         prevIcon={BsChevronLeft}
       >

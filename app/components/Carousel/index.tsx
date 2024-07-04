@@ -44,7 +44,7 @@ function Carousel() {
         <div
           className={`${
             currentSellect === i ? "bg-primary" : "bg-gray-50"
-          } h-4 w-4 rounded-full hover:bg-primary shadow-lg`}
+          } h-2.5 w-2.5 md:h-3 md:w-3 lg:h-4 lg:w-4 rounded-full hover:bg-primary shadow-lg`}
         ></div>
       );
     },
@@ -57,7 +57,7 @@ function Carousel() {
         {imgArray.map((img, index) => (
           <div
             key={index}
-            className="relative h-[25rem] md:h-[30rem] lg:h-[36rem] "
+            className="relative w-full h-[14rem] md:h-[20rem] lg:h-[36rem] "
           >
             <Image src={img} alt="" fill loading="lazy" sizes="w-1080 h-720" />
           </div>

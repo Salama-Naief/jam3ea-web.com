@@ -1,12 +1,32 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { Menu } from "@mantine/core";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { LANGUAGES } from "@/lib/enums";
 import kuwaitFlag from "../../../../public/assets/Kuwait.svg";
 import englishFlag from "../../../../public/assets/englsihFlag.svg";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 
+const ImageComp = ({ img }: { img: StaticImageData }) => {
+  return (
+    <>
+      <Image
+        src={img}
+        alt="flag"
+        width={45}
+        height={30}
+        className="cursor-pointer hidden lg:block"
+      />
+      <Image
+        src={img}
+        alt="flag"
+        width={35}
+        height={25}
+        className="cursor-pointer lg:hidden"
+      />
+    </>
+  );
+};
 function Lang() {
   const { translate, changeLanguage, language } = useContext(AuthContext);
   const [isDomReady, setIsDomReady] = useState(false);
@@ -20,21 +40,13 @@ function Lang() {
         <Menu>
           <Menu.Target>
             {language === LANGUAGES.ARABIC ? (
-              <Image
-                src={kuwaitFlag}
-                alt="flag"
-                width={40}
-                height={30}
-                className="cursor-pointer"
-              />
+              <div>
+                <ImageComp img={kuwaitFlag} />
+              </div>
             ) : (
-              <Image
-                src={englishFlag}
-                alt="flag"
-                width={50}
-                height={30}
-                className="cursor-pointer"
-              />
+              <div>
+                <ImageComp img={englishFlag} />
+              </div>
             )}
           </Menu.Target>
           <Menu.Dropdown classNames={{ dropdown: "bg-white" }}>
@@ -43,7 +55,7 @@ function Lang() {
               onClick={() => changeLanguage(LANGUAGES.ARABIC, true)}
             >
               <div className="flex gap-3 items-center">
-                <Image src={kuwaitFlag} alt="flag" width={40} height={30} />
+                <ImageComp img={kuwaitFlag} />
                 <p
                   className={`${
                     language === LANGUAGES.ARABIC
@@ -60,7 +72,7 @@ function Lang() {
               onClick={() => changeLanguage(LANGUAGES.ENGLISH, true)}
             >
               <div className="flex items-center gap-3">
-                <Image src={englishFlag} alt="flag" width={40} height={30} />
+                <ImageComp img={englishFlag} />
                 <p
                   className={`${
                     language === LANGUAGES.ENGLISH
@@ -75,13 +87,7 @@ function Lang() {
           </Menu.Dropdown>
         </Menu>
       ) : (
-        <Image
-          src={englishFlag}
-          alt="flag"
-          width={50}
-          height={30}
-          className="cursor-pointer"
-        />
+        <ImageComp img={englishFlag} />
       )}
     </div>
   );

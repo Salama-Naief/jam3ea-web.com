@@ -9,7 +9,6 @@ import { getFeaturedProducts } from "@/module/(main)/feature/services";
 import { Suspense } from "react";
 import { IFeature } from "@/module/(main)/feature/types";
 import Feature from "@/module/(main)/feature/components/Feature";
-import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
 import Supplier from "../conponents/Supplier";
 import { Loader } from "@mantine/core";
 
@@ -58,7 +57,6 @@ export default async function StorePage({
             />
           ))}
       </Container>
-      {/* <CartBottomBar /> */}
     </div>
   );
 }

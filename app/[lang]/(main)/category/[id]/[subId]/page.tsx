@@ -10,7 +10,6 @@ import SubCategoriesList from "@/module/(main)/category/components/Categories/Su
 import { Locale } from "../../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
-import CartBottomBar from "@/module/(main)/cart/components/CartBottomBar";
 import { cookies } from "next/headers";
 
 export default async function SubCategoriesPage({
@@ -87,7 +86,6 @@ export default async function SubCategoriesPage({
           </div>
         </div>
       </Container>
-      <CartBottomBar />
     </>
   );
 }

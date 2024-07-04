@@ -40,7 +40,20 @@ function Cart() {
         <span className="absolute -top-2 end-4 text-sm bg-danger flex items-center justify-center text-white rounded-full w-5 h-5">
           {cart.quantity}
         </span>
-        <Image width={32} height={32} src={cartIcon} alt="cart" />
+        <Image
+          width={32}
+          height={32}
+          src={cartIcon}
+          alt="cart"
+          className="hidden lg:block"
+        />
+        <Image
+          width={30}
+          height={30}
+          src={cartIcon}
+          alt="cart"
+          className="lg:hidden"
+        />
       </Link>
     </div>
   );

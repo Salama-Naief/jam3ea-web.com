@@ -79,16 +79,6 @@ export default function ProductCard({
     }
   };
 
-  if (product.sku === "80002358") {
-    console.log(
-      "product",
-      product.price,
-      product.old_price,
-      product.vip_price,
-      isVip
-    );
-  }
-
   const handleDecrement = async () => {
     setRemoveLoading(true);
     if (count > 1) {
@@ -161,7 +151,9 @@ export default function ProductCard({
           <Link href={webRoutes.product(product.sku)} prefetch={false}>
             <div
               className={`relative mx-auto ${
-                size === "small" ? "w-20 h-20" : "w-40 h-40"
+                size === "small"
+                  ? "w-20 h-20"
+                  : " w-28 h-28 md:w-32 md:h-32 lg:w-40 lg:h-40"
               }`}
             >
               <Image
@@ -284,7 +276,7 @@ export default function ProductCard({
                 className={`${
                   size === "small"
                     ? " text-base font-semibold"
-                    : " text-base font-bold"
+                    : " text-base font-semibold md:font-bold"
                 }`}
               >
                 {product.name}
@@ -293,7 +285,7 @@ export default function ProductCard({
           </Link>
         </div>
         {type === "bestSeller" && (
-          <div className="w-2/3 mx-auto flex-0">
+          <div className="w-full md::w-2/3 mx-auto flex-0">
             <AddToCartButton
               sku={product.sku}
               cartsStatus={product.cart_status}
