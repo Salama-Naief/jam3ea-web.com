@@ -86,7 +86,7 @@ function FeatureCarousel({ data, supplierId }: Props) {
         {data.map(({ _id, picture, url, name }) => (
           <Link key={_id} href={getSlideUrl(url, supplierId)}>
             {picture && (
-              <div className="relative w-full h-96">
+              <div className="relative w-full h-44 md:h-64 lg:h-96">
                 <Image
                   src={picture}
                   quality={60}

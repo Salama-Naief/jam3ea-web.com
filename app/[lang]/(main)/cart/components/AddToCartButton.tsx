@@ -103,7 +103,7 @@ export default function AddToCartButton({
     return (
       <>
         {/* {count > 0 ? ( */}
-        <div className="h-12 px-4 rounded-full mb-5 ">
+        <div className="h-12 px-2 md:px-4 rounded-full mb-5 ">
           <div className="h-full max-w-lg mx-auto flex items-center justify-center">
             <div className="flex items-center justify-between gap-10 w-full md:w-1/2 lg:w-1/4">
               <button

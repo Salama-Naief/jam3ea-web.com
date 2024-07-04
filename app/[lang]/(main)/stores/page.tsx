@@ -89,7 +89,7 @@ export default async function StoresPage({
           <div className="">
             {supplier &&
               supplier.map((store, i) => (
-                <SuppliersClient key={i} supplier={store} />
+                <SuppliersClient key={i} supplierFeature={store} />
                 // <Link
                 //   key={store._id}
                 //   href={webRoutes.store(store._id)}

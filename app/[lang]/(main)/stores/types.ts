@@ -1,8 +1,14 @@
+// export interface IInventory {
+//   name: string;
+//   logo: string;
+//   picture: string;
+//   suppliers: ISupplier[];
+// }
 export interface IInventory {
+  _id: string;
   name: string;
-  logo: string;
   picture: string;
-  suppliers: ISupplier[];
+  logo: string;
 }
 
 export interface ISupplier {

@@ -73,7 +73,7 @@ div:where(.swal2-icon) {
   font-family: "Cairo", sans-serif !important;
 }
 .slick-dots {
-  @apply top-[21rem] md:top-[23rem] lg:top-[28rem];
+  @apply top-[12rem] md:top-[17rem] lg:top-[28rem];
 }
 
 /* smooth scroll bar */

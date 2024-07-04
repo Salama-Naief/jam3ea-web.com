@@ -50,7 +50,7 @@ function FeatureClient({
       <div className="my-6 text-center">
         <button
           onClick={() => handleMore()}
-          className="px-6 py-3 text-primary font-bold border border-primary rounded-md"
+          className="px-6 py-2 lg:py-3 text-primary font-semibold lg:font-bold border border-primary rounded-md"
         >
           More
         </button>

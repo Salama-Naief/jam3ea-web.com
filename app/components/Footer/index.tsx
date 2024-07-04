@@ -13,7 +13,9 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {footerLinks.map((item) => (
             <div key={item.id}>
-              <h2 className="text-2xl font-bold py-4">{item.title}</h2>
+              <h2 className="text-xl md:text-2xl font-bold py-4">
+                {item.title}
+              </h2>
               <div className="px-2 ">
                 {item.links.map((link) => (
                   <Link key={link.id} href={link.link} className="block my-2">
@@ -25,7 +27,9 @@ function Footer() {
           ))}
 
           <div>
-            <h2 className="text-2xl  font-bold py-4">Connect With Us</h2>
+            <h2 className="text-xl md:text-2xl  font-bold py-4">
+              Connect With Us
+            </h2>
             <div className="flex gap-2 mt-4 items-center">
               <BsTelephone />
               <p>22274222</p>

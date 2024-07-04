@@ -6,6 +6,7 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { IFeature } from "@/module/(main)/feature/types";
 import ProductCard from "@/module/(main)/product/components/ProductCard";
 import { IProduct } from "@/module/(main)/product/types";
+import MainSlider from "@/components/Slider";
 
 //arrows
 function PrevArrow({ onClick, ...rest }: any) {
@@ -82,7 +83,7 @@ function Slider({
 
   return (
     <div>
-      <Carousel
+      {/* <Carousel
         swipeable={false}
         draggable={false}
         showDots={false}
@@ -95,11 +96,13 @@ function Slider({
         //   deviceType={this.props.deviceType}
         customRightArrow={autoPlay ? <div></div> : <PrevArrow />}
         customLeftArrow={autoPlay ? <div></div> : <NextArrow />}
-      >
+      > */}
+      <MainSlider lgSize={5} mdSize={3} smSize={2} xlSize={5}>
         {data.map((product) => (
           <ProductCard key={product.sku} product={product} type={type} />
         ))}
-      </Carousel>
+        {/* </Carousel> */}
+      </MainSlider>
     </div>
   );
 }

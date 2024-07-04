@@ -1,13 +1,5 @@
 "use client";
-import Image from "next/image";
-import React, { useContext, useEffect } from "react";
-import cartIcon from "../../../../public/assets/cart.svg";
-import Link from "next/link";
-import webRoutes from "@/lib/utils/webRoutes";
-import useHttpClient from "@/lib/hooks/useHttpClient";
-import { IGetCartResponseResult } from "@/module/(main)/cart/types";
-import { CartContext } from "@/module/(main)/cart/CartProvider";
-import { getCart } from "@/module/(main)/cart/services";
+import React, { useContext } from "react";
 import { BsBell } from "react-icons/bs";
 import { Menu } from "@mantine/core";
 import { AuthContext } from "@/lib/providers/AuthProvider";
@@ -30,7 +22,8 @@ function Notificatoins({ notifications }: Props) {
               <div className="absolute -top-1 -end-0 text-sm bg-danger flex items-center justify-center rounded-full w-3 h-3"></div>
             )}
 
-            <BsBell size={28} className="text-secondary" />
+            <BsBell size={30} className="text-secondary hidden lg:block" />
+            <BsBell size={24} className="text-secondary block lg:hidden" />
           </div>
         </Menu.Target>
         <Menu.Dropdown className="bg-white !p-0 !w-1/2 ">

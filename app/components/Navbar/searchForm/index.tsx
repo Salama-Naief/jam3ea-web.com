@@ -84,8 +84,10 @@ export default function SearchForm({
                       />
                     </div>
                     <div className="flex-1">
-                      <h6 className="font-bold my-1">{product.name}</h6>
-                      <div className="font-semibold">
+                      <h6 className=" font-semibold md:font-bold my-1">
+                        {product.name}
+                      </h6>
+                      <div className="md:font-semibold">
                         <span>{translate("price")} : </span>
                         <span className="font-semibold">
                           {product.price} {translate("currency")}
