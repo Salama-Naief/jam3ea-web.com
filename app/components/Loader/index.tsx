@@ -1,9 +1,14 @@
-import { LoadingIcon } from '../Icons';
+import { Loader as MantineLoader } from "@mantine/core";
+import { LoadingIcon } from "../Icons";
 
-export default function Loader() {
+interface Props {
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  color?: string;
+}
+export default function Loader({ color = "orange", size = "sm" }: Props) {
   return (
-    <div className="text-center">
-      <LoadingIcon />
+    <div className=" w-full h-full flex items-center justify-center">
+      <MantineLoader size={size} color={color} />
     </div>
   );
 }

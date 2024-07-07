@@ -33,7 +33,7 @@ export default function LoginForm() {
   } = UseNewPassword();
 
   return (
-    <div className="shadow-md rounded-xl px-3 pt-6 pb-8 bg-white h-full md:h-auto">
+    <div className="shadow-md rounded-xl px-3 pt-6 pb-8 bg-white  md:h-auto">
       <Logo />
       <FormTitle title={translate("new_password")} />
       <form onSubmit={handleSubmit}>

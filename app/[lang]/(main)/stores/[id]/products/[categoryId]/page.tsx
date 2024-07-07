@@ -10,7 +10,7 @@ import { Suspense } from "react";
 import { IFeature } from "@/module/(main)/feature/types";
 import Feature from "@/module/(main)/feature/components/Feature";
 
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 import StoreProducts from "../../../conponents/StoreProducts";
 import { number } from "yup";
 import { getCategoryById } from "@/module/(main)/category/services";
@@ -51,7 +51,7 @@ export default async function StorePage({
             selectedCategoryId={category ? category._id : undefined}
           />
         </div>
-        <Suspense fallback={<Loader color="orange" />}>
+        <Suspense fallback={<Loader />}>
           {/* @ts-expect-error Server Component */}
           <StoreProducts
             supplierId={params.id}

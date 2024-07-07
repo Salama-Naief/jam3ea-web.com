@@ -6,7 +6,7 @@ import { getSlideUrl } from "../../utils";
 import Image from "next/image";
 import ProductSlider from "@/components/Slider/ProductSlider";
 import FeatureSlider from "../FeatueSlider";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 import FeatureCarousel from "../FeatueCarousel";
 
 interface FeatureProps {
@@ -54,20 +54,20 @@ export default function Feature({
         // </Slider>
       }
       <div>
-        <div className="flex justify-between items-center px-4">
+        <div className="flex justify-between items-center px-4 my-4 md:my-6">
           <h2
             className={`${
               title === "center"
                 ? "text-primary text-center text-xl md:text-2xl"
-                : "text-start text-lg md:text-xl"
-            } font-bold  my-6`}
+                : "text-start  md:text-lg lg:text-xl"
+            } font-bold `}
           >
             {name}
           </h2>
           <div className="flex justify-end">
             <Link
               href={webRoutes.feature(_id, name, supplierId)}
-              className="lg:text-lg text-secondary"
+              className="text-[15px] lg:text-lg text-secondary"
             >
               {dictionary.view_all}
             </Link>

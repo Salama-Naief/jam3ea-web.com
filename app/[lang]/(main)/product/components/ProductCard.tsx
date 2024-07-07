@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { BsPlus, BsTrash } from "react-icons/bs";
 import { HandleCart } from "../../cart/lib/handleCart";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../cart/CartProvider";
 import { usePathname, useRouter } from "next/navigation";
@@ -275,8 +275,8 @@ export default function ProductCard({
               <p
                 className={`${
                   size === "small"
-                    ? " text-base font-semibold"
-                    : " text-base font-semibold md:font-bold"
+                    ? "text-[14px] md:text-base font-semibold"
+                    : " text-[14px] font-semibold md:font-bold"
                 }`}
               >
                 {product.name}

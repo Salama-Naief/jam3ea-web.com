@@ -20,11 +20,15 @@ export default async function MartPage({
     <div id="mart" className="pt-4">
       <Container>
         <div className="">
-          <h1 className="text-3xl font-bold text-primary my-6">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-primary my-4 md:my-6">
             {translate(dict, dict.jameia_mart)}
           </h1>
-          <div className="mb-6">
-            <Image src={martPageImage} alt="Jameia Mart" className="mx-auto" />
+          <div className="mb-0 lg:mb-6">
+            <Image
+              src={martPageImage}
+              alt="Jameia Mart"
+              className="mx-auto rounded-md"
+            />
           </div>
         </div>
         <Suspense fallback={<SliderSkeleton />}>

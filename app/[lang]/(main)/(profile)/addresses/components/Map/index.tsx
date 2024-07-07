@@ -28,7 +28,7 @@ import { IDataLoadedResponse } from "@/lib/types";
 import { ICity } from "@/module/(main)/city/types";
 import { getCities } from "@/module/(main)/city/services";
 import { showErrorAlert } from "@/lib/utils/helpers";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 // import styles from "../styles/Home.module.css";
 
 interface Props {
