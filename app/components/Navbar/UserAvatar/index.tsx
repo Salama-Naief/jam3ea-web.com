@@ -99,7 +99,7 @@ function UserAvatar() {
                   className="cursor-pointer"
                 />
               </div>
-              <div className="text-primary text-sm font-semibold">
+              <div className="text-primary text-sm hidden md:block font-semibold">
                 My Account
               </div>
             </div>

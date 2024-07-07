@@ -24,7 +24,6 @@ const apiHandler = async (
       user_token && user_token != "null" ? user_token : visitor_token;
 
     const language = cookieStore.get("language")?.value;
-
     const options: RequestInit = {
       method,
       headers: {

@@ -10,7 +10,7 @@ import { Suspense } from "react";
 import { IFeature } from "@/module/(main)/feature/types";
 import Feature from "@/module/(main)/feature/components/Feature";
 import Supplier from "../conponents/Supplier";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 
 export default async function StorePage({
   params,
@@ -18,7 +18,6 @@ export default async function StorePage({
   params: { lang: Locale; id: string };
 }) {
   const dict = await getDictionary(params.lang);
-  const supplier = await getSupplierById(params.id);
   const features = await getFeaturedProducts(params.id);
 
   return (

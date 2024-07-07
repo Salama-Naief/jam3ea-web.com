@@ -22,22 +22,16 @@ async function StoreProducts({
   category,
 }: Props) {
   const products = await getCategoryProductsStore(supplierId, categoryId);
-  // let total = 0;
-  // if (products && products.total && products.per_page) {
-  //   total = Math.ceil(Number(products.total) / Number(products.per_page));
-  // }
-  // const path = `/stores/${supplierId}/products/${categoryId}?limit=15`;
-  // console.log("total,currentpage", total, products && products.current_page);
   return (
-    <div className="bg-gray-100 p-6">
+    <div className="bg-gray-50 p-2 md:p-4 lg:p-6">
       {category && (
-        <div className="flex justify-between items-center my-6">
+        <div className="flex justify-between items-center my-4 md:my-6">
           <h3 className="text-xl font-bold">{category.name}</h3>
         </div>
       )}
 
       {products && products.data && (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:grid-cols-5 xl:grid-cols-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 lg:gap-6 lg:grid-cols-5 xl:grid-cols-5">
           {products.data.map((product) => (
             <ProductCard key={product.sku} product={product} type="normal" />
           ))}

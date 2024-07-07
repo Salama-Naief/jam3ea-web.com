@@ -4,7 +4,7 @@ import Feature from "./Feature";
 import { IFeature } from "../types";
 import { translate } from "@/lib/utils/serverHelpers";
 import { getDictionary } from "@/lib/utils/dictionary";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import FeatureClient from "./FeatureClient";
 

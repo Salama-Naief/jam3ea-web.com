@@ -14,7 +14,7 @@ import webRoutes from "@/lib/utils/webRoutes";
 import { HandleCart } from "../lib/handleCart";
 import { getProductQuantityPrice } from "../../product/utils";
 import { useCookies } from "react-cookie";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 
 interface Props {
   product: ICheckoutProduct;

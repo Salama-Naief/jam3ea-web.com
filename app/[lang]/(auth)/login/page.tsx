@@ -14,12 +14,12 @@ export default function Login() {
   return (
     <div>
       <Container>
-        <div className="md:grid md:grid-cols-2  justify-center items-center h-screen">
+        <div className="lg:grid lg:grid-cols-2  w-full justify-center items-center h-screen">
           <Image
             src={panaImage}
             alt="pana"
             priority
-            className="hidden md:block"
+            className="mt-6 mb-4 mx-auto"
           />
           <LoginForm />
         </div>

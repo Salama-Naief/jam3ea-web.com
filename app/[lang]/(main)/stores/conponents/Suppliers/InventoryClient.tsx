@@ -13,25 +13,14 @@ import { IInventory, ISupp, ISupplierResults } from "../../types";
 import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
-  supplierFeature?: ISupplierResults;
+  supplier?: IInventory[];
 }
-export default function SuppliersClient({ supplierFeature }: Props) {
+export default function InvetoryClient({ supplier }: Props) {
   const path = usePathname();
   const storePage = path.includes("/stores");
 
   return (
-    <div className="my-2 pb-2 md:my-4 md:pb-3 lg:my-6 lg:pb-4">
-      {supplierFeature && (
-        <h3
-          className={`${
-            storePage
-              ? "text-black bg-[#EEEEEE] rounded-full p-1 md:p-2"
-              : "text-secondary mb-2 md:pb-4"
-          } text-[16px] md:text-[18px] lg:text-[20px] font-bold  my-4  px-10 w-fit`}
-        >
-          {supplierFeature.name}
-        </h3>
-      )}
+    <div className="my-6 pb-4">
       <MainSlider
         // lgSize={stores.length > 5 ? 5 : stores.length}
         // mdSize={stores.length > 4 ? 4 : stores.length}
@@ -44,18 +33,14 @@ export default function SuppliersClient({ supplierFeature }: Props) {
         nextIcon={BsChevronRight}
         prevIcon={BsChevronLeft}
       >
-        {supplierFeature &&
-          supplierFeature.suppliers.map((supplier, i) => (
+        {supplier &&
+          supplier.map((supplier, i) => (
             <div key={i} className=" flex justify-center">
-              <Link
-                href={"/stores/" + supplier._id}
-                className="block relative w-24 h-24 md:w-28 md:h-28 lg:w-40 lg:h-40"
-              >
+              <Link href={"/stores/" + supplier._id} className="   block">
                 <Image
                   src={supplier.logo}
-                  // width={storePage ? 150 : 130}
-                  // height={storePage ? 150 : 130}
-                  fill
+                  width={storePage ? 150 : 130}
+                  height={storePage ? 150 : 130}
                   className="rounded shadow-md p-1"
                   alt={"supplier"}
                 />

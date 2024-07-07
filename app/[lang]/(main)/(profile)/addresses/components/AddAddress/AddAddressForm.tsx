@@ -22,7 +22,7 @@ import { AuthContext } from "@/lib/providers/AuthProvider";
 import * as Yup from "yup";
 import { updateProfile } from "../../../services";
 import { useRouter } from "next/navigation";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 
 interface AddAddressProps {
   afterSubmit: () => void;

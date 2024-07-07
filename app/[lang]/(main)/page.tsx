@@ -10,7 +10,7 @@ import StoreCard from "@/components/StoreCard";
 
 import FeatureServer from "./feature/components/FeatureServer";
 import SliderSkeleton from "@/components/Skeletons/SliderSkeleton";
-import { Loader } from "@mantine/core";
+import Loader from "@/components/Loader";
 import Image from "next/image";
 import JImage from "../../../public/assets/J.png";
 import jma3eaImage from "../../../public/assets/jma3ea-white.png";
@@ -124,7 +124,13 @@ export default async function Home({
       </div>
       <div className="">
         <Container>
-          <Suspense fallback={<Loader color="orange" />}>
+          <Suspense
+            fallback={
+              <div className="w-full flex justify-center">
+                <Loader size={"sm"} color="orange" />
+              </div>
+            }
+          >
             {/* @ts-expect-error Server Component */}
             <Categories
               dictionary={{ all_sections: translate(dict, "all_sections") }}
@@ -135,7 +141,13 @@ export default async function Home({
 
       <div className="">
         <Container>
-          <Suspense fallback={<Loader color="orange" />}>
+          <Suspense
+            fallback={
+              <div className="w-full flex justify-center">
+                <Loader size={"sm"} color="orange" />
+              </div>
+            }
+          >
             {/* @ts-expect-error Server Component */}
             <Suppliers />
           </Suspense>
