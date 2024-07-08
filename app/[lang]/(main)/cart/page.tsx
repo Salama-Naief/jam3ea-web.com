@@ -90,7 +90,7 @@ export default async function Cart({
         </div>
         {
           cart &&
-            (Array.isArray(cart.products) && cart.products.length > 1 ? (
+            (Array.isArray(cart.products) && cart.products.length >= 1 ? (
               <SingleSupplier user={user} cart={cart} lang={lang} dict={dict} />
             ) : (
               <div className="flex flex-col mt-20 justify-center items-center">
