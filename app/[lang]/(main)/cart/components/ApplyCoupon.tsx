@@ -9,7 +9,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import Input from "@/components/Input";
 
 interface ApplyCouponProps {
-  coupon: ICoupon;
+  coupon: { code: string | null; value: string };
   dictionary: {
     apply: string;
     have_coupon: string;
@@ -96,7 +96,7 @@ export default function ApplyCoupon({ coupon, dictionary }: ApplyCouponProps) {
           {dictionary.apply}
         </button>
       </div>
-      {coupon.suppliers_coupons && coupon.suppliers_coupons.length > 0 && (
+      {/* {coupon.suppliers_coupons && coupon.suppliers_coupons.length > 0 && (
         <>
           <hr className="mx-3 my-2" />
           <div className="mx-auto pt-3 px-3">
@@ -112,7 +112,7 @@ export default function ApplyCoupon({ coupon, dictionary }: ApplyCouponProps) {
             ))}
           </div>
         </>
-      )}
+      )} */}
     </div>
   );
 }

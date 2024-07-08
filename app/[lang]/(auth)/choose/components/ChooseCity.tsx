@@ -23,6 +23,7 @@ import {
 import { relative } from "path";
 import { useCookies } from "react-cookie";
 import { AuthContext } from "@/lib/providers/AuthProvider";
+import webRoutes from "@/lib/utils/webRoutes";
 
 interface Props {
   cities: ICity;
@@ -41,6 +42,7 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
   const { translate } = useContext(AuthContext);
   const router = useRouter();
   const [state, formAction] = useFormState(SetGuestCityId, { city_id: "" });
+  const [loading, setLoading] = useState<boolean>(false);
   const [cookies, setCookie, removeCookie] = useCookies([
     "city",
     "city_id",
@@ -110,23 +112,27 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
   const handleGuest = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (selectCity?.value) {
-      // // const status = await sendRequest(changeCity(selectCity.value));
-      // const status = await sendRequest(
-      //   updateCity({ city_id: selectCity.value })
-      // );
+      setLoading(true);
+      //const status = await sendRequest(changeCity(selectCity.value));
+      const status =
+        //   // await sendRequest(
+        await updateCity({ city_id: selectCity.value });
+      // //);
+      console.log("status update city", status);
+
       // console.log(status);
       // console.log("results", results);
       // if (city) {
       //   // router.push("/");
       // }
+      setLoading(false);
       const options = {
         sameSite: "none",
         secure: true,
         path: "/",
       } as any;
-      console.log("useEffect results", results);
 
-      setCookie("city_id", selectCity?.value, options);
+      // setCookie("city_id", selectCity?.value, options);
       setCookie(
         "addresses",
         {
@@ -158,7 +164,7 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
         options
       );
       // setCity(res.results?.data.city);
-      router.refresh();
+      router.push(webRoutes.home);
     }
   };
   return (
@@ -197,6 +203,7 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
               title="Continue"
               className="w-full !bg-primary !text-white my-4"
               type="submit"
+              isLoading={loading}
             />
           </form>
         )

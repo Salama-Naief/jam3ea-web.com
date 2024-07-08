@@ -1,9 +1,9 @@
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
 import apiHandler from "@/lib/utils/apiHandler";
-import { IGetCheckoutResponseResult } from "./types";
+import { IGetCheckoutResponse, IGetCheckoutResponseResult } from "./types";
 import SingleSupplier from "./components/SingleSupplier";
-import MultiSuppliers from "./components/MultiSuppliers";
+// import MultiSuppliers from "./components/MultiSuppliers";
 import { Locale } from "../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
@@ -22,7 +22,7 @@ export default async function Cart({
 }: {
   params: { lang: Locale };
 }) {
-  const cart: IGetCheckoutResponseResult = await apiHandler(
+  const cart: IGetCheckoutResponse = await apiHandler(
     "/checkout",
     "GET",
     undefined,
@@ -37,18 +37,17 @@ export default async function Cart({
     true,
     false
   );
-
+  console.log("cart===[[[[[[[}}}}}", cart);
   // const cart = checkout;
 
   const dict = await getDictionary(lang);
   const categoryId =
     cart &&
-    cart.data &&
-    cart.data.length > 0 &&
-    cart.data[0].products.length > 0 &&
-    cart.data[0].products[0].categories
+    Array.isArray(cart.products) &&
+    cart.products.length > 0 &&
+    cart.products[0].categories
       ? //@ts-expect-error
-        cart.data[0].products[0].categories[0]._id
+        cart.products[0].categories[0]._id
       : undefined;
   const links = [
     {
@@ -66,12 +65,14 @@ export default async function Cart({
       <Container>
         <div className="px-6">
           <Breadcrumbs items={links} />
-          <h1 className="text-lg text-secondary font-bold my-4">
-            Items related to your cart
-          </h1>
+          {categoryId && (
+            <h1 className="text-lg text-secondary font-bold my-4">
+              Items related to your cart
+            </h1>
+          )}
         </div>
         <Suspense>
-          {cart && cart.data && cart.data.length && (
+          {cart && cart.products.length && (
             /* @ts-ignore */
             <RelatedProducts categoryId={categoryId} />
           )}
@@ -87,17 +88,22 @@ export default async function Cart({
             </Suspense> */}
           </div>
         </div>
-        {cart && cart.data ? (
-          cart.data.length === 1 ? (
-            <SingleSupplier user={user} cart={cart} lang={lang} dict={dict} />
-          ) : (
-            <MultiSuppliers cart={cart} lang={lang} dict={dict} />
-          )
-        ) : (
-          <div className="flex flex-col mt-20 justify-center items-center">
-            <div>{translate(dict, "no_data")}</div>
-          </div>
-        )}
+        {
+          cart &&
+            (Array.isArray(cart.products) && cart.products.length > 1 ? (
+              <SingleSupplier user={user} cart={cart} lang={lang} dict={dict} />
+            ) : (
+              <div className="flex flex-col mt-20 justify-center items-center">
+                <div>{translate(dict, "no_data")}</div>
+              </div>
+              // <MultiSuppliers cart={cart} lang={lang} dict={dict} />
+            ))
+          // : (
+          //   <div className="flex flex-col mt-20 justify-center items-center">
+          //     <div>{translate(dict, "no_data")}</div>
+          //   </div>
+          // )
+        }
       </Container>
     </div>
   );

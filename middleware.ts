@@ -35,7 +35,6 @@ export async function middleware(request: NextRequest) {
     throw new Error("Missing environment variables");
 
   const addresses = request.cookies.get("addresses")?.value;
-  console.log("addresses middlerware", addresses);
   const city = request.cookies.get("city");
 
   const selectedAddress = request.cookies.get("selectedAddress")?.value;
@@ -178,7 +177,7 @@ const checkAuth = async (response: NextResponse) => {
       return response;
     }
   } catch (error) {
-    console.error(error);
+    console.error("check auth error----", error);
     return response;
   }
 };

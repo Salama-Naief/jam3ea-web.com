@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { IGetCheckoutResponseResult } from "../types";
+import { IGetCheckoutResponse, IGetCheckoutResponseResult } from "../types";
 import Button from "@/components/Button";
 import webRoutes from "@/lib/utils/webRoutes";
 import {
@@ -31,7 +31,7 @@ import { useRouter } from "next/navigation";
 import useHttpClient from "@/lib/hooks/useHttpClient";
 
 interface SingleSupplierProps {
-  cart: IGetCheckoutResponseResult;
+  cart: IGetCheckoutResponse;
   lang: Locale;
   dict: any;
   user: IUser;
@@ -43,7 +43,7 @@ export default function SingleSupplier({
   dict,
   user,
 }: SingleSupplierProps) {
-  const data = cart.data[0];
+  const data = cart;
   const { translate, isLoggedIn } = useContext(AuthContext);
   const { selectedAddress, addresses } = useContext(AddressContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -131,7 +131,7 @@ export default function SingleSupplier({
       >  */}
       <div className="md:grid md:grid-cols-5 gap-8 items-start">
         <div className="col-span-3 h-fit">
-          {cart.data[0].products?.map((product, i) => (
+          {cart.products?.map((product, i) => (
             <CartProductCard key={i} product={product} />
             // <div
             //   key={product.sku}
@@ -204,7 +204,7 @@ export default function SingleSupplier({
               <div className="flex items-center text-lg font-bold text-secondary">
                 <div className="">{translate("order_summary")}</div>
                 <div className="text-black py-2 px-4 rounded-2xl ms-auto">
-                  {cart.data[0].products?.length} {translate("products")}
+                  {cart.products?.length} {translate("products")}
                 </div>
               </div>
               <div className="flex flex-col border-l-0 font-semibold border-r-0 border border-black px-3 py-2">

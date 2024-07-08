@@ -39,9 +39,11 @@ const CartProvider = ({ children }: any) => {
     setLoading(true);
     const res = await addToCart(values);
     setLoading(false);
+    console.log("add to cart", res);
     if (res.success) {
       const { total_prices, total_products, total_quantities } =
-        res.results as IAddToCartResponseResult;
+        //@ts-expect-error
+        res.results.Jm3eia;
       const newCartValue = {
         price: total_prices,
         quantity: total_quantities,
@@ -58,7 +60,8 @@ const CartProvider = ({ children }: any) => {
     setLoading(false);
     if (res.success) {
       const { total_prices, total_products, total_quantities } =
-        res.results as IAddToCartResponseResult;
+        //@ts-expect-error
+        res.results.Jm3eia;
       const newCartValue = {
         price: total_prices,
         quantity: total_quantities,

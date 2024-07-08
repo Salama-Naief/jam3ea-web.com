@@ -1,6 +1,6 @@
-import { EmptyWishlistIcon } from '@/components/Icons';
-import webRoutes from '@/lib/utils/webRoutes';
-import Link from 'next/link';
+import { EmptyWishlistIcon } from "@/components/Icons";
+import webRoutes from "@/lib/utils/webRoutes";
+import Link from "next/link";
 
 interface EmptyWishListProps {
   dictionary: {
@@ -16,12 +16,12 @@ export default function EmptyWishList({ dictionary }: EmptyWishListProps) {
         <EmptyWishlistIcon />
         <h2 className="text-md font-bold mt-3">{dictionary.wishlist_empty}</h2>
       </div>
-      <Link
+      {/* <Link
         href={webRoutes.home}
         className="w-full block bg-primary py-2 rounded-full text-white mt-10 text-center"
       >
         {dictionary.back_to_home}
-      </Link>
+      </Link> */}
     </div>
   );
 }

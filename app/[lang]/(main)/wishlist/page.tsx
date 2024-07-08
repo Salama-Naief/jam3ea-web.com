@@ -8,13 +8,21 @@ import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
 import EmptyWishList from "./components/EmptyWishlist";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import WishlistProductCart from "./components/WishlistProductCart";
+import { IWishlistProduct } from "./types";
 
 export default async function Wishlist({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const products: IProduct[] = await apiHandler("/wishlist");
+  const products: IWishlistProduct[] = await apiHandler(
+    "/wishlist",
+    "GET",
+    undefined,
+    true,
+    false
+  );
   const dict = await getDictionary(lang);
 
   const links = [
@@ -25,20 +33,15 @@ export default async function Wishlist({
     { label: "My Wish list", link: "/wishlist" },
   ];
   return (
-    <div className="bg-gray-50 p-8">
+    <div className="bg-gray-50 p-0 md:p-6 lg:p-8">
       <div>
         <Breadcrumbs items={links} />
       </div>
       <Container>
         {products.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-3">
             {products.map((product) => (
-              <ProductCard
-                key={product.sku}
-                product={product}
-                className="w-full"
-                type="normal"
-              />
+              <WishlistProductCart key={product.sku} product={product} />
             ))}
           </div>
         ) : (

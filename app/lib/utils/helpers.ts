@@ -1,4 +1,7 @@
+import { cookies } from "next/headers";
 import Swal from "sweetalert2";
+import { LANGUAGES } from "../enums";
+import { useCookies } from "react-cookie";
 
 export const clientRequest = async (
   route: string,
@@ -15,7 +18,7 @@ export const clientRequest = async (
             : "&nobody=" + true
         }`;
 
-    console.log("rouiter", url);
+    console.log("rouiter===+++++", url);
     const res = await fetch(url, {
       method,
       body: body && typeof body === "object" ? JSON.stringify(body) : undefined,

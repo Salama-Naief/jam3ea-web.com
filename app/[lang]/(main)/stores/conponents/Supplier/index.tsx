@@ -14,16 +14,16 @@ async function Supplier({ supplierId, lang }: Props) {
     <>
       {supplier && (
         <div className="p-4 ">
-          <div className="grid grid-cols-3  rounded-md bg-gray-100 px-6 py-12">
+          <div className="md:grid md:grid-cols-3  rounded-md bg-gray-100 px-6 py-12">
             <div className="col-span-2">
-              <h1 className="text-primary text-4xl font-bold">
+              <h1 className="text-primary text-3xl md:text-3xl lg:text-4xl font-bold">
                 {typeof supplier.delivery_time_text === "object"
                   ? lang === "ar"
                     ? supplier.delivery_time_text.ar
                     : supplier.delivery_time_text.ar
                   : supplier.delivery_time_text + supplier.app_delivery_time}
               </h1>
-              <div className="flex gap-4 items-center my-10">
+              <div className="flex gap-4 justify-center items-center my-10">
                 <span className="text-3xl font-bold">
                   {supplier.shipping_cost} K.D
                 </span>
@@ -36,6 +36,7 @@ async function Supplier({ supplierId, lang }: Props) {
                   src={supplier.picture}
                   width={300}
                   height={300}
+                  className="rounded"
                   alt={
                     typeof supplier.name === "object"
                       ? lang === "ar"
