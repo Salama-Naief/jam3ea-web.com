@@ -52,9 +52,10 @@ async function Category({ searchParams }: { searchParams: any }) {
     categories &&
     categories.data.find((i) => {
       if (i._id === searchParams["id"]) {
-        return i;
+        return null;
       } else {
-        return i.children.find((sub) => sub._id === searchParams["id"]);
+        return i.children.find((sub) => sub._id === searchParams["id"])
+          ?.children;
       }
     });
   return (

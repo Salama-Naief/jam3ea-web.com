@@ -13,15 +13,18 @@ async function RelatedProducts({ categoryId }: Props) {
     products = await getCategoryProducts(categoryId, 10, 1);
   }
 
+  console.log("related products", products);
+  console.log("related categoryId", categoryId);
+
   return (
     <div>
-      {products && (
+      {products && products.data && products.data.length > 0 && (
         <ProductSlider
           items={products.data}
           lgSize={5}
           xlSize={6}
-          smSize={3}
-          mdSize={4}
+          smSize={2}
+          mdSize={3}
           size="small"
           type="normal"
         />

@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
 import { Locale } from "../../../../../../i18n-config";
 import apiHandler from "@/lib/utils/apiHandler";
-import { IOrder } from "../../types";
+import { IOrder, IOrderResult } from "../../types";
 import {
   MapPinIcon,
   PhoneArrowDownLeftIcon,
@@ -33,10 +33,11 @@ export default async function MyOrders({
 }: {
   params: { id: string; lang: Locale };
 }) {
-  let order: IOrder = await apiHandler("/order/" + id);
+  let order: IOrderResult = await apiHandler("/order/" + id);
 
   const dict = await getDictionary(lang);
 
+  console.log("order");
   const links = [
     { label: translate(dict, dict.home), link: "/" },
     { label: translate(dict, dict.orders), link: "/orders" },
@@ -108,7 +109,7 @@ export default async function MyOrders({
 
           <h1 className="text-2xl font-extrabold flex gap-2">
             <span> {translate(dict, "receipt")}</span>
-            <span className="text-primary">Jm3eia</span>
+            <span className="text-primary">{order.supplier.name[lang]}</span>
           </h1>
 
           {/* order details */}
@@ -123,13 +124,15 @@ export default async function MyOrders({
                         src={p.picture}
                         width={150}
                         height={200}
-                        alt={p.name}
+                        alt={typeof p.name === "object" ? p.name[lang] : p.name}
                       />
                     </div>
 
                     <div className="font-bold">
                       <div className="flex gap-1 items-center justify-between">
-                        <div>{p.name}</div>
+                        <div>
+                          {typeof p.name === "object" ? p.name[lang] : p.name}
+                        </div>
                       </div>
                       <div>
                         <span className="text-primary ">
@@ -184,7 +187,7 @@ export default async function MyOrders({
                 <div className="flex items-center justify-between text-gray-400 my-3">
                   <span className="">{translate(dict, "donation")}</span>
                   <span>
-                    {order.coupon.value}
+                    {order.donate}
                     {translate(dict, "currency")}
                   </span>
                 </div>

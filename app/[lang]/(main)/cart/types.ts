@@ -99,6 +99,73 @@ export interface IGetCheckoutResponseResult {
   products?: ICheckoutProduct[];
 }
 
+export interface IGetCheckoutResponse {
+  subtotal: string;
+  points: number;
+  shipping_cost: string;
+  coupon: ISupplierCoupon;
+  discount_by_wallet: string;
+  discount_by_wallet_value: string;
+  total: string;
+  purchase_possibility: boolean;
+  message: string | null;
+  addresses: [];
+  gift_note: false;
+  payment_methods: [
+    {
+      id: "cod";
+      name: "Cash on delivery (Cash / Knet)";
+      valid: false;
+    },
+    {
+      id: "knet";
+      name: "KNET Online Payment (Online)";
+      valid: true;
+    }
+  ];
+  earliest_date_of_delivery: 0;
+  delivery_times: IDeliveryTime[];
+  offer: {
+    _id: string;
+    name: {
+      ar: string;
+      en: string;
+    };
+    description: {
+      ar: string;
+      en: string;
+    };
+    min_amount: number;
+    target_amount: number;
+    type: string;
+    product_sku: string;
+    expires_at: string;
+    product: IProduct;
+  };
+  supplier: {
+    _id: string;
+    name: {
+      ar: string;
+      en: string;
+    };
+    min_delivery_time: number;
+    min_order: number;
+    delivery_time_text: string;
+    has_picking_time: boolean;
+    is_external: boolean;
+  };
+  products: ICheckoutProduct[];
+  allow_donation: boolean;
+  donation_options: [];
+  donation: {
+    enable: boolean;
+    content: {
+      description: string;
+      picture: string;
+    };
+    options: number[];
+  };
+}
 export interface IApplyCoupon {
   code: string;
 }

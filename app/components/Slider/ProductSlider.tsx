@@ -99,10 +99,10 @@ function ProductSlider({
       <div className="w-full mx-auto px-4 md:px-0 lg:px-0 bg-transparent">
         {/* <Slider {...settings} className="w-full"> */}
         <MainSlider
-          lgSize={items.length > lgSize ? lgSize : items.length}
-          xlSize={items.length > xlSize ? xlSize : items.length}
-          mdSize={items.length > mdSize ? mdSize : items.length}
-          smSize={items.length > smSize ? smSize : items.length}
+          lgSize={lgSize}
+          xlSize={xlSize}
+          mdSize={mdSize}
+          smSize={smSize}
           nextIcon={BsChevronRight}
           prevIcon={BsChevronLeft}
           autoAnimation={autoAnimation}

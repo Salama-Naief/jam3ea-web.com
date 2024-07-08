@@ -16,6 +16,7 @@ function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       const status = await sendRequest(getCart());
+      console.log("get cart Status", status);
     };
     fetchData();
   }, []);
@@ -33,11 +34,12 @@ function Cart() {
       console.log("FAILED: ", results, errors);
     }
   }, [results, errors]);
+  console.log("get cart", cart);
 
   return (
     <div className=" relative">
       <Link href={webRoutes.cart}>
-        <span className="absolute -top-2 end-4 text-sm bg-danger flex items-center justify-center text-white rounded-full w-5 h-5">
+        <span className="absolute -top-4 end-3 text-sm bg-danger flex items-center justify-center text-white rounded-full w-5 h-5">
           {cart.quantity}
         </span>
         <Image

@@ -2,14 +2,7 @@
 import { useContext } from "react";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import { Tab } from "@headlessui/react";
-import {
-  ArrowUturnUpIcon,
-  ReceiptRefundIcon,
-} from "@heroicons/react/24/outline";
 import { IOrder } from "../../types";
-import { getPriceWithCurrency } from "@/module/(main)/product/utils";
-import webRoutes from "@/lib/utils/webRoutes";
-import Link from "next/link";
 import OrderCard from "./OrderCard";
 
 interface OrdersHistoryProps {
@@ -19,7 +12,6 @@ interface OrdersHistoryProps {
 
 export default function OrdersHistory({ orders, dict }: OrdersHistoryProps) {
   const { translate } = useContext(AuthContext);
-  console.log("orders======..", orders);
   const ORDER_STATUSES = [
     {
       number: -1,
@@ -46,8 +38,8 @@ export default function OrdersHistory({ orders, dict }: OrdersHistoryProps) {
             key={s.number}
             className={({ selected }) =>
               selected
-                ? " bg-primary text-white  px-6 mx-2 rounded py-2 !border-none"
-                : "text-black bg-gray-200 px-6 mx-2 rounded py-2"
+                ? " bg-primary text-white px-2 md:px-4 lg:px-6 mx-1 md:mx-2 rounded py-2 !border-none"
+                : "text-black bg-gray-200 px-2 md:px-4 lg:px-6 mx-1 md:mx-2 rounded py-2"
             }
           >
             {s.text}
@@ -57,7 +49,7 @@ export default function OrdersHistory({ orders, dict }: OrdersHistoryProps) {
       <Tab.Panels>
         {ORDER_STATUSES.map((s, i) => (
           <Tab.Panel key={i} className={"py-5"}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-4">
               {orders
                 .filter(
                   (order) =>

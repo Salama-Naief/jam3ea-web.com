@@ -93,6 +93,8 @@ export async function PUT(request: Request) {
   const { searchParams } = new URL(request.url);
   const route = searchParams.get("route") || "";
   const body = await request.json();
+  console.log("update city route", route);
+  console.log("update city body", body);
 
   const response = await apiHandler(route, "PUT", body);
 
