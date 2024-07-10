@@ -29,47 +29,46 @@ export default async function Account({
   const dict = await getDictionary(lang);
   return (
     <div>
-      <SharedLayout user={user} title="My Account">
+      <SharedLayout dict={dict} user={user} title="My Account">
         {/* profile details */}
         <div>
-          {/* <GoogleMaps /> */}
-          <div className="grid grid-cols-8 gap-4 items-center mb-4">
-            <span className="text-bold col-span-1 text-lg">
-              {translate(dict, "email")}
+          <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 items-center mb-4">
+            <span className="text-bold col-span-1 text-sm md:text-base  lg:text-lg">
+              {translate(dict, dict.email)}
             </span>
-            <div className="col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
+            <div className="col-span-3 md:col-span-5 lg:col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
               {user.email}
             </div>
           </div>
 
-          <div className="grid grid-cols-8 gap-4  items-center mb-4">
-            <span className="text-bold text-lg col-span-1">
-              {translate(dict, "full_name")}
+          <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 items-center mb-4">
+            <span className="text-bold col-span-1 text-sm  md:text-base  lg:text-lg">
+              {translate(dict, dict.fullname)}
             </span>
-            <div className="col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
+            <div className="col-span-3 md:col-span-5 lg:col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
               {user.fullname}
             </div>
           </div>
 
-          <div className="grid grid-cols-8 gap-4 items-center mb-4">
-            <span className="text-bold text-lg col-span-1">
-              {translate(dict, "username")}
+          <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 items-center mb-4">
+            <span className="text-bold col-span-1 text-sm  md:text-base  lg:text-lg">
+              {translate(dict, dict.username)}
             </span>
-            <div className="col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
+            <div className="col-span-3 md:col-span-5 lg:col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
               {user.username}
             </div>
           </div>
 
-          <div className="grid grid-cols-8 gap-4  items-center mb-4">
-            <span className="text-bold text-lg col-span-1">
+          <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 items-center mb-4">
+            <span className="text-bold col-span-1 text-sm  md:text-base  lg:text-lg">
               {translate(dict, "phone")}
             </span>
-            <div className="col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
+            <div className="col-span-3 md:col-span-5 lg:col-span-7 bg-slate-100 w-full px-4 py-2 rounded-lg">
               {user.mobile}
             </div>
           </div>
           {/* buttons */}
-          <div className="w-full px-4 md:w-3/5">
+          <div className="w-full lg:px-4 lg:w-3/5">
             <div className="text-center my-8">
               <Link href={webRoutes.updateProfile}>
                 <Button title="Update" />

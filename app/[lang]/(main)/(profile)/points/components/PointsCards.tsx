@@ -69,7 +69,7 @@ export default function PointsCards() {
   ];
   return (
     <>
-      <div className="grid grid-cols-3 w-full gap-4  px-2 py-4 rounded-2xl rounded-b-none">
+      <div className="grid grid-cols-2 md:grid-cols-3 w-full gap-3 md:gap-4  px-2 py-4 rounded-2xl rounded-b-none">
         {point2WalletArray.map((item, i) => (
           <button
             key={i}

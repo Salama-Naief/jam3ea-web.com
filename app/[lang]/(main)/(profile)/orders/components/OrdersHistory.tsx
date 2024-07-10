@@ -49,7 +49,7 @@ export default function OrdersHistory({ orders, dict }: OrdersHistoryProps) {
       <Tab.Panels>
         {ORDER_STATUSES.map((s, i) => (
           <Tab.Panel key={i} className={"py-5"}>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-4">
               {orders
                 .filter(
                   (order) =>

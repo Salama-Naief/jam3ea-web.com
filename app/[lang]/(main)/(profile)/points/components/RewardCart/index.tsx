@@ -17,8 +17,10 @@ export default function RewardProductCart({ product }: Props) {
         className="bg-gray-200"
       />
       <div>
-        <h6 className="font-bold pt-2">{product.title}</h6>
-        <h6 className="font-semibold py-2">Replace {product.points} points</h6>
+        <h6 className="font-bold text-sm lg:text-base pt-2">{product.title}</h6>
+        <h6 className="font-semibold text-sm lg:text-base py-2">
+          Replace {product.points} points
+        </h6>
         {/* {product.description && (
           <div className="-indent-4 h-5 overflow-hidden">
             <div dangerouslySetInnerHTML={{ __html: product.description }} />

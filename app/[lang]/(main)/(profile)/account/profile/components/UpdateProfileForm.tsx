@@ -42,7 +42,9 @@ export default function UpdateProfileForm({ user }: UpdateProfileFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="text-lg font-bold mb-2">{translate("update_profile")}</h2>
+      <h2 className="md:text-lg font-bold mb-2">
+        {translate("update_profile")}
+      </h2>
       <div>
         {/* <div className="text-primary mb-3">
           {translate("personal_information")}

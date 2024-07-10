@@ -105,7 +105,7 @@ export default function AddAddressForm({
           : translate("add_new_address")}
       </h2>
       <form onSubmit={handleSubmit} className="">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-2 gap-3">
           <div>
             <div className="text-primary mb-3">
               {translate("personal_information")}

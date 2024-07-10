@@ -26,19 +26,17 @@ function WalletCard({ wallet }: Props) {
 
   return (
     <div className="shadow-xl border gap-4 mb-3 overflow-hidden  rounded-2xl">
-      <div className="flex  items-center justify-center gap-2 text-2xl text-white py-4 bg-primary">
+      <div className="flex  items-center justify-center gap-2 text-lg md:text-xl lg:text-2xl text-white py-2 md:py-4 bg-primary">
         <div className=" font-bold">{getCustomDate(wallet.created).day} </div>
         <div className=" font-bold"> {getCustomDate(wallet.created).month}</div>
       </div>
-      <div className="flex flex-col px-4 py-6">
-        <div className=" font-semibold">{wallet.notes}</div>
-        <h1 className="text-2xl font-extrabold text-center my-6">
-          {isDeposit(wallet)
-            ? Number(wallet.new_wallet) - Number(wallet.old_wallet)
-            : Number(wallet.old_wallet) - Number(wallet.new_wallet)}
-          K.D
+      <div className="flex flex-col px-2 md:px-4 py-3 md:py-4 lg:py-6">
+        <div className="text-sm md:text-base font-semibold">{wallet.notes}</div>
+        <h1 className="text-lg md:text-xl lg:text-2xl font-extrabold text-center my-3 md:my-4 lg:my-6">
+          {Number(wallet.new_wallet) - Number(wallet.old_wallet)}
+          {translate("currency")}
         </h1>
-        <div className="text-xl px-3 capitalize font-bold text-primary ">
+        <div className="text-base md:text-lg lg:text-xl px-3 capitalize font-bold text-primary ">
           {isDeposit(wallet) ? translate("deposit") : translate("withdraw")}
         </div>
       </div>

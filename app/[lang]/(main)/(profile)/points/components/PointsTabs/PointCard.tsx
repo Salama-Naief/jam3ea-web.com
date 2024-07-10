@@ -20,12 +20,16 @@ export default function PointCard({ KDamount, points }: Props) {
           : "items-end justify-end"
       } relative bg-gray-50 overflow-hidden w-full flex  h-44 rounded-lg shadow-md `}
     >
-      <Image
-        src={point2walletIcon}
-        width={120}
-        height={120}
-        alt="poitn2wallet"
-      />
+      <div className="relative flex items-end  w-20 h-16 md:w-28 md:h-20 lg:w-32 lg:h-24">
+        <Image
+          src={point2walletIcon}
+          // width={120}
+          // height={120}
+          fill
+          alt="poitn2wallet"
+          className="origin-bottom"
+        />
+      </div>
       <div className="absolute flex flex-col justify-between w-full p-4 z-10 top-0 left-0 w-ful h-full">
         <h6 className="text-secondary text-end font-medium">
           {translate("cacsh_back")}

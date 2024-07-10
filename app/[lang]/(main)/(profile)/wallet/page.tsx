@@ -27,8 +27,12 @@ export default async function WalletPage({
 
   return (
     <div>
-      <SharedLayout user={user} title={`My Wallet (${user.wallet})`}>
-        <div className="bg-white px-2 pb-4 rounded-2xl rounded-b-none min-h-screen h-full">
+      <SharedLayout
+        dict={dict}
+        user={user}
+        title={`My Wallet (${user.wallet})`}
+      >
+        <div className="bg-white md:px-2 pb-4 rounded-2xl rounded-b-none min-h-screen h-full">
           {history && history.data && <WalletTabs history={history.data} />}
         </div>
       </SharedLayout>

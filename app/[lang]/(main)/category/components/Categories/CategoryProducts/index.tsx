@@ -67,7 +67,7 @@ async function CategoryProducts({ searchParams, selectedCategory }: Props) {
     lg:grid-cols-4
     xl:grid-cols-4
     2xl:grid-cols-5
-    gap-6
+     md:gap-4 lg:gap-6
       "
         >
           {products.data.map((product) => (

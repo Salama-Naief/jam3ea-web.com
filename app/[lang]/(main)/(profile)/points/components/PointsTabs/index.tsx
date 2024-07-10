@@ -27,8 +27,8 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
         <Tab
           className={({ selected }) =>
             selected
-              ? " px-8 py-2 font-bold bg-primary rounded text-white mx-2"
-              : "text-black bg-gray-200 font-bold rounded  px-8 py-2 mx-2"
+              ? "px-3 md:px-4 lg:px-8 text-sm lg:text-base py-2 font-bold bg-primary rounded text-white mx-2"
+              : "text-black bg-gray-200 font-bold rounded  px-3 md:px-4 lg:px-8 text-sm lg:text-base py-2 mx-2"
           }
         >
           {translate("Redeem your Fund Points")}
@@ -36,8 +36,8 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
         <Tab
           className={({ selected }) =>
             selected
-              ? " px-8 py-2 font-bold bg-primary active:outline-none !ring-0 !border-none rounded text-white mx-2"
-              : "text-black bg-gray-200 font-bold rounded  px-8 py-2 mx-2"
+              ? " px-3 md:px-4 lg:px-8 text-sm lg:text-base  py-2 font-bold bg-primary active:outline-none !ring-0 !border-none rounded text-white mx-2"
+              : "text-black bg-gray-200 font-bold rounded  px-3 md:px-4 lg:px-8 text-sm lg:text-base py-2 mx-2"
           }
         >
           {translate("My Points History")}
@@ -45,8 +45,8 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
         <Tab
           className={({ selected }) =>
             selected
-              ? " px-8 py-2 font-bold bg-primary rounded text-white mx-2"
-              : "text-black bg-gray-200 font-bold rounded  px-8 py-2 mx-2"
+              ? " px-3 md:px-4 lg:px-8 text-sm lg:text-base mt-4 md:mt-0 py-2 font-bold bg-primary rounded text-white mx-2"
+              : "text-black bg-gray-200 font-bold rounded  px-3 md:px-4 lg:px-8 text-sm lg:text-base mt-4 md:mt-0 py-2 mx-2"
           }
         >
           {translate("Transfer cash to the wallet")}
@@ -60,7 +60,7 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
             ))}
           </div>
         </Tab.Panel>
-        <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
+        <Tab.Panel className={"py-5 grid grid-cols-2 md:grid-cols-3 gap-4"}>
           {points.length > 0 ? (
             points.map((p) => <HistoryPointCard key={p._id} point={p} />)
           ) : (

@@ -42,7 +42,7 @@ export default function UpdateEmailForm({ user }: UpdateProfileFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="text-lg font-bold mb-2">{translate("update_profile")}</h2>
+      <h2 className="text-lg font-bold mb-2">{translate("update_email")}</h2>
       <div className="mb-4">
         {/* <div className="text-primary mb-3">
           {translate("personal_information")}

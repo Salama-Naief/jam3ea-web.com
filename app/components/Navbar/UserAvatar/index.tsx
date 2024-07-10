@@ -90,16 +90,17 @@ function UserAvatar() {
         <Menu shadow="md" width={200}>
           <Menu.Target>
             <div className="flex flex-col items-center">
-              <div>
+              <div className="relative w-[23px] lg:w-[32px] h-[23px] lg:h-[32px]">
                 <Image
                   src={logedAvatar}
                   alt="avatar"
-                  width={30}
-                  height={30}
+                  // width={30}
+                  // height={30}
+                  fill
                   className="cursor-pointer"
                 />
               </div>
-              <div className="text-primary text-sm hidden md:block font-semibold">
+              <div className="text-primary text-sm hidden  font-semibold">
                 My Account
               </div>
             </div>
@@ -126,7 +127,7 @@ function UserAvatar() {
         </Menu>
       ) : (
         <Link href={webRoutes.login} className="flex flex-col items-center">
-          <div className="relative w-7 h-7 lg:w-8 lg:h-8">
+          <div className="relative w-[23px] lg:w-[32px] h-[23px] lg:h-[32px]">
             <Image
               src={avatar}
               // width={30}
@@ -136,7 +137,7 @@ function UserAvatar() {
               className="cursor-pointer"
             />
           </div>
-          <div className="font-semibold text-sm text-secondary hidden lg:block">
+          <div className="font-semibold text-sm text-secondary hidden ">
             Login
           </div>
         </Link>

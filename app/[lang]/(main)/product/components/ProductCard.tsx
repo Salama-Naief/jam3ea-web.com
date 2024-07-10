@@ -224,7 +224,9 @@ export default function ProductCard({
                     } flex`}
                   >
                     <div>
-                      <span className="font-semibold">{product.vip_price}</span>
+                      <span className="font-semibold text-sm md:text-base">
+                        {product.vip_price}
+                      </span>
                       <sup>{translate("currency")}</sup>
                     </div>
 
@@ -234,7 +236,7 @@ export default function ProductCard({
                           <span
                             className={`
                         line-through decoration-danger decoration-2
-                       font-semibold`}
+                       font-semibold text-sm md:text-base`}
                           >
                             {product.vip_old_price}
                           </span>
@@ -253,7 +255,9 @@ export default function ProductCard({
                     } flex`}
                   >
                     <div>
-                      <span className="font-semibold">{product.price}</span>
+                      <span className="font-semibold text-sm md:text-base">
+                        {product.price}
+                      </span>
                       <sup>{translate("currency")}</sup>
                     </div>
 
@@ -262,7 +266,7 @@ export default function ProductCard({
                         <span
                           className={`
                          line-through decoration-danger decoration-2
-                       font-semibold`}
+                         text-sm md:text-base font-semibold`}
                         >
                           {product.old_price}
                         </span>

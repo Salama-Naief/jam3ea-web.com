@@ -17,34 +17,34 @@ export default async function MyOrders({
         {/* <PrivacyTabs /> */}
         <div className="flex justify-center text-secondary my-6">
           <h1 className="text-lg w-fit md:text-xl lg:text-2xl font-bold text-center border-b-2 px-4 border-primary">
-            {translate(dict, dict.privacy)}
+            {translate(dict, dict.policy)}
           </h1>
         </div>
         <div>
-          <div className=" rounded-lg mb-4">
+          <div className="rounded-lg mb-4">
             <div className="bg-secondary text-white px-6 font-bold py-1 md:py-3  lg:text-lg rounded-xl text-sm  w-fit mb-2 md:mb-3 lg:mb-4 ">
-              {translate(dict, "data_collected")}
+              {translate(dict, "delivery_policy")}
             </div>
             <div className="bg-[#FFF7F0] text-sm md:text-base p-2 rounded-b-lg whitespace-pre-line">
-              {translate(dict, "data_collected_content")}
+              {translate(dict, "delivery_policy_content")}
             </div>
           </div>
 
           <div className=" rounded-lg mb-4">
             <div className="bg-secondary text-white px-6 font-bold py-1 md:py-3  lg:text-lg rounded-xl text-sm  w-fit mb-2 md:mb-3 lg:mb-4 ">
-              {translate(dict, "data_collection_use")}
+              {translate(dict, "delivery_return_policy")}
             </div>
             <div className="bg-[#FFF7F0] text-sm md:text-base p-2 rounded-b-lg whitespace-pre-line">
-              {translate(dict, "data_collection_use_content")}
+              {translate(dict, "delivery_return_policy_content")}
             </div>
           </div>
 
           <div className=" rounded-lg mb-4">
-            <div className="bg-secondary text-white px-6 font-bold py-1 md:py-3  lg:text-lg rounded-xl text-sm  w-fit mb-2 md:mb-3 lg:mb-4 ">
-              {translate(dict, "data_security")}
+            <div className=" bg-secondary text-white px-6 font-bold py-1 md:py-3  lg:text-lg rounded-xl text-sm  w-fit mb-2 md:mb-3 lg:mb-4 ">
+              {translate(dict, "exchange_or_return")}
             </div>
             <div className="bg-[#FFF7F0] text-sm md:text-base p-2 rounded-b-lg whitespace-pre-line">
-              {translate(dict, "data_security_content")}
+              {translate(dict, "exchange_or_return_content")}
             </div>
           </div>
         </div>

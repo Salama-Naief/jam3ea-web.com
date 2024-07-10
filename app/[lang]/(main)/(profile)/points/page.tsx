@@ -36,7 +36,11 @@ export default async function PointsPage({
   console.log("points", points);
   return (
     <>
-      <SharedLayout title={`My points (${user ? user.points : 0})`} user={user}>
+      <SharedLayout
+        dict={dict}
+        title={`My points (${user ? user.points : 0})`}
+        user={user}
+      >
         <PointsTabs
           productReward={productReward ? productReward.data : []}
           points={points ? points.data : []}

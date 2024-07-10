@@ -32,7 +32,7 @@ export default function RepeatOrder({ id }: RepeatOrderProps) {
     <div>
       <Button
         loading={isLoading}
-        className="bg-primary text-white py-2 px-6 font-bold !w-fit rounded-lg "
+        className="bg-primary !mb-0 text-white text-sm md:text-base py-2 px-4 md:px-6 font-bold !w-fit rounded-lg "
         onClick={repeatOrderHandler}
       >
         {translate("repeat_order")}

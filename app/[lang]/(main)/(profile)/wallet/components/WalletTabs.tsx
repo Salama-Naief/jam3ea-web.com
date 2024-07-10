@@ -41,8 +41,8 @@ export default function WalletTabs({ history }: WalletTabsProps) {
         <Tab
           className={({ selected }) =>
             selected
-              ? " px-8 py-2 font-bold bg-primary rounded text-white mx-2"
-              : "text-black bg-gray-200 font-bold rounded  px-8 py-2 mx-2"
+              ? "px-4 md:px-8 py-2 font-bold bg-primary rounded text-white mx-2"
+              : "text-black bg-gray-200 font-bold rounded  px-4 md:px-8 py-2 mx-2"
           }
         >
           {translate("history")}
@@ -50,8 +50,8 @@ export default function WalletTabs({ history }: WalletTabsProps) {
         <Tab
           className={({ selected }) =>
             selected
-              ? " px-8 py-2 font-bold bg-primary rounded text-white mx-2"
-              : "text-black bg-gray-200 font-bold rounded  px-8 py-2 mx-2"
+              ? "px-4 md:px-8 py-2 font-bold bg-primary rounded text-white mx-2"
+              : "text-black bg-gray-200 font-bold rounded px-4  md:px-8 py-2 mx-2"
           }
         >
           {translate("deposit")}
@@ -59,8 +59,8 @@ export default function WalletTabs({ history }: WalletTabsProps) {
         <Tab
           className={({ selected }) =>
             selected
-              ? " px-8 py-2 font-bold bg-primary rounded text-white mx-2"
-              : "text-black bg-gray-200 font-bold rounded  px-8 py-2 mx-2"
+              ? "px-4 md:px-8 py-2 font-bold bg-primary rounded text-white mx-2"
+              : "text-black bg-gray-200 font-bold rounded px-4  md:px-8 py-2 mx-2"
           }
         >
           {translate("withdraw")}
@@ -70,14 +70,14 @@ export default function WalletTabs({ history }: WalletTabsProps) {
         {({ open }) => (
           <>
             <Disclosure.Button className="flex w-full justify-between rounded-lg p-3 shadow-md mt-1 mb-4">
-              <span className="text-lg font-bold">
+              <span className=" md:text-lg font-bold">
                 {translate("send_credit")}
               </span>
               <div className="rounded-full p-1 shadow-md">
                 <ChevronUpIcon
                   className={`${
                     open ? "rotate-180 transform" : ""
-                  } h-6 w-6 text-gray-600`}
+                  }h-5 w-5 md:h-6 md:w-6 text-gray-600`}
                 />
               </div>
             </Disclosure.Button>
@@ -88,19 +88,25 @@ export default function WalletTabs({ history }: WalletTabsProps) {
         )}
       </Disclosure>
       <Tab.Panels>
-        <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
+        <Tab.Panel
+          className={"py-5 grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4"}
+        >
           {history.map((h, i) => (
             <WalletCard key={h._id} wallet={h} />
           ))}
         </Tab.Panel>
-        <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
+        <Tab.Panel
+          className={"py-5 grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4"}
+        >
           {history
             .filter((h) => isDeposit(h))
             .map((h) => (
               <WalletCard key={h._id} wallet={h} />
             ))}
         </Tab.Panel>
-        <Tab.Panel className={"py-5 grid grid-cols-3 gap-4"}>
+        <Tab.Panel
+          className={"py-5 grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4"}
+        >
           {history
             .filter((h) => isWithdraw(h))
             .map((h) => (

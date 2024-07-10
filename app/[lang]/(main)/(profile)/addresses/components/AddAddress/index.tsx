@@ -20,7 +20,7 @@ export default function AddAddress({ user }: Props) {
   return (
     <>
       <button
-        className="bg-primary text-white flex gap-2 items-center justify-center w-full p-3 rounded-2xl mb-3 font-medium"
+        className="bg-primary text-white text-sm md:text-base flex gap-2 items-center justify-center w-full p-3 rounded-2xl mb-3 font-medium"
         onClick={() => setIsOpen(true)}
       >
         {translate("add_new_address")}{" "}

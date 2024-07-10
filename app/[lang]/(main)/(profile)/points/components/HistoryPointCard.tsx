@@ -21,16 +21,16 @@ function HistoryPointCard({ point }: Props) {
 
   return (
     <div className="shadow-xl border gap-4 mb-3 overflow-hidden  rounded-2xl">
-      <div className="flex  items-center justify-center gap-2 text-xl text-white py-3 bg-primary">
+      <div className="flex  items-center justify-center gap-2 text-base md:text-lg lg:text-xl text-white py-2 lg:py-3 bg-primary">
         <div className=" font-bold">{getCustomDate(point.created).day} </div>
         <div className=" font-bold"> {getCustomDate(point.created).month}</div>
       </div>
-      <div className="flex flex-col px-4 py-4 bg-gray-50">
-        <div className=" font-semibold">{point.notes}</div>
-        <h1 className="text-2xl font-extrabold text-center my-4">
+      <div className="flex flex-col px-4 py-2 lg:py-4 bg-gray-50">
+        <div className="text-sm lg:text-base font-semibold">{point.notes}</div>
+        <h1 className="text-lg md:text-xl lg:text-2xl font-extrabold text-center my-2 lg:my-4">
           {Number(point.new_points) - Number(point.old_points)}
         </h1>
-        <div className="text-xl px-3 capitalize font-bold text-primary ">
+        <div className="md:text-lg lg:text-xl px-3 capitalize font-bold text-primary ">
           {point.type}
         </div>
       </div>

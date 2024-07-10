@@ -6,8 +6,9 @@ import { IUser } from "../../../types";
 
 interface Props {
   user: IUser;
+  dict: any;
 }
-function ProfileLinks({ user }: Props) {
+function ProfileLinks({ user, dict }: Props) {
   const path = usePathname();
 
   const currentPath = path
@@ -42,7 +43,7 @@ function ProfileLinks({ user }: Props) {
             href={"/" + item.link}
             className={`${
               currentPath.includes(item.link) ? "text-primary" : "text-black"
-            } block hover:text-primary transition duration-100 font-bold text-lg`}
+            } block hover:text-primary transition duration-100 font-bold  lg:text-lg`}
           >
             {item.label}
           </Link>
