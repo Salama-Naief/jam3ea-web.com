@@ -135,6 +135,7 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
   const selectedAddress = request.cookies.get("selectedAddress")?.value;
   const addresses = request.cookies.get("addresses")?.value;
 
+  console.log("addresses", addresses);
   if (shouldNotBeAuth.includes(url) && isLoggedIn) {
     return new URL(webRoutes.home, request.url);
     // redirect(webRoutes.home);

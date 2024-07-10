@@ -23,7 +23,7 @@ function Notificatoins({ notifications }: Props) {
             )}
 
             <BsBell size={30} className="text-secondary hidden lg:block" />
-            <BsBell size={24} className="text-secondary block lg:hidden" />
+            <BsBell className="text-secondary w-[22px] h-[22px] block lg:hidden" />
           </div>
         </Menu.Target>
         <Menu.Dropdown className="bg-white !p-0 !w-1/2 ">

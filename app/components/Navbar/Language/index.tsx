@@ -13,15 +13,15 @@ const ImageComp = ({ img }: { img: StaticImageData }) => {
       <Image
         src={img}
         alt="flag"
-        width={45}
-        height={30}
+        width={42}
+        height={27}
         className="cursor-pointer hidden lg:block"
       />
       <Image
         src={img}
         alt="flag"
-        width={35}
-        height={25}
+        width={30}
+        height={20}
         className="cursor-pointer lg:hidden"
       />
     </>
@@ -61,7 +61,7 @@ function Lang() {
                     language === LANGUAGES.ARABIC
                       ? "text-primary"
                       : "text-black"
-                  } font-bold text-lg`}
+                  } font-bold text-sm md:text-base lg:text-lg`}
                 >
                   Kuwait
                 </p>
@@ -78,7 +78,7 @@ function Lang() {
                     language === LANGUAGES.ENGLISH
                       ? "text-primary"
                       : "text-black"
-                  } font-bold text-lg`}
+                  } font-bold text-sm md:text-base lg:text-lg`}
                 >
                   English
                 </p>

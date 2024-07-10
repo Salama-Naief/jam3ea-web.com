@@ -44,10 +44,10 @@ export default function SendToWalletForm() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex border items-end gap-4 pb-4 rounded-2xl p-4 shadow-md"
+        className="lg:flex border items-end gap-4 pb-4 rounded-2xl p-4 shadow-md"
       >
         <div className="flex flex-col w-full">
-          <h6 className="text-gray-4 text-lg mt-2">
+          <h6 className="text-gray-4 md:text-lg mt-2">
             Enter the amount to be sent from the wallet
           </h6>
           <Input
@@ -83,13 +83,15 @@ export default function SendToWalletForm() {
             }
           />
         </div>
-        <button
-          type="button"
-          className="bg-secondary  px-6 py-3 rounded-md h-fit text-white"
-          onClick={() => setIsOpen(true)}
-        >
-          {translate("send")}
-        </button>
+        <div className="text-end">
+          <button
+            type="button"
+            className="bg-secondary  px-6 py-3 mt-6 lg:mt-0 rounded-md h-fit text-white"
+            onClick={() => setIsOpen(true)}
+          >
+            {translate("send")}
+          </button>
+        </div>
         <Popup isOpen={isOpen} close={closeModal}>
           <div className="text-lg p-4">
             {translate("do_you_want_to_transfer")}{" "}

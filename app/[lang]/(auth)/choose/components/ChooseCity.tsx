@@ -5,22 +5,15 @@ import { ComboboxItem, Select } from "@mantine/core";
 import { ICity } from "@/module/(main)/city/types";
 import React, { useContext, useEffect, useState } from "react";
 import useHttpClient from "@/lib/hooks/useHttpClient";
-import { IDataLoadedResponse } from "@/lib/types";
 import Button from "../../../(main)/(profile)/account/components/Button";
-import { clientRequest } from "@/lib/utils/helpers";
 import { updateCity } from "@/module/(main)/(profile)/services";
 import {
-  ILoginResponseResult,
   IUpdateCity,
   IUpdateCityResponseResult,
 } from "@/module/(main)/(profile)/types";
 import { useRouter } from "next/navigation";
 import { SetGuestCityId } from "@/lib/server actions/setGuestCity";
-import {
-  AddressContext,
-  AddressProvider,
-} from "@/lib/providers/AddressProvider";
-import { relative } from "path";
+import { AddressContext } from "@/lib/providers/AddressProvider";
 import { useCookies } from "react-cookie";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import webRoutes from "@/lib/utils/webRoutes";
@@ -55,60 +48,6 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
       ? cities.children.map((c) => ({ label: c.name as string, value: c._id }))
       : [];
 
-  useEffect(() => {
-    if (results) {
-      const options = {
-        sameSite: "none",
-        secure: true,
-        path: "/",
-      } as any;
-      console.log("useEffect results", results);
-      if (results?.data.city) {
-        setCookie(
-          "city",
-          {
-            _id: results?.data.city._id,
-            name: results?.data.city.name,
-            store_id: results?.data.city.store_id,
-            parent_id: results?.data.city.parent_id,
-          },
-          options
-        );
-        setCookie(
-          "addresses",
-          {
-            city_id: results?.data.city._id,
-            widget: "1",
-            street: "1",
-            gada: "1",
-            house: "10",
-            floor: "1",
-            apartment_number: "1",
-            latitude: "29.32514313374099",
-            longitude: "47.678556769644985",
-          },
-          options
-        );
-        setCookie(
-          "selectedAddress",
-          {
-            city_id: results?.data.city._id,
-            widget: "1",
-            street: "1",
-            gada: "1",
-            house: "10",
-            floor: "1",
-            apartment_number: "1",
-            latitude: "29.32514313374099",
-            longitude: "47.678556769644985",
-          },
-          options
-        );
-        // setCity(res.results?.data.city);
-        router.push("/");
-      }
-    }
-  }, [results]);
   const handleGuest = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (selectCity?.value) {
@@ -164,7 +103,8 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
         options
       );
       // setCity(res.results?.data.city);
-      router.push(webRoutes.home);
+      // router.push(webRoutes.home);
+      if (window) window.location.href = webRoutes.home;
     }
   };
   return (

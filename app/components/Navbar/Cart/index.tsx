@@ -8,11 +8,14 @@ import useHttpClient from "@/lib/hooks/useHttpClient";
 import { IGetCartResponseResult } from "@/module/(main)/cart/types";
 import { CartContext } from "@/module/(main)/cart/CartProvider";
 import { getCart } from "@/module/(main)/cart/services";
+import { AuthContext } from "@/lib/providers/AuthProvider";
+import { LANGUAGES } from "@/lib/enums";
 
 function Cart() {
   const { sendRequest, results, errors } =
     useHttpClient<IGetCartResponseResult>();
   const { cart, setCart } = useContext(CartContext);
+  const { language } = useContext(AuthContext);
   useEffect(() => {
     const fetchData = async () => {
       const status = await sendRequest(getCart());
@@ -39,7 +42,13 @@ function Cart() {
   return (
     <div className=" relative">
       <Link href={webRoutes.cart}>
-        <span className="absolute -top-4 end-3 text-sm bg-danger flex items-center justify-center text-white rounded-full w-5 h-5">
+        <span
+          className={`absolute ${
+            language === LANGUAGES.ARABIC
+              ? "-left-1 lg:-left-1.5"
+              : "-right-1 lg:-right-1.5"
+          } -top-2  text-xs lg:text-sm bg-danger flex items-center justify-center text-white rounded-full w-4 h-4 lg:w-5 lg:h-5`}
+        >
           {cart.quantity}
         </span>
         <Image
@@ -47,11 +56,11 @@ function Cart() {
           height={32}
           src={cartIcon}
           alt="cart"
-          className="hidden lg:block"
+          className={`hidden lg:block `}
         />
         <Image
-          width={30}
-          height={30}
+          width={25}
+          height={25}
           src={cartIcon}
           alt="cart"
           className="lg:hidden"

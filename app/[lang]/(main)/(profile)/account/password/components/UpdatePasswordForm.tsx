@@ -10,9 +10,12 @@ import {
   IUpdatePasswordResponseResult,
 } from "@/module/(main)/(profile)/types";
 import { updatePassword } from "@/module/(main)/(profile)/services";
+import { useContext } from "react";
+import { AuthContext } from "@/lib/providers/AuthProvider";
 
 export default function UpdatePasswordForm() {
   const router = useRouter();
+  const { translate } = useContext(AuthContext);
   const {
     isLoading,
     errors: validationErrors,
@@ -41,7 +44,7 @@ export default function UpdatePasswordForm() {
       <h2 className="text-lg font-bold mb-5">Update password</h2>
       <div>
         <Input
-          placeholder="Old password"
+          placeholder={translate("old_password")}
           aria-describedby="Old password"
           type="password"
           name="old_password"

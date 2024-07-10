@@ -49,7 +49,7 @@ export default function Navbar({ categories, notifications }: Props) {
       <Container>
         <div className="w-full h-auto flex items-center justify-between lg:justify-start lg:gap-14">
           <div className="flex items-center gap-2">
-            <HiBars3CenterLeft size={30} className="lg:hidden" />
+            <HiBars3CenterLeft size={30} className="hidden" />
             <LogoSmall />
           </div>
           {/* show in large screens */}
@@ -158,51 +158,17 @@ export default function Navbar({ categories, notifications }: Props) {
                       >
                         {item.label}
                       </button>
-                      {/* </Menu.Target> */}
-                      {/* <Menu.Dropdown
-                          classNames={{ dropdown: "h-[470px] !rounded-xl" }}
-                        >
-                          <ScrollArea h={470}>
-                            <div className="bg-white grid grid-cols-4 ">
-                              {categories &&
-                                categories.map((item) => (
-                                  <Menu.Item key={item._id}>
-                                    <Link
-                                      href={`/category?id=${
-                                        item.children.length > 0
-                                          ? item.children[0]._id
-                                          : item._id
-                                      }`}
-                                      className="flex max-w-20 items-center gap-2 p-1 bg-gray-200 rounded hover:bg-primary hover:text-white transition-all duration-150"
-                                    >
-                                      <Image
-                                        src={item.picture}
-                                        width={40}
-                                        height={40}
-                                        className="rounded"
-                                        alt={item.name}
-                                      />
-                                      <p className="font-bold">{item.name}</p>
-                                    </Link>
-                                  </Menu.Item>
-                                ))}
-                            </div>
-                          </ScrollArea>
-                        </Menu.Dropdown> */}
                       {/* </Menu> */}
                       <Drawer
                         opened={opened}
                         onClose={close}
                         title={translate("all_categories")}
-                        // position={
-                        //   language === LANGUAGES.ARABIC ? "right" : "left"
-                        // }
                         transitionProps={{
                           transition:
                             language === LANGUAGES.ARABIC
                               ? "fade-left"
                               : "fade-right",
-                          duration: 150,
+                          duration: 0,
                           timingFunction: "linear",
                         }}
                       >

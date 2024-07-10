@@ -37,7 +37,6 @@ export default async function MyOrders({
 
   const dict = await getDictionary(lang);
 
-  console.log("order");
   const links = [
     { label: translate(dict, dict.home), link: "/" },
     { label: translate(dict, dict.orders), link: "/orders" },
@@ -51,7 +50,7 @@ export default async function MyOrders({
         <div>
           <div className="mb-6">
             {/* personal datials */}
-            <div className=" rounded-lg p-2 flex justify-start gap-8 mb-3">
+            <div className=" rounded-lg p-2 lg:flex justify-start gap-8 mb-3">
               <div className="flex items-center gap-2">
                 <div className="p-1.5 rounded-full bg-gray-100 text-gray-400">
                   <MdPerson size={28} />
@@ -107,19 +106,22 @@ export default async function MyOrders({
           </div>
           {/* order status and deliver store */}
 
-          <h1 className="text-2xl font-extrabold flex gap-2">
+          <h1 className="text-lg md:text-xl lg:text-2xl font-extrabold flex gap-2">
             <span> {translate(dict, "receipt")}</span>
             <span className="text-primary">{order.supplier.name[lang]}</span>
           </h1>
 
           {/* order details */}
-          <div className="grid grid-cols-2 gap-6 items-start">
-            <div className="p-4 shadow-md rounded-lg">
+          <div className="lg:grid lg:grid-cols-2 gap-6 items-start">
+            <div className="p-4 grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-1 lg:shadow-md lg:rounded-lg">
               {Object.values(order.products)
                 .flat()
                 .map((p) => (
-                  <div key={p.sku} className="flex items-center gap-4 ">
-                    <div className="w-fit p-2 rounded h-fit shadow-md">
+                  <div
+                    key={p.sku}
+                    className="lg:flex shadow-lg lg:shadow-none rounded-lg lg:rounded-none items-center gap-4 "
+                  >
+                    <div className="w-fit p-2 rounded h-fit shadow-sm lg:shadow-md">
                       <Image
                         src={p.picture}
                         width={150}
@@ -128,7 +130,7 @@ export default async function MyOrders({
                       />
                     </div>
 
-                    <div className="font-bold">
+                    <div className="font-bold text-sm lg:text-base py-4 px-2 lg:p-0">
                       <div className="flex gap-1 items-center justify-between">
                         <div>
                           {typeof p.name === "object" ? p.name[lang] : p.name}
@@ -214,11 +216,11 @@ export default async function MyOrders({
                 <Rating readOnly defaultValue={4} size={"md"} />
               </div>
 
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-4 items-start">
                 <RepeatOrder id={order._id} />
                 <Link
                   href={"/"}
-                  className="px-6 py-2 rounded-md  text-primary shadow-md"
+                  className="px-4 text-sm md-text-base md:px-6 py-2 rounded-md  text-primary shadow-md"
                 >
                   {translate(dict, "back_to_home")}
                 </Link>

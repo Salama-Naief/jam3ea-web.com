@@ -10,7 +10,7 @@ interface Props {
 }
 function Breadcrumbs({ items }: Props) {
   return (
-    <div className="flex items-center gap-2 font-semibold my-4 text-lg">
+    <div className="flex items-center gap-2 font-semibold my-4 md:text-lg">
       {items.map((item, i) => (
         <div
           key={i}

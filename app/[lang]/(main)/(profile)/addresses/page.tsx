@@ -33,10 +33,9 @@ export default async function Addresses({
     city = await apiHandler("/city/" + user.address.city_id);
   }
 
-  console.log("city", city);
   return (
     <div>
-      <SharedLayout user={user} title="My Addresses">
+      <SharedLayout dict={dict} user={user} title="My Addresses">
         <div>
           {user.address.latitude &&
           user.address.latitude > 0 &&
@@ -47,7 +46,7 @@ export default async function Addresses({
             <div className="bg-gray-100 h-64 w-full flex items-center justify-center rounded-lg">
               <div className="flex flex-col items-center text-gray-400">
                 <FaMapMarkerAlt size={48} />
-                <p className="text-center py-4 text-[24px]">
+                <p className="text-center py-4 text-sm md:text-base lg:text-[24px]">
                   There are no saved addresses to display
                 </p>
               </div>

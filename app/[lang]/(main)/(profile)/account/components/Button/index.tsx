@@ -20,7 +20,7 @@ export default function Button({
       onClick={onClick}
       disabled={isLoading}
       type={type}
-      className={` px-8 py-2 text-primary font-bold capitalize bg-slate-100 rounded shadow-lg hover:bg-primary hover:text-white transition duration-100 ${className}`}
+      className={`px-8 py-2 text-primary text-sm md:text-base font-bold capitalize bg-slate-100 rounded shadow-lg hover:bg-primary hover:text-white transition duration-100 ${className}`}
     >
       {isLoading ? <Loader color="white" /> : title}
     </button>
