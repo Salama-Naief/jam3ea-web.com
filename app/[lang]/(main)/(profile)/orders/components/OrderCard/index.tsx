@@ -61,7 +61,7 @@ export default function OrderCard({ order }: Props) {
           </div>
         </div>
       </Link>
-      <div className="px-4">
+      <div className="px-4 pb-4">
         <RepeatOrder id={order._id} />
       </div>
     </div>
