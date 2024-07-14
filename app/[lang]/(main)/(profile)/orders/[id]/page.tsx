@@ -36,6 +36,7 @@ export default async function MyOrders({
   let order: IOrderResult = await apiHandler("/order/" + id);
 
   const dict = await getDictionary(lang);
+  console.log("order", order);
 
   const links = [
     { label: translate(dict, dict.home), link: "/" },
