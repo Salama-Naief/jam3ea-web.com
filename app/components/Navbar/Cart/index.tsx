@@ -7,7 +7,7 @@ import webRoutes from "@/lib/utils/webRoutes";
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { IGetCartResponseResult } from "@/module/(main)/cart/types";
 import { CartContext } from "@/module/(main)/cart/CartProvider";
-import { getCart } from "@/module/(main)/cart/services";
+import { getAllCarts, getCart } from "@/module/(main)/cart/services";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import { LANGUAGES } from "@/lib/enums";
 
@@ -19,6 +19,8 @@ function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       const status = await sendRequest(getCart());
+      const allCarts = await getAllCarts();
+      console.log("allCarts", allCarts);
       console.log("get cart Status", status);
     };
     fetchData();

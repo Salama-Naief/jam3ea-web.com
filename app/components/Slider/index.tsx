@@ -117,51 +117,9 @@ function MainSlider({
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-  // const settings = {
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: xlSize,
-  //   slidesToScroll: 1,
-  //   initialSlide: 0,
-  //   arrows: true,
-  //   autoplay: autoAnimation,
-  //   rtl: rtl,
-  //   autoplaySpeed: 3000,
-  //   cssEase: "linear",
-  //   nextArrow: <NextArrow icon={nextIcon} />,
-  //   prevArrow: <PrevArrow icon={prevIcon} />,
-  //   responsive: [
-  //     {
-  //       breakpoint: 1024,
-  //       settings: {
-  //         slidesToShow: lgSize,
-  //         slidesToScroll: 1,
-  //         infinite: true,
-  //         arrows: true,
-  //       },
-  //     },
-  //     {
-  //       breakpoint: 600,
-  //       settings: {
-  //         slidesToShow: mdSize,
-  //         slidesToScroll: 1,
-  //       },
-  //     },
-  //     {
-  //       breakpoint: 480,
-  //       settings: {
-  //         slidesToShow: smSize,
-  //         slidesToScroll: 1,
-  //       },
-  //     },
-  //   ],
-  // };
-  return (
-    <div className="w-full mx-auto  md:px-5 lg:px-10 bg-transparent">
-      {/* <Slider {...settings} className="w-full">
-        {children}
-      </Slider> */}
 
+  return (
+    <div className="w-full mx-auto bg-transparent">
       <Carousel
         swipeable={false}
         draggable={false}

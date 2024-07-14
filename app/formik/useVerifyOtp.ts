@@ -6,49 +6,56 @@ import {
   IResetPasswordInput,
   IResetPasswordResponse,
 } from "@/module/(auth)/reset-password/types";
+import { verifyOtp } from "@/module/(auth)/validate-otp/servcies";
+import {
+  IVerifyOtpInput,
+  IVerifyOtpResponse,
+} from "@/module/(auth)/validate-otp/types";
 import { login } from "@/module/(main)/(profile)/services";
 import { ILogin, ILoginResponseResult } from "@/module/(main)/(profile)/types";
 import LoginSchema from "@/validations/loginValidation";
 import ResetPasswordSchema from "@/validations/resetPasswordValidation";
+import VerifyOtpSchema from "@/validations/verifyOtpValidation";
 import { useFormik } from "formik";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useContext, useState } from "react";
 
-export const UseResetPassword = () => {
+export const UseVerifyOtp = () => {
   const router = useRouter();
-  const [redirecting, setRedirecting] = useState(false);
-  const { translate, login: makeLogin } = useContext(AuthContext);
-  const [massage, setMessage] = useState<{
-    type: "error" | "success" | null;
-    body: string | null;
-  }>({ type: null, body: null });
+  const params = useSearchParams();
+  const { translate } = useContext(AuthContext);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
   const {
     isLoading,
     errors: validationErrors,
     results,
     sendRequest,
-  } = useHttpClient<IResetPasswordResponse, IResetPasswordInput>();
+  } = useHttpClient<IVerifyOtpResponse, IVerifyOtpInput>();
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      otp_code: "",
     },
-    validationSchema: ResetPasswordSchema(translate),
+    validationSchema: VerifyOtpSchema(translate),
     onSubmit: async (values) => {
       console.log("reset password values", values);
       const body = {
-        email: values.email,
-        requestedColumn: "email",
+        email: params.get("email") as string,
+        otp_code: values.otp_code,
       };
-      const status = await sendRequest(resetPassword(body));
+
+      console.log("params", body);
+      const status = await sendRequest(verifyOtp(body));
       console.log("reset password status", status);
       if (status == true) {
-        router.push(`${webRoutes.valiadateOtp}?email=${values.email}`);
+        // router.push(webRoutes.newPassword);
+        setIsVerified(true);
       }
     },
   });
 
-  const { touched, errors, values, handleChange, handleSubmit } = formik;
+  const { touched, setFieldValue, errors, values, handleChange, handleSubmit } =
+    formik;
   return {
     touched,
     errors,
@@ -57,5 +64,7 @@ export const UseResetPassword = () => {
     handleChange,
     isLoading,
     massage: results?.message,
+    setFieldValue,
+    isVerified,
   };
 };

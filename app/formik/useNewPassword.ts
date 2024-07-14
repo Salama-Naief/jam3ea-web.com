@@ -8,15 +8,11 @@ import { useFormik } from "formik";
 import { useContext, useState } from "react";
 
 export const UseNewPassword = () => {
-  const [redirecting, setRedirecting] = useState(false);
-  const { translate, login: makeLogin } = useContext(AuthContext);
-  const [massage, setMessage] = useState<{
-    type: "error" | "success" | null;
-    body: string | null;
-  }>({ type: null, body: null });
+  const { translate } = useContext(AuthContext);
   const {
     isLoading,
     errors: validationErrors,
+    results,
     sendRequest,
   } = useHttpClient<ILoginResponseResult, ILogin>();
 
@@ -44,6 +40,6 @@ export const UseNewPassword = () => {
     handleSubmit,
     handleChange,
     isLoading,
-    massage,
+    massage: results,
   };
 };

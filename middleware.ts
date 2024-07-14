@@ -69,6 +69,9 @@ export async function middleware(request: NextRequest) {
       !isRoute(url, webRoutes.addresses) &&
       !isRoute(url, webRoutes.register) &&
       !isRoute(url, webRoutes.login) &&
+      !isRoute(url, webRoutes.newPassword) &&
+      !isRoute(url, webRoutes.resetPassword) &&
+      !isRoute(url, webRoutes.valiadateOtp) &&
       !isLoggedIn &&
       (!addresses || addresses?.length < 1)
     ) {
@@ -128,6 +131,9 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
     webRoutes.login,
     webRoutes.register,
     webRoutes.splash,
+    webRoutes.resetPassword,
+    webRoutes.newPassword,
+    webRoutes.valiadateOtp,
     // webRoutes.addresses,
   ];
 

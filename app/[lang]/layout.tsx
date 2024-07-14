@@ -20,9 +20,9 @@ interface IRootLayoutProps {
 
 export const metadata = {
   title: "Jm3eia dot com",
-  // verification: {
-  //   google: "YejFgWHiYkJdIY9hniJYUP1oZAP8PT4ZVZsPkQYBOgc",
-  // },
+  verification: {
+    google: "YejFgWHiYkJdIY9hniJYUP1oZAP8PT4ZVZsPkQYBOgc",
+  },
 };
 
 export default async function RootLayout({
@@ -36,11 +36,7 @@ export default async function RootLayout({
     : process.env.DEFAULT_LOCALE_CODE;
 
   const dictionary = await getDictionary(selectedLang as Locale);
-  // const cookie = cookies();
-  // console.log("cookie.get==", cookie.get("auth.token"));
-  // if (cookie.get("auth.token") && cookie.get("auth.user")) {
-  //   redirect("/choose", RedirectType.push);
-  // }
+
   return (
     <html
       lang={selectedLang}
