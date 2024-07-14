@@ -113,14 +113,9 @@ export interface IGetCheckoutResponse {
   gift_note: false;
   payment_methods: [
     {
-      id: "cod";
-      name: "Cash on delivery (Cash / Knet)";
-      valid: false;
-    },
-    {
-      id: "knet";
-      name: "KNET Online Payment (Online)";
-      valid: true;
+      id: string;
+      name: string;
+      valid: boolean;
     }
   ];
   earliest_date_of_delivery: 0;
@@ -165,6 +160,29 @@ export interface IGetCheckoutResponse {
     };
     options: number[];
   };
+
+  order_id: string;
+  payment_method: {
+    id: string;
+    name: string;
+    valid: false;
+  };
+  payment_details: {};
+
+  offers: [];
+  cart_total: number;
+  user_data: ICheckoutUser;
+
+  hash: string;
+  delivery_time: Date;
+  store_id: string;
+  isVIP: boolean;
+  donate: number;
+  notes: string;
+  created: Date;
+  platform: string;
+  status: number;
+  _id: string;
 }
 export interface IApplyCoupon {
   code: string;
@@ -193,4 +211,34 @@ export interface ICart {
   subtotal: string;
   total_quantities: number;
   total: string;
+}
+
+interface ICheckoutUser {
+  _id: string;
+  fullname: string;
+  username: string;
+  password: string;
+  email: string;
+  mobile: string;
+  address: {
+    city_id: string;
+    widget: string;
+    street: string;
+    gada: string;
+    house: string;
+    floor: string;
+    apartment_number: string;
+    latitude: string;
+    longitude: string;
+    city_name: string | { en: string; ar: string };
+  };
+  created: string;
+  wallet: number;
+  points: number;
+  convertedPoints: number;
+  status: boolean;
+  language: string;
+  otp_code: number;
+  otp_success: boolean;
+  wishlist: [string];
 }

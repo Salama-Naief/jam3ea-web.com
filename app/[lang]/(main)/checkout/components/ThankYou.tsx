@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
 import Link from "next/link";
 import webRoutes from "@/lib/utils/webRoutes";
+import Image from "next/image";
 
 interface ThankYouProps {
   user_data: IUser;
@@ -20,7 +21,7 @@ export default async function ThankYou({
   return (
     <div className="bg-secondary pt-[6rem]">
       <div className="flex items-center justify-center flex-col">
-        <img src="/assets/logo-light.svg" width={200} alt="" />
+        <Image src="/assets/logo-light.svg" width={200} alt="" />
         <div className="bg-white sm:w-[400px] w-full mt-12 rounded-t-3xl h-screen p-3 pt-6">
           <div className="text-lg font-bold text-center">
             {translate(dict, "order_has_been_taken")}

@@ -29,6 +29,9 @@ import { useDisclosure } from "@mantine/hooks";
 import { IUser } from "../../(profile)/types";
 import { useRouter } from "next/navigation";
 import useHttpClient from "@/lib/hooks/useHttpClient";
+import { CartContext } from "../CartProvider";
+import Popup from "@/components/Popup";
+import Image from "next/image";
 
 interface SingleSupplierProps {
   cart: IGetCheckoutResponse;
@@ -45,9 +48,11 @@ export default function SingleSupplier({
 }: SingleSupplierProps) {
   const data = cart;
   const { translate, isLoggedIn } = useContext(AuthContext);
-  const { selectedAddress, addresses } = useContext(AddressContext);
+  const { setCart } = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [cashSuccess, setCashSuccess] = useState(false);
+  const [cashData, setCashData] = useState<IGetCheckoutResponse | null>(null);
   const [opened, { open, close }] = useDisclosure(false);
   const { results: cities, sendRequest: citiesRequest } =
     useHttpClient<IDataLoadedResponse<any>>();
@@ -107,8 +112,15 @@ export default function SingleSupplier({
 
       console.log("response checkout", response);
       console.log("body checkout", body);
-      if (response.success && response.results?.url) {
-        window.location.href = response.results.url;
+      if (response.success) {
+        setCart({ products: 0, quantity: 0, price: "" });
+        setIsLoading(false);
+        if (response.results?.url) {
+          window.location.href = response.results.url;
+        } else {
+          setCashSuccess(true);
+          setCashData(response.results);
+        }
       } else {
         setIsLoading(false);
       }
@@ -118,8 +130,59 @@ export default function SingleSupplier({
   const { touched, errors, values, handleChange, handleSubmit, setFieldValue } =
     formik;
 
+  console.log("cash Data", cashData);
   return (
     <div>
+      {cashSuccess && cashData && (
+        <Popup close={() => setCashSuccess(false)} isOpen={cashSuccess}>
+          <div className="bg-secondary pt-[6rem]">
+            <div className="flex items-center justify-center flex-col">
+              <Image
+                src="/assets/logo-light.svg"
+                width={200}
+                height={200}
+                alt=""
+              />
+              <div className="bg-white sm:w-[400px] w-full mt-12 rounded-t-3xl h-screen p-3 pt-6">
+                <div className="text-lg font-bold text-center">
+                  {translate("order_has_been_taken")}
+                </div>
+                <div className="flex flex-wrap gap-3 mt-3">
+                  <div className="text-sm">
+                    {translate("city")}:
+                    {typeof cashData?.user_data.address.city_name === "object"
+                      ? cashData.user_data.address.city_name.en
+                      : cashData?.user_data.address.city_name}
+                  </div>
+                  <div className="text-sm">
+                    {translate("block")}: {cashData?.user_data.address.widget}
+                  </div>
+                  <div className="text-sm">
+                    {translate("street")}: {cashData?.user_data.address.street}
+                  </div>
+                  <div className="text-sm">
+                    {translate("house")}: {cashData?.user_data.address.house}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3 mt-5">
+                  <Link
+                    href={webRoutes.orderDetails(cashData?._id || "")}
+                    className="bg-success text-white py-2 px-4 text-sm rounded-2xl w-full block text-center"
+                  >
+                    {translate("view_order_details")}
+                  </Link>
+                  <Link
+                    href={webRoutes.home}
+                    className="bg-primary text-white py-2 px-4 text-sm rounded-2xl w-full block text-center"
+                  >
+                    {translate("continue_shopping")}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Popup>
+      )}
       <h3 className="text-lg font-bold text-secondary mp-4 mt-4 ">
         {typeof data.supplier.name === "object"
           ? data.supplier.name[lang]
