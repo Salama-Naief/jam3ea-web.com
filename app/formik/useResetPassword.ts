@@ -1,5 +1,11 @@
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { AuthContext } from "@/lib/providers/AuthProvider";
+import webRoutes from "@/lib/utils/webRoutes";
+import { resetPassword } from "@/module/(auth)/reset-password/servcies";
+import {
+  IResetPasswordInput,
+  IResetPasswordResponse,
+} from "@/module/(auth)/reset-password/types";
 import { login } from "@/module/(main)/(profile)/services";
 import { ILogin, ILoginResponseResult } from "@/module/(main)/(profile)/types";
 import LoginSchema from "@/validations/loginValidation";
@@ -19,8 +25,9 @@ export const UseResetPassword = () => {
   const {
     isLoading,
     errors: validationErrors,
+    results,
     sendRequest,
-  } = useHttpClient<ILoginResponseResult, ILogin>();
+  } = useHttpClient<IResetPasswordResponse, IResetPasswordInput>();
 
   const formik = useFormik({
     initialValues: {
@@ -29,12 +36,15 @@ export const UseResetPassword = () => {
     validationSchema: ResetPasswordSchema(translate),
     onSubmit: async (values) => {
       console.log("reset password values", values);
-      router.push("/new-password");
-      // const status = await sendRequest(login(values));
-      // if (status == true) {
-      //   setRedirecting(true);
-      //   makeLogin();
-      // }
+      const body = {
+        email: values.email,
+        requestedColumn: "email",
+      };
+      const status = await sendRequest(resetPassword(body));
+      console.log("reset password status", status);
+      if (status == true) {
+        router.push(`${webRoutes.valiadateOtp}?email=${values.email}`);
+      }
     },
   });
 
@@ -46,6 +56,6 @@ export const UseResetPassword = () => {
     handleSubmit,
     handleChange,
     isLoading,
-    massage,
+    massage: results?.message,
   };
 };

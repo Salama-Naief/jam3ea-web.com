@@ -86,7 +86,11 @@ export default function Input({
               ${error && "text-danger"}
               end-3 absolute top-2.5 cursor-pointer text-mainColor`}
           >
-            {showPassword ? <FiEyeOff size={24} /> : <FiEye size={24} />}
+            {showPassword ? (
+              <FiEyeOff size={24} className="text-gray-600" />
+            ) : (
+              <FiEye size={24} className="text-gray-600" />
+            )}
           </div>
         )}
 

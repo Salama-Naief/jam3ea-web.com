@@ -20,6 +20,8 @@ export const removeFromCart = (
 
 export const getCart = (): Promise<IResponse<IGetCartResponseResult>> =>
   clientRequest("/cart");
+export const getAllCarts = (): Promise<IResponse<IGetCartResponseResult>> =>
+  clientRequest("/cart/all");
 
 export const applyCoupon = (applyCouponInputs: IApplyCoupon) =>
   clientRequest("/cart/coupon", "POST", applyCouponInputs);

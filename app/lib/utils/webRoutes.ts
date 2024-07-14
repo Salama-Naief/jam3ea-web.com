@@ -6,6 +6,7 @@ const webRoutes = {
   logout: "/logout",
   resetPassword: "/reset-password",
   newPassword: "/new-password",
+  valiadateOtp: "/validate-otp",
   profile: "/account",
   updateProfile: "/account/profile",
   updatePassword: "/account/password",
