@@ -12,10 +12,11 @@ import { UseVerifyOtp } from "@/formik/useVerifyOtp";
 import { PinInput } from "@mantine/core";
 import Link from "next/link";
 import webRoutes from "@/lib/utils/webRoutes";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function VerifyOtp() {
   const { translate } = useContext(AuthContext);
+  const params = useSearchParams();
   const router = useRouter();
 
   const {
@@ -99,7 +100,15 @@ export default function VerifyOtp() {
       {isVerified && (
         <Button
           type="button"
-          onClick={() => router.replace(webRoutes.newPassword)}
+          onClick={() =>
+            router.replace(
+              webRoutes.newPassword +
+                "?email=" +
+                params.get("email") +
+                "&code=" +
+                values.otp_code
+            )
+          }
           className="text-xl"
           loading={isLoading}
         >

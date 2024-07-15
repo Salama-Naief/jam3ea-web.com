@@ -7,11 +7,11 @@ const NewPasswordSchema = (t: any) => {
   const schema = Yup.object().shape({
     password: Yup.string()
       .min(8, t("password_too_short"))
-      .required(t("password_required"))
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        t("password_not_valid")
-      ),
+      .required(t("password_required")),
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+    //   t("password_not_valid")
+    // ),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref("password"), "null"],
       t("confirm_password_not_match")
