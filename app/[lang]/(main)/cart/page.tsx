@@ -37,7 +37,7 @@ export default async function Cart({
     true,
     false
   );
-  console.log("cart===[[[[[[[}}}}}", cart);
+
   // const cart = checkout;
 
   const dict = await getDictionary(lang);
@@ -51,11 +51,11 @@ export default async function Cart({
       : undefined;
   const links = [
     {
-      label: "Home",
+      label: translate(dict, dict.home),
       link: "/",
     },
     {
-      label: "Cart",
+      label: translate(dict, dict.cart),
       link: "/cart",
     },
   ];
@@ -67,7 +67,7 @@ export default async function Cart({
           <Breadcrumbs items={links} />
           {categoryId && (
             <h1 className="text-lg text-secondary font-bold my-4">
-              Items related to your cart
+              {translate(dict, dict.items_related_to_cart)}
             </h1>
           )}
         </div>

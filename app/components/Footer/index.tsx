@@ -1,17 +1,20 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import Container from "../Container";
 import { footerLinks } from "@/lib/enums/footerLinks";
 import Link from "next/link";
 import { BsFacebook, BsInstagram, BsTelephone } from "react-icons/bs";
 import Image from "next/image";
 import footerImage from "../../../public/assets/footer_contact.png";
+import { AuthContext } from "@/lib/providers/AuthProvider";
 
 function Footer() {
+  const { translate } = useContext(AuthContext);
   return (
     <footer className="p-4 mt-8 pb-16 pt-10 bg-secondary text-white">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {footerLinks.map((item) => (
+          {footerLinks(translate).map((item) => (
             <div key={item.id}>
               <h2 className="text-xl md:text-2xl font-bold py-4">
                 {item.title}
@@ -28,7 +31,7 @@ function Footer() {
 
           <div>
             <h2 className="text-xl md:text-2xl  font-bold py-4">
-              Connect With Us
+              {translate("connect_with_us")}
             </h2>
             <div className="flex gap-2 mt-4 items-center">
               <BsTelephone />

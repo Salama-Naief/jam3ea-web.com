@@ -31,7 +31,7 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
               : "text-black bg-gray-200 font-bold rounded  px-3 md:px-4 lg:px-8 text-sm lg:text-base py-2 mx-2"
           }
         >
-          {translate("Redeem your Fund Points")}
+          {translate("redeem_fund_points")}
         </Tab>
         <Tab
           className={({ selected }) =>
@@ -40,7 +40,7 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
               : "text-black bg-gray-200 font-bold rounded  px-3 md:px-4 lg:px-8 text-sm lg:text-base py-2 mx-2"
           }
         >
-          {translate("My Points History")}
+          {translate("my_points_history")}
         </Tab>
         <Tab
           className={({ selected }) =>
@@ -49,7 +49,7 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
               : "text-black bg-gray-200 font-bold rounded  px-3 md:px-4 lg:px-8 text-sm lg:text-base mt-4 md:mt-0 py-2 mx-2"
           }
         >
-          {translate("Transfer cash to the wallet")}
+          {translate("transfer_to_cash")}
         </Tab>
       </Tab.List>
       <Tab.Panels>

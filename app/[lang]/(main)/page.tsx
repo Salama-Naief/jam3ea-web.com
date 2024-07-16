@@ -5,7 +5,7 @@ import { Locale } from "../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
 import Carousel from "@/components/Carousel";
-import { storeCards } from "../../../dummyData";
+import { storeCards } from "../../lib/enums/storeCartLinks";
 import StoreCard from "@/components/StoreCard";
 
 import FeatureServer from "./feature/components/FeatureServer";
@@ -31,7 +31,7 @@ export default async function Home({
       <div className="h-fit my-8">
         <Container>
           <div className="grid grid-cols-3 gap-3 md:gap-6 lg:px-16 items-stretch">
-            {storeCards.map((item) => (
+            {storeCards(translate, dict).map((item) => (
               <div key={item.id} className="w-full h-fit">
                 <StoreCard
                   name={item.name}

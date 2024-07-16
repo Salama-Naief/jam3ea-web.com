@@ -8,15 +8,18 @@ import { getCategories, getCategoryProducts } from "./services";
 import { useSearchParams } from "next/navigation";
 import CategoryProducts from "./components/Categories/CategoryProducts";
 import CategoryProductSkeleton from "@/components/Skeletons/CategoryProductSkeleton";
+import { translate } from "@/lib/utils/serverHelpers";
+import { getDictionary } from "@/lib/utils/dictionary";
+import { Locale } from "../../../../i18n-config";
 
-async function Category({ searchParams }: { searchParams: any }) {
+async function Category({
+  searchParams,
+  params,
+}: {
+  searchParams: any;
+  params: { lang: Locale };
+}) {
   const categories = await getCategories();
-  // const products = await getCategoryProducts(
-  //   searchParams["id"],
-  //   20,
-  //   searchParams["skip"]
-  // );
-  //const searchParams = useSearchParams();
 
   const Links =
     categories && Array.isArray(categories.data)
@@ -37,17 +40,8 @@ async function Category({ searchParams }: { searchParams: any }) {
           })
           .filter((item) => item)
       : [];
+  const dict = await getDictionary(params.lang);
 
-  // const Links = [
-  //   {
-  //     label: "Fruit & Veg",
-  //     link: "/",
-  //   },
-  //   {
-  //     label: "Fresh Fruit",
-  //     link: "/",
-  //   },
-  // ];
   const selectedItem =
     categories &&
     categories.data.find((i) => {
@@ -74,7 +68,9 @@ async function Category({ searchParams }: { searchParams: any }) {
           </div>
           <div className="col-span-4">
             <div className="mb-4">
-              <h1 className="text-xl md:text-3xl font-semibold ">Categories</h1>
+              <h1 className="text-xl md:text-3xl font-semibold ">
+                {translate(dict, dict.categories)}
+              </h1>
               <Breadcrumbs items={Links[0] ? Links[0] : []} />
             </div>
             <div>

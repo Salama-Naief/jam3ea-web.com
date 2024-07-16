@@ -18,7 +18,7 @@ import { useDisclosure } from "@mantine/hooks";
 
 function UserAvatar() {
   const [opened, { open, close }] = useDisclosure(false);
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { isLoggedIn, logout, translate } = useContext(AuthContext);
   const [isDomReady, setIsDomReady] = useState(false);
 
   useEffect(() => {
@@ -26,33 +26,33 @@ function UserAvatar() {
   }, []);
   const links = [
     {
-      label: "Account Info",
+      label: translate("account_info"),
       link: webRoutes.profile,
       icon: <BsPerson size={25} />,
     },
     {
-      label: "Saved Addresses",
+      label: translate("saved_addresses"),
       link: webRoutes.addresses,
       icon: <MdOutlineLocationOn size={25} />,
     },
 
     {
-      label: "Favourite",
+      label: translate("favourite"),
       link: webRoutes.wishlist,
       icon: <BsHeart size={22} />,
     },
     {
-      label: "My Orders",
+      label: translate("orders"),
       link: webRoutes.orders,
       icon: <Image src={orderIcon} alt="My Orders" />,
     },
     {
-      label: "Wallet(My Credit)",
+      label: translate("my_wallet") + "(" + translate("credit") + ")",
       link: webRoutes.wallet,
       icon: <HiOutlineCreditCard size={25} />,
     },
     {
-      label: "Wallet(My Points)",
+      label: translate("my_wallet") + "(" + translate("points") + ")",
       link: webRoutes.points,
       icon: <Image src={walletIcon} alt="Wallet(My Points) " />,
     },
@@ -66,9 +66,11 @@ function UserAvatar() {
     <div className="relative">
       <Modal opened={opened} onClose={close} centered>
         <div>
-          <h3 className="text-center text-2xl font-bold ">Logout</h3>
+          <h3 className="text-center text-2xl font-bold ">
+            {translate("logout")}
+          </h3>
           <h6 className="text-center text-primary mt-2 mb-6">
-            Are you sure you want to log out?
+            {translate("are_you_sure_to_logout")}
           </h6>
           <div className="flex justify-around">
             <button
@@ -120,7 +122,7 @@ function UserAvatar() {
             <Menu.Divider />
             <Menu.Item p={0} onClick={open}>
               <span className="hover:bg-gray-300 block w-full py-2 px-4 text-base text-gray-800">
-                Logout
+                {translate("logout")}
               </span>
             </Menu.Item>
           </Menu.Dropdown>
