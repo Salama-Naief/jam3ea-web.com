@@ -319,7 +319,7 @@ const InteractiveMap = ({
             <InfoWindowF onCloseClick={() => setShowInfoWindow(false)}>
               {!staticMap && (
                 <div className="p-2 rounded-lg bg-white w-48 font-semibold">
-                  Move the map to match the pin to your exact delivery location
+                  {translate("move_to_match_exact_location")}
                 </div>
               )}
             </InfoWindowF>
@@ -348,9 +348,9 @@ const InteractiveMap = ({
           className="bg-primary mt-4 mx-auto px-6 text-white flex gap-2 items-center justify-center  py-3 rounded-2xl mb-3 font-medium"
         >
           {loading ? (
-            <Loader size={"md"} color="white" />
+            <Loader size={"xs"} color="white" />
           ) : (
-            translate("Confirm")
+            translate("confirm")
           )}
         </button>
       )}

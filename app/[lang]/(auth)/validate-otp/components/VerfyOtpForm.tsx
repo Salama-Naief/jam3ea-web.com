@@ -37,16 +37,13 @@ export default function VerifyOtp() {
       <Logo />
       <FormTitle
         title={
-          isVerified
-            ? translate("reset_password")
-            : translate("Check your email")
+          isVerified ? translate("reset_password") : translate("check_email")
         }
       />
       {isVerified && (
         <div className="text-secondary flex justify-center mb-8 text-center">
           <div className="w-full md:w-1/2  font-semibold">
-            Your password has been successfully reset. click confirm to set a
-            new password
+            {translate("password_successfully_confirmed")}
           </div>
         </div>
       )}
@@ -70,28 +67,19 @@ export default function VerifyOtp() {
               }}
               // error={errors.otp_code}
             />
-            {/* <Input
-            handleChange={handleChange}
-            id="otp_code"
-            name="otp_code"
-            placeholder={translate("email_phone")}
-            value={values.otp_code}
-            error={errors.otp_code}
-            type="text"
-          /> */}
           </div>
           <div className="px-8 mt-4">
             <Button type="submit" className="text-xl" loading={isLoading}>
-              {translate("Verify Code")}
+              {translate("verify_code")}
             </Button>
 
             <div className="text-[20px] font-[600] text-[#989898] mt-4">
-              Haven&acute;t got the email yet?
+              {translate("not_got_email")}
               <Link
                 href={webRoutes.resetPassword}
                 className="blcok text-blue-500 underline"
               >
-                Resend email
+                {translate("resend_email")}
               </Link>
             </div>
           </div>
@@ -112,7 +100,7 @@ export default function VerifyOtp() {
           className="text-xl"
           loading={isLoading}
         >
-          {translate("Confirm")}
+          {translate("confirm")}
         </Button>
       )}
     </div>

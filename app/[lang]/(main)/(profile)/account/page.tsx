@@ -8,11 +8,8 @@ import { IUser } from "../types";
 import { Locale } from "../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
-import { LockClosedIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
-import DeleteAccount from "./components/DeleteAccount";
 import SharedLayout from "../components/SharedLayout";
 import Button from "./components/Button";
-import GoogleMaps from "../addresses/components/Map";
 
 export default async function Account({
   params: { lang },
@@ -29,7 +26,11 @@ export default async function Account({
   const dict = await getDictionary(lang);
   return (
     <div>
-      <SharedLayout dict={dict} user={user} title="My Account">
+      <SharedLayout
+        dict={dict}
+        user={user}
+        title={translate(dict, dict.my_account)}
+      >
         {/* profile details */}
         <div>
           <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 items-center mb-4">
@@ -71,15 +72,15 @@ export default async function Account({
           <div className="w-full lg:px-4 lg:w-3/5">
             <div className="text-center my-8">
               <Link href={webRoutes.updateProfile}>
-                <Button title="Update" />
+                <Button title={translate(dict, dict.update)} />
               </Link>
             </div>
             <div className="flex items-center justify-between ">
               <Link href={webRoutes.updateEmail}>
-                <Button title="change email" />
+                <Button title={translate(dict, dict.change_email)} />
               </Link>
               <Link href={webRoutes.updatePassword}>
-                <Button title="Change Password" />
+                <Button title={translate(dict, dict.change_passowrd)} />
               </Link>
             </div>
           </div>

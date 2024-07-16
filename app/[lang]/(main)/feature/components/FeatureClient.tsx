@@ -52,7 +52,7 @@ function FeatureClient({
           onClick={() => handleMore()}
           className="px-6 py-2 lg:py-3 text-primary font-semibold lg:font-bold border border-primary rounded-md"
         >
-          More
+          {translate("more")}
         </button>
       </div>
     </div>

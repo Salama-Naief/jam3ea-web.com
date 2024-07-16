@@ -38,7 +38,7 @@ export default async function PointsPage({
     <>
       <SharedLayout
         dict={dict}
-        title={`My points (${user ? user.points : 0})`}
+        title={`${translate(dict, dict.my_points)} (${user ? user.points : 0})`}
         user={user}
       >
         <PointsTabs

@@ -48,7 +48,7 @@ export default function SendToWalletForm() {
       >
         <div className="flex flex-col w-full">
           <h6 className="text-gray-4 md:text-lg mt-2">
-            Enter the amount to be sent from the wallet
+            {translate("enter_amout_send_to_wallet")}
           </h6>
           <Input
             placeholder={translate("mobile")}

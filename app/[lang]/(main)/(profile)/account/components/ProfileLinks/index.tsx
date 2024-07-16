@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
 import { IUser } from "../../../types";
+import { AuthContext } from "@/lib/providers/AuthProvider";
 
 interface Props {
   user: IUser;
@@ -10,7 +11,7 @@ interface Props {
 }
 function ProfileLinks({ user, dict }: Props) {
   const path = usePathname();
-
+  const { translate } = useContext(AuthContext);
   const currentPath = path
     .split("/")
     .filter((i) => i)
@@ -18,19 +19,23 @@ function ProfileLinks({ user, dict }: Props) {
     .join("/");
   const Links = [
     {
-      label: "Account Info",
+      label: translate("account_info"),
       link: "account",
     },
     {
-      label: "Saved Addresses",
+      label: translate("saved_addresses"),
       link: "addresses",
     },
     {
-      label: `Wallet(My Credit) ${user ? user.wallet : 0} KD`,
+      label: `${translate("my_wallet")}(${translate("credit")}) ${
+        user ? user.wallet : 0
+      } ${translate("currency")}`,
       link: "wallet",
     },
     {
-      label: `Wallet(My Points) ${user ? user.points : 0} Point`,
+      label: `${translate("my_wallet")}(${translate("my_points")}) ${
+        user ? user.points : 0
+      } ${translate("points")}`,
       link: "points",
     },
   ];

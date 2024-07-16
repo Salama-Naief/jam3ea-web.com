@@ -35,7 +35,11 @@ export default async function Addresses({
 
   return (
     <div>
-      <SharedLayout dict={dict} user={user} title="My Addresses">
+      <SharedLayout
+        dict={dict}
+        user={user}
+        title={translate(dict, dict.my_addresses)}
+      >
         <div>
           {user.address.latitude &&
           user.address.latitude > 0 &&
@@ -47,7 +51,7 @@ export default async function Addresses({
               <div className="flex flex-col items-center text-gray-400">
                 <FaMapMarkerAlt size={48} />
                 <p className="text-center py-4 text-sm md:text-base lg:text-[24px]">
-                  There are no saved addresses to display
+                  {translate(dict, dict.no_address)}
                 </p>
               </div>
             </div>
