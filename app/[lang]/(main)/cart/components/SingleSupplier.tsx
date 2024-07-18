@@ -69,10 +69,7 @@ export default function SingleSupplier({
         return;
       }
       if (!user.mobile) {
-        showErrorAlert(
-          translate("please sellect mobile number"),
-          translate("ok")
-        );
+        showErrorAlert(translate("select_phone_number"), translate("ok"));
         router.push("/account");
       }
       if (!values.payment_method) {

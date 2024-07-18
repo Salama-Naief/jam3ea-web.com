@@ -197,5 +197,6 @@
   "no": "لا",
   "are_you_sure_to_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
   "replace": "استبدل",
-  "do_you_want_to_buy_this_product_by_points": "هل تريد استبدال هذا المنتج بالنقاط"
+  "do_you_want_to_buy_this_product_by_points": "هل تريد استبدال هذا المنتج بالنقاط",
+  "select_phone_number": "من فضلك اختر رقم الموبايل"
 }
