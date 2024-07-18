@@ -12,6 +12,7 @@ import { getDictionary } from "@/lib/utils/dictionary";
 import { LANGUAGES } from "@/lib/enums";
 import { Locale } from "../../i18n-config";
 import { MantineProvider } from "@mantine/core";
+import Head from "next/head";
 
 interface IRootLayoutProps {
   children: React.ReactNode;
@@ -43,6 +44,9 @@ export default async function RootLayout({
       dir={selectedLang === LANGUAGES.ARABIC ? "rtl" : "ltr"}
       // suppressHydrationWarning={true}
     >
+      <Head>
+        <link rel="shortcut icon" href="/logo-sm.png" />
+      </Head>
       <body>
         <div>
           <div id="root">

@@ -1,49 +1,45 @@
 "use client";
 import Image from "next/image";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import cartIcon from "../../../../public/assets/cart.svg";
 import Link from "next/link";
 import webRoutes from "@/lib/utils/webRoutes";
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { IGetCartResponseResult } from "@/module/(main)/cart/types";
-import { CartContext } from "@/module/(main)/cart/CartProvider";
+import { CartContext, useCart } from "@/module/(main)/cart/CartProvider";
 import { getAllCarts, getCart } from "@/module/(main)/cart/services";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import { LANGUAGES } from "@/lib/enums";
+import { Divider, Menu } from "@mantine/core";
+import jamieaLogo from "../../../../public/assets/logo-sm.png";
 
 function Cart() {
   const { sendRequest, results, errors } =
     useHttpClient<IGetCartResponseResult>();
-  const { cart, setCart } = useContext(CartContext);
-  const { language } = useContext(AuthContext);
-  useEffect(() => {
-    const fetchData = async () => {
-      const status = await sendRequest(getCart());
-      const allCarts = await getAllCarts();
-      console.log("allCarts", allCarts);
-      console.log("get cart Status", status);
-    };
-    fetchData();
-  }, []);
+  // const { cart, setCart } = useContext(CartContext);
+  const { setCart, cart } = useCart();
+  const { language, translate } = useContext(AuthContext);
+  const [isDomReady, setIsDomReady] = useState(false);
 
   useEffect(() => {
-    console.log();
-    if (results && !errors) {
-      setCart({
-        price: results.Jm3eia.total,
-        quantity: results.Jm3eia.total_quantities,
-        products: results.Jm3eia.cart_products.length,
-      });
-      console.log("SUCCESS: ", cart, results);
-    } else {
-      console.log("FAILED: ", results, errors);
-    }
-  }, [results, errors]);
-  console.log("get cart", cart);
+    setIsDomReady(true);
+    // const fetchData = async () => {
+    //   // const status = await sendRequest(getCart());
+    //   const allCarts = await getAllCarts();
+    //   if (allCarts.success && allCarts.results) {
+    //     //@ts-expect-error
+    //     setCart(allCarts.results);
+    //   }
+    //   console.log("allCarts", allCarts);
+    //   console.log("get cart Status", status);
+    // };
+    // fetchData();
+  }, [setCart]);
 
+  console.log("cart===>", cart);
   return (
     <div className=" relative">
-      <Link href={webRoutes.cart}>
+      {/* <Link href={webRoutes.cart}>
         <span
           className={`absolute ${
             language === LANGUAGES.ARABIC
@@ -51,7 +47,7 @@ function Cart() {
               : "-right-1 lg:-right-1.5"
           } -top-2  text-xs lg:text-sm bg-danger flex items-center justify-center text-white rounded-full w-4 h-4 lg:w-5 lg:h-5`}
         >
-          {cart.quantity}
+          {cart.length}
         </span>
         <Image
           width={32}
@@ -67,7 +63,122 @@ function Cart() {
           alt="cart"
           className="lg:hidden"
         />
-      </Link>
+      </Link> */}
+
+      <div>
+        {isDomReady ? (
+          <Menu>
+            <Menu.Target>
+              <div>
+                <span
+                  className={`absolute ${
+                    language === LANGUAGES.ARABIC
+                      ? "-left-1 lg:-left-1.5"
+                      : "-right-1 lg:-right-1.5"
+                  } -top-2  text-xs lg:text-sm bg-danger flex items-center justify-center text-white rounded-full w-4 h-4 lg:w-5 lg:h-5`}
+                >
+                  {cart.length}
+                </span>
+                <Image
+                  width={32}
+                  height={32}
+                  src={cartIcon}
+                  alt="cart"
+                  className={`hidden lg:block `}
+                />
+                <Image
+                  width={25}
+                  height={25}
+                  src={cartIcon}
+                  alt="cart"
+                  className="lg:hidden"
+                />
+              </div>
+            </Menu.Target>
+            <Menu.Dropdown classNames={{ dropdown: "bg-white shadow-md" }}>
+              {Array.isArray(cart) &&
+                cart.map((cartItem) => (
+                  <Menu.Item
+                    key={cartItem._id}
+                    className=""
+                    // onClick={() => changeLanguage(LANGUAGES.ARABIC, true)}
+                  >
+                    <Link
+                      href={`/cart/${cartItem._id}`}
+                      className=" flex gap-3 items-center font-bold"
+                    >
+                      {cartItem.logo ? (
+                        <div className="w-12 h-12 relative">
+                          <Image
+                            src={cartItem.logo}
+                            // width={50}
+                            // height={50}
+                            fill
+                            alt={"logo"}
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-14 h-10 relative">
+                          <Image
+                            src={jamieaLogo}
+                            // width={50}
+                            // height={50}
+                            fill
+                            alt={"logo"}
+                          />
+                        </div>
+                      )}
+
+                      <div>
+                        <div className="flex gap-1">
+                          <span className="text-sm font-bold">
+                            {translate("total")} :
+                          </span>
+                          <span> ${cartItem.cart.total}</span>
+                        </div>
+                        <div className="flex gap-1">
+                          <span>{translate("quantity")} :</span>
+                          <span>{cartItem.cart.quantity}</span>
+                        </div>
+                        <div className="flex gap-1">
+                          <span>{translate("products")} :</span>
+                          <span>{cartItem.cart.products}</span>
+                        </div>
+                      </div>
+                    </Link>
+                    <Divider mt={"xs"} />
+                  </Menu.Item>
+                ))}
+            </Menu.Dropdown>
+          </Menu>
+        ) : (
+          <div>
+            <span
+              className={`absolute ${
+                language === LANGUAGES.ARABIC
+                  ? "-left-1 lg:-left-1.5"
+                  : "-right-1 lg:-right-1.5"
+              } -top-2  text-xs lg:text-sm bg-danger flex items-center justify-center text-white rounded-full w-4 h-4 lg:w-5 lg:h-5`}
+            >
+              {0}
+            </span>
+            <Image
+              width={32}
+              height={32}
+              src={cartIcon}
+              alt="cart"
+              className={`hidden lg:block `}
+            />
+            <Image
+              width={25}
+              height={25}
+              src={cartIcon}
+              alt="cart"
+              className="lg:hidden"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

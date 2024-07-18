@@ -12,13 +12,19 @@ import HistoryPointCard from "../HistoryPointCard";
 import PointsCards from "../PointsCards";
 import { IProduct } from "@/module/(main)/product/types";
 import RewardProductCart from "../RewardCart";
+import { IUser } from "../../../types";
 
 interface WalletTabsProps {
   points: IPoint[];
   productReward: IProductReward[];
+  user?: IUser;
 }
 
-export default function PointsTabs({ points, productReward }: WalletTabsProps) {
+export default function PointsTabs({
+  points,
+  productReward,
+  user,
+}: WalletTabsProps) {
   const { translate, language } = useContext(AuthContext);
 
   return (
@@ -56,7 +62,11 @@ export default function PointsTabs({ points, productReward }: WalletTabsProps) {
         <Tab.Panel className={"py-5"}>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
             {productReward.map((product) => (
-              <RewardProductCart key={product._id} product={product} />
+              <RewardProductCart
+                user={user}
+                key={product._id}
+                product={product}
+              />
             ))}
           </div>
         </Tab.Panel>

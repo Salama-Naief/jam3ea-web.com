@@ -4,7 +4,7 @@ import React, { useContext, useMemo, useState } from "react";
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { BsPlus, BsDash } from "react-icons/bs";
 import { ICartStatus, IVariant } from "@/module/(main)/product/types";
-import { CartContext } from "../CartProvider";
+import { CartContext, useCart } from "../CartProvider";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import Button from "@/components/Button";
 import Link from "next/link";
@@ -39,8 +39,7 @@ export default function AddToCartButton({
   );
   const [loadingIncrease, setLoadingIncrease] = useState<boolean>(false);
   const [loadingDecrease, setLoadingDecrease] = useState<boolean>(false);
-  const { addProductToCart, removeProductFromCart, loading } =
-    useContext(CartContext);
+  const { addProductToCart, removeProductFromCart, loading } = useCart();
   const { translate } = useContext(AuthContext);
   const [sku, setSku] = useState(defaultSku);
   const router = useRouter();

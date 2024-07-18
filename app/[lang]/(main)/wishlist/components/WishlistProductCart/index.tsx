@@ -9,7 +9,7 @@ import { BsPlus, BsTrash } from "react-icons/bs";
 
 import Loader from "@/components/Loader";
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../../../cart/CartProvider";
+import { CartContext, useCart } from "../../../cart/CartProvider";
 import { usePathname, useRouter } from "next/navigation";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import { useCookies } from "react-cookie";
@@ -33,7 +33,7 @@ export default function WishlistProductCart({
   //   sku,
   // });
   const [count, setCount] = useState(0);
-  const { addProductToCart, removeProductFromCart } = useContext(CartContext);
+  const { addProductToCart, removeProductFromCart } = useCart();
   const [removeloading, setRemoveLoading] = useState<boolean>(false);
   const [addloading, setAddLoading] = useState<boolean>(false);
   const { translate, language } = useContext(AuthContext);
