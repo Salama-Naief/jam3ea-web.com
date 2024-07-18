@@ -44,6 +44,7 @@ export default async function PointsPage({
         <PointsTabs
           productReward={productReward ? productReward.data : []}
           points={points ? points.data : []}
+          user={user}
         />
       </SharedLayout>
     </>

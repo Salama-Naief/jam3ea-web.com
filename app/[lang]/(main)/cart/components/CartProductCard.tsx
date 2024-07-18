@@ -6,7 +6,7 @@ import { BsDash, BsPlus, BsTrash } from "react-icons/bs";
 import Counter from "../../../../components/Counter/Counter";
 import MainSlider from "@/components/Slider";
 import { ICheckoutProduct } from "../types";
-import { CartContext } from "../CartProvider";
+import { CartContext, useCart } from "../CartProvider";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -22,8 +22,7 @@ interface Props {
 function CartProductCard({ product }: Props) {
   const [count, setCount] = useState<number>(product.quantity);
 
-  const { addProductToCart, removeProductFromCart, loading } =
-    useContext(CartContext);
+  const { addProductToCart, removeProductFromCart, loading } = useCart();
   const { translate } = useContext(AuthContext);
   const [sku, setSku] = useState(product.sku);
   const [isloading, setIsLoading] = useState<{
@@ -62,6 +61,7 @@ function CartProductCard({ product }: Props) {
           sku,
           quantity: count + 1,
         });
+        console.log("cart add status", status);
         if (status) {
           setCount((prevCount) => prevCount + 1);
           setIsLoading({ type: "increase", value: false });

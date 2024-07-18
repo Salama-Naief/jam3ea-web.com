@@ -29,7 +29,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { IUser } from "../../(profile)/types";
 import { useRouter } from "next/navigation";
 import useHttpClient from "@/lib/hooks/useHttpClient";
-import { CartContext } from "../CartProvider";
+import { CartContext, useCart } from "../CartProvider";
 import Popup from "@/components/Popup";
 import Image from "next/image";
 
@@ -48,7 +48,7 @@ export default function SingleSupplier({
 }: SingleSupplierProps) {
   const data = cart;
   const { translate, isLoggedIn } = useContext(AuthContext);
-  const { setCart } = useContext(CartContext);
+  const { setCart } = useCart();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [cashSuccess, setCashSuccess] = useState(false);
@@ -113,7 +113,7 @@ export default function SingleSupplier({
       console.log("response checkout", response);
       console.log("body checkout", body);
       if (response.success) {
-        setCart({ products: 0, quantity: 0, price: "" });
+        setCart([]);
         setIsLoading(false);
         if (response.results?.url) {
           window.location.href = response.results.url;

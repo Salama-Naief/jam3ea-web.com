@@ -1,7 +1,7 @@
 "use client";
 import webRoutes from "@/lib/utils/webRoutes";
 import React, { useContext, useState } from "react";
-import { CartContext } from "../CartProvider";
+import { CartContext, useCart } from "../CartProvider";
 import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
@@ -21,7 +21,7 @@ export function HandleCart({
   sku,
 }: Props) {
   const [count, setCount] = useState(quantity);
-  const { addProductToCart, removeProductFromCart } = useContext(CartContext);
+  const { addProductToCart, removeProductFromCart } = useCart();
   const [loading, setLoading] = useState<boolean>(false);
   //   const [sku, setSku] = useState(defaultSku);
   const router = useRouter();
