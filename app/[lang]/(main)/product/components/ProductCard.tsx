@@ -15,7 +15,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { AuthContext } from "@/lib/providers/AuthProvider";
 import { useCookies } from "react-cookie";
 import { LANGUAGES } from "@/lib/enums";
-
+import notavailableEn from "../../../../../public/assets/not_available_en.png";
+import notavailableAr from "../../../../../public/assets/not_available_ar.png";
 interface ProductCardProps {
   product: IProduct;
   className?: string;
@@ -50,6 +51,7 @@ export default function ProductCard({
   useEffect(() => {
     setCount(product.cart_status.quantity);
   }, [product.cart_status.quantity]);
+
   const handleIncrement = async () => {
     try {
       if (
@@ -148,7 +150,11 @@ export default function ProductCard({
               isInWhishlist={product.wishlist_status.is_exists}
             />
           </div>
-          <Link href={webRoutes.product(product.sku)} prefetch={false}>
+          <Link
+            href={webRoutes.product(product.sku)}
+            prefetch={false}
+            className="block"
+          >
             <div
               className={`relative mx-auto ${
                 size === "small"
@@ -161,9 +167,22 @@ export default function ProductCard({
                 src={product.picture}
                 sizes="(max-width:200px) 160px, 160px"
                 alt={product.name}
-                quality={60}
                 loading="lazy"
+                className={`${
+                  product.availability ? "opacity-100" : "opacity-70"
+                }`}
               />
+              {product.availability === false && (
+                <Image
+                  src={
+                    language === LANGUAGES.ARABIC
+                      ? notavailableAr
+                      : notavailableEn
+                  }
+                  alt="not available"
+                  className="absolute top-1/3 left-0"
+                />
+              )}
             </div>
           </Link>
           {type === "normal" && (
@@ -186,7 +205,7 @@ export default function ProductCard({
                 </button>
               )}
               <button
-                disabled={addloading}
+                disabled={addloading || product.availability === false}
                 onClick={() => handleIncrement()}
                 className="flex justify-end"
               >

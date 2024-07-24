@@ -34,7 +34,6 @@ export default function Navbar({ categories, notifications }: Props) {
   const [cookies, setCookie] = useCookies(["isVIP"]);
   const path = usePathname();
 
-  console.log(" path.includes(item.link)", path.includes("category"));
   const handleIsVIP = (link: string) => {
     if (link.includes("/mart")) {
       setCookie("isVIP", true, { path: "/" });
@@ -90,11 +89,17 @@ export default function Navbar({ categories, notifications }: Props) {
                               categories.map((item) => (
                                 <Menu.Item key={item._id}>
                                   <Link
-                                    href={`/category?id=${
+                                    // href={`/category/${
+                                    //   item.children.length > 0
+                                    //     ? item.children[0]._id
+                                    //     : item._id
+                                    // }`}
+                                    href={
                                       item.children.length > 0
-                                        ? item.children[0]._id
-                                        : item._id
-                                    }`}
+                                        ? `/category/${item._id}/${item.children[0]._id}
+                                        `
+                                        : `/category/${item._id}`
+                                    }
                                     className="flex max-w-20 items-center gap-2 p-1 bg-gray-200 rounded hover:bg-primary hover:text-white transition-all duration-150"
                                   >
                                     <Image

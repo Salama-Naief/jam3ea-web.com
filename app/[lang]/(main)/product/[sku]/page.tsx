@@ -151,58 +151,6 @@ export default async function ProductPage({
                 type="normal"
               />
             </div>
-            {/* <div className="">
-          <div className="">
-            <Image
-              className="max-w-full object-cover mx-auto min-w-52 max-h-52"
-              src={picture}
-              alt={name}
-            />
-          </div>
-          <div className="flex justify-between">
-            <span className="font-bold">
-              {getPriceWithCurrency(price, translate(dict, "currency"))}
-            </span>
-            <AddToWishlist sku={sku} isInWhishlist={true} />
-          </div>
-          <div className="text-lg font-semibold mb-3">{name}</div>
-          <div className="flex flex-nowrap overflow-x-auto max-w-full">
-            {/* {categories &&
-              categories.map((c) => (
-                <span
-                  key={c.category_id}
-                  className="flex-shrink-0 bg-primary-soft text-primary text-xs font-medium mr-2 px-4 py-2 rounded-full"
-                >
-                  {c.name}
-                </span>
-              ))} */}
-            {/* {isAvailable && (
-              <span className="flex-shrink-0 bg-success-soft text-success text-xs font-medium mr-2 px-4 py-2 rounded-full">
-                {translate(dict, "available")}
-              </span>
-            )}
-          </div> */}
-            {/* {description && (
-            <div className="text-gray-400 mb-4">{description}</div>
-          )} */}
-            {/* <AddToCartButton
-            normalBtn
-            sku={sku}
-            cartsStatus={cart_status}
-            isAvailable={availability}
-            maxQantity={max_quantity_cart}
-            hasVariant={variants && variants.length > 0}
-            variants={variants}
-          /> */}
-            {/* <AddToCartButton
-            normalBtn
-            sku={sku}
-            cartsStatus={cartStatus}
-            isAvailable={isAvailable}
-            maxQantity={maxQuantityCart}
-            hasVariant={hasVariants}
-          /> */}
-            {/* </div>  */}
           </>
         )}
       </Container>

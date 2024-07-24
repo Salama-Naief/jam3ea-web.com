@@ -65,9 +65,9 @@ export default async function Categories({
                     ? `/stores/${supplierId}/products/${
                         children.length > 0 ? children[0]._id : _id
                       }`
-                    : `/category?id=${
-                        children.length > 0 ? children[0]._id : _id
-                      }`
+                    : children.length > 0
+                    ? `/category/${_id}/${children[0]._id}`
+                    : `/categroy/${_id}`
                   //supplierId && children.length === 1 ? children[0].id : id,
                   //supplierId && children.length === 1 ? children[0].id : id,
                   // supplierId
@@ -91,7 +91,13 @@ export default async function Categories({
                 key={_id}
                 imageSrc={picture}
                 link={
-                  `/category?id=${children.length > 0 ? children[0]._id : _id}`
+                  supplierId
+                    ? `/stores/${supplierId}/products/${
+                        children.length > 0 ? children[0]._id : _id
+                      }`
+                    : children.length > 0
+                    ? `/category/${_id}/${children[0]._id}`
+                    : `/categroy/${_id}`
                   //supplierId && children.length === 1 ? children[0].id : id,
                   //supplierId && children.length === 1 ? children[0].id : id,
                   // supplierId

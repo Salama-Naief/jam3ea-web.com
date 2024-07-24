@@ -17,4 +17,5 @@ export interface ICategory {
 export interface IRank {
   _id: string;
   name: string;
+  picture?: string;
 }

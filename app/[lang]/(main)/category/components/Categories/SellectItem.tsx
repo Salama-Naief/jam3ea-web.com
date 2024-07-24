@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ICategory } from "../../types";
 import Link from "next/link";
 import webRoutes from "@/lib/utils/webRoutes";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 interface Props {
   item: ICategory;
@@ -19,11 +19,11 @@ function SellectItem({ item, close }: Props) {
     id: string | null;
     subId: string | null;
   }>({ id: null, subId: null });
-  const searchParams = useSearchParams();
+  const params = useParams();
   useEffect(() => {
     if (Array.isArray(item.children)) {
       const sellectedItem = item.children.find(
-        (i) => i._id === searchParams.get("id")
+        (i) => i._id === params["subId"]
       );
       if (sellectedItem) {
         console.log("sellectedItem", sellectedItem);
@@ -43,9 +43,9 @@ function SellectItem({ item, close }: Props) {
         setActive(false);
       }
     }
-  }, [searchParams, item]);
+  }, [params, item]);
   return (
-    <div className="h-fit mb-3 relative z-10">
+    <div className=" h-fit mb-3 relative z-10">
       <div className="flex justify-between gap-4 items-center h-fit">
         <div className="w-10 h-10 rounded-full overflow-hidden relative">
           {item.picture && (
@@ -57,7 +57,15 @@ function SellectItem({ item, close }: Props) {
             />
           )}
         </div>
-        <Link onClick={close} href={"category" + "?id=" + item._id}>
+        <Link
+          onClick={close}
+          href={
+            item.children.length > 0
+              ? `/category/${item._id}/${item.children[0]._id}
+                                        `
+              : `/category/${item._id}`
+          }
+        >
           <h3
             className={` font-bold capitalize ${
               currentCategory.id === item._id ? "text-primary" : "text-gray-600"
@@ -83,7 +91,7 @@ function SellectItem({ item, close }: Props) {
           <Link
             onClick={close}
             key={subItem._id}
-            href={"category" + "?id=" + subItem._id}
+            href={"/category" + "/" + item._id + "/" + subItem._id}
             className="flex items-center gap-3 my-1 cursor-pointer"
           >
             <div className="relative w-8 h-8 rounded-full overflow-hidden">
