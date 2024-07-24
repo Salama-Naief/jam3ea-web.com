@@ -1,13 +1,17 @@
 "use client";
 import AddToWishlist from "@/module/(main)/wishlist/components/AddToWishlist";
 import Image from "next/image";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IProduct } from "@/module/(main)/product/types";
 import { getDiscountPercentage } from "@/module/(main)/product/utils";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { LANGUAGES } from "@/lib/enums";
+import notavailableEn from "../../../public/assets/not_available_en.png";
+import notavailableAr from "../../../public/assets/not_available_ar.png";
+import { AuthContext } from "@/lib/providers/AuthProvider";
 
 interface Props {
   product: IProduct;
@@ -17,6 +21,7 @@ function SingleProductSlider({ product, isVip = undefined }: Props) {
   const [nav1, setNav1] = useState<any>(null);
   const [nav2, setNav2] = useState<any>(null);
   const [activeImg, setActiveImg] = useState<number>(0);
+  const { translate, language } = useContext(AuthContext);
   let sliderRef1 = useRef(null);
   let sliderRef2 = useRef(null);
 
@@ -67,13 +72,13 @@ function SingleProductSlider({ product, isVip = undefined }: Props) {
           product.gallery_pictures.map((img: any, i: number) => (
             <div key={i} className="flex  flex-col ">
               <div className="flex justify-end w-full"></div>
-              <div className="w-full flex justify-center items-center">
+              <div className="w-full flex justify-center items-center relative">
                 <Image src={img} width={300} height={300} alt={product.name} />
               </div>
             </div>
           ))
         ) : (
-          <div className="w-full flex justify-center items-center">
+          <div className="w-full relative flex justify-center items-center">
             <Image
               src={product.picture}
               width={300}
@@ -81,6 +86,19 @@ function SingleProductSlider({ product, isVip = undefined }: Props) {
               alt={product.name}
               className="mx-auto"
             />
+            {product.availability === false && (
+              <Image
+                width={300}
+                height={300}
+                src={
+                  language === LANGUAGES.ARABIC
+                    ? notavailableAr
+                    : notavailableEn
+                }
+                alt="not available"
+                className="absolute z-10 top-10 left-5 md:left-5 lg:left-1/4"
+              />
+            )}
           </div>
         )}
       </Slider>

@@ -28,6 +28,7 @@ export const getCategoryProducts = async (
   skip: number = 1
 ): Promise<IDataLoadedResponse<IProduct>> =>
   await apiHandler(`/product/${id}/category?skip=${skip}&limit=${limit}`);
+// await apiHandler(`/product/${id}/category`);
 
 export const getCategoryProductsStore = async (
   storeId: string,

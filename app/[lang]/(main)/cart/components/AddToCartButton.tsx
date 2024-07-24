@@ -67,7 +67,8 @@ export default function AddToCartButton({
         }
         setLoadingIncrease(false);
       } else {
-        showErrorAlert("quantity not avalable");
+        // showErrorAlert("quantity not avalable");
+        return;
       }
     } catch (err) {
       console.log("ERR: ", err);
@@ -106,6 +107,7 @@ export default function AddToCartButton({
           <div className="h-full max-w-lg mx-auto flex items-center justify-center">
             <div className="flex items-center justify-between gap-10 w-full md:w-1/2 lg:w-1/4">
               <button
+                disabled={isAvailable === false || loadingIncrease}
                 type="button"
                 className="text-white bg-primary  p-1 rounded-full flex items-center justify-center "
                 onClick={() => setCount(count + 1)}
@@ -115,6 +117,7 @@ export default function AddToCartButton({
               <Counter count={count} />
               <button
                 type="button"
+                disabled={isAvailable === false || loadingDecrease}
                 className="text-white p-1 bg-slate-500 flex items-center justify-center rounded-full"
                 onClick={() => setCount(count - 1)}
               >
@@ -125,7 +128,7 @@ export default function AddToCartButton({
         </div>
         <Button
           loading={loading}
-          disabled={hasVariant && !sku.includes("-")}
+          disabled={(hasVariant && !sku.includes("-")) || !isAvailable}
           onClick={() => handleIncrement("normal")}
           className="w-full"
         >

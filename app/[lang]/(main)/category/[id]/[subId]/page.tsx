@@ -2,6 +2,7 @@ import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/module/(main)/product/components/ProductCard";
 import {
+  getCategories,
   getCategoryById,
   getCategoryProducts,
   getRanksByCategoryId,
@@ -11,6 +12,12 @@ import { Locale } from "../../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
 import { cookies } from "next/headers";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { Suspense } from "react";
+import CategoryProductSkeleton from "@/components/Skeletons/CategoryProductSkeleton";
+import CategoryProducts from "../../components/Categories/CategoryProducts";
+import Loader from "@/components/Loader";
+import SellectItem from "../../components/Categories/SellectItem";
 
 export default async function SubCategoriesPage({
   params,
@@ -29,12 +36,34 @@ export default async function SubCategoriesPage({
 
   const cookie = cookies();
   const isVip = cookie.get("isVIP")?.value;
+
+  const categories = await getCategories();
+
+  const Links =
+    categories && Array.isArray(categories.data)
+      ? categories.data
+          .map((i) => {
+            const subCate = i.children.find((sub) => sub._id === params.subId);
+            if (subCate) {
+              return [
+                {
+                  label: i.name,
+                  link: "/category?id=" + subCate._id,
+                },
+                { label: subCate.name, link: "/category?id=" + subCate._id },
+              ];
+            }
+          })
+          .filter((item) => item)
+      : [];
+
+  console.log("products", products);
+
   return (
     <>
-      <Navbar supplierId={supplier} title={category.name} />
+      {/* <Navbar supplierId={supplier} title={category.name} />
       <Container>
         <div>
-          {/* @ts-expect-error Server Component */}
           <SubCategoriesList
             id={params.id}
             subId={params.subId}
@@ -85,7 +114,45 @@ export default async function SubCategoriesPage({
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
+
+      <div className="py-5 bg-[#FCFCFC]">
+        <Container>
+          <div className="lg:grid lg:grid-cols-5 lg:gap-8 items-start">
+            <div className="sticky top-20 hidden lg:block col-span-1 h-auto ">
+              <Suspense fallback={<Loader />}>
+                {categories &&
+                  categories.data &&
+                  Array.isArray(categories.data) &&
+                  categories.data.map((item) => (
+                    <SellectItem item={item} key={item._id} />
+                  ))}
+              </Suspense>
+            </div>
+            <div className="col-span-4">
+              <div className="mb-4">
+                <h1 className="text-xl md:text-3xl font-semibold ">
+                  {translate(dict, dict.categories)}
+                </h1>
+                <Breadcrumbs items={Links[0] ? Links[0] : []} />
+              </div>
+              <div>
+                <Suspense fallback={<CategoryProductSkeleton />}>
+                  {/* @ts-ignore */}
+                  {
+                    /* @ts-ignore */
+                    <CategoryProducts
+                      // selectedCategory={selectedItem}
+                      // searchParams={params}
+                      id={params.subId}
+                    />
+                  }
+                </Suspense>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </div>
     </>
   );
 }
