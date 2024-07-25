@@ -48,9 +48,12 @@ export default async function SubCategoriesPage({
               return [
                 {
                   label: i.name,
-                  link: "/category?id=" + subCate._id,
+                  link: "/category/" + params.id + "/" + subCate._id,
                 },
-                { label: subCate.name, link: "/category?id=" + subCate._id },
+                {
+                  label: subCate.name,
+                  link: "/category/" + params.id + "/" + subCate._id,
+                },
               ];
             }
           })
