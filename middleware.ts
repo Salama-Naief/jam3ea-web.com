@@ -1,9 +1,7 @@
-//import { authMiddleware, checkAuth } from '@/lib/utils/serverHelpers';
+import { LANGUAGES } from "@/lib/enums";
 import webRoutes from "@/lib/utils/webRoutes";
 import { NextRequest, NextResponse } from "next/server";
 import { i18n } from "./i18n-config";
-import { LANGUAGES } from "@/lib/enums";
-import { redirect } from "next/navigation";
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -34,55 +32,40 @@ export async function middleware(request: NextRequest) {
   )
     throw new Error("Missing environment variables");
 
-  const addresses = request.cookies.get("addresses")?.value;
   const city = request.cookies.get("city");
-
-  const selectedAddress = request.cookies.get("selectedAddress")?.value;
   const isLoggedIn =
     request.cookies.get("isLoggedIn")?.value &&
     request.cookies.get("isLoggedIn")?.value == "true";
 
   if (!token) {
+    console.log("nottoken");
     if (isRoute(url, webRoutes.splash)) {
       return checkAuth(response);
     } else {
-      //console.log('REDIRECTION #1');
       return NextResponse.redirect(
         new URL("/en" + webRoutes.splash, request.url)
       );
     }
   } else {
-    // if (isRoute(url, webRoutes.splash) && city) {
-    //   //console.log('REDIRECTION #2');
-    //   return NextResponse.redirect(new URL(webRoutes.home, request.url));
-    //   // return redirect(webRoutes.home);
-    // }
-    if (isRoute(url, webRoutes.splash) && addresses && addresses.length > 0) {
-      //console.log('REDIRECTION #2');
-      return NextResponse.redirect(new URL(webRoutes.home, request.url));
-      // return redirect(webRoutes.home);
-    }
-
+    console.log("istoken");
     if (
-      /* url != '' && */
       !isRoute(url, webRoutes.splash) &&
-      !isRoute(url, webRoutes.addresses) &&
       !isRoute(url, webRoutes.register) &&
       !isRoute(url, webRoutes.login) &&
       !isRoute(url, webRoutes.newPassword) &&
       !isRoute(url, webRoutes.resetPassword) &&
       !isRoute(url, webRoutes.valiadateOtp) &&
       !isLoggedIn &&
-      (!addresses || addresses?.length < 1)
+      !city
     ) {
-      //console.log('REDIRECTION #3 ', new URL(webRoutes.splash, request.url).toString());
       return NextResponse.redirect(new URL(webRoutes.splash, request.url));
     }
-
-    if (addresses && addresses?.length > 0 && !selectedAddress) {
-      // if (addresses && addresses?.length > 0) {
-      //   //console.log('REDIRECTION #4');
-      return NextResponse.redirect(new URL(webRoutes.home, request.url));
+    console.log("City", city);
+    if (isRoute(url, webRoutes.splash) && city && city.value) {
+      console.log("City inside if", city);
+      return NextResponse.redirect(
+        new URL("/en" + webRoutes.home, request.url)
+      );
     }
   }
 
@@ -91,28 +74,20 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(urlToRedirect);
   }
 
-  // if (!selectedAddress) {
-  //   return NextResponse.redirect(new URL(webRoutes.addresses, request.url));
-  // }
-
   const pathname = request.nextUrl.pathname;
-
   let choosenLocale = pathname.split("/")[0];
   if (choosenLocale !== LANGUAGES.ENGLISH && choosenLocale !== LANGUAGES.ARABIC)
     choosenLocale = process.env.DEFAULT_LOCALE_CODE || LANGUAGES.ENGLISH;
 
   const language = request.cookies.get("language")?.value || choosenLocale;
-
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
   if (!pathname.startsWith(`/${language}/`) && pathname !== `/${language}`) {
     if (!pathnameIsMissingLocale) {
-      //console.log('REDIRECTION #5');
       return NextResponse.redirect(new URL(`/${language}`, request.url));
     } else {
-      //console.log('REDIRECTION #6: ',new URL(`/${language}/${pathname}${request.nextUrl.search}`,request.url).toString());
       return NextResponse.redirect(
         new URL(
           `/${language}/${pathname}${request.nextUrl.search}`,
@@ -134,28 +109,16 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
     webRoutes.resetPassword,
     webRoutes.newPassword,
     webRoutes.valiadateOtp,
-    // webRoutes.addresses,
   ];
 
   const isLoggedIn = request.cookies.get("isLoggedIn")?.value == "true";
-  const selectedAddress = request.cookies.get("selectedAddress")?.value;
-  const addresses = request.cookies.get("addresses")?.value;
 
-  console.log("addresses", addresses);
   if (shouldNotBeAuth.includes(url) && isLoggedIn) {
     return new URL(webRoutes.home, request.url);
-    // redirect(webRoutes.home);
   }
 
   if (shouldBeAuth.includes(url) && !isLoggedIn) {
-    // return new URL(webRoutes.login, request.url);
-    redirect(webRoutes.login);
-  }
-
-  if (!selectedAddress && !isLoggedIn && !shouldNotBeAuth.includes(url)) {
-    if (addresses && addresses.length > 0)
-      return new URL(webRoutes.addresses, request.url);
-    else return new URL(webRoutes.splash, request.url);
+    return new URL(webRoutes.login, request.url);
   }
 
   return null;

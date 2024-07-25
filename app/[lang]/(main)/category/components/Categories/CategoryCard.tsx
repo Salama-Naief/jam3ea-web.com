@@ -25,17 +25,16 @@ export default function CategoryCard({
             selectedCategory ? "border border-primary rounded-full" : ""
           } bg-[#F1F1F1] shadow-sm py-3 px-1 relative rounded-3xl w-[80px]  h-[80px] lg:w-[130px] lg:h-[130px]  min-h-[74px] flex-grow flex items-center justify-center overflow-hidden`}
         >
-          <div className="re">
-            <Image
-              className="mx-auto"
-              fill
-              quality={60}
-              sizes="w-32 h-32"
-              src={imageSrc}
-              alt=""
-              loading="lazy"
-            />
-          </div>
+          <Image
+            className="mx-auto"
+            fill
+            quality={60}
+            sizes="w-32 h-32"
+            src={imageSrc}
+            alt=""
+            loading="lazy"
+          />
+
           {/* <Image
             className="mx-auto md:hidden"
             fill
