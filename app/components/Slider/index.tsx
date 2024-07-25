@@ -48,7 +48,7 @@ function PrevArrow({ onClick, ...rest }: any) {
     carouselState: { currentSlide, deviceType },
   } = rest;
   return (
-    <div className="w-7 h-7 p-1 md:w-10 md:h-10 md:p-2 flex items-center justify-center rounded-full bg-gray-200 opacity-90  z-20 absolute top-1/2  md:start-0  shadow-md  cursor-pointer  text-2xl md:text-4xl">
+    <div className="w-7 h-7 p-1 md:w-10 md:h-10 md:p-2 flex items-center justify-center rounded-full bg-gray-200 opacity-90  z-10 absolute top-1/2  md:start-0  shadow-md  cursor-pointer  text-2xl md:text-4xl">
       <BsChevronLeft
         className={``}
         style={{ display: "block" }}
@@ -65,7 +65,7 @@ function NextArrow({ onClick, ...rest }: any) {
     carouselState: { currentSlide, deviceType },
   } = rest;
   return (
-    <div className="w-7 h-7 p-1 md:w-10 md:h-10 md:p-2 flex items-center justify-center rounded-full bg-gray-200 opacity-90  z-20 absolute top-1/2 end-0 md:end-0 shadow-md  cursor-pointer  text-2xl md:text-4xl">
+    <div className="w-7 h-7 p-1 md:w-10 md:h-10 md:p-2 flex items-center justify-center rounded-full bg-gray-200 opacity-90  z-10 absolute top-1/2 end-0 md:end-0 shadow-md  cursor-pointer  text-2xl md:text-4xl">
       <BsChevronRight
         className={``}
         style={{ display: "block" }}
@@ -97,8 +97,6 @@ function MainSlider({
   prevIcon = BsArrowLeft,
   autoAnimation = true,
 }: Props) {
-  console.log("prevIcon", prevIcon);
-  console.log("nextIcon", nextIcon);
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const responsive = {
     desktop: {

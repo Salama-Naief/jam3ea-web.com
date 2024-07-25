@@ -1,6 +1,5 @@
 "use client";
-//@ts-expect-error
-import { useFormState } from "react-dom";
+// import { useFormState } from "react-dom";
 import { ComboboxItem, Select } from "@mantine/core";
 import { ICity } from "@/module/(main)/city/types";
 import React, { useContext, useEffect, useState } from "react";
@@ -34,14 +33,9 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
   } = useHttpClient<IUpdateCityResponseResult, IUpdateCity>();
   const { translate } = useContext(AuthContext);
   const router = useRouter();
-  const [state, formAction] = useFormState(SetGuestCityId, { city_id: "" });
+  // const [state, formAction] = useFormState(SetGuestCityId, { city_id: "" });
   const [loading, setLoading] = useState<boolean>(false);
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "city",
-    "city_id",
-    "addresses",
-    "selectedAddress",
-  ]);
+  const [cookies, setCookie, removeCookie] = useCookies(["city", "city_id"]);
 
   const citiesData =
     cities && cities.children && cities.children.length > 0
@@ -52,66 +46,34 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
     e.preventDefault();
     if (selectCity?.value) {
       setLoading(true);
-      //const status = await sendRequest(changeCity(selectCity.value));
-      const status =
-        //   // await sendRequest(
-        await updateCity({ city_id: selectCity.value });
-      // //);
-      console.log("status update city", status);
-
-      // console.log(status);
-      // console.log("results", results);
-      // if (city) {
-      //   // router.push("/");
-      // }
+      const res = await updateCity({ city_id: selectCity.value });
       setLoading(false);
       const options = {
-        sameSite: "none",
+        // sameSite: "none",
         secure: true,
         path: "/",
-      } as any;
+      };
+      if (res.success) {
+        setCookie(
+          "city",
+          {
+            _id: res.results?.data.city._id,
+            name: res.results?.data.city.name,
+            store_id: res.results?.data.city.store_id,
+            parent_id: res.results?.data.city.parent_id,
+          },
+          options
+        );
 
-      // setCookie("city_id", selectCity?.value, options);
-      setCookie(
-        "addresses",
-        {
-          city_id: selectCity?.value,
-          widget: "1",
-          street: "1",
-          gada: "1",
-          house: "10",
-          floor: "1",
-          apartment_number: "1",
-          latitude: "29.32514313374099",
-          longitude: "47.678556769644985",
-        },
-        options
-      );
-      setCookie(
-        "selectedAddress",
-        {
-          city_id: selectCity?.value,
-          widget: "1",
-          street: "1",
-          gada: "1",
-          house: "10",
-          floor: "1",
-          apartment_number: "1",
-          latitude: "29.32514313374099",
-          longitude: "47.678556769644985",
-        },
-        options
-      );
-      // setCity(res.results?.data.city);
-      // router.push(webRoutes.home);
-      if (window) window.location.href = webRoutes.home;
+        if (window) window.location.href = webRoutes.home;
+      }
     }
   };
+
   return (
     <div className="w-full">
       {isGuest ? (
         citiesData && (
-          //   <form action={formAction}>
           <form onSubmit={(e) => handleGuest(e)}>
             <Select
               data={citiesData}
@@ -126,19 +88,6 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
                 input: "focus:!border-primary px-4",
               }}
             />
-            {/* <select
-              onChange={(e) => setSelectCity(e.target.value)}
-              name="city_id"
-              className="w-full"
-            >
-              {cities &&
-                cities.children &&
-                cities.children.map((city) => (
-                  <option value={city._id} key={city._id}>
-                    {city.name as string}
-                  </option>
-                ))}
-            </select> */}
             <Button
               title="Continue"
               className="w-full !bg-primary !text-white my-4"

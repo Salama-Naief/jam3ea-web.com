@@ -12,13 +12,16 @@ import { AuthContext } from "@/lib/providers/AuthProvider";
 import { LANGUAGES } from "@/lib/enums";
 import { Divider, Menu } from "@mantine/core";
 import jamieaLogo from "../../../../public/assets/logo-sm.png";
+import { useParams } from "next/navigation";
 
 function Cart() {
   const { sendRequest, results, errors } =
     useHttpClient<IGetCartResponseResult>();
   // const { cart, setCart } = useContext(CartContext);
   const { setCart, cart } = useCart();
-  const { language, translate } = useContext(AuthContext);
+  const { translate } = useContext(AuthContext);
+  const params = useParams();
+  const language = params["lang"];
   const [isDomReady, setIsDomReady] = useState(false);
 
   useEffect(() => {
