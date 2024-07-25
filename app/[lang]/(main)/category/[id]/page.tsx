@@ -52,9 +52,12 @@ export default async function CategoriesPage({
               return [
                 {
                   label: i.name,
-                  link: "/category?id=" + subCate._id,
+                  link: "/category/" + params.id + "/" + subCate._id,
                 },
-                { label: subCate.name, link: "/category?id=" + subCate._id },
+                {
+                  label: subCate.name,
+                  link: "/category/" + params.id + "/" + subCate._id,
+                },
               ];
             }
           })
