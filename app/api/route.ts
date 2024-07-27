@@ -99,7 +99,20 @@ export async function PUT(request: Request) {
   const response = await apiHandler(route, "PUT", body);
 
   const nextResponse = NextResponse.json(response);
-
+  if (route === "/profile/updatecity") {
+    if (response.success) {
+      nextResponse.cookies.set(
+        "city",
+        JSON.stringify({
+          _id: response.results.data.city._id,
+          name: response.results.data.city.name,
+          store_id: response.results.data.city.store_id,
+          parent_id: response.results.data.city.parent_id,
+        })
+      );
+    }
+    console.log("nextResponse", response.results.data.city);
+  }
   return nextResponse;
 }
 

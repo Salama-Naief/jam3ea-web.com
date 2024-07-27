@@ -34,10 +34,10 @@ export default async function Wishlist({
   ];
   return (
     <div className="bg-gray-50 p-0 md:p-6 lg:p-8">
-      <div>
-        <Breadcrumbs items={links} />
-      </div>
       <Container>
+        <div>
+          <Breadcrumbs items={links} />
+        </div>
         {products.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-3">
             {products.map((product) => (

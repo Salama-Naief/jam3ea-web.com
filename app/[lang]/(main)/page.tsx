@@ -83,7 +83,10 @@ export default async function Home({
                   alt="jma3eaLogo"
                   className=" md:hidden"
                 />
-                <a href="/">
+                <a
+                  target="_blank"
+                  href="https://play.google.com/store/apps/details?id=droidahmed.com.jm3eia"
+                >
                   <Image
                     src={googleStore}
                     alt="googleStore"
@@ -97,7 +100,10 @@ export default async function Home({
                     className=" md:hidden"
                   />
                 </a>
-                <a href="/">
+                <a
+                  target="_blank"
+                  href="https://apps.apple.com/eg/app/jameia-com/id1161689495"
+                >
                   <Image
                     src={appStore}
                     alt="appStore"

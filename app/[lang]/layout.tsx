@@ -13,6 +13,7 @@ import { LANGUAGES } from "@/lib/enums";
 import { Locale } from "../../i18n-config";
 import { MantineProvider } from "@mantine/core";
 import Head from "next/head";
+import logo from "../../public/assets/logo-light.svg";
 
 interface IRootLayoutProps {
   children: React.ReactNode;
@@ -45,7 +46,7 @@ export default async function RootLayout({
       // suppressHydrationWarning={true}
     >
       <Head>
-        <link rel="shortcut icon" href="/logo-sm.png" />
+        <link rel="shortcut icon" href="../../public/assets/logo-light.svg" />
       </Head>
       <body>
         <div>

@@ -96,7 +96,7 @@ function ProductSlider({
 
   return (
     <div>
-      <div className="w-full mx-auto px-4 md:px-0 lg:px-0 bg-transparent">
+      <div className="w-full mx-auto  bg-transparent">
         {/* <Slider {...settings} className="w-full"> */}
         <MainSlider
           lgSize={lgSize}

@@ -12,6 +12,7 @@ import FeatureCarousel from "../FeatueCarousel";
 interface FeatureProps {
   feature: IFeature;
   supplierId?: string;
+  showcCarousal?: boolean;
   title?: "center" | "start";
   productType?: "normal" | "bestSeller";
   dictionary: {
@@ -26,33 +27,15 @@ export default function Feature({
   dictionary,
   title = "center",
   productType = "bestSeller",
+  showcCarousal = true,
 }: FeatureProps) {
   const { _id, name, products, slides } = feature;
 
   return (
     <div className="w-full my-4">
-      {
-        slides.length > 0 && (
-          <FeatureCarousel data={slides} supplierId={supplierId} />
-        )
-        // <Slider lgSize={1} mdSize={1} smSize={1} xlSize={1} autoPlay={true}>
-        // slides.map(({ _id, picture, url, name }) => (
-        //   <Link key={_id} href={getSlideUrl(url, supplierId)}>
-        //     {picture && (
-        //       <div className="relative w-full h-96">
-        //         <Image
-        //           src={picture}
-        //           quality={60}
-        //           fill
-        //           loading="lazy"
-        //           alt={name}
-        //         />
-        //       </div>
-        //     )}
-        //   </Link>
-        // ))
-        // </Slider>
-      }
+      {slides.length > 0 && showcCarousal && (
+        <FeatureCarousel data={slides} supplierId={supplierId} />
+      )}
       <div>
         <div className="flex justify-between items-center px-4 my-4 md:my-6">
           <h2

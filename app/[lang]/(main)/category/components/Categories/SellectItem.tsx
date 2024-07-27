@@ -46,34 +46,38 @@ function SellectItem({ item, close }: Props) {
   }, [params, item]);
   return (
     <div className=" h-fit mb-3 relative z-10">
-      <div className="flex justify-between gap-4 items-center h-fit">
-        <div className="w-10 h-10 rounded-full overflow-hidden relative">
-          {item.picture && (
-            <Image
-              src={item.picture}
-              fill
-              sizes="(max-width:200px) 160px, 160px"
-              alt={item.name}
-            />
-          )}
-        </div>
-        <Link
-          onClick={close}
-          href={
-            item.children.length > 0
-              ? `/category/${item._id}/${item.children[0]._id}
-                                        `
-              : `/category/${item._id}`
-          }
-        >
-          <h3
-            className={` font-bold capitalize ${
-              currentCategory.id === item._id ? "text-primary" : "text-gray-600"
-            }`}
+      <div className="flex justify-between items-center h-fit">
+        <div className="flex gap-4">
+          <div className="w-10 h-10 rounded-full overflow-hidden relative">
+            {item.picture && (
+              <Image
+                src={item.picture}
+                fill
+                sizes="(max-width:200px) 160px, 160px"
+                alt={item.name}
+              />
+            )}
+          </div>
+          <Link
+            onClick={close}
+            href={
+              item.children.length > 0
+                ? `/category/${item._id}/${item.children[0]._id}
+            `
+                : `/category/${item._id}`
+            }
           >
-            {item.name}
-          </h3>
-        </Link>
+            <h3
+              className={`font-bold capitalize ${
+                currentCategory.id === item._id
+                  ? "text-primary"
+                  : "text-gray-600"
+              }`}
+            >
+              {item.name}
+            </h3>
+          </Link>
+        </div>
         <div className="cursor-pointer p-1 rounded-full shadow">
           <BsChevronDown size={21} onClick={() => setActive(!active)} />
         </div>

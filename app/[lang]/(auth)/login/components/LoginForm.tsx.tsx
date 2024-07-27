@@ -13,7 +13,8 @@ import { UseLogin } from "@/formik/useLogin";
 import Logo from "@/components/Logo";
 import FormTitle from "../../FormTitle";
 import { Login } from "@/lib/server actions/login";
-
+import facebookIcon from "../../../../../public/assets/socialIcons/logos_facebook.png";
+import googleIcon from "../../../../../public/assets/socialIcons/devicon_google.png";
 const initialState = {
   username: "",
   password: "",
@@ -80,11 +81,32 @@ export default function LoginForm({ close }: Props) {
           >
             {translate("shop_as_guest")}
           </Link>
+          <div className="w-1/2 gap-8 justify-center flex mx-auto mb-4">
+            <button type="button">
+              <Image
+                src={googleIcon}
+                width={35}
+                height={35}
+                alt="google icon"
+              />
+            </button>
+            <button type="button">
+              <Image
+                src={facebookIcon}
+                width={35}
+                height={35}
+                alt="facebook icon"
+              />
+            </button>
+          </div>
           <Button type="submit" loading={isLoading}>
             {translate("login")}
           </Button>
-          <div className="text-sm text-center">
-            <span className="text-gray-400">{translate("no_account")} </span>
+          <div className="text-sm text-center flex gap-2 justify-center">
+            <div
+              className="text-gray-400"
+              dangerouslySetInnerHTML={{ __html: translate("no_account") }}
+            />
             <Link className="text-primary" href={webRoutes.register as string}>
               {translate("register")}
             </Link>

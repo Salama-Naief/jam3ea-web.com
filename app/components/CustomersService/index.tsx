@@ -11,10 +11,15 @@ interface Props {
 }
 function CustomerService() {
   const { translate, language } = useContext(AuthContext);
-
+  const liveChatUrl = new URL("https://direct.lc.chat/12012687/");
+  // if (user) {
+  liveChatUrl.searchParams.append("username", "salama");
+  liveChatUrl.searchParams.append("phone", "01068525995");
+  // }
   return (
     <a
-      href="https://direct.lc.chat/12012687/"
+      // href="https://direct.lc.chat/12012687/"
+      href={liveChatUrl.toString()}
       target="_blank"
       className={`${
         language === LANGUAGES.ARABIC ? "end-8" : "end-8"

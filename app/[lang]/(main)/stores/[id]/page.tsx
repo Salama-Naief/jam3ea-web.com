@@ -53,6 +53,7 @@ export default async function StorePage({
                 currency: translate(dict, "currency"),
               }}
               productType="normal"
+              showcCarousal={false}
             />
           ))}
       </Container>
