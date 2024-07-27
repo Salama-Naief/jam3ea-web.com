@@ -111,7 +111,7 @@ function Cart() {
                       className=" flex gap-3 items-center font-bold"
                     >
                       {cartItem.logo ? (
-                        <div className="w-12 h-12 relative">
+                        <div className="w-9 h-9 relative">
                           <Image
                             src={cartItem.logo}
                             // width={50}
@@ -121,23 +121,27 @@ function Cart() {
                           />
                         </div>
                       ) : (
-                        <div className="w-14 h-10 relative">
+                        <div className=" relative">
                           <Image
                             src={jamieaLogo}
-                            // width={50}
-                            // height={50}
-                            fill
+                            width={50}
+                            height={50}
+                            // fill
                             alt={"logo"}
                           />
                         </div>
                       )}
 
-                      <div>
+                      <div className="text-xs font-semibold">
                         <div className="flex gap-1">
-                          <span className="text-sm font-bold">
+                          <span className="text-sm font-semibold">
                             {translate("total")} :
                           </span>
-                          <span> ${cartItem.cart.total}</span>
+                          <span>
+                            {" "}
+                            {cartItem.cart.total}
+                            {translate("currency")}
+                          </span>
                         </div>
                         <div className="flex gap-1">
                           <span>{translate("quantity")} :</span>

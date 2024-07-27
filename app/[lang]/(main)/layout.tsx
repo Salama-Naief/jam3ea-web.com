@@ -21,14 +21,6 @@ interface IRootLayoutProps {
 export default async function RootLayout({ children }: IRootLayoutProps) {
   const categories = await getCategories();
   const notifications = await getNotifications();
-  console.log("notifications", notifications);
-  // const user: IUser = await apiHandler(
-  //   "/profile",
-  //   "GET",
-  //   undefined,
-  //   true,
-  //   false
-  // );
   return (
     <div className="relative">
       <Navbar
@@ -36,7 +28,7 @@ export default async function RootLayout({ children }: IRootLayoutProps) {
         notifications={notifications}
       />
       <>{children}</>
-      <CustomerService />
+
       <Footer />
     </div>
   );

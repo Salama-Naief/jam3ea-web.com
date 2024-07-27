@@ -48,23 +48,22 @@ export default function ChooseCity({ cities, buttonLabel }: Props) {
       setLoading(true);
       const res = await updateCity({ city_id: selectCity.value });
       setLoading(false);
-      const options = {
-        // sameSite: "none",
-        secure: true,
-        path: "/",
-      };
+      // const options = {
+      //   // sameSite: "none",
+      //   secure: true,
+      //   path: "/",
+      // };
       if (res.success) {
-        setCookie(
-          "city",
-          {
-            _id: res.results?.data.city._id,
-            name: res.results?.data.city.name,
-            store_id: res.results?.data.city.store_id,
-            parent_id: res.results?.data.city.parent_id,
-          },
-          options
-        );
-
+        // setCookie(
+        //   "city",
+        //   {
+        //     _id: res.results?.data.city._id,
+        //     name: res.results?.data.city.name,
+        //     store_id: res.results?.data.city.store_id,
+        //     parent_id: res.results?.data.city.parent_id,
+        //   },
+        //   options
+        // );
         if (window) window.location.href = webRoutes.home;
       }
     }

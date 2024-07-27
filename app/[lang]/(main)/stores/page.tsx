@@ -26,25 +26,7 @@ export default async function StoresPage({
 }: {
   params: { lang: Locale };
 }) {
-  const inventories = await getInventories();
   const supplier = await getSupplierFeature();
-  console.log("supplier===++++", supplier);
-  //const stores = listStores.results.data[0];
-
-  // Grouping function
-  // const res = function groupBy(array: any, key: string) {
-  //   return array.reduce((acc: any, obj: any) => {
-  //     const category = obj[key];
-  //     if (!acc[category]) {
-  //       acc[category] = [];
-  //     }
-  //     acc[category].push(obj);
-  //     return acc;
-  //   }, {});
-  // };
-
-  // const res = Object.groupBy(stores, ({ description }) => description);
-  // console.log("stores", res(stores, "description"));
   const dict = await getDictionary(lang);
 
   return (
