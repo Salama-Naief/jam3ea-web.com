@@ -30,19 +30,7 @@ export default function SearchForm({
   };
   console.log("resultsresults", results);
   return (
-    <form
-      // onSubmit={(e) => {
-      //   e.preventDefault();
-      //   router.push(webRoutes.search(search, supplierId));
-      // }}
-      className="w-full flex items-center relative"
-    >
-      {/* <label
-        htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only"
-      >
-        {translate("search")}
-      </label> */}
+    <form className="w-full flex items-center relative">
       <div className="w-full bg-gray-200 rounded-lg h-[40px] overflow-hidden flex items-center">
         <input
           type="search"
