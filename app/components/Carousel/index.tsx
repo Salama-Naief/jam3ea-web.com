@@ -20,8 +20,8 @@ function Carousel() {
     // rtl: true,
     waitForAnimate: true,
     autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 2000,
+    speed: 1000,
+    autoplaySpeed: 5000,
     cssEase: "linear",
 
     // appendDots: (dots: any) => (

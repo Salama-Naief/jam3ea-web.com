@@ -7,16 +7,6 @@ export const searchProduct = async (
   q = "",
   supplierId?: string
 ): Promise<any> =>
-  //   {
-  //   try {
-  //     const res=await fetch(`/api/product?q=${q}${supplierId ? "&supplier_id=" + supplierId : ""}`)
-  //     const data=await res.json()
-  //     console.log("ddddddd",data)
-  //     return data
-  //   } catch (error) {
-  //     console.log('errror',erro)
-  //   }
-  // }
   await clientRequest(
     `/product?q=${q}${supplierId ? "&supplier_id=" + supplierId : ""}`
   );
