@@ -24,7 +24,7 @@ export default function SearchForm({
   const router = useRouter();
   const { translate } = useContext(AuthContext);
   const { sendRequest, results, isLoading, errors } = useHttpClient<any>();
-  console.log("ha");
+
   const handleSearch = async () => {
     const products = await sendRequest(searchProduct(search));
   };

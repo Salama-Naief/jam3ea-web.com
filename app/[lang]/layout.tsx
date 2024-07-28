@@ -13,7 +13,7 @@ import { LANGUAGES } from "@/lib/enums";
 import { Locale } from "../../i18n-config";
 import { MantineProvider } from "@mantine/core";
 import Head from "next/head";
-import logo from "../../public/assets/logo-light.svg";
+import logo from "../../public/assets/logo-sm.png";
 
 interface IRootLayoutProps {
   children: React.ReactNode;
@@ -24,6 +24,9 @@ export const metadata = {
   title: "Jm3eia dot com",
   verification: {
     google: "YejFgWHiYkJdIY9hniJYUP1oZAP8PT4ZVZsPkQYBOgc",
+  },
+  icons: {
+    icon: logo.src,
   },
 };
 
@@ -45,9 +48,7 @@ export default async function RootLayout({
       dir={selectedLang === LANGUAGES.ARABIC ? "rtl" : "ltr"}
       // suppressHydrationWarning={true}
     >
-      <Head>
-        <link rel="shortcut icon" href="../../public/assets/logo-light.svg" />
-      </Head>
+      {/* <Head><link rel="icon" href="/favicon.png" sizes="any" /></Head> */}
       <body>
         <div>
           <div id="root">
