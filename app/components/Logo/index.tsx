@@ -5,11 +5,16 @@ import logo from "../../../public/assets/logo.svg";
 import Link from "next/link";
 import { useCookies } from "react-cookie";
 
-function Logo() {
+interface Props {
+  setIVip?: (v: any) => void;
+}
+function Logo({ setIVip }: Props) {
   const [cookies, setCookie] = useCookies(["isVIP"]);
 
   const handleIsVIP = () => {
-    setCookie("isVIP", false);
+    console.log("cookies home", cookies.isVIP);
+    setCookie("isVIP", false, { path: "/" });
+    setIVip && setIVip(false);
   };
 
   return (

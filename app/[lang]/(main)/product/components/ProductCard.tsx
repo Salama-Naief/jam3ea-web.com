@@ -1,6 +1,10 @@
 "use client";
 import { IProduct } from "../types";
-import { getDiscountPercentage, getPriceWithCurrency } from "../utils";
+import {
+  getDiscountPercentage,
+  getPrice,
+  getPriceWithCurrency,
+} from "../utils";
 import AddToCartButton from "@/module/(main)/cart/components/AddToCartButton";
 import AddToWishlist from "@/module/(main)/wishlist/components/AddToWishlist";
 import webRoutes from "@/lib/utils/webRoutes";
@@ -119,14 +123,31 @@ export default function ProductCard({
     }
     setRemoveLoading(false);
   };
-
+  const getPrices = getPrice({
+    price: product.price,
+    oldPrice: product.old_price,
+    vipPrice: product.vip_price,
+    vipOldPrice: product.vip_old_price,
+    isVip: isVip,
+  });
+  console.log(
+    "getPrice",
+    getPrice({
+      price: product.price,
+      oldPrice: product.old_price,
+      vipPrice: product.vip_price,
+      vipOldPrice: product.vip_old_price,
+      isVip: isVip,
+    }),
+    product.sku
+  );
   return (
     <div className="p-2 h-[100%]">
       <div
         className={`flex-shrink-0 flex h-full flex-col bg-white w-full  mx-auto rounded-xl p-4 relative overflow-hidden shadow-md ${className}`}
       >
         <div className="flex-1">
-          {isVip === true && isVip !== undefined
+          {/* {isVip === true && isVip !== undefined
             ? product.vip_old_price &&
               product.vip_price && (
                 <div className="bg-danger rounded text-white w-fit px-2 z-10 absolute start-0 top-0 text-sm">
@@ -143,7 +164,12 @@ export default function ProductCard({
                     parseFloat(product.old_price)
                   )}
                 </div>
-              )}
+              )} */}
+          {getPrices && getPrices.discount && (
+            <div className="bg-danger rounded text-white w-fit px-2 z-10 absolute start-0 top-0 text-sm">
+              {getPrices.discount}
+            </div>
+          )}
           <div className="absolute end-3 top-3 z-10">
             <AddToWishlist
               sku={product.sku}
@@ -231,7 +257,38 @@ export default function ProductCard({
           >
             <div>
               <div className="px-2">
-                {isVip === true && isVip !== undefined ? (
+                {getPrices && (
+                  <div
+                    className={`${
+                      getPrices.oldPrice
+                        ? "justify-between"
+                        : language === LANGUAGES.ARABIC
+                        ? "justify-end"
+                        : "justify-start"
+                    } flex`}
+                  >
+                    <div>
+                      <span className="font-semibold text-sm md:text-base">
+                        {getPrices.price}
+                      </span>
+                      <sup>{translate("currency")}</sup>
+                    </div>
+                    {getPrices && getPrices.oldPrice && (
+                      <div>
+                        <span
+                          className={`
+                      line-through decoration-danger decoration-2
+                      text-sm md:text-base font-semibold`}
+                        >
+                          {getPrices.oldPrice}
+                        </span>
+                        <sup>{translate("currency")}</sup>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* {isVip === true && isVip !== undefined ? (
                   <div
                     className={`${
                       product.vip_old_price &&
@@ -293,7 +350,7 @@ export default function ProductCard({
                       </div>
                     )}
                   </div>
-                )}
+                )} */}
               </div>
               <p
                 className={`${
