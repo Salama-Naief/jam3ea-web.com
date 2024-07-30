@@ -16,7 +16,7 @@ function StoreCard({ image, label, link, name }: Props) {
   const [cookies, setCookie] = useCookies(["isVIP"]);
 
   const handleIsVIP = (link: string) => {
-    if (link.includes("/mart")) {
+    if (link.includes("/prime")) {
       setCookie("isVIP", true);
     } else {
       setCookie("isVIP", false);
@@ -26,7 +26,7 @@ function StoreCard({ image, label, link, name }: Props) {
   return (
     <Link href={link} onClick={() => handleIsVIP(link)}>
       <div className="bg-gray-100  shadow-md p-1 lg:p-3 w-full h-full rounded-2xl">
-        <div className="relative w-full h-24 md:h-44 lg:h-64">
+        <div className="relative  w-full h-24 md:h-44 lg:h-80">
           <Image
             src={image}
             fill
@@ -34,6 +34,7 @@ function StoreCard({ image, label, link, name }: Props) {
             quality={100}
             sizes="w-400 h-400"
             priority
+            className="fit"
           />
         </div>
         <div className="text-center  md:text-xl lg:text-3xl text-secondary font-bold">

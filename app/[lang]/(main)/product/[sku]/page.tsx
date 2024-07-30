@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import { getProductBySku, getProductCategoryRank } from "../services";
 import AddToCartButton from "@/module/(main)/cart/components/AddToCartButton";
-import { getPriceWithCurrency } from "../utils";
+import { getPrice, getPriceWithCurrency } from "../utils";
 import { Locale } from "../../../../../i18n-config";
 import { getDictionary } from "@/lib/utils/dictionary";
 import { translate } from "@/lib/utils/serverHelpers";
@@ -57,37 +57,16 @@ export default async function ProductPage({
     has_variants,
   } = product;
 
-  // const categoryLinks = categories
-  //   ? categories
-  //       // to remove any category with name=''
-  //       ?.filter((c) => c.name)
-  //       .map((cate) => ({
-  //         label: cate.name,
-  //         link: "/category?id=" + cate.category_id,
-  //       }))
-  //       //to remove repeated element
-  //       .filter(
-  //         (value, index, self) =>
-  //           index ===
-  //           self.findIndex(
-  //             (t) => t.label === value.label && t.label === value.label
-  //           )
-  //       )
-  //   : [];
+  console.log("product----=-=-", product);
 
-  // const Links = [
-  //   ...categoryLinks,
-  //   {
-  //     label: name,
-  //     link: "/",
-  //   },
-  // ];
-
-  // const mainCategory = categories
-  //   ? categories.filter((c) => c.name)[0].name
-  //   : "";
-
-  console.log("isvip----=-=-", isVip);
+  const getPrices = getPrice({
+    price: product.price,
+    oldPrice: product.old_price,
+    vipPrice: product.vip_price,
+    vipOldPrice: product.vip_old_price,
+    isVip: isVip && isVip === "true" ? true : false,
+  });
+  console.log("getPrices", getPrices);
   return (
     <div className="my-10 w-screen">
       <Container>
@@ -102,18 +81,23 @@ export default async function ProductPage({
 
                 <div className="p-4">
                   <h1 className="text-xl md:text-2xl mb-4 font-bold">{name}</h1>
-                  <div className="flex justify-between">
-                    <span className="font-bold text-secondary text-lg">
-                      {isVip && product.vip_price
-                        ? getPriceWithCurrency(
-                            product.vip_price,
-                            translate(dict, "currency")
-                          )
-                        : getPriceWithCurrency(
-                            price,
-                            translate(dict, "currency")
-                          )}
-                    </span>
+                  <div className="flex justify-between w-full md:w-1/2 lg:w-1/2">
+                    {getPrices && (
+                      <span className="font-bold text-secondary text-lg">
+                        {getPriceWithCurrency(
+                          getPrices.price,
+                          translate(dict, "currency")
+                        )}
+                      </span>
+                    )}
+                    {getPrices && getPrices.oldPrice && (
+                      <span className="font-bold text-secondary line-through decoration-danger decoration-2 text-lg">
+                        {getPriceWithCurrency(
+                          getPrices.oldPrice,
+                          translate(dict, "currency")
+                        )}
+                      </span>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-2 my-4 gap-4">
@@ -126,7 +110,9 @@ export default async function ProductPage({
                           availability ? "text-green-900" : "text-danger"
                         } bg-gray-100  w-full  font-bold rounded-lg py-2 text-center`}
                       >
-                        {availability ? "Available" : "Not Available"}
+                        {availability
+                          ? translate(dict, dict.available)
+                          : translate(dict, dict.not_available)}
                       </div>
                     }
                   </div>

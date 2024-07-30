@@ -30,7 +30,7 @@ export default async function Home({
 
       <div className="h-fit my-8">
         <Container>
-          <div className="grid grid-cols-3 gap-3 md:gap-6 lg:px-16 items-stretch">
+          <div className="grid grid-cols-2 gap-3 md:gap-6 lg:px-16 items-stretch">
             {storeCards(translate, dict).map((item) => (
               <div key={item.id} className="w-full h-fit">
                 <StoreCard

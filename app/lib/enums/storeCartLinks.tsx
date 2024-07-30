@@ -20,11 +20,11 @@ export const storeCards = (t: any, dict: any) => [
     name: t(dict, "jameia_stores"),
     label: t(dict, "jameia_stores_desc"),
   },
-  {
-    id: 3,
-    image: mart,
-    link: "/mart",
-    name: t(dict, "jameia_mart"),
-    label: t(dict, "jameia_mart_desc"),
-  },
+  // {
+  //   id: 3,
+  //   image: mart,
+  //   link: "/mart",
+  //   name: t(dict, "jameia_mart"),
+  //   label: t(dict, "jameia_mart_desc"),
+  // },
 ];
