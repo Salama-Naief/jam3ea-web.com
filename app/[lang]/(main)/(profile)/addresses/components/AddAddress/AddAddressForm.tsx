@@ -186,9 +186,9 @@ export default function AddAddressForm({
               error={
                 touched.address?.city_id && errors.address?.city_id
                   ? errors.address.city_id
-                  : validationErrors && validationErrors.address.city_id
-                  ? validationErrors.address.city_id
-                  : undefined
+                  : // : validationErrors && validationErrors.address.city_id
+                    // ? validationErrors.address.city_id
+                    undefined
               }
             />
 
@@ -203,9 +203,9 @@ export default function AddAddressForm({
               error={
                 touched.address?.widget && errors.address?.widget
                   ? errors.address.widget
-                  : validationErrors && validationErrors.address.widget
-                  ? validationErrors.address.widget
-                  : undefined
+                  : // : validationErrors && validationErrors.address.widget
+                    // ? validationErrors.address.widget
+                    undefined
               }
             />
 
@@ -220,9 +220,9 @@ export default function AddAddressForm({
               error={
                 touched.address?.gada && errors.address?.gada
                   ? errors.address.gada
-                  : validationErrors && validationErrors.address.gada
-                  ? validationErrors.address.gada
-                  : undefined
+                  : // : validationErrors && validationErrors.address.gada
+                    // ? validationErrors.address.gada
+                    undefined
               }
             />
 
@@ -237,9 +237,9 @@ export default function AddAddressForm({
               error={
                 touched.address?.street && errors.address?.street
                   ? errors.address.street
-                  : validationErrors && validationErrors.address.street
-                  ? validationErrors.address.street
-                  : undefined
+                  : // : validationErrors && validationErrors.address.street
+                    // ? validationErrors.address.street
+                    undefined
               }
             />
 
@@ -254,9 +254,9 @@ export default function AddAddressForm({
               error={
                 touched.address?.house && errors.address?.house
                   ? errors.address.house
-                  : validationErrors && validationErrors.address.house
-                  ? validationErrors.address.house
-                  : undefined
+                  : // : validationErrors && validationErrors.address.house
+                    // ? validationErrors.address.house
+                    undefined
               }
             />
 
@@ -272,9 +272,9 @@ export default function AddAddressForm({
                 error={
                   touched.address?.floor && errors.address?.floor
                     ? errors.address.floor
-                    : validationErrors && validationErrors.address.floor
-                    ? validationErrors.address.floor
-                    : undefined
+                    : // : validationErrors && validationErrors.address.floor
+                      // ? validationErrors.address.floor
+                      undefined
                 }
               />
               <Input
@@ -289,10 +289,10 @@ export default function AddAddressForm({
                   touched.address?.apartment_number &&
                   errors.address?.apartment_number
                     ? errors.address.apartment_number
-                    : validationErrors &&
-                      validationErrors.address.apartment_number
-                    ? validationErrors.address.apartment_number
-                    : undefined
+                    : // : validationErrors &&
+                      //   validationErrors.address.apartment_number
+                      // ? validationErrors.address.apartment_number
+                      undefined
                 }
               />
             </div>

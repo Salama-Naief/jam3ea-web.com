@@ -13,7 +13,7 @@ import { Drawer, Menu, Modal, ScrollArea } from "@mantine/core";
 import { ICategory } from "@/module/(main)/category/types";
 import Lang from "./Language";
 import { useCookies } from "react-cookie";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Notificatoins from "./Notifications";
 import { HiBars3CenterLeft } from "react-icons/hi2";
 import { useDisclosure } from "@mantine/hooks";
@@ -21,6 +21,7 @@ import SubCategoriesList from "@/module/(main)/category/components/Categories/Su
 import SellectItem from "@/module/(main)/category/components/Categories/SellectItem";
 import { LANGUAGES } from "@/lib/enums";
 import Popup from "../Popup";
+import { useCart } from "@/module/(main)/cart/CartProvider";
 
 interface Props {
   categories: ICategory[];
@@ -32,38 +33,102 @@ export default function Navbar({
   notifications,
   isVip: isVIP,
 }: Props) {
-  const { isLoggedIn, translate, changeLanguage, language, logout } =
-    useContext(AuthContext);
+  const { translate, language } = useContext(AuthContext);
+  const { cart, clearCartBySupplierId } = useCart();
   const [opened, { open, close }] = useDisclosure(false);
   const [isOpen, setIsOpen] = useState(false);
   const [cookies, setCookie] = useCookies(["isVIP"]);
+  const [route, setRoute] = useState("");
+  const [isHome, setIsHome] = useState(false);
   console.log("cookies", cookies.isVIP);
   const [isVip, setIVip] = useState(cookies.isVIP);
   const path = usePathname();
+  const router = useRouter();
   useEffect(() => {
     setIVip(cookies.isVIP);
   }, [cookies.isVIP, path]);
 
+  const containJamieaProduct = cart.find((c) => c._id === "Jm3eia");
   const handleIsVIP = (link: string) => {
-    if (link.includes("/mart")) {
+    const linkItems = link.split("/").filter((i) => i);
+    if (link.includes("/mart") || linkItems.length === 0) {
       setCookie("isVIP", false, { path: "/" });
+      if (containJamieaProduct) {
+        setIsOpen(true);
+        clearCartBySupplierId(containJamieaProduct._id);
+      }
       setIVip("false");
+      router.push(link);
     } else if (link.includes("/prime")) {
       setCookie("isVIP", true, { path: "/" });
+      if (containJamieaProduct) {
+        setIsOpen(true);
+        clearCartBySupplierId(containJamieaProduct._id);
+      }
       setIVip("true");
+      router.push(link);
     } else {
       setCookie("isVIP", isVip, { path: "/" });
       setIVip(isVip);
     }
   };
 
+  const handleClearCart = () => {
+    if (route) {
+      handleIsVIP(route);
+      setIsOpen(false);
+      setRoute("");
+      setIsHome(false);
+    }
+  };
+
+  const handleRoute = (link: string) => {
+    const linkItems = link.split("/").filter((i) => i);
+    console.log("linkItems", linkItems, linkItems.length);
+    if (containJamieaProduct) {
+      setIsOpen(true);
+      setRoute(link);
+    } else {
+      handleIsVIP(link);
+    }
+  };
+  console.log("navbar isvip", isVIP, isVip);
   return (
     <nav className=" py-4 bg-white shadow-md sticky top-0 z-50">
+      <Popup close={() => setIsOpen(false)} isOpen={isOpen}>
+        <div className="px-2 pt-4">
+          <div>
+            {isVIP
+              ? translate("move_to_jamiea")
+              : translate("move_to_jamiea_prime")}
+          </div>
+          <div className="flex justify-between mt-4">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="bg-gray-200 text-black px-8 py-1 rounded-lg mx-auto"
+            >
+              {translate("cancel")}
+            </button>
+            <button
+              onClick={handleClearCart}
+              className="bg-primary text-white px-8 py-1 rounded-lg mx-auto"
+            >
+              {translate("ok")}
+            </button>
+          </div>
+        </div>
+      </Popup>
       <Container>
         <div className="w-full h-auto flex items-center justify-between lg:justify-start lg:gap-14">
           <div className="flex items-center gap-2">
             <HiBars3CenterLeft size={30} className="hidden" />
-            <LogoSmall setIVip={setIVip} />
+            <button
+              onClick={() =>
+                isVIP && isVIP === "true" ? handleRoute("/") : router.push("/")
+              }
+            >
+              <LogoSmall setIVip={setIVip} />
+            </button>
           </div>
           {/* show in large screens */}
           <div className="hidden lg:block flex-grow">
@@ -111,9 +176,9 @@ export default function Navbar({
                   </ScrollArea>
                 </Menu.Dropdown>
               </Menu>
-              <Link
-                href={"/mart"}
-                onClick={() => handleIsVIP("/mart")}
+              <button
+                // href={"/mart"}
+                onClick={() => handleRoute("/mart")}
                 className={`${
                   !isVip || isVip === "false"
                     ? "text-white bg-primary hidden"
@@ -122,10 +187,10 @@ export default function Navbar({
                        block rounded-full px-6 py-1  hover:text-white hover:bg-primary transition-all duration-100`}
               >
                 {translate("jameia_mart")}
-              </Link>
-              <Link
-                href={"/prime"}
-                onClick={() => handleIsVIP("/prime")}
+              </button>
+              <button
+                // href={"/prime"}
+                onClick={() => handleRoute("/prime")}
                 className={`${
                   isVip && isVip === "true"
                     ? "text-white bg-primary hidden"
@@ -134,7 +199,7 @@ export default function Navbar({
                        block rounded-full px-6 py-1  hover:text-white hover:bg-primary transition-all duration-100`}
               >
                 {translate("jameia_prime")}
-              </Link>
+              </button>
               <Link
                 href={"/stores"}
                 onClick={() => handleIsVIP("/stores")}

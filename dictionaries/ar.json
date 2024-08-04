@@ -198,5 +198,7 @@
   "no": "لا",
   "are_you_sure_to_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
   "replace": "استبدل",
-  "do_you_want_to_buy_this_product_by_points": "هل تريد استبدال هذا المنتج بالنقاط"
+  "do_you_want_to_buy_this_product_by_points": "هل تريد استبدال هذا المنتج بالنقاط",
+  "move_to_jamiea": "ستتم إزالة منتج سلة التسوق لنقلك إلى جمعية",
+  "move_to_jamiea_prime": "ستتم إزالة منتج سلة التسوق لنقلك إلى جمعية برايم"
 }

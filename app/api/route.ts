@@ -5,6 +5,7 @@ import { LANGUAGES } from "@/lib/enums";
 import { NextResponse } from "next/server";
 import { URL } from "url";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -18,9 +19,12 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url);
   const route = searchParams.get("route") || "";
+  const cookieStore = cookies();
+  const city = cookieStore.get("city")?.value || null;
+  const visitorToken = cookieStore.get("visitor.token")?.value || null;
   const body = !searchParams.get("nobody") ? await request.json() : undefined;
   const response = await apiHandler(route, "POST", body);
-
+  console.log("city from login", city && JSON.parse(city)._id);
   const nextResponse = NextResponse.json(response);
 
   if (route == "/profile/register" && response.success == true) {
@@ -30,6 +34,11 @@ export async function POST(request: Request) {
       nextResponse.cookies.set(
         "auth.user",
         JSON.stringify(loginResponse.results.user)
+      );
+      await clearCartExceptJmaie(
+        city,
+        response.loginResponse.results.user.address.city_id,
+        loginResponse.results.token
       );
       const updateCityResponse = await apiHandler(
         "/profile/updatecity",
@@ -60,6 +69,47 @@ export async function POST(request: Request) {
     nextResponse.cookies.set(
       "auth.user",
       JSON.stringify(response.results.user)
+    );
+    console.log("loged user token", response.results.token);
+    console.log("visitor token", visitorToken);
+    // if (
+    //   city &&
+    //   JSON.parse(city)._id !== response.results.user.address.city_id
+    // ) {
+    //   const getCart = await apiHandler(
+    //     "/cart/all",
+    //     // "GET",
+    //     // undefined,
+    //     // true,
+    //     // false,
+    //     // response.results.token
+    //   );
+
+    //   console.log("getCart fom login", getCart);
+    //   const findSupplierExeptJamiea = getCart.filter(
+    //     (c: any) => c._id !== "Jm3eia"
+    //   );
+    //   console.log("findSupplierExeptJamiea fom login", findSupplierExeptJamiea);
+    //   if (findSupplierExeptJamiea.length > 0)
+    //     Promise.all(
+    //       findSupplierExeptJamiea.map(async (cart: any) => {
+    //         const clearResLoged = await apiHandler(
+    //           `/cart/clear?supplier_id=${cart._id}`,
+    //           "POST",
+    //           undefined,
+    //           true,
+    //           false,
+    //           response.results.token
+    //         );
+    //         console.log("clearRes clearResLoged=======>>>>>>>>", clearResLoged);
+    //       })
+    //     );
+    // }
+    //clear all carts except jmaie
+    await clearCartExceptJmaie(
+      city,
+      response.results.user.address.city_id,
+      response.results.token
     );
     const updateCityResponse = await apiHandler(
       "/profile/updatecity",
@@ -95,10 +145,16 @@ export async function PUT(request: Request) {
   const body = await request.json();
   console.log("update city route", route);
   console.log("update city body", body);
+  const cookieStore = cookies();
+  const city = cookieStore.get("city")?.value || null;
+  const visitorToken = cookieStore.get("visitor.token")?.value || null;
+  const userToken = cookieStore.get("auth.token")?.value || null;
+  const token = userToken ? userToken : visitorToken;
 
   const response = await apiHandler(route, "PUT", body);
 
   const nextResponse = NextResponse.json(response);
+  console.log("PUT response", response);
   if (route === "/profile/updatecity") {
     if (response.success) {
       nextResponse.cookies.set(
@@ -112,6 +168,11 @@ export async function PUT(request: Request) {
       );
     }
     console.log("nextResponse", response.results.data.city);
+  }
+
+  if (route === "/profile/update" && response.success) {
+    if (body && body.address && body.address.city_id)
+      await clearCartExceptJmaie(city, body.address.city_id, token as string);
   }
   return nextResponse;
 }
@@ -149,4 +210,41 @@ const setCookiesData = (
   nextResponse.cookies.set("isLoggedIn", "true");
 
   return nextResponse;
+};
+
+const clearCartExceptJmaie = async (
+  city: string | null,
+  userCityId: string,
+  token: string
+) => {
+  if (city && JSON.parse(city)._id !== userCityId) {
+    const getCart = await apiHandler(
+      "/cart/all"
+      // "GET",
+      // undefined,
+      // true,
+      // false,
+      // response.results.token
+    );
+
+    console.log("getCart fom login", getCart);
+    const findSupplierExeptJamiea = getCart.filter(
+      (c: any) => c._id !== "Jm3eia"
+    );
+    console.log("findSupplierExeptJamiea fom login", findSupplierExeptJamiea);
+    if (findSupplierExeptJamiea.length > 0)
+      Promise.all(
+        findSupplierExeptJamiea.map(async (cart: any) => {
+          const clearResLoged = await apiHandler(
+            `/cart/clear?supplier_id=${cart._id}`,
+            "POST",
+            undefined,
+            true,
+            false,
+            token
+          );
+          console.log("clearRes clearResLoged=======>>>>>>>>", clearResLoged);
+        })
+      );
+  }
 };

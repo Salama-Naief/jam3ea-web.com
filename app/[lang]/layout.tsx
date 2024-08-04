@@ -50,7 +50,7 @@ export default async function RootLayout({
     >
       {/* <Head><link rel="icon" href="/favicon.png" sizes="any" /></Head> */}
       <body>
-        <div className="overflow-y-hidden">
+        <div>
           <div id="root">
             <NextTopLoader showSpinner={false} color="#F77D0F" />
             <AuthProvider dictionary={dictionary}>

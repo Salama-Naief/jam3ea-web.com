@@ -64,6 +64,8 @@ export interface IAddress {
   city?: ICity;
   latitude?: number;
   longitude?: number;
+  country_id?: string;
+  parent_city_id?: string;
 }
 
 export interface IAddAddress {

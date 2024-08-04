@@ -27,7 +27,7 @@ import { Modal } from "@mantine/core";
 import LoginForm from "@/module/(auth)/login/components/LoginForm.tsx";
 import { useDisclosure } from "@mantine/hooks";
 import { IUser } from "../../(profile)/types";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import useHttpClient from "@/lib/hooks/useHttpClient";
 import { CartContext, useCart } from "../CartProvider";
 import Popup from "@/components/Popup";
@@ -48,12 +48,13 @@ export default function SingleSupplier({
 }: SingleSupplierProps) {
   const data = cart;
   const { translate, isLoggedIn } = useContext(AuthContext);
-  const { setCart } = useCart();
+  const { setCart, clearCartBySupplierId } = useCart();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [cashSuccess, setCashSuccess] = useState(false);
   const [cashData, setCashData] = useState<IGetCheckoutResponse | null>(null);
   const [opened, { open, close }] = useDisclosure(false);
+  const params = useParams();
   const { results: cities, sendRequest: citiesRequest } =
     useHttpClient<IDataLoadedResponse<any>>();
   const router = useRouter();
@@ -112,8 +113,9 @@ export default function SingleSupplier({
 
       console.log("response checkout", response);
       console.log("body checkout", body);
+      console.log("params", params["id"]);
       if (response.success) {
-        setCart([]);
+        clearCartBySupplierId(params["id"] as string);
         setIsLoading(false);
         if (response.results?.url) {
           window.location.href = response.results.url;
