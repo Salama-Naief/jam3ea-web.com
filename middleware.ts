@@ -2,6 +2,7 @@ import { LANGUAGES } from "@/lib/enums";
 import webRoutes from "@/lib/utils/webRoutes";
 import { NextRequest, NextResponse } from "next/server";
 import { i18n } from "./i18n-config";
+import apiHandler from "@/lib/utils/apiHandler";
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -39,35 +40,50 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     console.log("nottoken");
-    if (isRoute(url, webRoutes.splash)) {
-      return checkAuth(response);
-    } else {
-      return NextResponse.redirect(
-        new URL("/en" + webRoutes.splash, request.url)
-      );
-    }
-  } else {
-    console.log("istoken");
-    if (
-      !isRoute(url, webRoutes.splash) &&
-      !isRoute(url, webRoutes.register) &&
-      !isRoute(url, webRoutes.login) &&
-      !isRoute(url, webRoutes.newPassword) &&
-      !isRoute(url, webRoutes.resetPassword) &&
-      !isRoute(url, webRoutes.valiadateOtp) &&
-      !isLoggedIn &&
-      !city
-    ) {
-      return NextResponse.redirect(new URL(webRoutes.splash, request.url));
-    }
-    console.log("City", city);
-    if (isRoute(url, webRoutes.splash) && city && city.value) {
-      console.log("City inside if", city);
-      return NextResponse.redirect(
-        new URL("/en" + webRoutes.home, request.url)
-      );
-    }
+    console.log("isRoute(url, webRoutes.home)", isRoute(url, webRoutes.home));
+    console.log("url", url, "webRoutes.home", webRoutes.home);
+    // if (isRoute(url, webRoutes.home)) {
+    console.log("nottoken1");
+    return checkAuth(response);
+    // console.log("res && res?.ok=====>>>>>>>", res);
+    // // if (res && res?.ok) {
+    //  return NextResponse.redirect(new URL("/ar" + webRoutes.home, request.url));
+    //   // return res;
+    // } else {
+    //   console.log("res && res?.ok not ok");
+    //   return NextResponse.redirect(
+    //     new URL("/ar" + webRoutes.home, request.url)
+    //   );
+    // }
+    // } else {
+    //   console.log("nottoken2");
+    //   return NextResponse.redirect(
+    //     new URL("/en" + webRoutes.home, request.url)
+    //   );
+    //}
   }
+  //  else {
+  //   console.log("istoken");
+  //   if (
+  //     !isRoute(url, webRoutes.splash) &&
+  //     !isRoute(url, webRoutes.register) &&
+  //     !isRoute(url, webRoutes.login) &&
+  //     !isRoute(url, webRoutes.newPassword) &&
+  //     !isRoute(url, webRoutes.resetPassword) &&
+  //     !isRoute(url, webRoutes.valiadateOtp) &&
+  //     !isLoggedIn &&
+  //     !city
+  //   ) {
+  //     return NextResponse.redirect(new URL(webRoutes.splash, request.url));
+  //   }
+  //   console.log("City", city);
+  //   if (isRoute(url, webRoutes.splash) && city && city.value) {
+  //     console.log("City inside if", city);
+  //     return NextResponse.redirect(
+  //       new URL("/en" + webRoutes.home, request.url)
+  //     );
+  //   }
+  // }
 
   const urlToRedirect = authMiddleware(request, url);
   if (urlToRedirect) {
@@ -77,7 +93,7 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   let choosenLocale = pathname.split("/")[0];
   if (choosenLocale !== LANGUAGES.ENGLISH && choosenLocale !== LANGUAGES.ARABIC)
-    choosenLocale = process.env.DEFAULT_LOCALE_CODE || LANGUAGES.ENGLISH;
+    choosenLocale = process.env.DEFAULT_LOCALE_CODE || LANGUAGES.ARABIC;
 
   const language = request.cookies.get("language")?.value || choosenLocale;
   const pathnameIsMissingLocale = i18n.locales.every(
@@ -109,6 +125,7 @@ const authMiddleware = (request: NextRequest, url: string): URL | null => {
     webRoutes.resetPassword,
     webRoutes.newPassword,
     webRoutes.valiadateOtp,
+    // webRoutes.home,
   ];
 
   const isLoggedIn = request.cookies.get("isLoggedIn")?.value == "true";
@@ -140,8 +157,20 @@ const checkAuth = async (response: NextResponse) => {
 
     if (res.ok) {
       const resData = await res.json();
+
       if (resData.success && resData.results && resData.results.token) {
         response.cookies.set("visitor.token", resData.results.token);
+        response.cookies.set("language", LANGUAGES.ARABIC);
+        // const updateCityResponse = await apiHandler(
+        //   "/profile/updatecity",
+        //   "PUT",
+        //   {
+        //     city_id: "5d6a43d2fb419e4001ca3891",
+        //   },
+        //   true,
+        //   false,
+        //   resData.results.token
+        // );
       }
 
       return response;

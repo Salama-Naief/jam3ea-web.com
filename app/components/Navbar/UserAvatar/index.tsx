@@ -77,13 +77,13 @@ function UserAvatar() {
               onClick={() => handleLogout()}
               className="bg-primary text-white font-bold rounded px-6 py-2"
             >
-              Yes
+              {translate("yes")}
             </button>
             <button
               onClick={close}
               className="bg-gray-300 font-bold rounded px-6 py-2"
             >
-              No
+              {translate("no")}
             </button>
           </div>
         </div>

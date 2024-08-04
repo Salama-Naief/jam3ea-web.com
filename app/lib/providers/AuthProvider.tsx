@@ -95,8 +95,10 @@ const AuthProvider = ({ children, dictionary }: AuthProviderProps) => {
     removeCookie("addresses");
     removeCookie("selectedAddress");
     removeCookie("city");
-    if (window) window.location.href = webRoutes.home;
-    else router.replace(webRoutes.splash);
+    if (window)
+      window.location.href =
+        webRoutes.home + cookies.language || LANGUAGES.ENGLISH;
+    else router.replace(webRoutes.home);
     console.log("logout");
     // router.push("/choose");
   };

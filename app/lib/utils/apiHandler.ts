@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import webRoutes from "./webRoutes";
 import { IResponse } from "../types";
+import { NextResponse } from "next/server";
 
 const apiHandler = async (
   route: string,
@@ -20,9 +21,30 @@ const apiHandler = async (
     const user_token = cookieStore.get("auth.token")?.value || null;
     const isVIP = cookieStore.get("isVIP")?.value || null;
 
-    const token =
-      user_token && user_token != "null" ? user_token : visitor_token;
+    let token = user_token && user_token != "null" ? user_token : visitor_token;
+    console.log("route", route);
+    console.log("token", token);
+    if (!token) {
+      const res = await fetch(`${process.env.API_BASE_URL}/auth/check`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Language: "en",
+        },
+        body: JSON.stringify({
+          appId: process.env.API_APP_KEY,
+          appSecret: process.env.API_APP_SECRET,
+        }),
+      });
 
+      if (res.ok) {
+        const resData = await res.json();
+        console.log();
+        if (resData.success && resData.results && resData.results.token) {
+          token = resData.results.token;
+        }
+      }
+    }
     const language = cookieStore.get("language")?.value;
     const options: RequestInit = {
       method,
@@ -47,14 +69,15 @@ const apiHandler = async (
     }
 
     const res = await fetch(url, options);
-
     const resData: IResponse<any, any> = await res.json();
+    console.log("ress----->", resData);
+    console.log("token----->", token);
 
     if (resData.status_message === STATUS_MESSAGES.INVALID_APP_AUTHENTICATION) {
-      // return NextResponse.redirect(
-      //   new URL(webRoutes.splash, process.env.SITE_URL)
-      // );
-      redirect(webRoutes.splash);
+      return NextResponse.redirect(
+        new URL(webRoutes.splash, process.env.SITE_URL)
+      );
+      // redirect(webRoutes.splash);
       // TODO: delete cache
       //return redirect(webRoutes.splash);
     }
