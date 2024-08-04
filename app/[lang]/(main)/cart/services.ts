@@ -50,3 +50,9 @@ export const checkout = (values: any, cityId?: string): Promise<any> => {
     values
   );
 };
+
+export const clearCart = (supplier_id?: string): Promise<any> =>
+  clientRequest(
+    `/cart/clear?${supplier_id ? "supplier_id=" + supplier_id : ""}`,
+    "POST"
+  );

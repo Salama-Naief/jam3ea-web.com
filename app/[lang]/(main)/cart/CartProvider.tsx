@@ -9,7 +9,13 @@ import React, {
   Dispatch,
   useEffect,
 } from "react";
-import { addToCart, removeFromCart, getCart, getAllCarts } from "./services";
+import {
+  addToCart,
+  removeFromCart,
+  getCart,
+  getAllCarts,
+  clearCart,
+} from "./services";
 import {
   IAddToCart,
   IAddToCartResponseResult,
@@ -41,6 +47,7 @@ interface ICartContext {
   addProductToCart: (values: IAddToCart) => Promise<boolean>;
   removeProductFromCart: (sku: string) => Promise<boolean>;
   setCart: Dispatch<SetStateAction<ICartItem[]>>;
+  clearCartBySupplierId: (supplier_id?: string) => Promise<boolean>;
   loading: boolean;
   getCartData: () => Promise<void>;
 }
@@ -55,8 +62,6 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       const res: any = await addToCart(values);
-      console.log("res add cart", res);
-      console.log("res add values", values);
       if (res.success) {
         const results = res.results;
 
@@ -203,6 +208,15 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const clearCartBySupplierId = async (supplier_id?: string) => {
+    const status = await clearCart(supplier_id);
+    console.log("status clear cart", status);
+    const res: any = await getAllCarts();
+    if (res.success) {
+      setCart(res.results);
+    }
+    return true;
+  };
   const getCartData = async (): Promise<void> => {
     setLoading(true);
     try {
@@ -230,6 +244,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
         setCart,
         loading,
         getCartData,
+        clearCartBySupplierId,
       }}
     >
       {children}

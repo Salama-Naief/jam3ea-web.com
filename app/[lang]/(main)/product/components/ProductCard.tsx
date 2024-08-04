@@ -130,17 +130,7 @@ export default function ProductCard({
     vipOldPrice: product.vip_old_price,
     isVip: isVip,
   });
-  console.log(
-    "getPrice",
-    getPrice({
-      price: product.price,
-      oldPrice: product.old_price,
-      vipPrice: product.vip_price,
-      vipOldPrice: product.vip_old_price,
-      isVip: isVip,
-    }),
-    product.sku
-  );
+
   return (
     <div className="p-2 h-[100%]">
       <div

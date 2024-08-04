@@ -81,32 +81,16 @@ export default async function Cart({
           )}
         </Suspense>
         <div className="px-6">
-          <div className="md:grid md:grid-cols-5 gap-8 items-start">
-            {/* <Suspense>
-              <div className="col-span-3 h-fit">
-                {cart.data.map(({ products }, i) => (
-                  <CartProductCard key={i} product={products} />
-                ))}
-              </div>
-            </Suspense> */}
-          </div>
+          <div className="md:grid md:grid-cols-5 gap-8 items-start"></div>
         </div>
-        {
-          cart &&
-            (Array.isArray(cart.products) && cart.products.length >= 1 ? (
-              <SingleSupplier user={user} cart={cart} lang={lang} dict={dict} />
-            ) : (
-              <div className="flex flex-col mt-20 justify-center items-center">
-                <div>{translate(dict, "no_data")}</div>
-              </div>
-              // <MultiSuppliers cart={cart} lang={lang} dict={dict} />
-            ))
-          // : (
-          //   <div className="flex flex-col mt-20 justify-center items-center">
-          //     <div>{translate(dict, "no_data")}</div>
-          //   </div>
-          // )
-        }
+        {cart &&
+          (Array.isArray(cart.products) && cart.products.length >= 1 ? (
+            <SingleSupplier user={user} cart={cart} lang={lang} dict={dict} />
+          ) : (
+            <div className="flex flex-col h-screen lg:h-96 mt-20 justify-center items-center">
+              <div>{translate(dict, "no_data")}</div>
+            </div>
+          ))}
       </Container>
     </div>
   );
