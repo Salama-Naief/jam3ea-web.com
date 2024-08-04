@@ -122,8 +122,6 @@ export async function POST(request: Request) {
       response.results.token
     );
 
-    console.log("UPDATE CITY RESPONSE: ", updateCityResponse);
-
     return setCookiesData(
       nextResponse,
       response.results.user.language || "en",

@@ -87,7 +87,9 @@ function Lang() {
           </Menu.Dropdown>
         </Menu>
       ) : (
-        <ImageComp img={englishFlag} />
+        <div>
+          <ImageComp img={kuwaitFlag} />
+        </div>
       )}
     </div>
   );

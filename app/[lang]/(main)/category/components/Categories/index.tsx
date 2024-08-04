@@ -25,14 +25,15 @@ export default async function Categories({
   selectedCategoryId,
 }: CategoriesProps) {
   const categories = await getCategories(supplierId);
-
-  const categorySlider1 = categories
-    ? categories.data.length < 12
-      ? categories.data
-      : categories.data.slice(0, categories.data.length / 2)
-    : [];
+  console.log("categories======...", categories);
+  const categorySlider1 =
+    categories && Array.isArray(categories.data) && categories.data
+      ? categories.data.length < 12
+        ? categories.data
+        : categories.data.slice(0, categories.data.length / 2)
+      : [];
   const categorySlider2 =
-    categories && categories.data.length > 12
+    categories && Array.isArray(categories.data) && categories.data.length > 12
       ? categories.data.slice(
           categories.data.length / 2,
           categories.data.length
