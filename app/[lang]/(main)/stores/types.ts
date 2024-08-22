@@ -32,7 +32,40 @@ export interface ISupplierResponse {
   status_code: number;
   status_message: string;
   errors: null;
-  results: ISupplierResults[];
+  results: ISupplier[];
+}
+
+export interface ISupplierStore {
+  _id: string;
+  delivery_time: number;
+  delivery_time_text: {
+    ar: string;
+    en: string;
+  };
+  app_delivery_time: string;
+  min_order: number;
+  cities: [
+    {
+      city_id: string;
+      shipping_cost: number;
+    }
+  ];
+  working_times: [
+    {
+      week_day: number;
+      from: number;
+      to: number;
+    }
+  ];
+  avg_rating: number;
+  reviews_count: number;
+  shipping_cost: number;
+  categories: string[];
+  name: string;
+  description: string;
+  logo: string;
+  picture: string;
+  isOpen: boolean;
 }
 export interface ISupplierResults {
   _id: string;

@@ -155,7 +155,7 @@ export default async function Home({
             }
           >
             {/* @ts-expect-error Server Component */}
-            <Suppliers />
+            <Suppliers lang={lang} />
           </Suspense>
         </Container>
       </div>
