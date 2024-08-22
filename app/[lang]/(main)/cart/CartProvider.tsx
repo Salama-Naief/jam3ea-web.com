@@ -42,20 +42,27 @@ interface ICartItem {
   };
 }
 
+interface ICartProduct {
+  id: string;
+  quantity: number;
+}
 interface ICartContext {
   cart: ICartItem[];
+  cartProducts: ICartProduct[];
   addProductToCart: (values: IAddToCart) => Promise<boolean>;
   removeProductFromCart: (sku: string) => Promise<boolean>;
   setCart: Dispatch<SetStateAction<ICartItem[]>>;
   clearCartBySupplierId: (supplier_id?: string) => Promise<boolean>;
   loading: boolean;
   getCartData: () => Promise<void>;
+  getCartProduct: (id: string) => ICartProduct | undefined;
 }
 
 const CartContext = createContext<ICartContext | undefined>(undefined);
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<ICartItem[]>([]);
+  const [cartProducts, setCartProducts] = useState<ICartProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const addProductToCart = async (values: IAddToCart): Promise<any> => {
@@ -77,17 +84,12 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
               total_quantities,
               total_points,
             } = results[dynamicKey];
-
+            setCartProductsData(getAllCart.results);
             const index = getAllCart?.results.findIndex(
               (item: any) => item._id === dynamicKey
             );
             const getCart = getAllCart?.results[index];
-            console.log("cart get add ", getCart);
-            console.log(
-              "cart getCart.cart.total_quantities ",
-              getCart.cart.total_quantities
-            );
-            console.log(" cart add ", results[dynamicKey]);
+
             if (index >= 0) {
               const newCartItem: any = {
                 _id: dynamicKey,
@@ -145,7 +147,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
             total_quantities,
             total_points,
           } = results[dynamicKey];
-
+          setCartProductsData(getAllCart.results);
           const index = getAllCart?.results.findIndex(
             (item: any) => item._id === dynamicKey
           );
@@ -210,10 +212,11 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const clearCartBySupplierId = async (supplier_id?: string) => {
     const status = await clearCart(supplier_id);
-    console.log("status clear cart", status);
+
     const res: any = await getAllCarts();
     if (res.success) {
       setCart(res.results);
+      setCartProducts([]);
     }
     return true;
   };
@@ -223,6 +226,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
       const res: any = await getAllCarts();
       if (res.success) {
         setCart(res.results);
+        setCartProductsData(res.results);
       }
     } catch (error) {
       console.error("Error fetching cart data:", error);
@@ -230,7 +234,22 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
+  const getCartProduct = (id: string) => {
+    const data = cartProducts.find((pp: ICartProduct) => pp.id === id);
 
+    return data;
+  };
+  const setCartProductsData = (data: any) => {
+    const cartData = data.flatMap((p: any) => {
+      const objEntries = Object.entries(p.cart.cart_products);
+      return objEntries.map(([id, product]: [string, any]) => ({
+        id: id,
+        quantity: product.quantity,
+      }));
+    });
+
+    setCartProducts(cartData);
+  };
   useEffect(() => {
     getCartData();
   }, []);
@@ -245,6 +264,8 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
         loading,
         getCartData,
         clearCartBySupplierId,
+        getCartProduct,
+        cartProducts,
       }}
     >
       {children}

@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: IRootLayoutProps) {
   const categories = await getCategories();
   const notifications = await getNotifications();
   const cookie = cookies();
-  console.log("cookie", cookie.get("isVIP")?.value);
+
   return (
     <div className="relative">
       <Navbar

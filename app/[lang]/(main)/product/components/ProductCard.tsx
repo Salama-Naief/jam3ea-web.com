@@ -41,7 +41,12 @@ export default function ProductCard({
   //   sku,
   // });
   const [count, setCount] = useState(0);
-  const { addProductToCart, removeProductFromCart, cart } = useCart();
+  const {
+    addProductToCart,
+    removeProductFromCart,
+    getCartProduct,
+    cartProducts,
+  } = useCart();
   const [removeloading, setRemoveLoading] = useState<boolean>(false);
   const [addloading, setAddLoading] = useState<boolean>(false);
   const { translate, language } = useContext(AuthContext);
@@ -53,9 +58,18 @@ export default function ProductCard({
   const pathName = usePathname();
 
   useEffect(() => {
-    setCount(product.cart_status.quantity);
-  }, [product.cart_status.quantity]);
-
+    // const data = getCartProduct(product.sku);
+    const data = cartProducts.find((p) => p.id === product.sku);
+    console.log("dataaaaaaaa", data);
+    if (data && data?.id === product.sku) {
+      setCount(data.quantity);
+    } else {
+      setCount(0);
+    }
+  }, [cartProducts, product.sku]);
+  if (product.sku === "70006590") {
+    console.log("count", count);
+  }
   const handleIncrement = async () => {
     try {
       if (
@@ -277,70 +291,6 @@ export default function ProductCard({
                     )}
                   </div>
                 )}
-
-                {/* {isVip === true && isVip !== undefined ? (
-                  <div
-                    className={`${
-                      product.vip_old_price &&
-                      parseFloat(product.vip_old_price) > 0
-                        ? "justify-between"
-                        : language === LANGUAGES.ARABIC
-                        ? "justify-end"
-                        : "justify-start"
-                    } flex`}
-                  >
-                    <div>
-                      <span className="font-semibold text-sm md:text-base">
-                        {product.vip_price}
-                      </span>
-                      <sup>{translate("currency")}</sup>
-                    </div>
-
-                    {product.vip_old_price &&
-                      parseFloat(product.vip_old_price) > 0 && (
-                        <div>
-                          <span
-                            className={`
-                        line-through decoration-danger decoration-2
-                       font-semibold text-sm md:text-base`}
-                          >
-                            {product.vip_old_price}
-                          </span>
-                          <sup>{translate("currency")}</sup>
-                        </div>
-                      )}
-                  </div>
-                ) : (
-                  <div
-                    className={`${
-                      product.old_price && parseFloat(product.old_price) > 0
-                        ? "justify-between"
-                        : language === LANGUAGES.ARABIC
-                        ? "justify-end"
-                        : "justify-start"
-                    } flex`}
-                  >
-                    <div>
-                      <span className="font-semibold text-sm md:text-base">
-                        {product.price}
-                      </span>
-                      <sup>{translate("currency")}</sup>
-                    </div>
-
-                    {product.old_price && parseFloat(product.old_price) > 0 && (
-                      <div>
-                        <span
-                          className={`
-                         line-through decoration-danger decoration-2
-                         text-sm md:text-base font-semibold`}
-                        >
-                          {product.old_price}
-                        </span>
-                        <sup>{translate("currency")}</sup>
-                      </div>
-                    )}
-                  </div>
-                )} */}
               </div>
               <p
                 className={`${
@@ -358,7 +308,8 @@ export default function ProductCard({
           <div className="w-full md::w-2/3 mx-auto flex-0">
             <AddToCartButton
               sku={product.sku}
-              cartsStatus={product.cart_status}
+              // cartsStatus={product.cart_status}
+              qantity={count}
               maxQantity={product.max_quantity_cart}
               isAvailable={product.availability}
               hasVariant={product.has_variants}

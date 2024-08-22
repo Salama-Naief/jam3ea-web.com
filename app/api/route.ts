@@ -53,7 +53,6 @@ export async function POST(request: Request) {
 
       return setCookiesData(
         nextResponse,
-        loginResponse.results.user.language || "en",
         "kw",
         updateCityResponse.results.data.city,
         {
@@ -124,7 +123,6 @@ export async function POST(request: Request) {
 
     return setCookiesData(
       nextResponse,
-      response.results.user.language || "en",
       "kw",
       updateCityResponse.results.data.city,
       {
@@ -188,12 +186,13 @@ export async function DELETE(request: Request) {
 
 const setCookiesData = (
   nextResponse: NextResponse,
-  language: LANGUAGES,
   currency: string,
   city: ICity,
   selectedAddress: IAddress
 ) => {
-  nextResponse.cookies.set("language", language);
+  const cookieStore = cookies();
+  const language = cookieStore.get("language")?.value || null;
+  nextResponse.cookies.set("language", language || "ar");
   nextResponse.cookies.set("currency", currency);
   nextResponse.cookies.set(
     "city",
@@ -215,7 +214,7 @@ const clearCartExceptJmaie = async (
   userCityId: string,
   token: string
 ) => {
-  if (city && JSON.parse(city)._id !== userCityId) {
+  if (userCityId !== "5d6a43d2fb419e4001ca3891") {
     const getCart = await apiHandler(
       "/cart/all"
       // "GET",

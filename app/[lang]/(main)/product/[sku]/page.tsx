@@ -116,12 +116,12 @@ export default async function ProductPage({
                       </div>
                     }
                   </div>
-                  <div className="flex items-start justify-center my-4">
+                  <div className="flex items-start justify-start my-4">
                     <div className="w-full">
                       <AddToCartButton
                         normalBtn
                         sku={sku}
-                        cartsStatus={cart_status}
+                        qantity={0}
                         isAvailable={availability}
                         maxQantity={max_quantity_cart}
                         hasVariant={has_variants}

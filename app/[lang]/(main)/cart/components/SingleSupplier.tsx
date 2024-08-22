@@ -111,9 +111,6 @@ export default function SingleSupplier({
       setIsLoading(true);
       const response = await checkout(body, user.address?.city_id);
 
-      console.log("response checkout", response);
-      console.log("body checkout", body);
-      console.log("params", params["id"]);
       if (response.success) {
         clearCartBySupplierId(params["id"] as string);
         setIsLoading(false);
