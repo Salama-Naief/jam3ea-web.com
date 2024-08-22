@@ -39,9 +39,6 @@ export async function middleware(request: NextRequest) {
     request.cookies.get("isLoggedIn")?.value == "true";
 
   if (!token) {
-    console.log("nottoken");
-    console.log("isRoute(url, webRoutes.home)", isRoute(url, webRoutes.home));
-    console.log("url", url, "webRoutes.home", webRoutes.home);
     // if (isRoute(url, webRoutes.home)) {
     console.log("nottoken1");
     return checkAuth(response);
@@ -161,6 +158,7 @@ const checkAuth = async (response: NextResponse) => {
       if (resData.success && resData.results && resData.results.token) {
         response.cookies.set("visitor.token", resData.results.token);
         response.cookies.set("language", LANGUAGES.ARABIC);
+
         // const updateCityResponse = await apiHandler(
         //   "/profile/updatecity",
         //   "PUT",

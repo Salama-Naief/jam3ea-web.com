@@ -30,7 +30,6 @@ export default function VerifyOtp() {
     values,
     setFieldValue,
   } = UseVerifyOtp();
-  console.log("massage  verify opt", values.otp_code);
 
   return (
     <div className="shadow-md rounded-xl px-3 pt-6 pb-8 bg-white h-full md:h-auto">

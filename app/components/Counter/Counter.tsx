@@ -1,8 +1,9 @@
 "use client";
-import React, { use, useEffect, useRef } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { usePathname } from "next/navigation";
 
 interface Props {
   // children: React.ReactNode;
@@ -12,18 +13,24 @@ function Counter({ count }: Props) {
   let sliderRef = useRef(null);
   let sliderRef2 = useRef(null);
   let sliderRef3 = useRef(null);
-
+  console.log("count1212", count);
+  const pathName = usePathname();
+  const [arrayOfDigits, setArrayOfDigits] = useState([0]);
   const elements = [...Array(10)].map((n, i) => (
     <div key={i} className="w-4 font-bold">
       {i}
     </div>
   ));
 
-  const arrayOfDigits = Array.from(String(count), Number);
-
+  console.log("arrayOfDigits", arrayOfDigits);
+  useEffect(() => {
+    const digit = Array.from(String(count), Number);
+    setArrayOfDigits(digit);
+  }, [count, pathName]);
   useEffect(() => {
     if (sliderRef.current !== null && arrayOfDigits.length >= 1) {
       if (arrayOfDigits.length - 1 >= 0) {
+        console.log("arrayOfDigits2", arrayOfDigits);
         //@ts-expect-error
         sliderRef.slickGoTo(arrayOfDigits[arrayOfDigits.length - 1]);
       } else {
@@ -49,7 +56,7 @@ function Counter({ count }: Props) {
         sliderRef3.slickGoTo(0);
       }
     }
-  }, [arrayOfDigits]);
+  }, [arrayOfDigits, pathName]);
 
   const settings = {
     infinite: true,
@@ -60,6 +67,7 @@ function Counter({ count }: Props) {
     vertical: true,
     verticalSwiping: true,
   };
+
   return (
     <div
       className="w-full flex justify-center items-center "

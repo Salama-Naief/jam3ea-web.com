@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { BsPlus, BsDash } from "react-icons/bs";
+import { BsPlus, BsDash, BsTrash } from "react-icons/bs";
 import { ICartStatus, IVariant } from "@/module/(main)/product/types";
 import { CartContext, useCart } from "../CartProvider";
 import { AuthContext } from "@/lib/providers/AuthProvider";
@@ -14,10 +14,12 @@ import { usePathname, useRouter } from "next/navigation";
 import Counter from "../../../../components/Counter/Counter";
 import { LoadingIcon } from "@/components/Icons";
 import { showErrorAlert } from "@/lib/utils/helpers";
+import { Loader } from "@mantine/core";
+import { sk } from "date-fns/locale";
 
 interface IAddToCartButtonProps {
   sku: string;
-  cartsStatus: ICartStatus;
+  qantity: number;
   maxQantity: number;
   isAvailable: boolean;
   normalBtn?: boolean;
@@ -27,24 +29,38 @@ interface IAddToCartButtonProps {
 
 export default function AddToCartButton({
   sku: defaultSku,
-  cartsStatus,
+  qantity,
   maxQantity,
   isAvailable,
   hasVariant,
   normalBtn = false,
   variants,
 }: IAddToCartButtonProps) {
-  const [count, setCount] = useState(
-    cartsStatus && cartsStatus.quantity ? cartsStatus.quantity : 0
-  );
+  const [count, setCount] = useState(0);
   const [loadingIncrease, setLoadingIncrease] = useState<boolean>(false);
   const [loadingDecrease, setLoadingDecrease] = useState<boolean>(false);
-  const { addProductToCart, removeProductFromCart, loading } = useCart();
+  const {
+    addProductToCart,
+    removeProductFromCart,
+    cartProducts,
+    getCartProduct,
+  } = useCart();
   const { translate } = useContext(AuthContext);
   const [sku, setSku] = useState(defaultSku);
   const router = useRouter();
   const pathName = usePathname();
+
   const homeRoute = pathName.split("/").filter((r) => r).length;
+  useEffect(() => {
+    // const data = getCartProduct(product.sku);
+    const data = cartProducts.find((p) => p.id === sku);
+
+    if (data && data?.id === sku) {
+      setCount(data.quantity);
+    } else {
+      setCount(0);
+    }
+  }, [cartProducts, sku]);
 
   const handleIncrement = async (type: "normal" | "increase" = "increase") => {
     try {
@@ -57,7 +73,7 @@ export default function AddToCartButton({
           sku,
           quantity: type === "normal" ? count : count + 1,
         });
-        console.log("status", status);
+
         if (status) {
           setCount(type === "normal" ? count : count + 1);
 
@@ -97,43 +113,63 @@ export default function AddToCartButton({
     }
   };
 
-  const Counte = useMemo(() => <Counter count={count} />, [count]);
+  // const Counte = useMemo(() => <Counter count={count} />, [count, pathName]);
 
   if (normalBtn) {
     return (
       <>
         {/* {count > 0 ? ( */}
-        <div className="h-12 px-2 md:px-4 rounded-full mb-5 ">
-          <div className="h-full max-w-lg mx-auto flex items-center justify-center">
-            <div className="flex items-center justify-between gap-10 w-full md:w-1/2 lg:w-1/4">
+        <div className="h-12 px-2 md:px-0 rounded-full  ">
+          <div className="h-full max-w-lg  flex items-center justify-start">
+            <div className="flex items-center justify-between gap-10 w-full md:w-1/2 lg:w-1/2">
               <button
                 disabled={isAvailable === false || loadingIncrease}
                 type="button"
                 className="text-white bg-primary  p-1 rounded-full flex items-center justify-center "
-                onClick={() => setCount(count + 1)}
+                onClick={() => handleIncrement()}
               >
-                <BsPlus size={28} />
+                {loadingIncrease ? (
+                  <div className="flex items-center justify-center p-1 ">
+                    <Loader size={"xs"} color="white" />
+                  </div>
+                ) : (
+                  <BsPlus size={28} />
+                )}
               </button>
-              <Counter count={count} />
+              <div
+                className="font-bold text-center w-full"
+                style={{ direction: "ltr" }}
+              >
+                {/* <Counter count={count} /> */}
+                {count < 10 ? "0 " + count : count}
+              </div>
               <button
                 type="button"
                 disabled={isAvailable === false || loadingDecrease}
                 className="text-white p-1 bg-slate-500 flex items-center justify-center rounded-full"
-                onClick={() => setCount(count - 1)}
+                onClick={handleDecrement}
               >
-                <BsDash size={28} />
+                {loadingDecrease ? (
+                  <div className="flex items-center justify-center p-1 ">
+                    <Loader size={"xs"} color="white" />
+                  </div>
+                ) : count === 1 ? (
+                  <BsTrash size={20} />
+                ) : (
+                  <BsDash size={28} />
+                )}
               </button>
             </div>
           </div>
         </div>
-        <Button
+        {/* <Button
           loading={loading}
           disabled={(hasVariant && !sku.includes("-")) || !isAvailable}
           onClick={() => handleIncrement("normal")}
           className="w-full"
         >
           <div className="font-bold text-lg">{translate("add_to_cart")}</div>
-        </Button>
+        </Button> */}
         {/* )} */}
 
         {variants && (
@@ -164,8 +200,8 @@ export default function AddToCartButton({
           type="button"
         >
           {loadingIncrease ? (
-            <div className="flex items-center justify-center p-1">
-              <LoadingIcon />
+            <div className="flex items-center justify-center p-1 ">
+              <Loader size={"xs"} color="white" />
             </div>
           ) : (
             <BsPlus size={28} />
@@ -173,7 +209,13 @@ export default function AddToCartButton({
         </button>
       )}
       <>
-        <div className=" text-center text-sm w-full">{Counte}</div>
+        <div
+          className="font-bold text-center text-sm w-full"
+          style={{ direction: "ltr" }}
+        >
+          {/* <Counter count={count} /> */}
+          {count < 10 ? "0 " + count : count}
+        </div>
         <button
           disabled={count <= 0}
           className="text-danger bg-gray-100 shadow flex items-center justify-center rounded-full ml-auto"
@@ -181,9 +223,11 @@ export default function AddToCartButton({
           type="button"
         >
           {loadingDecrease ? (
-            <div className="flex items-center justify-center p-1">
-              <LoadingIcon />
+            <div className="flex items-center justify-center p-1 ">
+              <Loader size={"xs"} color="white" />
             </div>
+          ) : count === 1 ? (
+            <BsTrash size={18} />
           ) : (
             <BsDash size={28} />
           )}

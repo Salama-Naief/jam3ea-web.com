@@ -34,7 +34,7 @@ function CartProductCard({ product }: Props) {
   const isVip = cookies["isVIP"];
   const router = useRouter();
   const pathName = usePathname();
-  console.log("loading", loading);
+
   // const handleIncrease = () => {
   //   setQuantity(quantity + 1);
   // };
@@ -61,7 +61,7 @@ function CartProductCard({ product }: Props) {
           sku,
           quantity: count + 1,
         });
-        console.log("cart add status", status);
+
         if (status) {
           setCount((prevCount) => prevCount + 1);
           setIsLoading({ type: "increase", value: false });
@@ -80,7 +80,7 @@ function CartProductCard({ product }: Props) {
     if (count > 1) {
       setIsLoading({ type: "decrease", value: true });
       const status = await addProductToCart({ sku, quantity: count - 1 });
-      console.log("status", status);
+
       if (status) {
         setCount((prevCount) => prevCount - 1);
         setIsLoading({ type: "decrease", value: false });
@@ -153,7 +153,7 @@ function CartProductCard({ product }: Props) {
         <div className="flex justify-between items-center">
           <button onClick={() => handleRemove()} className="text-secondary">
             {isloading.type === "remove" && isloading.value ? (
-              <Loader color="orange" size={"xs"} />
+              <Loader color="orange" size={"sm"} />
             ) : (
               <BsTrash className="text-primary" />
             )}
@@ -165,7 +165,7 @@ function CartProductCard({ product }: Props) {
               className="p-1 shadow rounded text-primary"
             >
               {isloading.type === "decrease" && isloading.value ? (
-                <Loader color="orange" size={"xs"} />
+                <Loader color="orange" size={"sm"} />
               ) : (
                 <BsDash size={25} />
               )}
@@ -174,13 +174,19 @@ function CartProductCard({ product }: Props) {
               <AnimatedCounter count={quantity} />
             )} */}
             {/* <Counter count={quantity} /> */}
-            <Counter count={count}></Counter>
+            <div
+              className="font-bold text-center w-full"
+              style={{ direction: "ltr" }}
+            >
+              {/* <Counter count={count} /> */}
+              {count < 10 ? "0 " + count : count}
+            </div>
             <button
               onClick={() => handleIncrement()}
               className="p-1 shadow rounded text-primary"
             >
               {isloading.type === "increase" && isloading.value ? (
-                <Loader color="orange" size={"xs"} />
+                <Loader color="orange" size={"sm"} />
               ) : (
                 <BsPlus size={25} />
               )}

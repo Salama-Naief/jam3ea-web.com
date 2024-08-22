@@ -59,7 +59,7 @@ export const updateCity = async (
     "PUT",
     updateCityInputs
   );
-  console.log("/profile/updatecity", data);
+
   // const cookie = cookies();
   // const options = {
   //   sameSite: "none",

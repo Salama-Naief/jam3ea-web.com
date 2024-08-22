@@ -19,7 +19,7 @@ export default function LoginForm() {
     touched,
     values,
   } = UseResetPassword();
-  console.log("massage forget password", massage);
+
   return (
     <div className="shadow-md rounded-xl px-3 pt-6 pb-8 bg-white h-full md:h-auto">
       <Logo />
