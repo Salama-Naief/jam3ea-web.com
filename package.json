@@ -20,6 +20,7 @@
     "@heroicons/react": "^2.0.18",
     "@mantine/core": "^7.9.1",
     "@mantine/hooks": "^7.9.1",
+    "@next/third-parties": "^14.2.7",
     "@react-google-maps/api": "^2.19.3",
     "@types/google.maps": "^3.55.9",
     "@types/node": "20.1.5",
