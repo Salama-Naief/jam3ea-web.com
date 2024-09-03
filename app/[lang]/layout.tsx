@@ -3,7 +3,7 @@ import "./../globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "@mantine/core/styles.css";
-
+import { GoogleAnalytics } from "@next/third-parties/google";
 import NextTopLoader from "nextjs-toploader";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
 import { AddressProvider } from "@/lib/providers/AddressProvider";
@@ -41,7 +41,7 @@ export default async function RootLayout({
     : process.env.DEFAULT_LOCALE_CODE;
 
   const dictionary = await getDictionary(selectedLang as Locale);
-
+  // G-35NK1GVQKM
   return (
     <html
       lang={selectedLang}
@@ -66,6 +66,7 @@ export default async function RootLayout({
           <div id="popup"></div> */}
         </div>
       </body>
+      <GoogleAnalytics gaId="G-35NK1GVQKM" />
     </html>
   );
 }
