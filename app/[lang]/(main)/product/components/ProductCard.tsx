@@ -21,6 +21,7 @@ import { useCookies } from "react-cookie";
 import { LANGUAGES } from "@/lib/enums";
 import notavailableEn from "../../../../../public/assets/not_available_en.png";
 import notavailableAr from "../../../../../public/assets/not_available_ar.png";
+import { sendGTMEvent } from "@next/third-parties/google";
 interface ProductCardProps {
   product: IProduct;
   className?: string;
@@ -67,9 +68,7 @@ export default function ProductCard({
       setCount(0);
     }
   }, [cartProducts, product.sku]);
-  if (product.sku === "70006590") {
-    console.log("count", count);
-  }
+
   const handleIncrement = async () => {
     try {
       if (
@@ -87,6 +86,11 @@ export default function ProductCard({
         if (status) {
           setCount((prevCount: number) => prevCount + 1);
           //   setCount("normal" ? count : count + 1);
+          sendGTMEvent({
+            event: "buttonClicked",
+            value: "xyz",
+            productName: product.name,
+          });
           router.refresh();
           if (pathName.includes(webRoutes.cart)) {
             router.refresh();
