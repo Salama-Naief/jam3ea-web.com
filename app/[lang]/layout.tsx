@@ -3,7 +3,7 @@ import "./../globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "@mantine/core/styles.css";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import NextTopLoader from "nextjs-toploader";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
 import { AddressProvider } from "@/lib/providers/AddressProvider";
@@ -49,7 +49,17 @@ export default async function RootLayout({
       // suppressHydrationWarning={true}
     >
       {/* <Head><link rel="icon" href="/favicon.png" sizes="any" /></Head> */}
+      <GoogleTagManager gtmId="GTM-5HRPQPSW" />
       <body>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5HRPQPSW"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+
         <div>
           <div id="root">
             <NextTopLoader showSpinner={false} color="#F77D0F" />
